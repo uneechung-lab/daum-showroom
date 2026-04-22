@@ -339,10 +339,15 @@ nav {
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: var(--daumis-yellow);
-  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  height: 48px; /* Increased by 1.5x for better visibility */
+}
+
+.logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
 }
 
 .nav-links {
