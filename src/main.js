@@ -256,6 +256,54 @@ window.addEventListener('load', () => {
   });
 });
 
+// =============================================
+// Card Intro Flip Animation
+// =============================================
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.bento-card');
+  if (!cards.length) return;
+
+  // Inject yellow overlay + mark cards as pending
+  cards.forEach(card => {
+    card.classList.add('intro-pending');
+    card.style.position = 'relative'; // ensure overlay positions correctly
+    const overlay = document.createElement('div');
+    overlay.className = 'card-intro-overlay';
+    card.appendChild(overlay);
+  });
+
+  // Trigger hero text entrance animation
+  const heroSection = document.getElementById('business');
+  if (heroSection) heroSection.classList.add('hero-anim');
+
+  // Stagger flip each card
+  const BASE_DELAY = 0;    // start immediately on page load
+  const STEP = 120;        // ms between each card flip — tighter sequence
+
+  cards.forEach((card, i) => {
+    const overlay = card.querySelector('.card-intro-overlay');
+    const totalDelay = BASE_DELAY + i * STEP;
+
+    setTimeout(() => {
+      // Start flip
+      overlay.classList.add('flipping');
+
+      // At the midpoint: show card content
+      setTimeout(() => {
+        card.classList.remove('intro-pending');
+        card.classList.add('intro-flip-done');
+      }, 240); // ~halfway through 0.5s flip
+
+      // After flip complete: remove overlay entirely
+      setTimeout(() => {
+        overlay.remove();
+        card.classList.remove('intro-flip-done');
+      }, 540);
+
+    }, totalDelay);
+  });
+});
+
 // GNB Mega Menu - JS Controlled
 document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('header');

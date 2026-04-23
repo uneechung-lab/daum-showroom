@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -15,11 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
   </head>
-  <body>
+  <body><div class="master-grid"><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div></div>
     <header id="header">
       <div class="container">
         <nav>
-          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS"></a>
+          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS" class="logo-light"><img src="/ci_02.png" alt="DAUMIS" class="logo-dark"></a>
           
           <button class="mobile-toggle" aria-label="메뉴 열기">
             <span></span>
@@ -30,7 +30,7 @@
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">
-                <a href="/business.html">비지니스</a>
+                <span>비지니스</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -50,7 +50,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a href="/project.html">프로젝트</a>
+                <span>프로젝트</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -67,7 +67,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a href="/solution.html">NEXT 랩</a>
+                <span>NEXT 랩</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -85,7 +85,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a href="/company.html">회사소개</a>
+                <span>회사소개</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -105,7 +105,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a href="/careers.html">인재채용</a>
+                <span>인재채용</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -138,7 +138,7 @@
         <div class="container">
           <span class="section-label">Business / Tech Insight</span>
           <h1 class="section-title">금융의 미래,<br>그 다음의 가치. <span class="fade-text">다음정보시스템즈</span></h1>
-          <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 2.5rem; margin-bottom: 3rem;">Beyond now, Daum Information Systems is designing the 'Next:다음' era of finance to create new value.</p>
+          <p class="hero-sub" style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 2.5rem; margin-bottom: 3rem;">Beyond now, Daum Information Systems is designing the 'Next:다음' era of finance to create new value.</p>
           
           <div class="bento-grid">
             <!-- 1. Retirement Pension (Large) -->
