@@ -13,6 +13,33 @@
 html {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  overscroll-behavior: none; /* Prevent boundary 'bounce' */
+}
+
+body.sub-page, body.sub-page html {
+  scroll-snap-type: none; /* Disable snapping on sub-pages */
+  height: auto;
+  overflow-y: auto;
+}
+
+/* Background Dimmer Effect */
+main::after {
+  content: '';
+  position: fixed;
+  top: 100px; /* Below Header */
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 998;
+}
+
+header:hover ~ main::after {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
 }
 
 body {
@@ -22,28 +49,55 @@ body {
   font-family: var(--font-main);
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  word-break: keep-all; /* 한글 단어 잘림 방지 */
+  overflow-wrap: break-word;
 }
 
-section, footer {
-  min-height: 100vh;
+section {
+  height: 100vh;
   width: 100%;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  /* Removed scroll-snap-stop: always to prevent 'double scroll' feeling */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: transparent;
+  padding: 0; /* Centering handled by container */
+}
+
+section > .container {
+  margin-top: 100px; /* Adjusted to match new header height */
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
-  background: transparent;
-  padding: 6rem 0; /* Standardized padding */
-  overflow: hidden;
+}
+
+body.sub-page section {
+  height: auto;
+  min-height: auto;
+  scroll-snap-align: none;
+  padding: 4rem 0;
+}
+
+body.sub-page section > .container {
+  margin-top: 70px; /* Space for compact header */
+  height: auto;
+}
+
+body.sub-page .detail-hero {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 6rem 0 3rem 0;
 }
 
 @media (max-width: 768px) {
-  section, footer {
+  section {
     height: auto;
     min-height: auto;
     scroll-snap-align: none;
-    padding: 4rem 0;
+    padding: 6rem 0 4rem 0;
   }
 }
 
@@ -76,15 +130,157 @@ section, footer {
 header {
   position: fixed;
   top: 0; left: 0; width: 100%;
-  padding: 1.5rem 0;
-  z-index: 9999; /* Super high priority */
+  height: 100px; /* Increased for larger CI */
+  display: flex;
+  align-items: center;
+  z-index: 9999;
   transition: var(--transition-smooth);
 }
 
-header.scrolled {
-  padding: 1rem 0;
+header.scrolled, header:hover {
+  height: 100px;
   background: var(--bg-dark) !important; 
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); /* Replaced border with deeper shadow */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* When any nav-item is hovered, unify header + menu layer color */
+header:has(.nav-item:hover),
+header.menu-open {
+  background: #0d1526 !important; /* Slightly brighter than page bg #020617 */
+  box-shadow: none;
+}
+
+/* Mega Menu Styles (Contextual Category Style) */
+.nav-item {
+  position: relative; /* Anchor point for dropdown content */
+}
+
+.gnb-mega-menu {
+  position: fixed;
+  top: 100px; /* Exactly below header */
+  left: 0;
+  width: 100vw; /* Full viewport width */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 9998;
+  padding: 0;
+  pointer-events: none;
+  background: #0d1526; /* Slightly brighter than page bg #020617 */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+body.theme-light .gnb-mega-menu {
+  background: #f0f4ff;
+  border-top: 2px solid rgba(255, 200, 0, 0.4);
+}
+
+/* Controlled by JS - .active class shows the menu */
+.gnb-mega-menu.active {
+  max-height: 500px;
+  opacity: 1;
+  padding: 1.25rem 0 2.5rem 0; /* Halved top padding to pull menu closer */
+  pointer-events: auto;
+  border-bottom: 1px solid rgba(255, 184, 0, 0.25); /* Subtle yellow base line */
+}
+
+/* Instant swap when switching between menus (no animation) */
+.gnb-mega-menu.instant {
+  transition: none !important;
+}
+
+.mega-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+}
+
+.mega-left {
+  position: absolute;
+  left: var(--mega-left-offset, 2rem); /* Set precisely by JS from logo position */
+  top: 0;
+  width: 260px;
+  text-align: left;
+}
+
+.mega-left h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0 0 0.75rem 0; /* Remove top margin so it aligns with sub-menu list top */
+}
+
+.mega-left p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.mega-right {
+  position: absolute;
+  /* Aligned with hovered GNB item left edge via JS */
+  left: var(--item-offset, 55%);
+  top: 0; /* Top-aligned with mega-left */
+}
+
+.mega-right ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mega-right li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.mega-right li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5); /* Bullet dot */
+  border-radius: 50%;
+}
+
+body.theme-light .mega-right li::before {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.mega-right li a {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: block;
+  white-space: nowrap;
+}
+
+.mega-right li a:hover {
+  color: var(--daumis-yellow);
+  transform: translateX(10px);
+}
+
+/* Sub-page Header (More compact) */
+body.sub-page header {
+  height: 70px;
+}
+
+body.sub-page header.scrolled, body.sub-page header:hover {
+  height: 70px; /* Constant for sub-pages too */
+  background: rgba(255, 255, 255, 0.98) !important;
 }
 
 nav { 
@@ -96,11 +292,17 @@ nav {
 .logo { 
   display: flex; 
   align-items: center; 
-  height: 60px; /* Reduced for better balance */
+  height: 75px;
   font-weight: 800; 
-  font-size: 1.5rem; 
+  font-size: 2rem; 
   color: var(--daumis-yellow); 
-  flex-shrink: 0; 
+  flex-shrink: 0;
+  margin-left: -16px; /* Pull CI left to align with content grid */
+}
+
+body.sub-page .logo {
+  height: 45px;
+  font-size: 1.25rem;
 }
 
 .logo img { height: 100%; width: auto; }
@@ -125,9 +327,13 @@ nav {
   text-decoration: none; 
   font-weight: 600; 
   white-space: nowrap; 
+  transition: color 0.2s ease;
 }
 
-.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover,
+.nav-item.active > a { 
+  color: var(--daumis-yellow); /* Yellow on hover and when menu is open */
+}
 
 .mobile-toggle {
   display: none;

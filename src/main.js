@@ -205,7 +205,13 @@ window.addEventListener('load', () => {
       const targetId = dot.dataset.target;
       const targetSection = document.getElementById(targetId);
       if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+        // Updated for 100px header height
+        const offsetPosition = targetSection.offsetTop;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     });
   });
@@ -250,7 +256,100 @@ window.addEventListener('load', () => {
   });
 });
 
+// GNB Mega Menu - JS Controlled
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.getElementById('header');
+  const navItems = document.querySelectorAll('.nav-item');
+  let activeMenu = null;
+  let closeTimer = null;
+
+  // Measure container text-start edge for pixel-perfect mega-left alignment
+  function updateMegaLeftOffset() {
+    const container = document.querySelector('header .container');
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      const paddingLeft = parseFloat(getComputedStyle(container).paddingLeft) || 32;
+      // This is exactly where the CI text and page content text starts
+      document.documentElement.style.setProperty('--mega-left-offset', `${rect.left + paddingLeft}px`);
+    }
+  }
+  updateMegaLeftOffset();
+  window.addEventListener('resize', updateMegaLeftOffset);
+
+  function showMenu(item) {
+    clearTimeout(closeTimer);
+
+    const newMenu = item.querySelector('.gnb-mega-menu');
+    if (!newMenu) return;
+
+    if (header) header.classList.add('menu-open');
+
+    // Update active nav-item color
+    document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+
+    // Set sub-menu left alignment
+    const itemRect = item.getBoundingClientRect();
+    document.documentElement.style.setProperty('--item-offset', `${itemRect.left}px`);
+
+    if (activeMenu && activeMenu !== newMenu) {
+      // Layer already open — swap instantly without animation
+      activeMenu.classList.add('instant');
+      newMenu.classList.add('instant');
+      activeMenu.classList.remove('active');
+      newMenu.classList.add('active');
+      // Re-enable transitions next frame
+      requestAnimationFrame(() => {
+        activeMenu && activeMenu.classList.remove('instant');
+        newMenu.classList.remove('instant');
+      });
+    } else if (!activeMenu) {
+      // Layer was closed — animate in
+      newMenu.classList.add('active');
+    }
+
+    activeMenu = newMenu;
+  }
+
+  function hideAll() {
+    document.querySelectorAll('.gnb-mega-menu.active').forEach(m => m.classList.remove('active'));
+    document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
+    activeMenu = null;
+    if (header) header.classList.remove('menu-open');
+  }
+
+  function scheduleHide() {
+    closeTimer = setTimeout(hideAll, 80);
+  }
+
+  // Show on nav-item hover — close is handled at header/panel level, not per-item
+  navItems.forEach(item => {
+    item.addEventListener('mouseenter', () => showMenu(item));
+  });
+
+  // Header boundary: close only when leaving the header entirely (not just between menu items)
+  if (header) {
+    header.addEventListener('mouseleave', (e) => {
+      const to = e.relatedTarget;
+      // Stay open if moving into the menu panel
+      if (to && to.closest('.gnb-mega-menu')) return;
+      scheduleHide();
+    });
+  }
+
+  // Keep open while inside the menu panel
+  document.querySelectorAll('.gnb-mega-menu').forEach(menu => {
+    menu.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    menu.addEventListener('mouseleave', (e) => {
+      const to = e.relatedTarget;
+      // Stay open if moving back into header
+      if (to && to.closest('#header')) return;
+      scheduleHide();
+    });
+  });
+});
+
 if (document.readyState === 'complete') {
-  new WaveRenderer();
-  updateDiagram(1);
+  if (typeof WaveRenderer !== 'undefined') new WaveRenderer();
+  if (typeof updateDiagram === 'function') updateDiagram(1);
 }
