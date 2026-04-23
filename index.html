@@ -12,12 +12,21 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
   </head>
   <body>
     <header id="header">
       <div class="container">
         <nav>
           <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS"></a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
           <div class="nav-right">
             <ul class="nav-links">
               <li><a href="/business.html">Business</a></li>
@@ -35,42 +44,66 @@
     <main>
       <!-- Business Section / Bento Start -->
       <section id="business">
+        <canvas id="hero-canvas"></canvas>
+        <div id="hero-blur-overlay"></div>
         <div class="container">
-          <span class="section-label">Digital Showroom / Business</span>
-          <h1 class="section-title">The <span class="text-gradient">Financial Tech</span><br>Showroom</h1>
+          <span class="section-label">Business / Tech Insight</span>
+          <h1 class="section-title">금융의 미래,<br>그 다음의 가치. <span class="fade-text">다음정보시스템즈</span></h1>
+          <p style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 2.5rem; margin-bottom: 3rem;">Beyond now, Daum Information Systems is designing the 'Next:다음' era of finance to create new value.</p>
           
           <div class="bento-grid">
+            <!-- 1. Retirement Pension (Large) -->
             <div class="bento-card large">
               <div>
-                <h2 class="card-title">Retirement Pension</h2>
-                <p class="card-desc">업계 최고 수준의 퇴직연금 관리 시스템 라이선스 보유</p>
+                <h2 class="card-title">퇴직연금시스템</h2>
+                <p class="card-desc" style="font-size: 1.1rem; color: var(--text-secondary); margin-top: -0.5rem;">Retirement Pension</p>
+                <p class="card-desc" style="margin-top: 1rem;">업계 최고 수준의 퇴직연금 관리 시스템 라이선스 보유</p>
               </div>
               <i data-lucide="shield-check" size="48" color="#FFB800"></i>
             </div>
             
+            <!-- 2. Investment -->
             <div class="bento-card">
               <div>
-                <h3 class="card-title">Asset Management</h3>
-                <p class="card-desc">데이터 기반의 정밀한 자산 관리</p>
-              </div>
-              <i data-lucide="trending-up" color="#FFB800"></i>
-            </div>
-
-            <div class="bento-card">
-              <div>
-                <h3 class="card-title">Investment</h3>
-                <p class="card-desc">집합투자증권 전문 엔진</p>
+                <h3 class="card-title" style="font-size: 1.25rem;">집합투자증권</h3>
+                <p class="card-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: -0.2rem;">Investment Fund</p>
               </div>
               <i data-lucide="briefcase" color="#FFB800"></i>
             </div>
 
-            <div class="bento-card wide">
+            <!-- 3. Asset Management -->
+            <div class="bento-card">
               <div>
-                <h3 class="card-title">Innovation Lab</h3>
-                <p class="card-desc">기술 연구소의 핵심 연구 성과를 확인하세요</p>
+                <h3 class="card-title" style="font-size: 1.25rem;">자산관리시스템</h3>
+                <p class="card-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: -0.2rem;">Asset Management</p>
               </div>
-              <div class="cta-button">자세히 보기</div>
+              <i data-lucide="trending-up" color="#FFB800"></i>
             </div>
+
+            <!-- 4. Mutual Benefit -->
+            <div class="bento-card">
+              <div>
+                <h3 class="card-title" style="font-size: 1.25rem;">공제업무시스템</h3>
+                <p class="card-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: -0.2rem;">Mutual Benefit Service</p>
+              </div>
+              <i data-lucide="users" color="#FFB800"></i>
+            </div>
+
+            <!-- 5. Sales Support -->
+            <div class="bento-card">
+              <div>
+                <h3 class="card-title" style="font-size: 1.25rem;">영업지원시스템</h3>
+                <p class="card-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: -0.2rem;">Sales Support System</p>
+              </div>
+              <i data-lucide="bar-chart-3" color="#FFB800"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scroll-hint">
+          <span>SCROLL</span>
+          <div class="mouse">
+            <div class="wheel"></div>
           </div>
         </div>
       </section>
@@ -81,21 +114,29 @@
           <span class="section-label">Solutions / Visual Logic</span>
           <h2 class="section-title">복잡한 금융 로직,<br>명쾌한 해설.</h2>
           
-          <div class="scroll-telling-container">
-            <div id="flow-diagram"></div>
-            <div class="flow-steps">
-              <div class="step" data-step="1">
+          <div class="solution-grid">
+            <div class="solution-item">
+              <div class="diagram-host" id="diagram-1"></div>
+              <div class="solution-text">
                 <h3>01. 데이터 수집</h3>
                 <p>멀티 채널로부터 실시간 금융 데이터를 보안 규정에 맞춰 수집합니다.</p>
               </div>
-              <div class="step" data-step="2">
-                <h3>02. 분산 처리</h3>
-                <p>DAUMIS 고유의 분산 처리 엔진을 통해 초고속 연산을 수행합니다.</p>
-              </div>
-              <div class="step" data-step="3">
-                <h3>03. 최적화 엔진</h3>
-                <p>금융 보안 알고리즘을 적용하여 안정적인 결과를 도출합니다.</p>
-              </div>
+            </div>
+            
+            <div class="solution-item">
+                <div class="diagram-host" id="diagram-2"></div>
+                <div class="solution-text">
+                    <h3>02. 분산 처리</h3>
+                    <p>DAUMIS 고유의 분산 처리 엔진을 통해 초고속 연산을 수행합니다.</p>
+                </div>
+            </div>
+
+            <div class="solution-item">
+                <div class="diagram-host" id="diagram-3"></div>
+                <div class="solution-text">
+                    <h3>03. 최적화 엔진</h3>
+                    <p>금융 보안 알고리즘을 적용하여 안정적인 결과를 도출합니다.</p>
+                </div>
             </div>
           </div>
         </div>
@@ -211,6 +252,16 @@
       </section>
 
     </main>
+
+    <!-- Side indicator -->
+    <div class="scroll-indicator">
+      <div class="dot active" data-target="business"></div>
+      <div class="dot" data-target="solution"></div>
+      <div class="dot" data-target="project"></div>
+      <div class="dot" data-target="careers"></div>
+      <div class="dot" data-target="company"></div>
+      <div class="dot" data-target="footer"></div>
+    </div>
 
     <footer id="footer" style="padding-top: 6rem; padding-bottom: 4rem;">
       <div class="container">
