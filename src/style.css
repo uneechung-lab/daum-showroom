@@ -686,6 +686,13 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
   overflow-wrap: break-word;
 }
 
+.fade-text {
+  color: var(--text-primary);
+  opacity: 1;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
 
 /* =============================================
    Hero Text Entrance Animations
@@ -745,6 +752,12 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
 
 #project .bento-card {
   grid-column: auto;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -835,7 +848,7 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4rem;
-  margin-top: 5rem;
+
 }
 
 @media (max-width: 900px) {

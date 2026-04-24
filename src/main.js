@@ -205,7 +205,8 @@ window.addEventListener('load', () => {
     const units = window._sloganUnits || [];
     units.forEach((span, i) => {
       setTimeout(() => {
-        span.style.opacity = '1';
+        const targetOpacity = span.classList.contains('fade-text') ? '1' : '1';
+        span.style.opacity = targetOpacity;
         span.style.transform = 'translateY(0)';
       }, i * 30);  // no initial delay, 30ms stagger per word
     });
