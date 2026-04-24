@@ -128,6 +128,108 @@ window.addEventListener('load', () => {
   
   ScrollTrigger.refresh();
 
+  // ── POST-INTRO REVEAL ANIMATIONS ──────────────────────────────────────────
+
+  function setupSloganStagger(h1) {
+    const units = [];
+    function processNode(parent) {
+      const nodes = Array.from(parent.childNodes);
+      parent.innerHTML = '';
+      nodes.forEach(node => {
+        if (node.nodeType === 3) { // text node
+          node.textContent.split(/(\s+)/).forEach(part => {
+            if (/^\s+$/.test(part)) {
+              parent.appendChild(document.createTextNode(part));
+            } else if (part.trim()) {
+              const s = document.createElement('span');
+              s.textContent = part;
+              s.style.cssText = 'display:inline-block;opacity:0;transform:translateY(10px);transition:opacity 0.5s ease,transform 0.5s ease;';
+              parent.appendChild(s); units.push(s);
+            }
+          });
+        } else if (node.tagName === 'BR') {
+          parent.appendChild(document.createElement('br'));
+        } else if (node.tagName === 'SPAN') {
+          node.style.cssText += ';display:inline-block;opacity:0;transform:translateY(10px);transition:opacity 0.5s ease,transform 0.5s ease;';
+          parent.appendChild(node); units.push(node);
+        }
+      });
+    }
+    processNode(h1);
+    return units;
+  }
+
+  function hideForIntro() {
+    // 1. Cover wave with a dark panel that will slide away
+    const panel = document.createElement('div');
+    panel.id = 'wave-reveal-panel';
+    panel.style.cssText = 'position:fixed;inset:0;background:#020617;z-index:-1;transform-origin:right center;transition:transform 1.4s cubic-bezier(0.77,0,0.18,1);pointer-events:none;';
+    document.body.appendChild(panel);
+
+    // 2. Hide section-label
+    const label = document.querySelector('#business .section-label');
+    if (label) {
+      label.style.cssText += ';opacity:0;transform:translateY(8px);transition:opacity 0.5s ease,transform 0.5s ease;';
+      window._sectionLabel = label;
+    }
+
+    // 3. Slogan: split into word spans (all hidden)
+    const h1 = document.querySelector('#business .section-title');
+    if (h1) window._sloganUnits = setupSloganStagger(h1);
+
+    // 4. Cards: hide
+    document.querySelectorAll('#business .bento-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.7s ease, transform 0.7s ease, border-color 0.5s ease, box-shadow 0.5s ease';
+    });
+  }
+
+  window.revealContent = function() {
+    // 1. Wave: slide dark panel away right→left
+    const panel = document.getElementById('wave-reveal-panel');
+    if (panel) {
+      setTimeout(() => {
+        panel.style.transform = 'scaleX(0)';
+        setTimeout(() => panel.remove(), 1500);
+      }, 80);
+    }
+
+    // 2. section-label + slogan appear together, immediately with wave
+    const label = window._sectionLabel;
+    if (label) {
+      label.style.opacity = '1';
+      label.style.transform = 'translateY(0)';
+    }
+
+    const units = window._sloganUnits || [];
+    units.forEach((span, i) => {
+      setTimeout(() => {
+        span.style.opacity = '1';
+        span.style.transform = 'translateY(0)';
+      }, i * 30);  // no initial delay, 30ms stagger per word
+    });
+
+    // 3. Cards: float up with gold border flash (after text settles)
+    document.querySelectorAll('#business .bento-card').forEach((card, i) => {
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        card.style.borderColor = 'rgba(255, 184, 0, 0.75)';
+        card.style.boxShadow = '0 0 28px rgba(255, 184, 0, 0.35)';
+        setTimeout(() => {
+          card.style.borderColor = '';
+          card.style.boxShadow = '';
+        }, 650);
+      }, 450 + i * 130);
+    });
+  };
+
+  // Apply hidden states only if intro is playing
+  if (window._introPlaying) {
+    hideForIntro();
+  }
+
   // Robust Header Scroll Effect
   const header = document.querySelector('header');
   const scrollHint = document.querySelector('.scroll-hint');

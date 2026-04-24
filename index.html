@@ -26,6 +26,7 @@
       var overlay = document.getElementById('intro-overlay');
       var canvas  = document.getElementById('intro-canvas');
       if (!overlay || !canvas) return;
+      window._introPlaying = true; // signal main.js to hide content initially
 
       // ---- Setup canvas ----
       var ctx = canvas.getContext('2d');
@@ -170,6 +171,7 @@
             running = false;
             overlay.style.display = 'none';
             sessionStorage.setItem('daumis-intro', '1');
+            if (typeof window.revealContent === 'function') window.revealContent();
             return;
           }
         }
