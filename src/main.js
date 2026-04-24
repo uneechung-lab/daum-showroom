@@ -226,11 +226,12 @@ window.addEventListener('load', () => {
         let curr = 0;
         const interval = setInterval(() => {
           curr += Math.ceil(target / 50);
+          const suffix = stat.dataset.suffix || "";
           if (curr >= target) {
-            stat.innerText = target.toLocaleString();
+            stat.innerText = target.toLocaleString() + suffix;
             clearInterval(interval);
           } else {
-            stat.innerText = curr.toLocaleString();
+            stat.innerText = curr.toLocaleString() + suffix;
           }
         }, 30);
       },
