@@ -77,11 +77,10 @@ body {
 .v-line {
   width: 1px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.08); /* More visible as requested */
+  background: rgba(255, 255, 255, 0.12); /* Increased visibility */
 }
 
 #footer {
-  background: linear-gradient(180deg, transparent 0%, rgba(13, 21, 38, 0.5) 100%);
   position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -452,7 +451,7 @@ body.sub-page header.scrolled {
 }
 
 #footer {
-  background: #020617;
+  background: transparent; /* Changed from solid color to show grid lines */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 5rem 0 3rem;
 }
