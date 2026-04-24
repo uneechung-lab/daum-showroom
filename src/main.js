@@ -440,41 +440,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showMenu(item) {
     clearTimeout(closeTimer);
-
+    
     const newMenu = item.querySelector('.gnb-mega-menu');
     if (!newMenu) return;
 
-    if (header) header.classList.add('menu-open');
+    if (activeMenu === newMenu) return;
 
-    // Update active nav-item color
-    document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
+    // If switching while already open, use 'instant' mode to avoid flickering
+    if (activeMenu) {
+      activeMenu.classList.add('instant');
+      activeMenu.classList.remove('active');
+      newMenu.classList.add('instant');
+      document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
+    } else {
+      // Opening fresh
+      newMenu.classList.remove('instant');
+    }
+
+    if (header) header.classList.add('menu-open');
     item.classList.add('active');
 
     // Set sub-menu left alignment
     const itemRect = item.getBoundingClientRect();
     document.documentElement.style.setProperty('--item-offset', `${itemRect.left}px`);
 
-    if (activeMenu && activeMenu !== newMenu) {
-      // Layer already open — swap instantly without animation
-      activeMenu.classList.add('instant');
-      newMenu.classList.add('instant');
-      activeMenu.classList.remove('active');
-      newMenu.classList.add('active');
-      // Re-enable transitions next frame
-      requestAnimationFrame(() => {
-        activeMenu && activeMenu.classList.remove('instant');
-        newMenu.classList.remove('instant');
-      });
-    } else if (!activeMenu) {
-      // Layer was closed — animate in
-      newMenu.classList.add('active');
-    }
-
+    newMenu.classList.add('active');
     activeMenu = newMenu;
+
+    // Remove 'instant' after a short delay so normal closing animation works
+    setTimeout(() => {
+      if (activeMenu) activeMenu.classList.remove('instant');
+    }, 50);
   }
 
   function hideAll() {
-    document.querySelectorAll('.gnb-mega-menu.active').forEach(m => m.classList.remove('active'));
+    document.querySelectorAll('.gnb-mega-menu').forEach(m => {
+      m.classList.remove('active');
+      m.classList.remove('instant');
+    });
     document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
     activeMenu = null;
     if (header) header.classList.remove('menu-open');
