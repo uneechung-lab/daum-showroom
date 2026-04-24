@@ -765,6 +765,7 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
+  min-height: 160px;
   backdrop-filter: blur(10px);
   grid-column: span 6;
   opacity: 1; /* Overlay handles initial hide; scroll-reveal uses .revealed class */
