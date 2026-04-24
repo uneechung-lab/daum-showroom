@@ -15,7 +15,174 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
   </head>
-  <body><div class="master-grid"><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div></div>
+  <body>
+    <!-- ===== INTRO ANIMATION OVERLAY ===== -->
+    <div id="intro-overlay" style="position:fixed;inset:0;z-index:999999;background:#000;overflow:hidden;">
+      <canvas id="intro-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    </div>
+
+    <script>
+    (function() {
+      var overlay = document.getElementById('intro-overlay');
+      var canvas  = document.getElementById('intro-canvas');
+      if (!overlay || !canvas) return;
+
+      // ---- Setup canvas ----
+      var ctx = canvas.getContext('2d');
+      canvas.style.cssText = 'position:absolute;top:0;left:0;';
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var W = canvas.width, H = canvas.height;
+      var cx = W / 2, cy = H / 2;
+
+      var YELLOW = '#FFB800';
+      var particles = [], particlesSpawned = false;
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      function easeIn(t)  { return t * t * t; }
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      // ---- Particles ----
+      var maxDist = Math.sqrt(cx * cx + cy * cy); // center → corner distance
+
+      function spawnParticles() {
+        for (var i = 0; i < 200; i++) {
+          var ang = Math.random() * Math.PI * 2;
+          var spd = 25 + Math.random() * 35; // fast enough to reach screen edge
+          var hue = 35 + Math.random() * 20;
+          particles.push({
+            x: cx, y: cy,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            startSize: 1.5 + Math.random() * 2.5,
+            endSize:   80 + Math.random() * 120,
+            color: 'hsl(' + hue + ',100%,65%)',
+            baseAlpha: 0.4 + Math.random() * 0.6,      // each particle has its own max opacity
+            flickerSpeed: 3 + Math.random() * 8,        // how fast it flickers
+            flickerOffset: Math.random() * Math.PI * 2, // random start phase
+            dead: false
+          });
+        }
+      }
+
+      function drawParticles(dt) {
+        ctx.save();
+        particles.forEach(function(p) {
+          p.x += p.vx;
+          p.y += p.vy;
+          // no friction — keep speed constant so they truly leave screen
+
+          // how far from center (0→1 as it reaches screen diagonal)
+          var dx = p.x - cx, dy = p.y - cy;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          var progress = Math.min(dist / maxDist, 1); // 0 at center, 1 at corner
+
+          var size = p.startSize + (p.endSize - p.startSize) * (progress * progress);
+
+          // irregular per-particle alpha: base opacity × edge fade × flicker
+          var edgeFade = progress < 0.7 ? 1 : 1 - (progress - 0.7) / 0.3;
+          var flicker = 0.6 + 0.4 * Math.sin(performance.now() * 0.001 * p.flickerSpeed + p.flickerOffset);
+          var alpha = Math.max(0, p.baseAlpha * edgeFade * flicker);
+
+          // mark dead when fully off screen
+          if (p.x < -size || p.x > W + size || p.y < -size || p.y > H + size) {
+            p.dead = true; return;
+          }
+
+          ctx.globalAlpha = alpha * 0.85;
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = size > 30 ? 20 : 6;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, Math.max(0.5, size), 0, Math.PI * 2);
+          ctx.fill();
+        });
+        particles = particles.filter(function(p) { return !p.dead; });
+        ctx.restore();
+      }
+
+      // ---- Draw word ----
+      function drawWord(text, alpha, blurPx, sx, sy, fontSize, color) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+        ctx.filter = 'blur(' + blurPx + 'px)';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = '900 ' + fontSize + 'px "Outfit","Pretendard Variable",sans-serif';
+        ctx.fillStyle = color;
+        ctx.shadowColor = color; ctx.shadowBlur = blurPx > 0 ? blurPx * 2 : 0;
+        ctx.translate(cx, cy);
+        ctx.scale(sx, sy);
+        ctx.fillText(text, 0, 0);
+        ctx.restore();
+      }
+
+      // ---- Phase timeline ----
+      var PHASES    = ['word1','word2','next-appear','next-zoom','fadeout'];
+      var DURATIONS = [380,    380,    760,          700,        500];
+      var phase = 0, phaseElapsed = 0, lastTs = null, running = true;
+
+      function frame(ts) {
+        if (!running) return;
+        if (lastTs === null) lastTs = ts;
+        var dt = Math.min((ts - lastTs) / 1000, 0.05);
+        lastTs = ts;
+
+        phaseElapsed += dt;
+        var dur = DURATIONS[phase] / 1000;
+        var t   = Math.min(phaseElapsed / dur, 1);
+        var pn  = PHASES[phase];
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+
+        if (pn === 'word1' || pn === 'word2') {
+          var txt = pn === 'word1' ? '금융의 미래' : '기술, 그 다음의 가치';
+          var blur, sx, alpha;
+          if (t < 0.4) {
+            var ti = t / 0.4;
+            blur = lerp(28, 0, easeOut(ti)); sx = lerp(3.5, 1, easeOut(ti)); alpha = lerp(0, 1, easeOut(ti));
+          } else {
+            var to2 = (t - 0.4) / 0.6;
+            blur = lerp(0, 5, easeIn(to2)); sx = lerp(1, 0.5, easeIn(to2)); alpha = lerp(1, 0, easeIn(to2));
+          }
+          drawWord(txt, alpha, blur, sx, sx, 80, '#fff');
+
+        } else if (pn === 'next-appear') {
+          var p2 = Math.min(t / 0.65, 1);
+          drawWord('NEXT', lerp(0,1,easeOut(p2)), lerp(35,0,easeOut(p2)),
+                   lerp(0.3,1,easeOut(p2)), lerp(0.3,1,easeOut(p2)), 160, YELLOW);
+
+        } else if (pn === 'next-zoom') {
+          if (!particlesSpawned) { spawnParticles(); particlesSpawned = true; }
+          var zoom = lerp(1, 45, easeIn(t));
+          var alpZ = t < 0.55 ? 1 : lerp(1, 0, (t - 0.55) / 0.45);
+          drawWord('NEXT', alpZ, lerp(0,80,easeIn(t)), zoom, zoom, 160, YELLOW);
+          drawParticles(dt);
+
+        } else if (pn === 'fadeout') {
+          if (particles.length) drawParticles(dt);
+          overlay.style.opacity = String(Math.max(0, 1 - easeOut(t)));
+        }
+
+        if (t >= 1) {
+          phase++; phaseElapsed = 0;
+          if (phase >= PHASES.length) {
+            running = false;
+            overlay.style.display = 'none';
+            sessionStorage.setItem('daumis-intro', '1');
+            return;
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+
+      // Start immediately (no font wait — fallback font renders instantly)
+      requestAnimationFrame(frame);
+    })();
+    </script>
+    <!-- ===== END INTRO ===== -->
+
+    <div class="master-grid"><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div><div class="v-line"></div></div>
     <header id="header">
       <div class="container">
         <nav>
@@ -138,7 +305,7 @@
         <div class="container">
           <span class="section-label">Business / Tech Insight</span>
           <h1 class="section-title">금융의 미래,<br>그 다음의 가치. <span class="fade-text">다음정보시스템즈</span></h1>
-          <p class="hero-sub" style="font-size: 1.25rem; color: var(--text-secondary); margin-top: 2.5rem; margin-bottom: 3rem;">Beyond now, Daum Information Systems is designing the 'Next:다음' era of finance to create new value.</p>
+
           
           <div class="bento-grid">
             <!-- 1. Retirement Pension (Large) -->
