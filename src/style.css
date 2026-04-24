@@ -81,7 +81,6 @@ body {
 }
 
 #footer {
-  position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -94,6 +93,7 @@ section {
   position: relative;
   background: transparent;
   padding: 0;
+  overflow: hidden;
 }
 
 section > .container {
@@ -458,8 +458,8 @@ body.sub-page header.scrolled {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 2.5fr;
+  gap: 6rem;
   margin-bottom: 4rem;
 }
 
@@ -737,6 +737,14 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
   .bento-card { grid-column: span 6; }
   .bento-card.large { grid-column: span 12; }
   .bento-card.wide { grid-column: span 12; }
+}
+
+#project .bento-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#project .bento-card {
+  grid-column: auto;
 }
 
 @media (max-width: 768px) {

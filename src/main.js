@@ -131,25 +131,37 @@ window.addEventListener('load', () => {
   // Robust Header Scroll Effect
   const header = document.querySelector('header');
   const scrollHint = document.querySelector('.scroll-hint');
+  const footerSection = document.getElementById('footer');
+
   const handleScroll = () => {
     const scrollPos = window.scrollY || document.documentElement.scrollTop;
-    const isFooter = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-    
+
     if (scrollPos > 10) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-    
-    // Hide scroll hint only at the very bottom
+
+    // Hide scroll hint when footer section is active
     if (scrollHint) {
-      if (isFooter) scrollHint.classList.add('hidden');
+      const isAtFooter = footerSection && footerSection.getBoundingClientRect().top < window.innerHeight / 2;
+      if (isAtFooter) scrollHint.classList.add('hidden');
       else scrollHint.classList.remove('hidden');
     }
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
-  
+
+  // Block downward scroll when already on the footer section (last snap point)
+  window.addEventListener('wheel', (e) => {
+    if (!footerSection) return;
+    const rect = footerSection.getBoundingClientRect();
+    // Footer is the current snap point when its top is near 0
+    if (Math.abs(rect.top) < 80 && e.deltaY > 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   // Mobile Menu Logic
   const mobileToggle = document.querySelector('.mobile-toggle');
   const navRight = document.querySelector('.nav-right');
@@ -179,7 +191,7 @@ window.addEventListener('load', () => {
   // Scroll Indicator Logic
   const dots = document.querySelectorAll('.dot');
   const sections = document.querySelectorAll('section, footer');
-  
+
   const updateDots = () => {
     let current = "";
     sections.forEach((section) => {
@@ -199,15 +211,13 @@ window.addEventListener('load', () => {
   };
 
   window.addEventListener('scroll', updateDots);
-  
+
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
       const targetId = dot.dataset.target;
       const targetSection = document.getElementById(targetId);
       if (targetSection) {
-        // Updated for 100px header height
         const offsetPosition = targetSection.offsetTop;
-
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
@@ -261,7 +271,7 @@ window.addEventListener('load', () => {
 // Card Intro Flip Animation
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.bento-card');
+  const cards = document.querySelectorAll('#business .bento-card');
   if (!cards.length) return;
 
   // Inject yellow overlay + mark cards as pending
