@@ -14,6 +14,7 @@ export default defineConfig({
         investment: resolve(__dirname, 'investment.html'),
         mutual: resolve(__dirname, 'mutual.html'),
         sales: resolve(__dirname, 'sales.html'),
+        asset: resolve(__dirname, 'asset.html'),
       },
     },
   },

@@ -315,15 +315,22 @@ header.scrolled {
 }
 
 /* When any nav-item is hovered, unify header + menu layer color */
-header:has(.nav-item:hover),
+header:has(.nav-item:hover) {
+  background: #0d1526 !important; 
+  box-shadow: none !important;
+}
 header.menu-open {
   background: #0d1526 !important; 
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
-body.sub-page header:has(.nav-item:hover),
+body.sub-page header:has(.nav-item:hover) {
+    background: #ffffff !important;
+    box-shadow: none !important;
+}
 body.sub-page header.menu-open {
     background: #ffffff !important;
+    box-shadow: none !important;
 }
 
 /* Mega Menu Styles (Contextual Category Style) */
@@ -354,15 +361,15 @@ body.theme-light .gnb-mega-menu {
 
 body.sub-page .gnb-mega-menu {
   background: #ffffff;
-  border-top: none; /* Seamless with header */
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border-top: none !important; /* Force no top border */
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.12); /* Increase Y-offset and negative spread to pull shadow far down */
 }
 
 /* Controlled by JS - .active class shows the menu */
 .gnb-mega-menu.active {
-  max-height: 500px;
+  max-height: 600px; /* Increased to accommodate more padding */
   opacity: 1;
-  padding: 1.25rem 0 2.5rem 0; /* Halved top padding to pull menu closer */
+  padding: 0 !important; /* Force remove all default padding */
   pointer-events: auto;
   border-bottom: 1px solid rgba(255, 184, 0, 0.25); /* Subtle yellow base line */
 }
@@ -379,15 +386,15 @@ body.sub-page .gnb-mega-menu.active {
 .mega-container {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 200px;
+  padding: 1rem 0 4.5rem 0; /* Increased bottom padding for more breathing room */
+  display: flex;
+  align-items: flex-start; 
 }
 
 .mega-left {
-  position: absolute;
-  left: var(--mega-left-offset, 2rem); /* Set precisely by JS from logo position */
-  top: 0;
-  width: 260px;
+  position: relative;
+  margin-left: var(--mega-left-offset, 2rem);
+  width: 440px; /* Wider for the larger text */
   text-align: left;
 }
 
@@ -396,7 +403,7 @@ body.sub-page .gnb-mega-menu.active {
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.2;
-  margin: 0 0 0.75rem 0; /* Remove top margin so it aligns with sub-menu list top */
+  margin: 0 0 1rem 0;
 }
 
 body.sub-page .mega-left h3 {
@@ -404,10 +411,11 @@ body.sub-page .mega-left h3 {
 }
 
 .mega-left p {
-  font-size: 0.85rem;
+  font-size: 1.15rem; /* Larger font size as requested */
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
+  font-weight: 500;
   word-break: keep-all;
 }
 
@@ -416,10 +424,9 @@ body.sub-page .mega-left p {
 }
 
 .mega-right {
-  position: absolute;
-  /* Aligned with hovered GNB item left edge via JS */
-  left: var(--item-offset, 55%);
-  top: 0; /* Top-aligned with mega-left */
+  position: relative;
+  /* Use margin instead of left to work with flex container */
+  margin-left: calc(var(--item-offset, 55%) - var(--mega-left-offset, 2rem) - 440px);
 }
 
 .mega-right ul {
@@ -475,12 +482,20 @@ body.sub-page .mega-right li a {
 /* Sub-page Header - Sync with Home */
 body.sub-page header {
   height: 100px;
+  background: transparent;
 }
 
 body.sub-page header.scrolled {
   height: 100px; 
   background: #ffffff !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+body.sub-page header.menu-open,
+body.sub-page header:has(.nav-item:hover) {
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border-bottom: none !important; /* Explicitly clear any potential border */
 }
 
 /* Footer styling is handled above via conditional body classes */
@@ -558,27 +573,24 @@ body.sub-page .logo {
   height: 75px; 
 }
 
-body.sub-page header.scrolled,
-body.sub-page header:has(.nav-item:hover),
-body.sub-page header.menu-open {
-    background: #ffffff !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
+/* Removed redundant sub-page header shadow rules to keep it clean */
 
 body.sub-page header.scrolled .nav-links a,
-body.sub-page header.scrolled .nav-links span,
+body.sub-page header.scrolled .nav-links span {
+    color: #1e293b;
+}
 body.sub-page header:has(.nav-item:hover) .nav-links a,
-body.sub-page header:has(.nav-item:hover) .nav-links span,
+body.sub-page header:has(.nav-item:hover) .nav-links span {
+    color: #1e293b;
+}
 body.sub-page header.menu-open .nav-links a,
 body.sub-page header.menu-open .nav-links span {
     color: #1e293b;
 }
 
-body.sub-page header.scrolled .mobile-toggle span,
-body.sub-page header:has(.nav-item:hover) .mobile-toggle span,
-body.sub-page header.menu-open .mobile-toggle span {
-    background: #1e293b;
-}
+body.sub-page header.scrolled .mobile-toggle span { background: #1e293b; }
+body.sub-page header:has(.nav-item:hover) .mobile-toggle span { background: #1e293b; }
+body.sub-page header.menu-open .mobile-toggle span { background: #1e293b; }
 
 .logo img { height: 100%; width: auto; transition: opacity 0.3s ease; }
 
@@ -588,12 +600,12 @@ body.sub-page header.menu-open .mobile-toggle span {
     height: 68%; /* Further reduced for perfect visual parity */
     margin: auto 0;
 }
-body.sub-page header.scrolled .logo .logo-light,
-body.sub-page header:has(.nav-item:hover) .logo .logo-light,
+body.sub-page header.scrolled .logo .logo-light { display: none; }
+body.sub-page header:has(.nav-item:hover) .logo .logo-light { display: none; }
 body.sub-page header.menu-open .logo .logo-light { display: none; }
 
-body.sub-page header.scrolled .logo .logo-dark,
-body.sub-page header:has(.nav-item:hover) .logo .logo-dark,
+body.sub-page header.scrolled .logo .logo-dark { display: flex; }
+body.sub-page header:has(.nav-item:hover) .logo .logo-dark { display: flex; }
 body.sub-page header.menu-open .logo .logo-dark { display: flex; }
 
 .nav-right { 
