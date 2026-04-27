@@ -229,6 +229,12 @@ window.addEventListener('load', () => {
   // Apply hidden states only if intro is playing
   if (window._introPlaying) {
     hideForIntro();
+  } else {
+    // On sub-pages, ensure hero animations trigger if hero-anim class is present
+    const detailHero = document.querySelector('.detail-hero');
+    if (detailHero) {
+      detailHero.classList.add('hero-anim');
+    }
   }
 
   // Robust Header Scroll Effect

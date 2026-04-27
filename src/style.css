@@ -228,6 +228,38 @@ body.sub-page .detail-hero {
   100% { transform: translate(60px, 100px) rotate(20deg) scale(1.15); }
 }
 
+/* --- D-WMS Specialized Shape Backgrounds (Base64) --- */
+.shape-fractal-outline {
+    background-color: transparent !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItNSAtNSAxMzAgMTE0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik02MCAwIEw0MCAzNC42IEw4MCAzNC42IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTQwIDM0LjYgTDIwIDY5LjIgTDYwIDY5LjIgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48cGF0aCBkPSJNNDAgMzQuNiBMODAgMzQuNiBMNjAgNjkuMiBaIiBmaWxsPSJub25lIiBzdHJva2U9IiM2MGE1ZmEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik04MCAzNC42IEw2MCA2OS4yIEwxMDAgNjkuMiBaIiBmaWxsPSJub25lIiBzdHJva2U9IiNmYmJmMjQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMCA2OS4yIEwwIDEwNCBMNDAgMTA0IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTIwIDY5LjIgTDYwIDY5LjIgTDQwIDEwNCBaIiBmaWxsPSJub25lIiBzdHJva2U9IiM2MGE1ZmEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik02MCA2OS4yIEw0MCAxMDQgTDgwIDEwNCBaIiBmaWxsPSJub25lIiBzdHJva2U9IiNmYmJmMjQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik02MCA2OS4yIEwxMDAgNjkuMiBMODAgMTA0IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzYwYTVmYSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTEwMCA2OS4yIEw4MCAxMDQgTDEyMCAxMDQgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=') !important;
+    background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; border-radius: 0 !important; clip-path: none !important; filter: drop-shadow(0 0 5px rgba(251,191,36,0.3)) blur(1px) !important;
+    opacity: 0.4 !important;
+}
+.shape-triangle-outline-gold {
+    background-color: transparent !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItNSAtNSAxMTAgOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUwIDAgTDAgODYgTDEwMCA4NiBaIiBmaWxsPSJub25lIiBzdHJva2U9IiNmYmJmMjQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==') !important;
+    background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; border-radius: 0 !important; clip-path: none !important; filter: drop-shadow(0 0 5px rgba(251,191,36,0.2)) blur(1px) !important; opacity: 0.3 !important;
+    scale: 1.2 !important;
+}
+.shape-triangle-outline-navy {
+    background-color: transparent !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItNSAtNSAxMTAgOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUwIDAgTDAgODYgTDEwMCA4NiBaIiBmaWxsPSJub25lIiBzdHJva2U9IiM2MGE1ZmEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==') !important;
+    background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; border-radius: 0 !important; clip-path: none !important; filter: drop-shadow(0 0 5px rgba(96,165,250,0.2)) blur(1px) !important; opacity: 0.25 !important;
+    scale: 1.2 !important;
+}
+.shape-triangle-solid-gold {
+    background-color: transparent !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItNSAtNSAxMTAgOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUwIDAgTDAgODYgTDEwMCA4NiBaIiBmaWxsPSIjZmJiZjI0Ii8+PC9zdmc+') !important;
+    background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; border-radius: 0 !important; clip-path: none !important; filter: drop-shadow(0 0 10px rgba(251,191,36,0.2)) blur(15px) !important; opacity: 0.25 !important;
+    scale: 1.4 !important;
+}
+.shape-triangle-solid-navy {
+    background-color: transparent !important;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItNSAtNSAxMTAgOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUwIDAgTDAgODYgTDEwMCA4NiBaIiBmaWxsPSIjMjJkM2VlIi8+PC9zdmc+') !important;
+    background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; border-radius: 0 !important; clip-path: none !important; filter: drop-shadow(0 0 10px rgba(34,211,238,0.2)) blur(18px) !important; opacity: 0.2 !important;
+    scale: 1.4 !important;
+}
+
 /* Sections after hero on sub-pages are white */
 body.sub-page main {
     background: #ffffff;
