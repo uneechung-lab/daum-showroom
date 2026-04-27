@@ -11,6 +11,7 @@ export default defineConfig({
         solution: resolve(__dirname, 'solution.html'),
         project: resolve(__dirname, 'project.html'),
         careers: resolve(__dirname, 'careers.html'),
+        investment: resolve(__dirname, 'investment.html'),
       },
     },
   },
