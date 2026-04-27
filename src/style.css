@@ -343,7 +343,7 @@ body.sub-page header.menu-open {
   z-index: 9998;
   padding: 0;
   pointer-events: none;
-  background: #020617; /* Same as page bg var(--bg-dark) */
+  background: #0a1226; /* Slightly lighter than page bg #020617 */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
