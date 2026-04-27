@@ -12,6 +12,8 @@ export default defineConfig({
         project: resolve(__dirname, 'project.html'),
         careers: resolve(__dirname, 'careers.html'),
         investment: resolve(__dirname, 'investment.html'),
+        mutual: resolve(__dirname, 'mutual.html'),
+        sales: resolve(__dirname, 'sales.html'),
       },
     },
   },
