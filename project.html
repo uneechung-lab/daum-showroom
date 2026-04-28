@@ -2,142 +2,2009 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project | ?�음?�보?�스?�즈</title>
+    <title>프로젝트 실적 | 다음정보시스템즈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+      .detail-hero {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-canvas {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 55%; /* Slightly more than 50% for better coverage */
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 40%);
+        mask-image: linear-gradient(to right, transparent, black 40%);
+        opacity: 0.8;
+      }
+      .detail-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      body {
+        font-family: var(--font-main);
+        background: white;
+      }
+      .tabs-nav {
+        border-bottom: 1px solid #334155;
+        background: white;
+        width: 100%;
+        position: sticky;
+        top: 100px;
+        z-index: 1000;
+      }
+      .project-tabs {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .tab-btn {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        padding: 1.5rem 0;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 1.2rem;
+        position: relative;
+        white-space: nowrap;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        letter-spacing: -0.02em;
+      }
+      .tab-btn i {
+        width: 22px;
+        height: 22px;
+        stroke-width: 2;
+      }
+      .tab-btn:hover:not(.active) {
+        color: #334155;
+      }
+      .tab-btn.active {
+        background: #020617;
+        color: white;
+        font-weight: 700;
+      }
+      .tab-btn.active::after {
+        display: none;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: auto;
+        gap: 3rem;
+        width: 100%;
+        margin-bottom: 8rem;
+      }
+
+      @keyframes cardFadeIn {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .project-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        height: auto;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      }
+      .project-card.hidden {
+        display: none;
+      }
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      }
+      
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .card-icon {
+        width: 24px;
+        height: 24px;
+        color: #0f172a;
+        flex-shrink: 0;
+      }
+      .card-icon i {
+        width: 100%;
+        height: 100%;
+        stroke-width: 2.5;
+      }
+      
+      .card-tags {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        background: #f1f5f9;
+        color: #475569;
+        font-family: 'Outfit', sans-serif;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .tag.blue { color: #0066FF; background: rgba(0, 102, 255, 0.05); }
+      .tag.orange { color: #f97316; background: rgba(249, 115, 22, 0.05); }
+
+      .project-info h3 {
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: #0f172a;
+        margin: 0 0 1.5rem 0;
+        line-height: 1.5;
+        word-break: keep-all;
+        letter-spacing: -0.01em;
+      }
+      .company-name {
+        display: block;
+        font-weight: 800;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+      }
+      .project-year {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        color: #94a3b8;
+        letter-spacing: 0.02em;
+        margin-top: auto;
+      }
+
+      @media (max-width: 1024px) {
+        .project-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      }
+
+      @media (max-width: 768px) {
+        .tabs-nav { position: sticky; top: 80px; }
+        .project-tabs {
+          justify-content: flex-start;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn { 
+          flex: none;
+          padding: 1.2rem 1.5rem;
+          font-size: 0.95rem;
+        }
+        .project-tabs::-webkit-scrollbar { display: none; }
+        .project-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .project-card { padding: 2rem; }
+        .project-info h3 { font-size: 1.2rem; }
+      }
+
+      /* Slim Hero Adjustment */
+      .master-grid {
+        z-index: -2 !important;
+      }
+      header {
+        position: fixed !important;
+        z-index: 99999 !important;
+        transform: translateZ(0); /* Force GPU stacking */
+        background: #020617 !important;
+      }
+      /* Maintain dark header even on scroll for this page */
+      body.sub-page header.scrolled {
+        background: #020617 !important;
+        box-shadow: none !important;
+      }
+      body.sub-page header.scrolled .nav-links a,
+      body.sub-page header.scrolled .nav-item > span {
+        color: white !important;
+      }
+      body.sub-page header.scrolled .logo .logo-light { display: block !important; }
+      body.sub-page header.scrolled .logo .logo-dark { display: none !important; }
+      
+      header .logo {
+        position: relative;
+        z-index: 100000 !important;
+      }
+      body.sub-page .detail-hero.slim-hero {
+        position: relative;
+        height: 380px;
+        min-height: auto;
+        padding-top: 140px;
+        z-index: 0 !important;
+        background: #020617 !important;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+      main {
+        position: relative;
+        z-index: 1 !important;
+      }
+      
+      /* Carousel for Ongoing Projects */
+      .carousel-container {
+        position: relative;
+        overflow: visible; /* Allow hover scaling to show */
+        margin-bottom: 2rem;
+      }
+      .carousel-viewport {
+        overflow: hidden;
+        border-radius: 12px;
+        padding-bottom: 3rem; /* Only bottom padding for shadows */
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .carousel-slide {
+        flex: 0 0 100%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 5px; /* Minimal side gap to prevent border clipping */
+      }
+      .carousel-nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+      .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .carousel-dot.active {
+        background: #0f172a;
+        width: 24px;
+        border-radius: 4px;
+      }
+      
+      .project-card.wide {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center; /* Center the content group */
+        gap: 5rem;
+        padding: 2.5rem 8rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card.wide .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 140px;
+        flex-shrink: 0;
+        border-right: 1px solid #f1f5f9;
+        padding-right: 3rem;
+      }
+      .company-logo {
+        width: 100%;
+        height: auto;
+      }
+      .company-logo img {
+        width: 100%;
+        height: auto;
+        max-height: 80px;
+        object-fit: contain;
+        display: block;
+      }
+      .project-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 0.5rem;
+      }
+      .content-top {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .content-top .card-icon {
+        width: 28px;
+        height: 28px;
+        background: #f8fafc;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f172a;
+      }
+      .content-top .card-icon i {
+        width: 16px;
+        height: 16px;
+      }
+      .project-card.wide .project-info h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+      .project-card.wide .project-year {
+        position: absolute;
+        right: 6rem;
+        bottom: 2.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #94a3b8; /* Slightly softer color for the date in the corner */
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.3rem 0.7rem;
+        background: #f1f5f9;
+        color: #64748b;
+        font-weight: 800;
+        font-size: 0.65rem;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .tag.blue {
+        background: #f0f7ff;
+        color: #2563eb;
+      }
+      .tag.ongoing {
+        background: #f0fdf4;
+        color: #16a34a; /* Green for ongoing/active */
+      }
+      @media (max-width: 992px) {
+        .project-card.wide {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+          padding: 2.5rem;
+        }
+        .project-card.wide .project-year {
+          text-align: left;
+        }
+      }
+      
+      body.sub-page .slim-hero .container {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+      }
+
+      body.sub-page .slim-hero .section-title {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary) !important;
+        letter-spacing: -0.03em;
+      }
+      body.sub-page .slim-hero .hero-sub {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        max-width: 800px;
+        line-height: 1.6;
+        opacity: 0.8;
+      }
+
+      .content-wrapper {
+        margin-top: 0 !important;
+        box-shadow: none;
+        background: white;
+        position: relative;
+        z-index: 10;
+      }
+    </style>
   </head>
-  <body class="theme-light sub-page"><div class="menu-backdrop"></div>
+  <body class="sub-page">
     <header id="header">
       <div class="container">
         <nav>
-          <a href="/" class="logo"><img src="/ci_02.png" alt="DAUMIS"></a>
+          <a href="/" class="logo">
+            <img src="/ci_01.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_02.png" alt="DAUMIS" class="logo-dark">
+          </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
           <div class="nav-right">
             <ul class="nav-links">
-              <li><a href="/business.html">Business</a></li>
-              <li><a href="/solution.html">Solution</a></li>
-              <li><a href="javascript:void(0)" class="gnb-trigger" data-menu="project">Project</a></li>
-              <li><a href="/careers.html">Careers</a></li>
-              <li><a href="/company.html">Company</a></li>
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html" class="active">프로젝트 실적</a></li>
+                        <li><a href="/project.html#clients">고객사 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/solution.html#data">데이터 수집 솔루션</a></li>
+                        <li><a href="/solution.html#process">실시간 분산 처리</a></li>
+                        <li><a href="/solution.html#engine">금융 최적화 엔진</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/company.html#intro">소개</a></li>
+                        <li><a href="/company.html#ceo">CEO</a></li>
+                        <li><a href="/company.html#vision">비전</a></li>
+                        <li><a href="/company.html#history">연혁</a></li>
+                        <li><a href="/company.html#contact">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ul>
-            <a href="/#inquiry" class="cta-button">?�입 문의 <i data-lucide="arrow-right"></i></a>
+            <a href="/#inquiry" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
           </div>
         </nav>
       </div>
     </header>
-    <!-- Mega Menu Overlay -->
-    <div id="mega-overlay" class="mega-overlay">
-      <div class="overlay-bg"></div>
-      <div class="container overlay-content">
-        <div class="overlay-header">
-          <div class="logo"><img src="/ci_01.png" alt="DAUMIS"></div>
-          <button class="overlay-close"><i data-lucide="x"></i></button>
-        </div>
-        <div class="mega-grid">
-          <div class="mega-column">
-            <h3 class="mega-title">Business</h3>
-            <ul>
-              <li><a href="/business.html">�������ݽý���</a></li>
-              <li><a href="/business.html">������������</a></li>
-              <li><a href="/business.html">�ڻ�����ý���</a></li>
-              <li><a href="/business.html">���������ý���</a></li>
-            </ul>
-          </div>
-          <div class="mega-column">
-            <h3 class="mega-title">Solution</h3>
-            <ul>
-              <li><a href="/solution.html">Core Engine</a></li>
-              <li><a href="/solution.html">Security Logic</a></li>
-              <li><a href="/solution.html">Visual Logic</a></li>
-            </ul>
-          </div>
-          <div class="mega-column">
-            <h3 class="mega-title">Case Studies</h3>
-            <ul>
-              <li><a href="/project.html">������Ʈ ����</a></li>
-              <li><a href="/project.html">����� ��Ȳ</a></li>
-              <li><a href="/project.html">���� ������</a></li>
-            </ul>
-          </div>
-          <div class="mega-column">
-            <h3 class="mega-title">Company</h3>
-            <ul>
-              <li><a href="/company.html">CEO �λ縻</a></li>
-              <li><a href="/company.html">��� ����</a></li>
-              <li><a href="/company.html">����</a></li>
-              <li><a href="/company.html">CEO 인사말</a></li>
-              <li><a href="/company.html">기업 개요</a></li>
-              <li><a href="/company.html">연혁</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <main>
-      <section class="detail-hero"><div class="container"><h1 class="section-title">주요 프로젝트 실적</h1></div></section>
-      <section class="detail-content">
+      <!-- Hero Section -->
+      <section class="detail-hero slim-hero" id="performance">
+        <canvas id="heroStreamCanvas" class="hero-canvas"></canvas>
         <div class="container">
-          <div class="content-list">
-            <div class="list-item">
-              <div class="list-image"><img src="/assets/pension.png" alt="프로젝트"></div>
-              <div class="list-text">
-                <span class="list-label">Success Story</span>
-                <h2 class="list-title">대형 금융사 시스템 고도화</h2>
-                <p class="list-desc">신뢰로 보답하는 완벽한 기술력으로 프로젝트를 성공적으로 완수합니다.</p>
-              </div>
-            </div>
-          </div>
+          <span class="section-label">Project / Performance</span>
+          <h1 class="section-title">프로젝트 실적</h1>
+          <p class="hero-sub">숫자로 증명하는 압도적인 기술력과 신뢰<br>대한민국 금융의 중심에서 다음정보시스템즈가 만들어온 성공의 기록들입니다.</p>
         </div>
       </section>
+
+      <!-- Content -->
+        <div class="tabs-nav">
+          <div class="container">
+            <div class="project-tabs">
+              <button class="tab-btn active" data-tab="all"><i data-lucide="layers"></i>전체 (131)</button>
+              <button class="tab-btn" data-tab="pension"><i data-lucide="wallet"></i>퇴직연금 (57)</button>
+              <button class="tab-btn" data-tab="investment"><i data-lucide="trending-up"></i>집합투자증권 (18)</button>
+              <button class="tab-btn" data-tab="mutual"><i data-lucide="shield-check"></i>공제업무시스템 (13)</button>
+              <button class="tab-btn" data-tab="etc"><i data-lucide="settings"></i>유지보수 및 기타 (43)</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="service-intro" style="padding-top: 5rem; padding-bottom: 2rem;">
+          <div class="container">
+            <!-- Ongoing Projects Section (Carousel) -->
+            <div id="ongoing-section" style="margin-bottom: 6rem;">
+              <h2 style="font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-bottom: 4rem; letter-spacing: -0.02em;">
+                오늘도 끊임없는<br>
+                <span style="font-size: 2.8rem; opacity: 1;">금융 혁신의 과정, <span style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">진행중인 프로젝트</span></span>
+              </h2>
+              
+              <div class="carousel-container">
+                <div class="carousel-viewport">
+                  <div class="carousel-track">
+                    
+                    <div class="carousel-slide">
+                      <div class="project-card wide">
+                        <div class="card-header">
+                          <div class="company-logo"><img src="/ci_kw.png" alt="키움증권"></div>
+                        </div>
+                        <div class="project-content">
+                          <div class="content-top">
+                            <div class="card-icon"><i data-lucide="wallet"></i></div>
+                            <div class="card-tags">
+                              <span class="tag blue">Pension</span>
+                              <span class="tag ongoing">Ongoing</span>
+                            </div>
+                          </div>
+                          <div class="project-info">
+                            <h3><span class="company-name">키움증권</span> 퇴직연금시스템 구축</h3>
+                            <p style="color: #64748b; font-size: 1.1rem; max-width: 800px;">키움증권의 새로운 퇴직연금 시장 진입을 위한 코어 시스템 구축 프로젝트를 수행 중입니다.</p>
+                          </div>
+                          <div class="project-year">2025.04 ~ 진행 중</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                      <div class="project-card wide">
+                        <div class="card-header">
+                          <div class="company-logo"><img src="/ci_toss.png" alt="토스뱅크"></div>
+                        </div>
+                        <div class="project-content">
+                          <div class="content-top">
+                            <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                            <div class="card-tags">
+                              <span class="tag blue">Investment</span>
+                              <span class="tag ongoing">Ongoing</span>
+                            </div>
+                          </div>
+                          <div class="project-info">
+                            <h3><span class="company-name">토스뱅크</span> 집합투자증권 인가컨설팅(판매솔루션 포함)</h3>
+                            <p style="color: #64748b; font-size: 1.1rem; max-width: 800px;">토스뱅크의 집합투자업 진출을 위한 인가 업무 및 판매 시스템 전략 컨설팅을 진행하고 있습니다.</p>
+                          </div>
+                          <div class="project-year">2024.09 ~ 진행 중</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                      <div class="project-card wide">
+                        <div class="card-header">
+                          <div class="company-logo"><img src="/ci_ss.png" alt="삼성증권"></div>
+                        </div>
+                        <div class="project-content">
+                          <div class="content-top">
+                            <div class="card-icon"><i data-lucide="wallet"></i></div>
+                            <div class="card-tags">
+                              <span class="tag blue">Pension</span>
+                              <span class="tag ongoing">Ongoing</span>
+                            </div>
+                          </div>
+                          <div class="project-info">
+                            <h3><span class="company-name">삼성증권</span> 퇴직연금 시스템 전면 재구축 및 클라우드 전환</h3>
+                            <p style="color: #64748b; font-size: 1.1rem; max-width: 800px;">금융권 최고의 기술력이 집약된 클라우드 네이티브 퇴직연금 플랫폼 구축 프로젝트가 진행 중입니다.</p>
+                          </div>
+                          <div class="project-year">2024.10 ~ 진행 중</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- Carousel Dots -->
+                <div class="carousel-nav">
+                  <div class="carousel-dot active"></div>
+                  <div class="carousel-dot"></div>
+                  <div class="carousel-dot"></div>
+                </div>
+              </div>
+            </div>
+
+            <h2 id="archive-title" style="font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-top: 8rem; margin-bottom: 3rem; letter-spacing: -0.02em;">
+              <span id="archive-title-line1">신뢰로 쌓아온</span><br>
+              <span id="archive-title-main">성공 기록, <span id="archive-tab-name"></span></span><span id="archive-title-suffix" style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">프로젝트 아카이브</span>
+            </h2>
+            <div id="project-grid" class="project-grid">
+              
+              <!-- NEW ADDITIONS -->
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나증권</span> 퇴직연금시스템 고도화</h3></div>
+                <div class="project-year">2025.07</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">우리투자증권</span> IRP시스템 ETF 개발</h3></div>
+                <div class="project-year">2025.06</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">키움증권</span> 연금사업 추진 PI(퇴직연금시스템 구축 컨설팅지원)</h3></div>
+                <div class="project-year">2025.02</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 퇴직연금 실물이전 추가개발</h3></div>
+                <div class="project-year">2024.12</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">현대차증권</span> 차세대 사전준비 프로젝트(퇴직연금 업무컨설팅)</h3></div>
+                <div class="project-year">2024.06</div>
+              </div>
+              
+              <!-- PENSION Cards (52) -->
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KB증권</span> 24년 퇴직연금 고도화(실물이전 외)</h3></div>
+                <div class="project-year">2024.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">미래에셋증권</span> 연금 차세대시스템 구축 2단계</h3></div>
+                <div class="project-year">2024.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">삼성증권</span> 퇴직연금 실물이전시스템 구축</h3></div>
+                <div class="project-year">2024.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">현대차증권</span> 차세대 사전준비 프로젝트</h3></div>
+                <div class="project-year">2024.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나증권</span> 퇴직연금시스템 재구축</h3></div>
+                <div class="project-year">2023.08</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">삼성증권</span> 퇴직연금신탁 분리 개발</h3></div>
+                <div class="project-year">2023.08</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행</span> 사전지정운용제도 시스템 개발</h3></div>
+                <div class="project-year">2023.01</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">미래에셋증권</span> 연금 차세대 구축 1단계</h3></div>
+                <div class="project-year">2023.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">광주은행</span> 퇴직연금 사전지정운용제도 시스템 구축</h3></div>
+                <div class="project-year">2022.12</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KB증권</span> 퇴직연금 업무 고도화(디폴트옵션 외)</h3></div>
+                <div class="project-year">2022.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나증권</span> 퇴직연금 디폴트옵션 고도화</h3></div>
+                <div class="project-year">2022.09</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금시스템 고도화</h3></div>
+                <div class="project-year">2022.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 퇴직연금시스템 재구축</h3></div>
+                <div class="project-year">2021.10</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국투자증권</span> 퇴직연금시스템 고도화</h3></div>
+                <div class="project-year">2021.08</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">유안타증권</span> 퇴직연금시스템 고도화</h3></div>
+                <div class="project-year">2021.07</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금 ETF매매시스템 개발/안정화</h3></div>
+                <div class="project-year">2020.11</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">NH투자증권</span> 퇴직연금시스템 재구축 용역</h3></div>
+                <div class="project-year">2020.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국포스증권</span> 퇴직연금 IRP 대응개발(PC 웹)</h3></div>
+                <div class="project-year">2020.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국포스증권</span> 퇴직연금 IRP 운영 및 유지보수</h3></div>
+                <div class="project-year">2019.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">광주은행</span> 퇴직연금 고도화시스템 구축</h3></div>
+                <div class="project-year">2019.11</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국포스증권</span> 퇴직연금 IRP 구축 및 안정화</h3></div>
+                <div class="project-year">2019.07</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한화금융투자</span> STEPS/DAM 개발 및 운영 도급계약</h3></div>
+                <div class="project-year">2019.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">NH투자증권</span> 퇴직연금 전산 재구축을 위한 사전컨설팅</h3></div>
+                <div class="project-year">2019.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한화투자증권</span> 퇴직연금시스템 구축 제안용역 계약</h3></div>
+                <div class="project-year">2018.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 위임업무(2018년도)</h3></div>
+                <div class="project-year">2018.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금 고도화(IRP통합)</h3></div>
+                <div class="project-year">2017.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 위임업무(2017년도)</h3></div>
+                <div class="project-year">2017.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행</span> 차세대 시스템 구축(퇴직연금)</h3></div>
+                <div class="project-year">2017.06</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국투자증권</span> 퇴직연금 신시스템 구축</h3></div>
+                <div class="project-year">2017.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> OS프로젝트(2018년)</h3></div>
+                <div class="project-year">2018.02</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 정보시스템 SM(2017년)</h3></div>
+                <div class="project-year">2017.02</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금시스템 운영(SM, 2018년도)</h3></div>
+                <div class="project-year">2018.01</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국투자증권</span> 퇴직연금 신시스템 구축</h3></div>
+                <div class="project-year">2017.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KB증권(구</span> 현대증권) SM 전산운영(퇴직연금)</h3></div>
+                <div class="project-year">2017.01</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금시스템 운영(SM, 2017년도)</h3></div>
+                <div class="project-year">2017.01</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금시스템 연금지급개선 관련 추가 개발 계약</h3></div>
+                <div class="project-year">2016.10</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">유안타증권</span> 홈페이지 및 MTS 유지보수(퇴직연금 운영)</h3></div>
+                <div class="project-year">2016.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 정보시스템 SM(2016년)(퇴직연금 외)</h3></div>
+                <div class="project-year">2016.02</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">삼성증권</span> 퇴직연금 원장서비스 통합</h3></div>
+                <div class="project-year">2016.03</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금 차세대 대응개발</h3></div>
+                <div class="project-year">2015.12</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">유안타증권</span> 홈페이지 및 MTS 구축(퇴직연금 개발)</h3></div>
+                <div class="project-year">2015.11</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 연금지급시스템 구축(퇴직연금)</h3></div>
+                <div class="project-year">2015.11</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">삼성증권</span> 퇴직연금 개정안 반영</h3></div>
+                <div class="project-year">2015.09</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 SM 업무용역(퇴직연금)</h3></div>
+                <div class="project-year">2015.08</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">근로복지공단</span> 통합퇴직연금 자산컨설팅시스템 구축</h3></div>
+                <div class="project-year">2015.05</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">신한은행</span> 퇴직연금시스템 재구축 지급관리 개발용역</h3></div>
+                <div class="project-year">2014.08</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">삼성증권</span> 퇴직연금 연금지급 프로세스 구축 개발 계약</h3></div>
+                <div class="project-year">2014.07</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">현대증권</span> SM 전산운영(퇴직연금)</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 외주운영 + 운영업무 인수인계 연장분(퇴직연금 외)</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행/정보시스템</span> 운영업무(퇴직연금)</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> POST 차세대 대응개발(퇴직연금)</h3></div>
+                <div class="project-year">2014.01</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 SM 위임업무 계약(퇴직연금)</h3></div>
+                <div class="project-year">2014.02</div>
+              </div>
+
+              <!-- INVESTMENT Cards (18) -->
+              <div class="project-card" data-category="investment" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">카카오뱅크</span> 펀드시스템 통합테스트 업무대행</h3></div>
+                <div class="project-year">2023.10</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">카카오뱅크</span> 집합투자증권 투자중개업 컨설팅_테스트</h3></div>
+                <div class="project-year">2023.08</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">카카오뱅크</span> 집합투자증권 컨설팅(ISP)</h3></div>
+                <div class="project-year">2021.06</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">신한아이타스</span> 수익증권 직접판매시스템 구축</h3></div>
+                <div class="project-year">2021.05</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">바로투자증권(카카오페이</span> 리테일증권) 수익증권판매시스템 구축</h3></div>
+                <div class="project-year">2019.04</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">카카오페이</span> 리테일증권 시스템 구축 제안</h3></div>
+                <div class="project-year">2019.02</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행</span> 차세대 시스템 구축 용역(집합투자증권)</h3></div>
+                <div class="project-year">2017.06</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">SK증권</span> 펀드시스템 SM(2018년)</h3></div>
+                <div class="project-year">2018.01</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 차세대시스템 안정화(집합투자증권)</h3></div>
+                <div class="project-year">2016.11</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">우체국</span> 금융시스템(우정사업본부) 유지보수 펀드판매시스템 개보수</h3></div>
+                <div class="project-year">2016.06</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대구은행</span> 수익증권관리시스템 고도화</h3></div>
+                <div class="project-year">2016.03</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나대투증권</span> 차세대시스템 구축(집합투자증권)</h3></div>
+                <div class="project-year">2015.04</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한화생명</span> 펀드판매시스템 연금설계 추가 구축</h3></div>
+                <div class="project-year">2014.12</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 현업대응 및 POST차세대시스템 안정화 추진</h3></div>
+                <div class="project-year">2014.10</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경남은행</span> 공동업무 분리구축 2단계(펀드관리시스템 분리구축) 위탁계약</h3></div>
+                <div class="project-year">2014.09</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">광주은행</span> 공동시스템 분리구축(펀드관리시스템 부문)</h3></div>
+                <div class="project-year">2014.08</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">우리투자증권</span> 펀드관리시스템 개발계약</h3></div>
+                <div class="project-year">2014.08</div>
+              </div>
+              <div class="project-card" data-category="investment" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> POST 차세대 대응개발(집합투자증권)</h3></div>
+                <div class="project-year">2014.01</div>
+              </div>
+
+              <!-- MUTUAL Cards (13) -->
+              <div class="project-card" data-category="mutual" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">건설근로자공제회</span> 통합시스템 구축(IBK 컨소시엄)</h3></div>
+                <div class="project-year">2023.12</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경찰공제회</span> 회원관리시스템 고도화</h3></div>
+                <div class="project-year">2023.07</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">새마을금고복지회</span> 차세대시스템 구축 사업</h3></div>
+                <div class="project-year">2019.10</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">2019년도</span> 대한소방공제회 분할지급퇴직급여 및 목돈수탁/목돈담보 대여업무시스템 구축 개발 부분 유지보수</h3></div>
+                <div class="project-year">2019.05</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">2017년도</span> 대한소방공제회 분할지급퇴직급여 및 목돈수탁/목돈담보 대여업무시스템 구축 개발 부분 유지보수</h3></div>
+                <div class="project-year">2017.07</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">2017년도</span> 경찰공제회 시스템 유지보수(목돈수탁, 회원관리, 홈페이지)</h3></div>
+                <div class="project-year">2017.01</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경찰공제회</span> 회원상담 프로그램(콜센터) 개발</h3></div>
+                <div class="project-year">2017.04</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경찰공제회</span> 회원관리시스템 재구축</h3></div>
+                <div class="project-year">2015.12</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대한소방공제회</span> 분할지급퇴직급여 및 목돈수탁/목돈담보 대여업무시스템 구축</h3></div>
+                <div class="project-year">2015.10</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경찰공제회</span> 회원관리시스템 웹서버이관</h3></div>
+                <div class="project-year">2015.04</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">근로복지공단</span> 중소기업 퇴직연금기금제도 ISP연구용역</h3></div>
+                <div class="project-year">2014.11</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경찰공제회</span> 목돈수탁복지저축 업무시스템 구축(하드웨어 납품 포함)</h3></div>
+                <div class="project-year">2014.06</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">과학기술인공제회</span> 정보시스템 통합운영관리 용역</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+
+              <!-- ETC Cards (43) -->
+              <div class="project-card" data-category="etc" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 퇴직연금시스템 안정화 유지보수</h3></div>
+                <div class="project-year">2023.04</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">NH투자증권</span> 퇴직연금시스템 운영</h3></div>
+                <div class="project-year">2022.02</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">새마을금고복지회</span> 차세대시스템 유지보수</h3></div>
+                <div class="project-year">2021.12</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">NH투자증권</span> 단위서버 재구축(펀드관리 이행)</h3></div>
+                <div class="project-year">2021.08</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">NH투자증권</span> 마이데이터 서비스 플랫폼 구축</h3></div>
+                <div class="project-year">2021.06</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">비씨카드</span> 마이데이터 시스템 구축</h3></div>
+                <div class="project-year">2021.03</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한화투자증권</span> 외화원장시스템 구축 용역</h3></div>
+                <div class="project-year">2020.02</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 민원관리시스템 구축</h3></div>
+                <div class="project-year">2020.03</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> BOX플랫폼 시스템 운영업무 위탁</h3></div>
+                <div class="project-year">2019.11</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> BIS비율관리시스템 고도화</h3></div>
+                <div class="project-year">2019.11</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대한소방공제회</span> 정보시스템 통합유지보수 용역계약(TSLine, 김지영대리)</h3></div>
+                <div class="project-year">2019.09</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행</span> 차세대 시스템 운영(퇴직연금/펀드시스템)</h3></div>
+                <div class="project-year">2019.05</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한화금융투자</span> STEPS/DAM 개발 및 운영 도급계약</h3></div>
+                <div class="project-year">2019.05</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK투자증권</span> 2018년도 정보시스템 위임업무 계약</h3></div>
+                <div class="project-year">2019.03</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> CFD 업무 개발 지원 용역</h3></div>
+                <div class="project-year">2019.03</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> BOX플랫폼 시스템 재구축</h3></div>
+                <div class="project-year">2018.09</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> FDS(이상거래탐지시스템) 유지보수</h3></div>
+                <div class="project-year">2018.03</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> OS프로젝트(2018년)</h3></div>
+                <div class="project-year">2018.02</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">SK증권</span> 펀드시스템 SM(2018년)</h3></div>
+                <div class="project-year">2018.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 위임업무(통합유지보수)</h3></div>
+                <div class="project-year">2017.03</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KB증권</span> 퇴직연금 SM 전산운용(2017년)</h3></div>
+                <div class="project-year">2017.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나금융투자</span> 퇴직연금시스템 운영</h3></div>
+                <div class="project-year">2017.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국수출입은행</span> 정보시스템 전산장비 통합운영 및 유지관리</h3></div>
+                <div class="project-year">2016.06</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">유안타증권</span> 홈페이지 및 MTS 유지보수(펀드, 퇴직연금 운영)</h3></div>
+                <div class="project-year">2016.05</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">2016년</span> 현대증권 SM 전산운영(퇴직연금)</h3></div>
+                <div class="project-year">2016.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 SM 업무용역 (IB시스템)</h3></div>
+                <div class="project-year">2015.10</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">2015년</span> 현대증권 SM 전산운영(퇴직연금)</h3></div>
+                <div class="project-year">2015.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">2014년</span> 현대증권 SM 전산운영(퇴직연금)</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 정보시스템 SM(퇴직연금 외)</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행/정보시스템</span> 운영업무(퇴직연금)</h3></div>
+                <div class="project-year">2014.04</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IBK기업은행</span> 정보시스템 SM 위임업무 계약(퇴직연금)</h3></div>
+                <div class="project-year">2014.02</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">(BD팀)KB국민은행</span> 정보보호 통합 플랫폼 구축</h3></div>
+                <div class="project-year">2017.10</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">펀드온라인코리아</span> IFA 고도화</h3></div>
+                <div class="project-year">2017.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">중소기업청</span> SMTECH 고도화</h3></div>
+                <div class="project-year">2016.10</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">IFRS9</span> 도입 프로젝트 관련 시스템 추가 개발</h3></div>
+                <div class="project-year">2016.09</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">중소기업청</span> 포인트 v2.0 시스템 구축</h3></div>
+                <div class="project-year">2016.07</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">기업은행</span> IFRS 9 회계기준서 개정에 따른 IFRS 관련 시스템 변경 개발</h3></div>
+                <div class="project-year">2016.06</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KT캐피탈,</span> 두산캐피탈 IT시스템 통합 구축 내 캐피탈 회계업무 개발</h3></div>
+                <div class="project-year">2016.06</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한국마사회</span> VOC시스템 구축</h3></div>
+                <div class="project-year">2015.07</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 헤르메스시스템(온라인 영업지표 통합시스템) 구축</h3></div>
+                <div class="project-year">2015.04</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">하나대투증권</span> 차세대시스템 구축(FDS)</h3></div>
+                <div class="project-year">2015.07</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">KDB산업은행</span> 전자금융 이상거래탐지시스템 구축</h3></div>
+                <div class="project-year">2015.01</div>
+              </div>
+              <div class="project-card" data-category="etc" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="settings"></i></div>
+                  <div class="card-tags"><span class="tag ">Maintenance</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">한화생명</span> 재무설계시스템 고도화 및 코어시스템 구축</h3></div>
+                <div class="project-year">2014.11</div>
+              </div>
+
+            </div>
+
+            <!-- Load More Container -->
+            <div style="text-align: center; margin: 2rem 0 8rem;">
+              <button id="load-more-btn" style="background: none; border: none; padding: 1rem 2rem; font-weight: 500; color: #64748b; cursor: pointer; display: inline-flex; align-items: center; gap: 0.6rem; font-size: 1.1rem; transition: transform 0.3s ease; font-family: 'Outfit', 'Noto Sans KR', sans-serif; letter-spacing: -0.02em;">
+                <span id="load-more-text">15건 더 보기</span>
+                <i data-lucide="chevron-down" style="width: 20px; height: 20px; margin-top: 2px; opacity: 0.7;"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Footer -->
+        <footer id="footer">
+          <div class="container">
+            <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+              <div style="margin-left: -16px; padding: 0;">
+                <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                  <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
+                  <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">㈜다음정보시스템즈</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+                <div>
+                  <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
+                  <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                    <li>T. 02-6247-8413</li>
+                    <li>F. 070-4713-9499</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
+                  <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                    <li>서울시 영등포구 국제금융로8길 27-9</li>
+                    <li>동북빌딩 603호</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
+                  <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                    <li>서울시 관악구 관악로 120</li>
+                    <li>우주빌딩 3층</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem; text-align: center;">
+              <p style="font-size: 0.85rem; opacity: 0.4;">DAUMIS Digital Showroom</p>
+            </div>
+          </div>
+        </footer>
     </main>
 
-    <footer id="footer">
-      <div class="container">
-        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
-          <!-- Branding Section -->
-          <div style="margin-left: -16px; padding: 0;">
-            <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
-              <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
-              <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">㈜다음정보시스템즈</span>
-            </div>
-            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
-          </div>
-
-          <!-- Contact & Office Info Section -->
-          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
-            <div>
-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">T. 02-6247-8413</li>
-                <li style="white-space: nowrap;">F. 070-4713-9499</li>
-              </ul>
-            </div>
-            <div>
-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">(07332) 서울시 영등포구</li>
-                <li style="white-space: nowrap;">국제금융로8길 27-9,</li>
-                <li style="white-space: nowrap;">동북빌딩 603호</li>
-              </ul>
-            </div>
-            <div>
-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">(08791) 서울시 관악구</li>
-                <li style="white-space: nowrap;">관악로120</li>
-                <li style="white-space: nowrap;">우주빌딩 3층</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
-          <p style="font-size: 0.85rem; opacity: 0.4;">DAUMIS Digital Showroom</p>
-        </div>
-      </div>
-    </footer>
     <script type="module" src="/src/main.js"></script>
-    <script>lucide.createIcons();</script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('project-grid');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        
+        let visibleLimit = 15;
+        let currentTab = 'all';
+
+        function updateFilter() {
+          const cards = Array.from(document.querySelectorAll('.project-card'));
+          const filteredCards = cards.filter(card => currentTab === 'all' || card.dataset.category === currentTab);
+          const totalInTab = filteredCards.length;
+
+          // Update Titles and Section Visibility
+          const ongoingSection = document.getElementById('ongoing-section');
+          const archiveTitleLine1 = document.getElementById('archive-title-line1');
+          const archiveTabName = document.getElementById('archive-tab-name');
+
+          const titleMap = {
+            all: { line1: '신뢰로 쌓아온', tabName: '' },
+            pension: { line1: '내일을 설계하는', tabName: '퇴직연금' },
+            investment: { line1: '가치를 증명하는', tabName: '집합투자증권' },
+            mutual: { line1: '함께 성장을 돕는', tabName: '공제회' },
+            etc: { line1: '빈틈없이 관리한', tabName: '유지보수 및 기타' }
+          };
+          
+          if (currentTab === 'all') {
+            ongoingSection.style.display = 'block';
+          } else {
+            ongoingSection.style.display = 'none';
+          }
+
+          const config = titleMap[currentTab] || titleMap.all;
+          archiveTitleLine1.innerText = config.line1;
+          archiveTabName.innerText = config.tabName ? config.tabName + ' ' : '';
+
+          // Hide all first
+          cards.forEach(card => {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+          });
+
+          // Show items up to the limit
+          const toShow = filteredCards.slice(0, visibleLimit);
+          toShow.forEach((card, i) => {
+            card.style.display = 'flex';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 10);
+          });
+
+          // Update Load More Button Progress
+          const shownCount = toShow.length;
+          const remaining = totalInTab - shownCount;
+          
+          if (remaining > 0) {
+            loadMoreBtn.parentElement.style.display = 'block';
+            const nextBatch = Math.min(15, remaining);
+            document.getElementById('load-more-text').innerText = `${nextBatch}건 더 보기 (${shownCount}/${totalInTab})`;
+          } else {
+            loadMoreBtn.parentElement.style.display = 'none';
+          }
+
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        }
+
+        tabBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            visibleLimit = 15; // Reset limit on tab change
+            currentTab = btn.dataset.tab;
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Scroll back to the top of the project grid only when CHANGING TABS
+            const hero = document.querySelector('.detail-hero');
+            const scrollTarget = hero ? hero.offsetHeight - 100 : 0;
+            if (window.scrollY > scrollTarget) {
+              window.scrollTo({
+                top: scrollTarget,
+                behavior: 'smooth'
+              });
+            }
+
+            updateFilter();
+          });
+        });
+
+        loadMoreBtn.addEventListener('click', () => {
+          visibleLimit += 15;
+          updateFilter();
+        });
+
+        // --- Ongoing Carousel Logic ---
+        const track = document.querySelector('.carousel-track');
+        const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+        let carouselIndex = 0;
+        let carouselInterval;
+
+        function updateCarousel(index) {
+          if (!track || dots.length === 0) return;
+          track.style.transform = `translateX(-${index * 100}%)`;
+          dots.forEach(d => d.classList.remove('active'));
+          dots[index].classList.add('active');
+          carouselIndex = index;
+        }
+
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+            clearInterval(carouselInterval);
+            updateCarousel(i);
+            startCarousel();
+          });
+        });
+
+        function startCarousel() {
+          carouselInterval = setInterval(() => {
+            let next = (carouselIndex + 1) % dots.length;
+            updateCarousel(next);
+          }, 5000);
+        }
+
+        if (dots.length > 0) startCarousel();
+
+        // --- Data Stream Hero Animation ---
+        const canvas = document.getElementById('heroStreamCanvas');
+        if (canvas) {
+          const ctx = canvas.getContext('2d');
+          let width, height;
+          let streams = [];
+          const chars = '01{}[]()<>+-*/=!;:.?$_#&0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+          const snippets = ['const', 'let', 'func', 'ret', 'async', 'await', '=>', 'map', 'push', 'data', 'init', 'val'];
+
+          class Stream {
+            constructor(x) {
+              this.x = x;
+              this.reset();
+            }
+            reset() {
+              this.y = height + Math.random() * 300;
+              this.speed = 0.5 + Math.random() * 1.5;
+              this.fontSize = Math.floor(10 + Math.random() * 3);
+              this.opacity = 0.01 + Math.random() * 0.05;
+              this.chars = [];
+              this.length = 8 + Math.floor(Math.random() * 12);
+              for(let i=0; i<this.length; i++) {
+                this.chars.push(this.getRandomChar());
+              }
+            }
+            getRandomChar() {
+              if (Math.random() > 0.85) return snippets[Math.floor(Math.random() * snippets.length)];
+              return chars[Math.floor(Math.random() * chars.length)];
+            }
+            draw() {
+              for(let i=0; i<this.chars.length; i++) {
+                const charY = this.y + (i * this.fontSize * 1.2);
+                if (charY < -20 || charY > height + 20) continue;
+                
+                let alpha = this.opacity;
+                // Fade out at top
+                if (charY < 150) alpha *= (charY / 150);
+                // Fade out at bottom reset point
+                if (charY > height - 50) alpha *= ((height - charY) / 50);
+
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, alpha)})`;
+                ctx.font = `${this.fontSize}px 'Outfit', monospace`;
+                ctx.fillText(this.chars[i], this.x, charY);
+              }
+            }
+            update() {
+              this.y -= this.speed;
+              if (this.y < -(this.length * 20)) {
+                this.reset();
+              }
+              // Occasionally jitter a character
+              if (Math.random() > 0.98) {
+                this.chars[Math.floor(Math.random() * this.chars.length)] = this.getRandomChar();
+              }
+            }
+          }
+
+          function resize() {
+            const rect = canvas.getBoundingClientRect();
+            width = rect.width;
+            height = rect.height;
+            canvas.width = width;
+            canvas.height = height;
+            initStreams();
+          }
+
+          function initStreams() {
+            streams = [];
+            const spacing = 18;
+            const count = Math.floor(width / spacing);
+            for (let i = 0; i < count; i++) {
+              streams.push(new Stream(i * spacing));
+            }
+          }
+
+          function animate() {
+            ctx.clearRect(0, 0, width, height);
+            streams.forEach(s => {
+              s.update();
+              s.draw();
+            });
+            requestAnimationFrame(animate);
+          }
+
+          window.addEventListener('resize', resize);
+          resize();
+          animate();
+        }
+
+        // Initialize Lucide icons after dynamic content (if any)
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
+        // Initial filter run
+        updateFilter();
+      });
+    </script>
   </body>
 </html>

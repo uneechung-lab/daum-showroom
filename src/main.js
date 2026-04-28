@@ -244,11 +244,26 @@ window.addEventListener('load', () => {
 
   const handleScroll = () => {
     const scrollPos = window.scrollY || document.documentElement.scrollTop;
+    const header = document.querySelector('header');
+    if (!header) return;
 
-    if (scrollPos > 10) {
-      header.classList.add('scrolled');
+    const isSubPage = document.body.classList.contains('sub-page');
+    const curtain = document.querySelector('.content-wrapper') || document.querySelector('.tabs-nav');
+
+    if (isSubPage && curtain) {
+      const curtainTop = curtain.getBoundingClientRect().top;
+      if (curtainTop <= 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     } else {
-      header.classList.remove('scrolled');
+      let threshold = 10;
+      if (scrollPos > threshold) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     }
 
     // Hide scroll hint when footer section is active

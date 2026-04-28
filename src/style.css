@@ -139,6 +139,11 @@ body.sub-page .hero-sub {
     max-width: 1100px; /* Wider to accommodate larger text */
 }
 
+body.sub-page header {
+  height: 100px;
+  background: #020617; /* Solid hero-matching background */
+}
+
 body.sub-page .detail-hero {
   position: fixed;
   top: 0;
@@ -333,17 +338,29 @@ body.sub-page .detail-hero .highlight {
 header {
   position: fixed;
   top: 0; left: 0; width: 100%;
-  height: 100px; /* Increased for larger CI */
+  height: 100px;
   display: flex;
   align-items: center;
-  z-index: 9999;
+  z-index: 10000;
   transition: var(--transition-smooth);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-top: 80vh;
+  background: white;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.05);
 }
 
 header.scrolled {
   height: 100px;
   background: var(--bg-dark) !important; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
 /* When any nav-item is hovered, unify header + menu layer color */
@@ -375,7 +392,7 @@ body.sub-page header.menu-open {
   top: 100px; /* Exactly below header */
   left: 0;
   width: 100vw; /* Full viewport width */
-  max-height: 0;
+  height: 0;
   opacity: 0;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -399,7 +416,7 @@ body.sub-page .gnb-mega-menu {
 
 /* Controlled by JS - .active class shows the menu */
 .gnb-mega-menu.active {
-  max-height: 600px; /* Increased to accommodate more padding */
+  height: 400px; /* Fixed height to prevent flickering when switching categories */
   opacity: 1;
   padding: 0 !important; /* Force remove all default padding */
   pointer-events: auto;
@@ -520,13 +537,11 @@ body.sub-page header {
 body.sub-page header.scrolled {
   height: 100px; 
   background: #ffffff !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 body.sub-page header.menu-open,
 body.sub-page header:has(.nav-item:hover) {
     background: #ffffff !important;
-    box-shadow: none !important;
     border-bottom: none !important; /* Explicitly clear any potential border */
 }
 
