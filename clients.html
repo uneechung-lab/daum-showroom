@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients & Partnerships | 다음정보시스템즈</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      /* Page Specific Styles */
+      body.sub-page header {
+        position: fixed !important;
+        z-index: 99999 !important;
+        background: #020617 !important;
+      }
+      /* Scrolled Header Style (Ultra-Specific for Vercel) */
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) {
+        background: #020617 !important;
+        box-shadow: none !important;
+      }
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .nav-links a,
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .nav-item > span {
+        color: white !important;
+      }
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .logo .logo-light { 
+        display: block !important; 
+      }
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .logo .logo-dark { 
+        display: none !important; 
+      }
+
+      /* White Theme when menu is open OR hovered interactive areas */
+      body.sub-page header.menu-open,
+      body.sub-page header:has(.nav-links:hover),
+      body.sub-page header:has(.gnb-mega-menu:hover) {
+        background: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+      }
+      body.sub-page header.menu-open .nav-links a,
+      body.sub-page header.menu-open .nav-item > span,
+      body.sub-page header:has(.nav-links:hover) .nav-links a,
+      body.sub-page header:has(.nav-links:hover) .nav-item > span,
+      body.sub-page header:has(.gnb-mega-menu:hover) .nav-links a,
+      body.sub-page header:has(.gnb-mega-menu:hover) .nav-item > span {
+        color: #1e293b !important;
+      }
+      body.sub-page header.menu-open .logo .logo-light,
+      body.sub-page header:has(.nav-links:hover) .logo .logo-light,
+      body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-light { 
+        display: none !important; 
+      }
+      body.sub-page header.menu-open .logo .logo-dark,
+      body.sub-page header:has(.nav-links:hover) .logo .logo-dark,
+      body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-dark { 
+        display: block !important; 
+      }
+
+      header .logo {
+        position: relative;
+        z-index: 100000 !important;
+      }
+
+      /* Client Grid Styles */
+      .clients-section {
+        padding: 100px 0 160px;
+        background: #fff;
+        position: relative;
+      }
+      .client-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* Reduced from 6 to 5 */
+        gap: 0;
+        border: 1px solid #f1f5f9;
+        border-radius: 24px;
+        overflow: hidden;
+        margin-top: 80px;
+        background: #fff;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.02);
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .client-item {
+        background: #fff;
+        padding: 4.5rem 3rem; /* Increased padding for more breathing room */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0.5px solid #f1f5f9;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: default;
+        opacity: 0; /* Initial state */
+        animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      .client-item img {
+        width: 130px; /* Fixed width for visual consistency */
+        height: 50px; /* Fixed height for visual consistency */
+        object-fit: contain; /* Ensures the logo fits within the box without distortion */
+        filter: grayscale(0) opacity(0.8);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block;
+      }
+      .client-item:hover {
+        background: #f8fafc;
+        transform: scale(1.02);
+        z-index: 2;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        border-color: transparent;
+      }
+      .client-item:hover img {
+        filter: grayscale(0) opacity(1);
+        transform: scale(1.08);
+      }
+
+      @media (max-width: 1200px) {
+        .client-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (max-width: 768px) {
+        .client-grid { grid-template-columns: repeat(2, 1fr); }
+        .client-item { padding: 3rem 2rem; }
+        .client-item img { max-width: 120px; }
+      }
+
+      /* Infinite Slider Styles */
+      .slider-container {
+        width: 100%;
+        overflow: hidden;
+        padding: 0.5rem 0; /* Reduced from 1rem */
+        position: relative;
+      }
+      
+      .slider-track {
+        display: flex;
+        width: calc(450px * 12); /* Card width * number of cards * 2 */
+        animation: scroll 40s linear infinite;
+      }
+      .slider-track:hover {
+        animation-play-state: paused;
+      }
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-450px * 6)); }
+      }
+
+      .case-card {
+        flex: 0 0 420px;
+        height: 210px; /* Reduced from 260px */
+        margin: 0 15px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: none; /* Removed shadow */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem;
+        transition: transform 0.3s ease;
+        border: 1px solid #e2e8f0; /* Darkened border */
+      }
+      .case-card:hover {
+        transform: translateY(-5px);
+        border-color: #cbd5e1; /* Lighter gray for smoother look */
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08); /* Added shadow for depth */
+      }
+
+      .case-card .quote-header {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        margin-bottom: 1rem; /* Reduced from 1.5rem */
+      }
+      .case-card .client-logo-box {
+        width: 48px; /* Slightly smaller */
+        height: 48px;
+        border-radius: 12px;
+        background: #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        border: 1px solid #f1f5f9;
+        flex-shrink: 0;
+      }
+      .case-card .client-logo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .case-card .quote-text {
+        font-size: 1.1rem; /* Slightly smaller */
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.4;
+        word-break: keep-all;
+      }
+      .case-card .stats-text {
+        font-size: 0.95rem;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 1.2rem; /* Reduced from 1.8rem */
+        word-break: keep-all;
+      }
+      .case-card .more-link {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #94a3b8;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+      }
+      .case-card .more-link:hover {
+        color: var(--daumis-yellow);
+        gap: 0.8rem;
+      }
+
+      /* Hero Animation Background */
+      .hero-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.4;
+      }
+    </style>
+  </head>
+  <body class="sub-page">
+    <header id="header">
+      <div class="container">
+        <nav>
+          <a href="/" class="logo">
+            <img src="/ci_01.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_02.png" alt="DAUMIS" class="logo-dark">
+          </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div class="nav-right">
+            <ul class="nav-links">
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html">프로젝트 실적</a></li>
+                        <li><a href="/clients.html" class="active">고객사 & 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/solution.html#data">데이터 수집 솔루션</a></li>
+                        <li><a href="/solution.html#process">실시간 분산 처리</a></li>
+                        <li><a href="/solution.html#engine">금융 최적화 엔진</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/company.html#intro">소개</a></li>
+                        <li><a href="/company.html#ceo">CEO</a></li>
+                        <li><a href="/company.html#vision">비전</a></li>
+                        <li><a href="/company.html#history">연혁</a></li>
+                        <li><a href="/company.html#contact">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <a href="/#inquiry" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="detail-hero slim-hero" style="background: #020617; position: relative; overflow: hidden; padding-top: 140px; height: 380px; display: flex; align-items: center;">
+        <canvas id="heroStreamCanvas" class="hero-canvas"></canvas>
+        <div class="container" style="position: relative; z-index: 2;">
+          <span class="section-label" style="display: block; color: #ffb800; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Partnership</span>
+          <h1 class="section-title" style="font-size: 3.5rem; color: #fff; letter-spacing: -0.03em; margin-bottom: 1rem;">고객사 & 파트너십</h1>
+          <p class="hero-sub" style="font-size: 1.3rem; color: rgba(255,255,255,0.7); max-width: 800px; line-height: 1.6;">변치 않는 신뢰로 연결된 강력한 비즈니스 네트워크<br>대한민국 금융 리더들과 다음정보시스템즈가 함께 그려온 협력의 가치입니다.</p>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="clients-section" style="padding-top: 8rem; padding-bottom: 160px;">
+        <div class="container">
+          <div id="clients-intro" style="margin-top: 0; margin-bottom: 4rem;">
+            <h2 style="margin-top: 0; font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-bottom: 0; letter-spacing: -0.02em;">
+              초일류 금융사부터<br>
+              <span style="font-size: 2.8rem; opacity: 1;">공공 비즈니스까지, <span style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">금융의 미래를 구축하고 있습니다.</span></span>
+            </h2>
+          </div>
+
+          <!-- Infinite Success Stories Slider -->
+          <div id="cases-section" style="margin-bottom: 0.5rem;"> <!-- Minimized for tight visual link -->
+            <div class="slider-container" style="padding: 10px 0;">
+              <div class="slider-track">
+                
+                <!-- Card 1: Kiwoom -->
+                <div class="case-card">
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="/ci_kw.png" alt="Kiwoom"></div>
+                    <div class="quote-text">혁신적인 퇴직연금 시스템을<br>성공적으로 구축했습니다.</div>
+                  </div>
+                  <p class="stats-text">다음의 기술력 덕분에 복잡한 연금 구조를<br>효율적으로 자동화하여 운영 효율을 60% 높였습니다.</p>
+                </div>
+
+                <!-- Card 2: Toss -->
+                <div class="case-card">
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="/ci_toss.png" alt="Toss"></div>
+                    <div class="quote-text">복잡한 금융 인가 절차를<br>단 3개월 만에 마쳤습니다.</div>
+                  </div>
+                  <p class="stats-text">전문적인 컨설팅과 솔루션 덕분에<br>신규 비즈니스 런칭 일정을 2개월 앞당겼습니다.</p>
+                </div>
+
+                <!-- Card 3: Samsung -->
+                <div class="case-card">
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="/ci_ss.png" alt="Samsung"></div>
+                    <div class="quote-text">고객 중심의 자산관리 플랫폼으로<br>디지털 전환에 성공했습니다.</div>
+                  </div>
+                  <p class="stats-text">클라우드 네이티브 아키텍처 도입으로<br>시스템 안정성을 확보하고 서비스 유연성을 극대화했습니다.</p>
+                </div>
+
+                <!-- Card 4: KB -->
+                <div class="case-card">
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="/assets/client_04.gif" alt="KB"></div>
+                    <div class="quote-text">차세대 뱅킹 시스템 구축을 위한<br>최적의 기술 파트너입니다.</div>
+                  </div>
+                  <p class="stats-text">금융 도메인에 대한 깊은 이해도를 바탕으로<br>리스크 없이 안정적인 대규모 인프라 전환을 수행했습니다.</p>
+                </div>
+
+                <!-- Card 5: Hana -->
+                <div class="case-card">
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="/assets/client_05.jpg" alt="Hana"></div>
+                    <div class="quote-text">글로벌 금융 시장 확대를 위한<br>시스템 고도화를 실현했습니다.</div>
+                  </div>
+                  <p class="stats-text">다양한 국가의 금융 규제를 준수하는<br>유연한 아키텍처 설계로 글로벌 경쟁력을 강화했습니다.</p>
+                </div>
+
+                <!-- Card 6: Shinhan -->
+                <div class="case-card">
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="/assets/client_06.png" alt="Shinhan"></div>
+                    <div class="quote-text">AI 기반 이상거래 탐지 시스템으로<br>보안 수준을 한 단계 높였습니다.</div>
+                  </div>
+                  <p class="stats-text">고도화된 알고리즘을 통해 탐지 정확도를<br>획기적으로 개선하고 실시간 모니터링 체계를 구축했습니다.</p>
+                </div>
+
+                <!-- Duplicate for Loop (Syncing paths) -->
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_kw.png"></div><div class="quote-text">혁신적인 퇴직연금 시스템을<br>성공적으로 구축했습니다.</div></div><p class="stats-text">성공적인 자동화로 운영 효율을 60% 높였습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_toss.png"></div><div class="quote-text">복잡한 금융 인가 절차를<br>단 3개월 만에 마쳤습니다.</div></div><p class="stats-text">신규 비즈니스 런칭 일정을 2개월 앞당겼습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_ss.png"></div><div class="quote-text">고객 중심의 자산관리 플랫폼으로<br>디지털 전환에 성공했습니다.</div></div><p class="stats-text">시스템 안정성을 확보하고 서비스 유연성을 극대화했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_04.gif"></div><div class="quote-text">차세대 뱅킹 시스템 구축을 위한<br>최적의 기술 파트너입니다.</div></div><p class="stats-text">안정적인 대규모 인프라 전환을 수행했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_05.jpg"></div><div class="quote-text">글로벌 금융 시장 확대를 위한<br>시스템 고도화를 실현했습니다.</div></div><p class="stats-text">글로벌 경쟁력을 강화했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_06.png"></div><div class="quote-text">AI 기반 이상거래 탐지 시스템으로<br>보안 수준을 높였습니다.</div></div><p class="stats-text">탐지 정확도를 개선하고 모니터링 체계를 구축했습니다.</p></div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="client-grid">
+            <div class="client-item"><img src="/assets/client_01.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_02.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_03.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_04.gif" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_05.jpg" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_06.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_07.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_08.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_09.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_10.gif" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_11.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_12.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_13.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_14.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_15.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_16.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_17.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_18.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_19.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_20.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_21.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_22.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_23.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_24.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_25.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_26.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_27.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_28.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_29.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_30.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_39.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_40.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_41.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_31.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_32.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_33.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_34.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_35.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_36.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_37.png" alt="Client"></div>
+            <div class="client-item"><img src="/assets/client_38.png" alt="Client"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+          <div style="margin-left: -16px; padding: 0;">
+            <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+              <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
+              <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">㈜다음정보시스템즈</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                <li style="white-space: nowrap;">T. 02-6247-8413</li>
+                <li style="white-space: nowrap;">F. 070-4713-9499</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <li style="white-space: nowrap;">(07332) 서울시 영등포구</li>
+                <li style="white-space: nowrap;">국제금융로8길 27-9,</li>
+                <li style="white-space: nowrap;">동북빌딩 603호</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <li style="white-space: nowrap;">(08791) 서울시 관악구</li>
+                <li style="white-space: nowrap;">관악로120</li>
+                <li style="white-space: nowrap;">우주빌딩 3층</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // --- Data Stream Hero Animation ---
+      const canvas = document.getElementById('heroStreamCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let streams = [];
+        const chars = '01{}[]()<>+-*/=!;:.?$_#&0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        const snippets = ['const', 'let', 'func', 'ret', 'async', 'await', '=>', 'map', 'push', 'data', 'init', 'val'];
+
+        class Stream {
+          constructor(x) {
+            this.x = x;
+            this.reset();
+          }
+          reset() {
+            this.y = height + Math.random() * 300;
+            this.speed = 0.5 + Math.random() * 1.5;
+            this.fontSize = Math.floor(10 + Math.random() * 3);
+            this.opacity = 0.01 + Math.random() * 0.05;
+            this.chars = [];
+            this.length = 8 + Math.floor(Math.random() * 12);
+            for(let i=0; i<this.length; i++) {
+              this.chars.push(this.getRandomChar());
+            }
+          }
+          getRandomChar() {
+            if (Math.random() > 0.85) return snippets[Math.floor(Math.random() * snippets.length)];
+            return chars[Math.floor(Math.random() * chars.length)];
+          }
+          draw() {
+            for(let i=0; i<this.chars.length; i++) {
+              const charY = this.y + (i * this.fontSize * 1.2);
+              if (charY < -20 || charY > height + 20) continue;
+              
+              let alpha = this.opacity;
+              if (charY < 150) alpha *= (charY / 150);
+              if (charY > height - 50) alpha *= ((height - charY) / 50);
+
+              ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, alpha)})`;
+              ctx.font = `${this.fontSize}px 'Outfit', monospace`;
+              ctx.fillText(this.chars[i], this.x, charY);
+            }
+          }
+          update() {
+            this.y -= this.speed;
+            if (this.y < -(this.length * 20)) {
+              this.reset();
+            }
+            if (Math.random() > 0.98) {
+              this.chars[Math.floor(Math.random() * this.chars.length)] = this.getRandomChar();
+            }
+          }
+        }
+
+        function resize() {
+          const rect = canvas.getBoundingClientRect();
+          width = rect.width;
+          height = rect.height;
+          canvas.width = width;
+          canvas.height = height;
+          initStreams();
+        }
+
+        function initStreams() {
+          streams = [];
+          const spacing = 18;
+          const count = Math.floor(width / spacing);
+          for (let i = 0; i < count; i++) {
+            streams.push(new Stream(i * spacing));
+          }
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, width, height);
+          streams.forEach(s => {
+            s.update();
+            s.draw();
+          });
+          requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        animate();
+      }
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // --- Staggered Entrance Animation for Logos ---
+      document.querySelectorAll('.client-item').forEach((item, index) => {
+        // 간격을 0.15초로 늘리고 개별 애니메이션 속도를 높여 하나씩 팝업되는 느낌 강조
+        item.style.animationDelay = `${0.3 + (index * 0.15)}s`;
+      });
+    </script>
+  </body>
+</html>
