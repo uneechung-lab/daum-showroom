@@ -220,43 +220,43 @@
         background: #020617 !important;
       }
       /* Scrolled Header Style (Ultra-Specific for Vercel) */
-      html body.sub-page header.scrolled:not(.menu-open):not(:hover) {
+      html body.sub-page header.scrolled:not(.menu-open) {
         background: #020617 !important;
         box-shadow: none !important;
       }
-      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .nav-links a,
-      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .nav-item > span {
+      html body.sub-page header.scrolled:not(.menu-open) .nav-links a,
+      html body.sub-page header.scrolled:not(.menu-open) .nav-item > span {
         color: white !important;
       }
-      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .logo .logo-light { 
+      html body.sub-page header.scrolled:not(.menu-open) .logo .logo-light { 
         display: block !important; 
       }
-      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .logo .logo-dark { 
+      html body.sub-page header.scrolled:not(.menu-open) .logo .logo-dark { 
         display: none !important; 
       }
 
-      /* White Theme when menu is open OR hovered interactive areas */
+      /* White Theme ONLY when menu is open OR actual nav item is hovered to show mega menu */
       body.sub-page header.menu-open,
-      body.sub-page header:has(.nav-links:hover),
+      body.sub-page header:has(.nav-item:hover),
       body.sub-page header:has(.gnb-mega-menu:hover) {
         background: #ffffff !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
       }
       body.sub-page header.menu-open .nav-links a,
       body.sub-page header.menu-open .nav-item > span,
-      body.sub-page header:has(.nav-links:hover) .nav-links a,
-      body.sub-page header:has(.nav-links:hover) .nav-item > span,
+      body.sub-page header:has(.nav-item:hover) .nav-links a,
+      body.sub-page header:has(.nav-item:hover) .nav-item > span,
       body.sub-page header:has(.gnb-mega-menu:hover) .nav-links a,
       body.sub-page header:has(.gnb-mega-menu:hover) .nav-item > span {
         color: #1e293b !important;
       }
       body.sub-page header.menu-open .logo .logo-light,
-      body.sub-page header:has(.nav-links:hover) .logo .logo-light,
+      body.sub-page header:has(.nav-item:hover) .logo .logo-light,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-light { 
         display: none !important; 
       }
       body.sub-page header.menu-open .logo .logo-dark,
-      body.sub-page header:has(.nav-links:hover) .logo .logo-dark,
+      body.sub-page header:has(.nav-item:hover) .logo .logo-dark,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-dark { 
         display: block !important; 
       }
@@ -522,9 +522,8 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/solution.html#data">데이터 수집 솔루션</a></li>
-                        <li><a href="/solution.html#process">실시간 분산 처리</a></li>
-                        <li><a href="/solution.html#engine">금융 최적화 엔진</a></li>
+                        <li><a href="/ai-lab.html">AI 리서치 랩</a></li>
+                        <li><a href="/ax-lab.html">AX 이노베이션 랩</a></li>
                       </ul>
                     </div>
                   </div>

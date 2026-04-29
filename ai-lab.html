@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Lab | 다음정보시스템즈</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+        body { font-family: 'Pretendard Variable', sans-serif; background-color: #020617; color: #ffffff; }
+        .logo .logo-dark { display: none !important; }
+        .logo .logo-light { display: block !important; }
+
+        #hero-showcase-box {
+            position: relative; width: 100%; height: 40vh; min-height: 380px; background: #020617; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+        }
+        .grid-layer { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 60px 60px; z-index: 1; opacity: 0.3; }
+        .glow-sphere { position: absolute; width: 350px; height: 350px; background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0) 70%); border-radius: 50%; filter: blur(80px); z-index: 2; opacity: 0; }
+        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 3rem; z-index: 10; }
+        .neon-text { color: #38bdf8; text-shadow: 0 0 30px rgba(56, 189, 248, 0.4); }
+        #header { background: rgba(2, 6, 23, 0.6) !important; backdrop-filter: blur(15px); z-index: 10001 !important; }
+
+        .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; word-break: keep-all; color: white; }
+        .lab-sub { font-size: 1.45rem; color: #94a3b8; font-weight: 400; line-height: 1.7; max-width: 1000px; }
+        
+        .cta-button { background: #020617 !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+        .cta-button:hover { background: #1e293b !important; border-color: rgba(255,255,255,0.4) !important; }
+
+        .phi-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 3rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .phi-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+
+        .stat-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 3.5rem; transition: all 0.4s ease; }
+        .stat-card:hover { border-color: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+
+        #footer { background: #020617; padding: 6rem 0; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="sub-page">
+
+    <header id="header">
+      <div class="container">
+        <nav>
+          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS" class="logo-light"><img src="/ci_02.png" alt="DAUMIS" class="logo-dark"></a>
+          <button class="mobile-toggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+          <div class="nav-right">
+            <ul class="nav-links">
+              <li class="nav-item"><span>비지니스</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>비즈니스</h3><p>차세대 금융 인프라를 구축합니다.</p></div><div class="mega-right"><ul><li><a href="/business.html">퇴직연금시스템</a></li><li><a href="/investment.html">집합투자증권</a></li><li><a href="/mutual.html">공제업무시스템</a></li><li><a href="/sales.html">영업지원시스템</a></li><li><a href="/asset.html">자산관리시스템</a></li></ul></div></div></div></li>
+              <li class="nav-item"><span>프로젝트</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>프로젝트</h3><p>금융 프로젝트 성과입니다.</p></div><div class="mega-right"><ul><li><a href="/project.html">프로젝트 실적</a></li><li><a href="/clients.html">고객사 & 파트너십</a></li></ul></div></div></div></li>
+              <li class="nav-item active"><span>NEXT 랩</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>NEXT 랩</h3><p>금융 로직을 안정적으로 처리합니다.</p></div><div class="mega-right"><ul><li><a href="/ai-lab.html" class="active">AI 리서치 랩</a></li><li><a href="/ax-lab.html">AX 이노베이션 랩</a></li></ul></div></div></div></li>
+              <li class="nav-item"><span>회사소개</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>회사소개</h3><p>비전과 철학입니다.</p></div><div class="mega-right"><ul><li><a href="/company.html#intro">소개</a></li><li><a href="/company.html#ceo">CEO</a></li><li><a href="/company.html#vision">비전</a></li><li><a href="/company.html#history">연혁</a></li><li><a href="/company.html#contact">Contact</a></li></ul></div></div></div></li>
+            </ul>
+            <a href="/#inquiry" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+        <section class="pb-24" style="padding-top: 180px !important;">
+            <div class="container">
+                <div class="text-left">
+                    <span class="text-slate-500 font-mono text-xs tracking-[0.4em] uppercase mb-4 block font-black">AI Research Center</span>
+                    <h1 class="lab-title">데이터에서 찾은<br>지능형 금융의 해답</h1>
+                    <p class="lab-sub">AI Research Lab은 금융 시장의 방대한 데이터를 실시간으로 분석하여 최적의 비즈니스 인사이트를 도출하는 차세대 엔진을 연구합니다.</p>
+                </div>
+                <div id="hero-showcase-box">
+                    <div class="grid-layer"></div>
+                    <div id="glow1" class="glow-sphere" style="top: 5%; left: 10%;"></div>
+                    <div id="glow2" class="glow-sphere" style="bottom: 5%; right: 10%;"></div>
+                    <h2 class="intro-text text-1">데이터를 <span class="neon-text">지능</span>으로</h2>
+                    <div class="phase-2-wrapper absolute inset-0 flex flex-col items-center justify-center opacity-0 invisible pointer-events-none">
+                        <h2 class="text-4xl md:text-5xl font-black mb-12 tracking-tight text-center">차세대 금융 AI 엔진<br><span class="text-slate-400">D-CORE</span></h2>
+                        <div class="relative w-64 h-64 flex items-center justify-center">
+                            <div class="absolute inset-0 border border-white/10 rounded-full animate-[ping_3s_infinite]"></div>
+                            <div class="w-16 h-16 bg-slate-800 rounded-2xl shadow-[0_0_50px_rgba(255,255,255,0.1)] flex items-center justify-center"><i data-lucide="brain" class="text-white w-8 h-8"></i></div>
+                        </div>
+                    </div>
+                    <div class="final-settle opacity-0 invisible flex flex-col items-center">
+                        <div class="w-20 h-20 border-2 border-slate-700 rounded-[32px] flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(255,255,255,0.05)]"><span class="text-white font-black text-3xl">AI</span></div>
+                        <h1 class="text-4xl font-bold tracking-tight">AI Research Lab</h1>
+                        <p class="text-slate-500 mt-6 font-mono tracking-[0.3em] text-[10px] uppercase bg-white/5 px-5 py-2 rounded-full border border-white/10">Future Intelligence</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 bg-[#020617] border-t border-white/5">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="stat-card">
+                        <h4 class="text-5xl font-black mb-4 italic text-white">99.8%</h4>
+                        <p class="text-slate-500 text-xs tracking-[0.4em] uppercase font-bold">Accuracy Rate</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 class="text-5xl font-black mb-4 italic text-white">0.2ms</h4>
+                        <p class="text-slate-500 text-xs tracking-[0.4em] uppercase font-bold">Processing Latency</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+          <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+            <div style="margin-left: -16px; padding: 0;">
+              <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+                <span style="font-size: 2.2rem; font-weight: 800; color: #FFB800; letter-spacing: -1px; line-height: 1;">DAUMIS</span>
+                <span style="font-size: 1.2rem; font-weight: 700; color: #FFB800; margin-left: 12px;">다음정보시스템즈</span>
+              </div>
+              <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
+              <p style="color: #94a3b8; font-size: 0.85rem; opacity: 0.6;">Copyright© 2019 by DAUM IS. All right reserved.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+              <div>
+                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: white;">Contact</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                  <li>T. 02-6247-8413</li>
+                  <li>F. 070-4713-9499</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: white;">금융센터</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                  <li>(07332) 서울시 영등포구</li>
+                  <li>국제금융로2길 27-9,</li>
+                  <li>경북빌딩 603호</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: white;">본사</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                  <li>(08791) 서울시 관악구</li>
+                  <li>관악로 120</li>
+                  <li>아주빌딩 3층</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
+          </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const lenis = new Lenis();
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            const tl = gsap.timeline();
+            tl.set(".text-1", { visibility: 'visible' }).fromTo(".text-1", { opacity: 0, scale: 0.9, filter: 'blur(15px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 }).to(".text-1", { opacity: 0, scale: 1.1, filter: 'blur(10px)', duration: 0.6, ease: 'power2.in' }, "+=0.4");
+            tl.set(".phase-2-wrapper", { visibility: 'visible' }).fromTo(".phase-2-wrapper", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8 }).to(".phase-2-wrapper", { opacity: 0, scale: 1.05, duration: 0.6, ease: 'power2.in' }, "+=0.5");
+            tl.set(".final-settle", { visibility: 'visible' }).fromTo(".final-settle", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" });
+        });
+    </script>
+</body>
+</html>
