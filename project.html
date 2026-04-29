@@ -160,6 +160,7 @@
       }
       .tag.blue { color: #0066FF; background: rgba(0, 102, 255, 0.05); }
       .tag.orange { color: #f97316; background: rgba(249, 115, 22, 0.05); }
+      .tag.purple { color: #8b5cf6; background: rgba(139, 92, 246, 0.05); }
 
       .project-info h3 {
         font-size: 1.3rem;
@@ -216,10 +217,9 @@
       header {
         position: fixed !important;
         z-index: 99999 !important;
-        transform: translateZ(0); /* Force GPU stacking */
         background: #020617 !important;
       }
-      /* Maintain dark header even on scroll for this page */
+      /* Scrolled Header Style (Default Black) */
       body.sub-page header.scrolled {
         background: #020617 !important;
         box-shadow: none !important;
@@ -230,7 +230,33 @@
       }
       body.sub-page header.scrolled .logo .logo-light { display: block !important; }
       body.sub-page header.scrolled .logo .logo-dark { display: none !important; }
-      
+
+      /* White Theme when menu is open OR hovered interactive areas */
+      body.sub-page header.menu-open,
+      body.sub-page header:has(.nav-links:hover),
+      body.sub-page header:has(.gnb-mega-menu:hover) {
+        background: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+      }
+      body.sub-page header.menu-open .nav-links a,
+      body.sub-page header.menu-open .nav-item > span,
+      body.sub-page header:has(.nav-links:hover) .nav-links a,
+      body.sub-page header:has(.nav-links:hover) .nav-item > span,
+      body.sub-page header:has(.gnb-mega-menu:hover) .nav-links a,
+      body.sub-page header:has(.gnb-mega-menu:hover) .nav-item > span {
+        color: #1e293b !important;
+      }
+      body.sub-page header.menu-open .logo .logo-light,
+      body.sub-page header:has(.nav-links:hover) .logo .logo-light,
+      body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-light { 
+        display: none !important; 
+      }
+      body.sub-page header.menu-open .logo .logo-dark,
+      body.sub-page header:has(.nav-links:hover) .logo .logo-dark,
+      body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-dark { 
+        display: block !important; 
+      }
+
       header .logo {
         position: relative;
         z-index: 100000 !important;
@@ -412,7 +438,7 @@
         letter-spacing: -0.03em;
       }
       body.sub-page .slim-hero .hero-sub {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         color: var(--text-secondary);
         max-width: 800px;
         line-height: 1.6;
@@ -561,20 +587,21 @@
         <div class="tabs-nav">
           <div class="container">
             <div class="project-tabs">
-              <button class="tab-btn active" data-tab="all"><i data-lucide="layers"></i>전체 (131)</button>
-              <button class="tab-btn" data-tab="pension"><i data-lucide="wallet"></i>퇴직연금 (57)</button>
+              <button class="tab-btn active" data-tab="all"><i data-lucide="layers"></i>전체 (148)</button>
+              <button class="tab-btn" data-tab="pension"><i data-lucide="wallet"></i>퇴직연금 (59)</button>
               <button class="tab-btn" data-tab="investment"><i data-lucide="trending-up"></i>집합투자증권 (18)</button>
-              <button class="tab-btn" data-tab="mutual"><i data-lucide="shield-check"></i>공제업무시스템 (13)</button>
-              <button class="tab-btn" data-tab="etc"><i data-lucide="settings"></i>유지보수 및 기타 (43)</button>
+              <button class="tab-btn" data-tab="mutual"><i data-lucide="shield-check"></i>공제업무시스템 (15)</button>
+              <button class="tab-btn" data-tab="consulting"><i data-lucide="clipboard-list"></i>컨설팅 (0)</button>
+              <button class="tab-btn" data-tab="etc"><i data-lucide="settings"></i>유지보수 및 기타 (56)</button>
             </div>
           </div>
         </div>
 
-        <section class="service-intro" style="padding-top: 5rem; padding-bottom: 2rem;">
+        <section class="service-intro" style="padding-top: 8rem; padding-bottom: 2rem;">
           <div class="container">
             <!-- Ongoing Projects Section (Carousel) -->
-            <div id="ongoing-section" style="margin-bottom: 6rem;">
-              <h2 style="font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-bottom: 4rem; letter-spacing: -0.02em;">
+            <div id="ongoing-section" style="margin-top: 0; margin-bottom: 4rem;">
+              <h2 style="margin-top: 0; font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-bottom: 4rem; letter-spacing: -0.02em;">
                 오늘도 끊임없는<br>
                 <span style="font-size: 2.8rem; opacity: 1;">금융 혁신의 과정, <span style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">진행중인 프로젝트</span></span>
               </h2>
@@ -612,9 +639,10 @@
                         </div>
                         <div class="project-content">
                           <div class="content-top">
-                            <div class="card-icon"><i data-lucide="trending-up"></i></div>
+                            <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
                             <div class="card-tags">
-                              <span class="tag blue">Investment</span>
+                              <span class="tag purple">Consulting</span>
+                              <span class="tag orange">Investment</span>
                               <span class="tag ongoing">Ongoing</span>
                             </div>
                           </div>
@@ -660,12 +688,30 @@
               </div>
             </div>
 
-            <h2 id="archive-title" style="font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-top: 8rem; margin-bottom: 3rem; letter-spacing: -0.02em;">
+            <h2 id="archive-title" style="font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-top: 0; margin-bottom: 3rem; letter-spacing: -0.02em;">
               <span id="archive-title-line1">신뢰로 쌓아온</span><br>
-              <span id="archive-title-main">성공 기록, <span id="archive-tab-name"></span></span><span id="archive-title-suffix" style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">프로젝트 아카이브</span>
+              <span id="archive-title-main"><span id="archive-tab-name"></span></span><span id="archive-title-suffix" style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">프로젝트 아카이브</span>
             </h2>
             <div id="project-grid" class="project-grid">
               
+              <!-- ONGOING PROJECTS (Also in Grid) -->
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag ongoing">Ongoing</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">키움증권</span> 퇴직연금시스템 구축</h3></div>
+                <div class="project-year">2025.04 ~ 현재</div>
+              </div>
+              <div class="project-card" data-category="pension" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag ongoing">Ongoing</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">삼성증권</span> 퇴직연금 고객중심 서비스 개선</h3></div>
+                <div class="project-year">2024.10 ~ 현재</div>
+              </div>
+
               <!-- NEW ADDITIONS -->
               <div class="project-card" data-category="pension" data-recent="true">
                 <div class="card-header">
@@ -683,10 +729,18 @@
                 <div class="project-info"><h3><span class="company-name">우리투자증권</span> IRP시스템 ETF 개발</h3></div>
                 <div class="project-year">2025.06</div>
               </div>
-              <div class="project-card" data-category="pension" data-recent="true">
+              <div class="project-card" data-category="consulting" data-recent="true">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="wallet"></i></div>
-                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag orange">Investment</span><span class="tag ongoing">Ongoing</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">토스뱅크</span> 집합투자증권 인가컨설팅(판매솔루션 포함)</h3></div>
+                <div class="project-year">2024.09 ~ 현재</div>
+              </div>
+              <div class="project-card" data-category="consulting" data-recent="true">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
                 </div>
                 <div class="project-info"><h3><span class="company-name">키움증권</span> 연금사업 추진 PI(퇴직연금시스템 구축 컨설팅지원)</h3></div>
                 <div class="project-year">2025.02</div>
@@ -699,10 +753,10 @@
                 <div class="project-info"><h3><span class="company-name">대신증권</span> 퇴직연금 실물이전 추가개발</h3></div>
                 <div class="project-year">2024.12</div>
               </div>
-              <div class="project-card" data-category="pension" data-recent="true">
+              <div class="project-card" data-category="consulting" data-recent="true">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="wallet"></i></div>
-                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
                 </div>
                 <div class="project-info"><h3><span class="company-name">현대차증권</span> 차세대 사전준비 프로젝트(퇴직연금 업무컨설팅)</h3></div>
                 <div class="project-year">2024.06</div>
@@ -765,13 +819,13 @@
                 <div class="project-info"><h3><span class="company-name">KDB산업은행</span> 사전지정운용제도 시스템 개발</h3></div>
                 <div class="project-year">2023.01</div>
               </div>
-              <div class="project-card" data-category="pension" data-recent="true">
+              <div class="project-card" data-category="consulting" data-recent="true">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="wallet"></i></div>
-                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
                 </div>
-                <div class="project-info"><h3><span class="company-name">미래에셋증권</span> 연금 차세대 구축 1단계</h3></div>
-                <div class="project-year">2023.05</div>
+                <div class="project-info"><h3><span class="company-name">미래에셋증권</span> 연금 차세대 구축 1단계(업무컨설팅)</h3></div>
+                <div class="project-year">2023.05 ~ 2023.09</div>
               </div>
               <div class="project-card" data-category="pension" data-recent="true">
                 <div class="card-header">
@@ -885,13 +939,13 @@
                 <div class="project-info"><h3><span class="company-name">한화금융투자</span> STEPS/DAM 개발 및 운영 도급계약</h3></div>
                 <div class="project-year">2019.05</div>
               </div>
-              <div class="project-card" data-category="pension" data-recent="false">
+              <div class="project-card" data-category="consulting" data-recent="false">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="wallet"></i></div>
-                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
                 </div>
                 <div class="project-info"><h3><span class="company-name">NH투자증권</span> 퇴직연금 전산 재구축을 위한 사전컨설팅</h3></div>
-                <div class="project-year">2019.05</div>
+                <div class="project-year">2019.09</div>
               </div>
               <div class="project-card" data-category="pension" data-recent="false">
                 <div class="card-header">
@@ -1126,6 +1180,24 @@
                 <div class="project-year">2014.02</div>
               </div>
 
+              <!-- Missing Pension Projects -->
+              <div class="project-card" data-category="pension" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="wallet"></i></div>
+                  <div class="card-tags"><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대신증권</span> 퇴직연금 ETF시스템 구축</h3></div>
+                <div class="project-year">2018.07</div>
+              </div>
+              <div class="project-card" data-category="consulting" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag blue">Pension</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">현대증권</span> 퇴직연금 통합업무요건 분석</h3></div>
+                <div class="project-year">2015.06</div>
+              </div>
+
               <!-- INVESTMENT Cards (18) -->
               <div class="project-card" data-category="investment" data-recent="true">
                 <div class="card-header">
@@ -1135,18 +1207,18 @@
                 <div class="project-info"><h3><span class="company-name">카카오뱅크</span> 펀드시스템 통합테스트 업무대행</h3></div>
                 <div class="project-year">2023.10</div>
               </div>
-              <div class="project-card" data-category="investment" data-recent="true">
+              <div class="project-card" data-category="consulting" data-recent="true">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
-                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
                 </div>
                 <div class="project-info"><h3><span class="company-name">카카오뱅크</span> 집합투자증권 투자중개업 컨설팅_테스트</h3></div>
                 <div class="project-year">2023.08</div>
               </div>
-              <div class="project-card" data-category="investment" data-recent="true">
+              <div class="project-card" data-category="consulting" data-recent="true">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="trending-up"></i></div>
-                  <div class="card-tags"><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag orange">Investment</span><span class="tag">Finance</span></div>
                 </div>
                 <div class="project-info"><h3><span class="company-name">카카오뱅크</span> 집합투자증권 컨설팅(ISP)</h3></div>
                 <div class="project-year">2021.06</div>
@@ -1353,10 +1425,10 @@
                 <div class="project-info"><h3><span class="company-name">경찰공제회</span> 회원관리시스템 웹서버이관</h3></div>
                 <div class="project-year">2015.04</div>
               </div>
-              <div class="project-card" data-category="mutual" data-recent="false">
+              <div class="project-card" data-category="consulting" data-recent="false">
                 <div class="card-header">
-                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
-                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                  <div class="card-icon"><i data-lucide="clipboard-list"></i></div>
+                  <div class="card-tags"><span class="tag purple">Consulting</span><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
                 </div>
                 <div class="project-info"><h3><span class="company-name">근로복지공단</span> 중소기업 퇴직연금기금제도 ISP연구용역</h3></div>
                 <div class="project-year">2014.11</div>
@@ -1376,6 +1448,24 @@
                 </div>
                 <div class="project-info"><h3><span class="company-name">과학기술인공제회</span> 정보시스템 통합운영관리 용역</h3></div>
                 <div class="project-year">2014.04</div>
+              </div>
+
+              <!-- Missing Mutual Projects -->
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">대한소방공제회</span> 정보시스템 통합유지보수 용역</h3></div>
+                <div class="project-year">2019.09</div>
+              </div>
+              <div class="project-card" data-category="mutual" data-recent="false">
+                <div class="card-header">
+                  <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                  <div class="card-tags"><span class="tag blue">Mutual</span><span class="tag">Finance</span></div>
+                </div>
+                <div class="project-info"><h3><span class="company-name">경찰공제회</span> 회원관리/홈페이지 유지보수</h3></div>
+                <div class="project-year">2016.01</div>
               </div>
 
               <!-- ETC Cards (43) -->
@@ -1792,7 +1882,7 @@
         let currentTab = 'all';
 
         function updateFilter() {
-          const cards = Array.from(document.querySelectorAll('.project-card'));
+          const cards = Array.from(grid.querySelectorAll('.project-card'));
           const filteredCards = cards.filter(card => currentTab === 'all' || card.dataset.category === currentTab);
           const totalInTab = filteredCards.length;
 
@@ -1802,10 +1892,11 @@
           const archiveTabName = document.getElementById('archive-tab-name');
 
           const titleMap = {
-            all: { line1: '신뢰로 쌓아온', tabName: '' },
+            all: { line1: '신뢰로 쌓아온', tabName: '성공 기록,' },
             pension: { line1: '내일을 설계하는', tabName: '퇴직연금' },
             investment: { line1: '가치를 증명하는', tabName: '집합투자증권' },
             mutual: { line1: '함께 성장을 돕는', tabName: '공제회' },
+            consulting: { line1: '미래를 진단하는', tabName: '컨설팅' },
             etc: { line1: '빈틈없이 관리한', tabName: '유지보수 및 기타' }
           };
           
@@ -1850,6 +1941,43 @@
 
           if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
         }
+
+        // --- NEW: DYNAMIC TAB COUNTS ---
+        function initializeTabCounts() {
+          const gridCards = grid.querySelectorAll('.project-card');
+          const counts = {
+            all: gridCards.length,
+            pension: grid.querySelectorAll('.project-card[data-category="pension"]').length,
+            investment: grid.querySelectorAll('.project-card[data-category="investment"]').length,
+            mutual: grid.querySelectorAll('.project-card[data-category="mutual"]').length,
+            consulting: grid.querySelectorAll('.project-card[data-category="consulting"]').length,
+            etc: grid.querySelectorAll('.project-card[data-category="etc"]').length
+          };
+
+          const tabNameMap = {
+            all: '전체',
+            pension: '퇴직연금',
+            investment: '집합투자증권',
+            mutual: '공제업무시스템',
+            consulting: '컨설팅',
+            etc: '유지보수 및 기타'
+          };
+
+          tabBtns.forEach(btn => {
+            const tab = btn.dataset.tab;
+            const count = counts[tab] || 0;
+            const tabName = tabNameMap[tab];
+            const icon = btn.querySelector('i');
+            const iconHtml = icon ? icon.outerHTML : '';
+            
+            btn.innerHTML = `${iconHtml}${tabName} (${count})`;
+          });
+          
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        initializeTabCounts();
+        // --- END NEW ---
 
         tabBtns.forEach(btn => {
           btn.addEventListener('click', () => {

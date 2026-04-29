@@ -416,7 +416,7 @@ body.sub-page .gnb-mega-menu {
 
 /* Controlled by JS - .active class shows the menu */
 .gnb-mega-menu.active {
-  height: 400px; /* Fixed height to prevent flickering when switching categories */
+  height: 330px; /* Reduced height to fit menu items */
   opacity: 1;
   padding: 0 !important; /* Force remove all default padding */
   pointer-events: auto;
