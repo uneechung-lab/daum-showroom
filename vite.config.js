@@ -16,6 +16,8 @@ export default defineConfig({
         sales: resolve(__dirname, 'sales.html'),
         asset: resolve(__dirname, 'asset.html'),
         clients: resolve(__dirname, 'clients.html'),
+        axlab: resolve(__dirname, 'ax-lab.html'),
+        ailab: resolve(__dirname, 'ai-lab.html'),
       },
     },
   },
