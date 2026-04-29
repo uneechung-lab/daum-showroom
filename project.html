@@ -219,17 +219,21 @@
         z-index: 99999 !important;
         background: #020617 !important;
       }
-      /* Scrolled Header Style (Default Black) */
-      body.sub-page header.scrolled {
+      /* Scrolled Header Style (Ultra-Specific for Vercel) */
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) {
         background: #020617 !important;
         box-shadow: none !important;
       }
-      body.sub-page header.scrolled .nav-links a,
-      body.sub-page header.scrolled .nav-item > span {
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .nav-links a,
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .nav-item > span {
         color: white !important;
       }
-      body.sub-page header.scrolled .logo .logo-light { display: block !important; }
-      body.sub-page header.scrolled .logo .logo-dark { display: none !important; }
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .logo .logo-light { 
+        display: block !important; 
+      }
+      html body.sub-page header.scrolled:not(.menu-open):not(:hover) .logo .logo-dark { 
+        display: none !important; 
+      }
 
       /* White Theme when menu is open OR hovered interactive areas */
       body.sub-page header.menu-open,
