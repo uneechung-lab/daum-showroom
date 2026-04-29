@@ -15,6 +15,7 @@ export default defineConfig({
         mutual: resolve(__dirname, 'mutual.html'),
         sales: resolve(__dirname, 'sales.html'),
         asset: resolve(__dirname, 'asset.html'),
+        clients: resolve(__dirname, 'clients.html'),
       },
     },
   },
