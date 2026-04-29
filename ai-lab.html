@@ -149,16 +149,28 @@
 
     <script type="module" src="/src/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            const lenis = new Lenis();
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
+        function initAnimations() {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            if (typeof gsap === 'undefined') return;
+
             const tl = gsap.timeline();
-            tl.set(".text-1", { visibility: 'visible' }).fromTo(".text-1", { opacity: 0, scale: 0.9, filter: 'blur(15px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 }).to(".text-1", { opacity: 0, scale: 1.1, filter: 'blur(10px)', duration: 0.6, ease: 'power2.in' }, "+=0.4");
-            tl.set(".phase-2-wrapper", { visibility: 'visible' }).fromTo(".phase-2-wrapper", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8 }).to(".phase-2-wrapper", { opacity: 0, scale: 1.05, duration: 0.6, ease: 'power2.in' }, "+=0.5");
-            tl.set(".final-settle", { visibility: 'visible' }).fromTo(".final-settle", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" });
-        });
+            tl.set(".text-1", { visibility: 'visible' })
+              .fromTo(".text-1", { opacity: 0, scale: 0.9, filter: 'blur(15px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 })
+              .to(".text-1", { opacity: 0, scale: 1.1, filter: 'blur(10px)', duration: 0.6, ease: 'power2.in' }, "+=0.4");
+
+            tl.set(".phase-2-wrapper", { visibility: 'visible' })
+              .fromTo(".phase-2-wrapper", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8 })
+              .to(".phase-2-wrapper", { opacity: 0, scale: 1.05, duration: 0.6, ease: 'power2.in' }, "+=0.5");
+
+            tl.set(".final-settle", { visibility: 'visible' })
+              .fromTo(".final-settle", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" });
+        }
+
+        if (document.readyState === 'complete') {
+            initAnimations();
+        } else {
+            window.addEventListener('load', initAnimations);
+        }
     </script>
 </body>
 </html>

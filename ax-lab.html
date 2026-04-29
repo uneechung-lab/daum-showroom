@@ -251,16 +251,30 @@
 
     <script type="module" src="/src/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            const lenis = new Lenis();
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
+        function initAnimations() {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            if (typeof gsap === 'undefined') return;
+
             const tl = gsap.timeline();
-            tl.set(".text-1", { visibility: 'visible' }).fromTo(".text-1", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "power3.out" }).to(".text-1", { opacity: 0, scale: 1.1, duration: 0.5, ease: "power2.in" }, "+=0.4");
-            tl.set(".text-2", { visibility: 'visible' }).fromTo(".text-2", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 }).fromTo(".icon-particle", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, x: (i) => [-180, 220, -120, 180][i], y: (i) => [-120, -60, 160, 90][i], duration: 0.8, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.3").to(".step-2-wrapper", { opacity: 0, y: -20, duration: 0.6 }, "+=0.5");
-            tl.set(".final-logo", { visibility: 'visible' }).fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" });
-        });
+            tl.set(".text-1", { visibility: 'visible' })
+              .fromTo(".text-1", { opacity: 0, scale: 0.9, filter: 'blur(15px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 })
+              .to(".text-1", { opacity: 0, scale: 1.1, filter: 'blur(10px)', duration: 0.6, ease: 'power2.in' }, "+=0.4");
+
+            tl.set(".step-2-wrapper", { visibility: 'visible' })
+              .fromTo(".text-2", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 })
+              .fromTo(".icon-particle", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, x: (i) => [-180, 220, -120, 180][i], y: (i) => [-120, -60, 160, 90][i], duration: 0.8, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.3")
+              .to(".step-2-wrapper", { opacity: 0, y: -20, duration: 0.6 }, "+=0.5");
+
+            tl.set(".final-logo", { visibility: 'visible' })
+              .fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" });
+            gsap.to(".container", { opacity: 1, y: 0, duration: 1, stagger: 0.2 });
+        }
+
+        if (document.readyState === 'complete') {
+            initAnimations();
+        } else {
+            window.addEventListener('load', initAnimations);
+        }
     </script>
 </body>
 </html>
