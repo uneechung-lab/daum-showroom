@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
-        body { font-family: 'Pretendard Variable', sans-serif; background-color: #020617; color: #ffffff; margin: 0; }
+        body { font-family: 'Pretendard Variable', sans-serif; background-color: #ffffff; color: #020617; margin: 0; }
         .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; box-sizing: border-box; }
         .grid { display: grid; }
         .flex { display: flex; }
@@ -20,47 +20,145 @@
         .flex-col { flex-direction: column; }
         .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
         @media (min-width: 768px) {
-            .md-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         }
-        .gap-4 { gap: 1rem; }
+        @media (min-width: 1024px) {
+            .lg-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        .gap-6 { gap: 1.5rem; }
         .gap-8 { gap: 2rem; }
         .gap-12 { gap: 3rem; }
         
         .py-32 { padding-top: 8rem; padding-bottom: 8rem; }
-        .pb-24 { padding-bottom: 6rem; }
         .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
         .mb-8 { margin-bottom: 2rem; }
-        .mb-12 { margin-bottom: 3rem; }
+        .mb-10 { margin-bottom: 2.5rem; }
+        .mb-16 { margin-bottom: 4rem; }
+        .mb-20 { margin-bottom: 5rem; }
         .block { display: block; }
-        .absolute { position: absolute; }
-        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
 
-        /* Header Style for AI Lab (Dark Page but needs mega menu support) */
+        /* Header Style for White Theme */
         #header { 
             position: fixed; top: 0; left: 0; width: 100%; 
-            background: rgba(2, 6, 23, 0.6) !important; 
-            backdrop-filter: blur(15px); 
+            background: #ffffff !important; 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             z-index: 100001 !important; 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
             transition: all 0.3s ease;
         }
-        /* AI Lab Header follows original dark theme logic in style.css */
+        #header .nav-links a, #header .nav-item > span { color: #1e293b !important; }
+        #header .logo .logo-light { display: none !important; }
+        #header .logo .logo-dark { display: block !important; }
+        #header .cta-button { background: #020617 !important; color: #ffffff !important; }
 
+        /* Custom Logo for AX Lab */
+        #header .logo { height: 55px !important; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+        #header .logo img { height: 100%; width: auto; }
+        .logo-text { font-family: 'Pretendard', sans-serif; font-size: 1rem; font-weight: 400; color: #0f172a; letter-spacing: -0.02em; white-space: nowrap; }
+
+        /* Showcase Box (Research Lab Style) */
         #hero-showcase-box {
-            position: relative; width: 100%; height: 40vh; min-height: 380px; background: #020617; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+            position: relative; width: 100%; height: 500px; background: #f8fafc; border-radius: 40px; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 50px rgba(0,0,0,0.02); transition: background 0.5s ease;
         }
-        .grid-layer { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 60px 60px; z-index: 1; opacity: 0.3; }
-        .glow-sphere { position: absolute; width: 350px; height: 350px; background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0) 70%); border-radius: 50%; filter: blur(80px); z-index: 2; opacity: 0; }
-        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 3rem; z-index: 10; color: white; }
-        .neon-text { color: #38bdf8; text-shadow: 0 0 30px rgba(56, 189, 248, 0.4); }
-
-        .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; word-break: keep-all; color: white !important; }
-        .lab-sub { font-size: 1.45rem; color: #94a3b8 !important; font-weight: 400; line-height: 1.7; max-width: 1000px; }
+        .bg-blobs { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+        .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.25; }
+        .blob-1 { background: #0ea5e9; top: -10%; left: 5%; } /* Cyan */
+        .blob-2 { background: #10b981; bottom: -10%; right: 5%; } /* Emerald */
+        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 2.8rem; z-index: 10; color: #020617; }
         
-        .stat-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 3.5rem; transition: all 0.4s ease; }
-        .stat-card:hover { border-color: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+        .code-showcase-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 20; padding: 2rem; background: #0f172a; border-radius: 32px; overflow: hidden; }
+        .code-stream { 
+            position: absolute; inset: 0; padding: 2.5rem; 
+            font-family: 'JetBrains Mono', 'Fira Code', monospace; 
+            font-size: 0.95rem; line-height: 1.35; color: #cbd5e1; 
+            opacity: 1; pointer-events: none; overflow: hidden;
+            letter-spacing: -0.01em;
+            /* Top fade-out effect */
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 100%);
+        }
+        .code-content-wrapper {
+            position: absolute; top: 2.5rem; left: 2.5rem; right: 2.5rem;
+            display: flex; flex-direction: column;
+            transition: transform 0.3s ease-out;
+        }
+        .code-cursor {
+            display: inline-block; width: 8px; height: 1.2em;
+            background: #0ea5e9; margin-left: 4px; vertical-align: middle;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .code-line { white-space: nowrap; margin-bottom: 0.5rem; }
+        .code-indent { margin-left: 1.5rem; }
 
-        #footer { background: #020617; padding: 6rem 0; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        #hero-showcase-info { opacity: 0; display: none; flex: 1; padding-left: 2rem; }
+        .info-label { color: #0ea5e9 !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; display: block; }
+        .info-title { font-size: 2.2rem; font-weight: 900; color: #0f172a; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
+        .info-desc { font-size: 1.25rem; color: #64748b; line-height: 1.6; margin-bottom: 3rem; word-break: keep-all; }
+        
+        .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; }
+        .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1000px; margin-bottom: 2rem; }
+        
+        .section-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem !important;
+            font-weight: 800 !important;
+            color: #0ea5e9 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .phi-card { 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 16px; 
+            padding: 2.2rem 2.5rem; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); 
+            text-align: left;
+        }
+        .phi-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); border-color: #0ea5e9; }
+        .phi-icon { 
+            width: 48px; 
+            height: 48px; 
+            background: transparent; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start;
+            position: relative;
+        }
+        .phi-icon i, .phi-icon svg { 
+            width: 32px !important; 
+            height: 32px !important; 
+            color: #0ea5e9 !important; 
+            stroke-width: 1.5px;
+            position: relative;
+        }
+
+        .stack-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .stack-card:hover { border-color: #0ea5e9; background: white; transform: translateX(5px); }
+        .stack-icon { width: 40px; height: 40px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+        .process-flow { display: flex; align-items: flex-start; justify-content: space-between; position: relative; padding: 3rem 0; margin-top: 3rem; }
+        .process-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; text-align: left; position: relative; z-index: 2; padding-right: 1.5rem; }
+        .step-circle { width: 40px; height: 40px; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 2rem; position: relative; z-index: 3; }
+        .step-arrow { position: absolute; top: 44px; left: 40px; width: calc(100% - 60px); height: 2px; background: #0ea5e9; opacity: 0.3; z-index: 1; }
+        .process-step:last-child .step-arrow { display: none; }
+
+        #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
     </style>
 </head>
 <body class="sub-page">
@@ -68,7 +166,11 @@
     <header id="header">
       <div class="container">
         <nav>
-          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS" class="logo-light"><img src="/ci_02.png" alt="DAUMIS" class="logo-dark"></a>
+          <a href="/" class="logo">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
+            <span class="logo-text">다음정보시스템즈</span>
+          </a>
           
           <button class="mobile-toggle" aria-label="메뉴 열기">
             <span></span>
@@ -179,112 +281,316 @@
     </header>
 
     <main>
-        <section class="pb-24" style="padding-top: 180px !important;">
+        <!-- Hero Section -->
+        <section class="py-32" style="padding-top: 180px !important; padding-bottom: 4rem;">
             <div class="container">
                 <div style="text-align: left;">
-                    <span style="color: #64748b; font-family: monospace; font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 1rem; display: block; font-weight: 900;">AI Research Center</span>
-                    <h1 class="lab-title" style="margin-bottom: 2rem;">데이터에서 찾은<br>지능형 금융의 해답</h1>
-                    <p class="lab-sub">AI Research Lab은 금융 시장의 방대한 데이터를 실시간으로 분석하여 최적의 비즈니스 인사이트를 도출하는 차세대 엔진을 연구합니다.</p>
+                    <h1 class="lab-title">AI가 설계하고<br>사람이 완성하는 개발의 미래.</h1>
+                    <p class="lab-sub">
+                        AI Research Lab은 AI 기반 차세대 개발 환경과 독자적인 SI 방법론을 연구합니다.<br>
+                        인공지능 기술을 활용하여 소프트웨어 개발 생산성과 품질을 혁신하는 새로운 패러다임을 준비합니다.
+                        <span id="reset-showcase" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: #f1f5f9; border-radius: 50%; margin-left: 10px; vertical-align: middle; transition: all 0.3s ease; border: 1px solid #e2e8f0;">
+                            <i data-lucide="refresh-cw" style="width: 14px; height: 14px; color: #64748b;"></i>
+                        </span>
+                    </p>
                 </div>
-                <div id="hero-showcase-box">
-                    <div class="grid-layer"></div>
-                    <div id="glow1" class="glow-sphere" style="top: 5%; left: 10%;"></div>
-                    <div id="glow2" class="glow-sphere" style="bottom: 5%; right: 10%;"></div>
-                    <h2 class="intro-text text-1">데이터를 <span class="neon-text">지능</span>으로</h2>
-                    <div class="phase-2-wrapper absolute inset-0 flex flex-col items-center justify-center opacity-0 invisible pointer-events-none">
-                        <h2 style="font-size: 3rem; font-weight: 900; margin-bottom: 3rem; text-align: center;">차세대 금융 AI 엔진<br><span style="color: #64748b;">D-CORE</span></h2>
-                        <div style="position: relative; width: 16rem; height: 16rem; display: flex; items-center; justify-center;">
-                            <div style="position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 999px;"></div>
-                            <div style="width: 4rem; height: 4rem; background: #1e293b; border-radius: 1rem; display: flex; items-center; justify-center; margin: auto;"><i data-lucide="brain" style="color: white; width: 2rem; height: 2rem;"></i></div>
+                
+                <div id="hero-showcase-wrapper" style="position: relative; width: 100%; min-height: 600px; margin-top: 3.5rem;">
+                    <div id="hero-showcase-box" style="margin-top: 0; position: absolute; left: 0; width: 100%; border: 0px solid transparent;">
+                        <div class="bg-blobs">
+                            <div class="blob blob-1"></div>
+                            <div class="blob blob-2"></div>
+                        </div>
+                        
+                        <h2 class="intro-text text-1">Future of <span style="color: #0ea5e9;">Development</span></h2>
+                        
+                        <div class="step-2-wrapper intro-text text-2 flex flex-col items-center">
+                            <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 2rem;">차세대 SI 방법론을 구현합니다</h2>
+                            <div class="flex gap-6">
+                                <div style="width: 60px; height: 60px; background: white; border-radius: 12px; display: flex; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="code" style="width: 28px; height: 28px; color: #0ea5e9; margin: auto;"></i></div>
+                                <div style="width: 60px; height: 60px; background: white; border-radius: 12px; display: flex; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="bot" style="width: 28px; height: 28px; color: #0ea5e9; margin: auto;"></i></div>
+                                <div style="width: 60px; height: 60px; background: white; border-radius: 12px; display: flex; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="zap" style="width: 28px; height: 28px; color: #0ea5e9; margin: auto;"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="final-logo intro-text flex flex-col items-center">
+                            <div style="width: 100px; height: 100px; background: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.1);"><span style="font-size: 2.5rem; font-weight: 900; color: #0ea5e9; margin: auto;">AI</span></div>
+                            <h1 style="font-size: 2rem; font-weight: 800;">AI Research Lab</h1>
+                        </div>
+
+                        <div class="code-showcase-container">
+                            <div class="code-stream" id="code-stream">
+                                <div class="code-content-wrapper" id="code-content-wrapper"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="final-settle opacity-0 invisible flex flex-col items-center">
-                        <div style="width: 5rem; height: 5rem; border: 2px solid #334155; border-radius: 2rem; display: flex; items-center; justify-center; margin-bottom: 2rem;"><span style="color: white; font-weight: 900; font-size: 2rem; margin: auto;">AI</span></div>
-                        <h1 style="font-size: 2.5rem; font-weight: 700;">AI Research Lab</h1>
-                        <p style="color: #64748b; margin-top: 1.5rem; font-family: monospace; letter-spacing: 0.3em; font-size: 0.65rem; text-transform: uppercase; background: rgba(255,255,255,0.05); padding: 0.5rem 1.25rem; border-radius: 99px; border: 1px solid rgba(255,255,255,0.1);">Future Intelligence</p>
+
+                    <div id="hero-showcase-info" style="position: absolute; left: 440px; top: 60px; width: calc(100% - 460px);">
+                        <span class="info-label">RESEARCH OBJECTIVE</span>
+                        <h3 class="info-title">차세대 SI 방법론 & 플랫폼</h3>
+                        <p class="info-desc">AI 기반 개발 도구와 자동화 기술을 결합하여<br>소프트웨어 품질과 개발 속도의 한계를 돌파합니다.</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="phi-card" style="padding: 1.5rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 0.5rem; color: #0ea5e9;">개발 생산성 혁신</h4>
+                                <p style="font-size: 0.9rem; color: #64748b;">반복적인 개발 작업을 자동화하여 창의적 설계에 집중합니다.</p>
+                            </div>
+                            <div class="phi-card" style="padding: 1.5rem;">
+                                <h4 style="font-weight: 700; margin-bottom: 0.5rem; color: #10b981;">시스템 안정성 강화</h4>
+                                <p style="font-size: 0.9rem; color: #64748b;">AI 기반 코드 검증과 테스트로 무결한 시스템을 구축합니다.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-32" style="background: #020617; border-top: 1px solid rgba(255,255,255,0.05);">
+        <!-- 1. Research Areas -->
+        <section class="py-32" style="background: #ffffff;">
             <div class="container">
-                <div class="grid md-grid-cols-2 gap-12">
-                    <div class="stat-card">
-                        <h4 style="font-size: 3rem; font-weight: 900; margin-bottom: 1rem; font-style: italic; color: white;">99.8%</h4>
-                        <p style="color: #64748b; font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700;">Accuracy Rate</p>
+                <div class="mb-16">
+                    <span class="section-label">Major Research Fields</span>
+                    <h2 class="section-title">주요 리서치 분야</h2>
+                    <p class="lab-sub">AI 중심의 새로운 SI 수행 방법론과 개발 플랫폼을 구축합니다.</p>
+                </div>
+                <div class="grid md-grid-cols-3 gap-8">
+                    <div class="phi-card">
+                        <div class="phi-icon"><i data-lucide="terminal"></i></div>
+                        <h3 class="text-xl font-bold mb-4">AI 기반 개발 환경 (AI IDE)</h3>
+                        <p style="color: #64748b;">개발자의 생산성을 극대화하고 반복적인 개발 작업을 자동화합니다.</p>
+                        <ul style="margin-top: 1.5rem; padding: 0; list-style: none; font-size: 0.9rem; color: #475569; line-height: 2;">
+                            <li>• AI 기반 코드 생성 & 리뷰</li>
+                            <li>• 테스트 케이스 자동 생성</li>
+                            <li>• 개발 문서 및 품질 분석 자동화</li>
+                        </ul>
                     </div>
-                    <div class="stat-card">
-                        <h4 style="font-size: 3rem; font-weight: 900; margin-bottom: 1rem; font-style: italic; color: white;">0.2ms</h4>
-                        <p style="color: #64748b; font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 700;">Processing Latency</p>
+                    <div class="phi-card">
+                        <div class="phi-icon"><i data-lucide="sparkles"></i></div>
+                        <h3 class="text-xl font-bold mb-4">바이브 코딩 (Vibe Coding)</h3>
+                        <p style="color: #64748b;">요구사항과 설계 방향만으로 AI와 협업하는 새로운 패러다임입니다.</p>
+                        <ul style="margin-top: 1.5rem; padding: 0; list-style: none; font-size: 0.9rem; color: #475569; line-height: 2;">
+                            <li>• 요구사항 기반 코드 자동 생성</li>
+                            <li>• UI 및 테스트 환경 자동 구축</li>
+                            <li>• 코드 리팩토링 자동화 연구</li>
+                        </ul>
+                    </div>
+                    <div class="phi-card">
+                        <div class="phi-icon"><i data-lucide="brain-circuit"></i></div>
+                        <h3 class="text-xl font-bold mb-4">솔루션 고도화</h3>
+                        <p style="color: #64748b;">기존 솔루션에 지능형 기능을 추가하여 사용자 경험을 개선합니다.</p>
+                        <ul style="margin-top: 1.5rem; padding: 0; list-style: none; font-size: 0.9rem; color: #475569; line-height: 2;">
+                            <li>• AI 기반 지능형 데이터 분석</li>
+                            <li>• 자동 보고서 및 업무 자동화</li>
+                            <li>• 지능형 검색 & AI 챗봇 서비스</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Technology Stack -->
+        <section class="py-32" style="background: #f8fafc;">
+            <div class="container">
+                <div class="mb-16">
+                    <span class="section-label">Technology Stack</span>
+                    <h2 class="section-title">리서치 핵심 도구</h2>
+                </div>
+                <div class="grid md-grid-cols-3 gap-6">
+                    <div class="stack-card">
+                        <div class="stack-icon"><i data-lucide="monitor" style="color: #0ea5e9;"></i></div>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 0.2rem;">Development Tools</h4>
+                            <p style="font-size: 0.85rem; color: #64748b;">VS Code / Cursor AI</p>
+                        </div>
+                    </div>
+                    <div class="stack-card">
+                        <div class="stack-icon"><i data-lucide="cpu" style="color: #10b981;"></i></div>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 0.2rem;">AI Assistant</h4>
+                            <p style="font-size: 0.85rem; color: #64748b;">Anthropic Claude</p>
+                        </div>
+                    </div>
+                    <div class="stack-card">
+                        <div class="stack-icon"><i data-lucide="server" style="color: #6366f1;"></i></div>
+                        <div>
+                            <h4 style="font-weight: 700; margin-bottom: 0.2rem;">Local LLM</h4>
+                            <p style="font-size: 0.85rem; color: #64748b;">Ollama, LM Studio</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="footer" style="background: #020617; color: white; padding: 6rem 0;">
+    <footer id="footer">
         <div class="container">
-          <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
-            <div style="margin-left: -16px;">
-              <div style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 2.2rem; font-weight: 800; color: #FFB800; letter-spacing: -1px; line-height: 1;">DAUMIS</span>
-                <span style="font-size: 1.2rem; font-weight: 700; color: #FFB800;">다음정보시스템즈</span>
-              </div>
-              <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
-              <p style="color: #64748b; font-size: 0.85rem; opacity: 0.6;">Copyright© 2019 by DAUM IS. All right reserved.</p>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
-              <div>
-                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">Contact</h4>
-                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 2; padding: 0;">
-                  <li>T. 02-6247-8413</li>
-                  <li>F. 070-4713-9499</li>
-                </ul>
-              </div>
-              <div>
-                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">금융센터</h4>
-                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0;">
-                  <li>(07332) 서울시 영등포구</li>
-                  <li>국제금융로2길 27-9</li>
-                </ul>
-              </div>
-              <div>
-                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">본사</h4>
-                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0;">
-                  <li>(08791) 서울시 관악구</li>
-                  <li>관악로 120, 아주빌딩 3층</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">© 2019 DAUM IS. AI Research Lab</p>
         </div>
     </footer>
 
     <script type="module" src="/src/main.js"></script>
     <script>
+        let mainTimeline;
         function initAnimations() {
             if (typeof lucide !== 'undefined') lucide.createIcons();
             if (typeof gsap === 'undefined') return;
 
-            const tl = gsap.timeline();
+            mainTimeline = gsap.timeline();
+            const tl = mainTimeline;
+            
             tl.set(".text-1", { visibility: 'visible' })
               .fromTo(".text-1", { opacity: 0, scale: 0.9, filter: 'blur(15px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 })
-              .to(".text-1", { opacity: 0, scale: 1.1, filter: 'blur(10px)', duration: 0.6, ease: 'power2.in' }, "+=0.4");
+              .to(".text-1", { opacity: 0, scale: 1.1, duration: 0.6 }, "+=0.4");
 
-            tl.set(".phase-2-wrapper", { visibility: 'visible' })
-              .fromTo(".phase-2-wrapper", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8 })
-              .to(".phase-2-wrapper", { opacity: 0, scale: 1.05, duration: 0.6, ease: 'power2.in' }, "+=0.5");
+            tl.set(".step-2-wrapper", { visibility: 'visible' })
+              .fromTo(".text-2", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 })
+              .to(".step-2-wrapper", { opacity: 0, y: -20, duration: 0.6 }, "+=0.5");
 
-            tl.set(".final-settle", { visibility: 'visible' })
-              .fromTo(".final-settle", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" });
+            tl.set(".final-logo", { visibility: 'visible' })
+              .fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" })
+              .to(".final-logo", { opacity: 0, scale: 0.8, duration: 0.5, delay: 0.8 })
+              .to("#hero-showcase-box", { 
+                  width: "400px", 
+                  height: "550px", 
+                  x: 0,
+                  borderRadius: "24px", 
+                  backgroundColor: "#0f172a",
+                  boxShadow: "0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.05)",
+                  duration: 1.2, 
+                  ease: "expo.inOut",
+                  onStart: () => {
+                      document.getElementById('hero-showcase-info').style.display = 'block';
+                  }
+              }, "<")
+              .to(".code-showcase-container", { opacity: 1, duration: 1 }, "+=0.3")
+              .to("#hero-showcase-info", { 
+                  opacity: 1, 
+                  x: 0,
+                  duration: 0.8, 
+                  ease: "power2.out",
+                  onComplete: () => {
+                      startAiTyping();
+                  }
+              }, "-=0.6");
         }
 
-        if (document.readyState === 'complete') {
-            initAnimations();
-        } else {
-            window.addEventListener('load', initAnimations);
+        const codeLines = [
+            { text: "/** AI Research Lab Initialization **/", color: "#10b981" },
+            { text: "const AI_Config = {", color: "#0ea5e9" },
+            { text: "  engine: 'Claude-3.5-Sonnet',", color: "#cbd5e1" },
+            { text: "  environment: 'NEXT_SI_Methodology',", color: "#cbd5e1" },
+            { text: "  optimization: true,", color: "#cbd5e1" },
+            { text: "};", color: "#0ea5e9" },
+            { text: "", color: "#cbd5e1" },
+            { text: "// Starting Data Stream Analysis...", color: "#64748b" },
+            { text: "async function analyzeRepository(repoUrl) {", color: "#cbd5e1" },
+            { text: "  const structure = await AI.parse(repoUrl);", color: "#cbd5e1" },
+            { text: "  console.log('[INFO] Mapping UI components...');", color: "#0ea5e9" },
+            { text: "  return structure.map(comp => comp.refactor());", color: "#cbd5e1" },
+            { text: "}", color: "#cbd5e1" },
+            { text: "", color: "#cbd5e1" },
+            { text: "class VibeCodingProcessor {", color: "#0ea5e9" },
+            { text: "  constructor(prompt) {", color: "#cbd5e1" },
+            { text: "    this.prompt = prompt;", color: "#cbd5e1" },
+            { text: "    this.context = System.getGlobalContext();", color: "#cbd5e1" },
+            { text: "  }", color: "#cbd5e1" },
+            { text: "", color: "#cbd5e1" },
+            { text: "  generateCode() {", color: "#cbd5e1" },
+            { text: "    return AI.generate({", color: "#cbd5e1" },
+            { text: "      input: this.prompt,", color: "#cbd5e1" },
+            { text: "      constraints: ['Performance', 'CleanCode']", color: "#cbd5e1" },
+            { text: "    });", color: "#cbd5e1" },
+            { text: "  }", color: "#cbd5e1" },
+            { text: "}", color: "#0ea5e9" },
+            { text: "", color: "#cbd5e1" },
+            { text: "// Automated Unit Test Generation", color: "#10b981" },
+            { text: "const tests = AI.generateTests(VibeCodingProcessor);", color: "#cbd5e1" },
+            { text: "tests.forEach(test => test.run().assert());", color: "#cbd5e1" },
+            { text: "", color: "#cbd5e1" },
+            { text: "[SUCCESS] Next-Gen SI methodology applied.", color: "#10b981" },
+            { text: "System.sync().then(() => console.log('Ready.'));", color: "#0ea5e9" }
+        ];
+
+        let currentLineIndex = 0;
+        let currentCharIndex = 0;
+        let isTyping = false;
+
+        function startAiTyping() {
+            if (isTyping) return;
+            isTyping = true;
+            const wrapper = document.getElementById("code-content-wrapper");
+            wrapper.innerHTML = '';
+            gsap.set(wrapper, { y: 0 });
+            typeNextChar();
         }
+
+        function typeNextChar() {
+            const wrapper = document.getElementById("code-content-wrapper");
+            if (currentLineIndex >= codeLines.length) {
+                setTimeout(() => {
+                    currentLineIndex = 0;
+                    currentCharIndex = 0;
+                    gsap.to(wrapper, { opacity: 0, duration: 1, onComplete: () => {
+                        wrapper.innerHTML = '';
+                        gsap.set(wrapper, { y: 0, opacity: 1 });
+                        typeNextChar();
+                    }});
+                }, 3000);
+                return;
+            }
+
+            const currentLine = codeLines[currentLineIndex];
+            
+            if (currentCharIndex === 0) {
+                const lineDiv = document.createElement("div");
+                lineDiv.className = "code-line";
+                lineDiv.style.color = currentLine.color;
+                lineDiv.id = `line-${currentLineIndex}`;
+                wrapper.appendChild(lineDiv);
+                
+                let cursor = document.getElementById("active-cursor");
+                if (cursor) cursor.remove();
+                cursor = document.createElement("span");
+                cursor.id = "active-cursor";
+                cursor.className = "code-cursor";
+                lineDiv.appendChild(cursor);
+
+                lineDiv.appendChild(cursor);
+
+                // Only start drifting up once the content reaches the bottom of the container
+                const containerHeight = document.getElementById("code-stream").clientHeight;
+                const padding = 80; // 2.5rem * 2
+                if (wrapper.offsetHeight > (containerHeight - padding)) {
+                    gsap.to(wrapper, { 
+                        y: "-=1.35em", 
+                        duration: 0.4, 
+                        ease: "power2.out" 
+                    });
+                }
+            }
+
+            const lineDiv = document.getElementById(`line-${currentLineIndex}`);
+            const cursor = document.getElementById("active-cursor");
+
+            if (currentCharIndex < currentLine.text.length) {
+                const char = currentLine.text[currentCharIndex];
+                const charSpan = document.createElement("span");
+                charSpan.textContent = char;
+                lineDiv.insertBefore(charSpan, cursor);
+                currentCharIndex++;
+                setTimeout(typeNextChar, Math.random() * 15 + 5);
+            } else {
+                currentLineIndex++;
+                currentCharIndex = 0;
+                setTimeout(typeNextChar, 150);
+            }
+        }
+
+        document.getElementById('reset-showcase').addEventListener('click', () => {
+            if (mainTimeline) mainTimeline.restart();
+        });
+
+        window.addEventListener('load', initAnimations);
     </script>
 </body>
 </html>
