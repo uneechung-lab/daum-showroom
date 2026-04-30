@@ -97,9 +97,33 @@
             margin-bottom: 1.5rem;
         }
 
-        .phi-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 3rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
+        .phi-card { 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 16px; 
+            padding: 2.2rem 2.5rem; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); 
+            text-align: left;
+        }
         .phi-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); border-color: #cbd5e1; }
-        .phi-icon { width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #64748b; margin-bottom: 2rem; }
+        .phi-icon { 
+            width: 48px; 
+            height: 48px; 
+            background: transparent; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start;
+            position: relative;
+        }
+        .phi-icon i, .phi-icon svg { 
+            width: 32px !important; 
+            height: 32px !important; 
+            color: #0f172a !important; 
+            stroke-width: 1.5px;
+            position: relative;
+        }
 
         .process-flow { display: flex; align-items: flex-start; justify-content: space-between; position: relative; padding: 3rem 0; margin-top: 3rem; }
         .process-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; text-align: left; position: relative; z-index: 2; padding-right: 1.5rem; }
@@ -252,7 +276,13 @@
             <div class="container">
                 <div style="text-align: left;">
                     <h1 class="lab-title">혁신은 가장 평범한<br>일상에서 시작됩니다.</h1>
-                    <p class="lab-sub">AX Innovation Lab은 최신 인공지능 기술을 일상의 구체적인 경험으로 설계합니다.<br>우리는 기술이 만드는 삶의 변화에 주목하며, 일상을 혁신하는 최적의 UX 프로덕트를 제안합니다.</p>
+                    <p class="lab-sub">
+                        AX Innovation Lab은 최신 인공지능 기술을 일상의 구체적인 경험으로 설계합니다.<br>
+                        우리는 기술이 만드는 삶의 변화에 주목하며, 일상을 혁신하는 최적의 UX 프로덕트를 제안합니다.
+                        <span id="reset-showcase" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: #f1f5f9; border-radius: 50%; margin-left: 10px; vertical-align: middle; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #e2e8f0;" title="애니메이션 다시 보기">
+                            <i data-lucide="refresh-cw" style="width: 14px; height: 14px; color: #64748b;"></i>
+                        </span>
+                    </p>
                 </div>
                 
                 <div id="hero-showcase-wrapper" style="position: relative; width: 100%; min-height: 600px; margin-top: 3.5rem;">
@@ -284,11 +314,11 @@
                     </div>
 
                     <!-- 박스 바깥 좌측에 배치 (초기 opacity: 0) -->
-                    <div class="zal-card-container" style="position: absolute; left: -80px; top: 430px; width: 340px; z-index: 100; pointer-events: none; opacity: 0;">
+                    <div class="zal-card-container" style="position: absolute; left: -80px; top: 500px; width: 340px; z-index: 100; pointer-events: none; opacity: 0;">
                         <img src="/zaleat_cc.png" alt="ZAL Card" style="width: 100%; height: auto;">
                     </div>
 
-                    <div id="hero-showcase-info" style="position: absolute; left: 440px; top: 20px; width: calc(100% - 460px);">
+                    <div id="hero-showcase-info" style="position: absolute; left: 440px; top: 60px; width: calc(100% - 460px);">
                         <span class="info-label">DAUMIS' AX PRODUCT</span>
                         <h3 class="info-title">
                             <img src="/bi_zaleat.png" style="height: 3.6rem; vertical-align: middle; margin-right: 0.3rem; margin-top: -0.7rem;">
@@ -353,6 +383,24 @@
             </div>
         </section>
 
+        <!-- Key Insight Section -->
+        <section style="background: #f8fafc; padding-top: 5rem; padding-bottom: 9rem !important; border-top: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 20px 40px rgba(0,0,0,0.02), inset 0 -20px 40px rgba(255,255,255,1);">
+            <div class="container">
+                <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+                    <span class="section-label" style="display: block; margin-bottom: 2.5rem; opacity: 0.7;">DAUMIS' AX Innovation Lab</span>
+                    <h2 style="color: #0f172a; word-break: keep-all; letter-spacing: -0.04em; margin-bottom: 0 !important; line-height: 1.6;">
+                        <span style="font-size: 2.1rem; font-weight: 400; color: #475569; display: block; margin-bottom: 0;">
+                            AX는 사용자가 AI의 복잡함을 느끼지 않으면서도<br>
+                            그 지능적인 결과물을 자연스럽게 누리게 하는 것입니다.
+                        </span>
+                        <span style="font-size: 2.1rem; font-weight: 400; color: #000000; display: block;">
+                            우리는 그 연결고리를 가장 견고하게 설계합니다.
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </section>
+
         <!-- 1. Our Philosophy -->
         <section class="py-32" style="background: #ffffff;">
             <div class="container">
@@ -363,17 +411,23 @@
                 </div>
                 <div class="grid md-grid-cols-3 gap-8">
                     <div class="phi-card">
-                        <div class="phi-icon"><i data-lucide="users"></i></div>
+                        <div class="phi-icon">
+                            <i data-lucide="users"></i>
+                        </div>
                         <h3 class="text-xl font-bold mb-4" style="color: #0f172a !important;">사람 중심 (Human-Centric)</h3>
                         <p style="color: #64748b !important;">기술보다 사용자의 일상과 필요를 먼저 관찰합니다.</p>
                     </div>
                     <div class="phi-card">
-                        <div class="phi-icon"><i data-lucide="check-circle"></i></div>
+                        <div class="phi-icon">
+                            <i data-lucide="shield-check"></i>
+                        </div>
                         <h3 class="text-xl font-bold mb-4" style="color: #0f172a !important;">결정 피로 감소 (Decision-Free)</h3>
                         <p style="color: #64748b !important;">복잡한 선택지를 줄이고 AI가 최적의 답을 제안합니다.</p>
                     </div>
                     <div class="phi-card">
-                        <div class="phi-icon"><i data-lucide="zap"></i></div>
+                        <div class="phi-icon">
+                            <i data-lucide="zap"></i>
+                        </div>
                         <h3 class="text-xl font-bold mb-4" style="color: #0f172a !important;">빠른 실행 (Agile Reality)</h3>
                         <p style="color: #64748b !important;">아이디어에 머물지 않고 즉시 프로토타입으로 구현합니다.</p>
                     </div>
@@ -385,7 +439,7 @@
             <div class="container">
                 <span class="section-label">AX Process</span>
                 <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">현실적인 해결책을 만드는 4단계</h2>
-                <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 5rem !important;">체계적인 리서치와 반복적인 검증을 통해<br>현장의 문제를 실질적으로 해결하는 최적화된 프로세스를 제공합니다.</p>
+                <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1rem !important;">체계적인 리서치와 반복적인 검증을 통해<br>현장의 문제를 실질적으로 해결하는 최적화된 프로세스를 제공합니다.</p>
                 <div class="process-flow">
                     <div class="process-step">
                         <span class="step-num-label">STEP 01</span>
@@ -423,15 +477,64 @@
             <div class="container">
                 <div class="mb-12">
                     <span class="section-label">Deliverables</span>
-                    <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">팀이 즉시 실행할 수 있는 결과물</h2>
-                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">우리는 단순한 기획서에 머물지 않습니다.<br>현업에서 즉시 워킹할 수 있는 구체적인 가이드라인과 설계 자산을 전달합니다.</p>
+                    <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">팀이 즉시 실행할 수 있는 설계 자산</h2>
+                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">
+                        우리는 단순한 아이디어에 머물지 않습니다. 바로 개발에 착수할 수 있도록<br>
+                        정교한 가이드라인과 AX(AI Experience) 요소를 자연스럽게 녹여내어 서비스의 완성도를 높입니다.
+                    </p>
                 </div>
-                <div class="grid md-grid-cols-2 lg-grid-cols-4 gap-6">
-                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">문제 정의 문장 (Problem Statement)</span></div>
-                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">IA (정보 구조) 설계</span></div>
-                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">UX Flow & Wireframe</span></div>
-                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">인터랙티브 프로토타입 가이드라인</span></div>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; align-items: start; margin-bottom: 6rem;">
+                    <!-- Item 1 -->
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
+                            <i data-lucide="target" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">정교한 문제 정의<br><span style="font-size: 0.85em; opacity: 0.6;">(Problem & Persona)</span></h3>
+                        </div>
+                        <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
+                        <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
+                            <p style="font-size: 0.92rem; color: #64748b; line-height: 1.5; word-break: keep-all;">페인 포인트를 분석하여 명확한 해결 과제를 도출하고 AI 지능형 시나리오를 정의합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
+                            <i data-lucide="network" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">입체적 정보 구조<br><span style="font-size: 0.85em; opacity: 0.6;">(Advanced IA)</span></h3>
+                        </div>
+                        <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
+                        <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
+                            <p style="font-size: 0.92rem; color: #64748b; line-height: 1.5; word-break: keep-all;">데이터 흐름과 사용자 여정을 통합적으로 설계하여 데이터 중심 IA를 구축합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
+                            <i data-lucide="layers" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">UX Flow & 와이어프레임<br><span style="font-size: 0.85em; opacity: 0.6;">(Wireframe)</span></h3>
+                        </div>
+                        <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
+                        <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
+                            <p style="font-size: 0.92rem; color: #64748b; line-height: 1.5; word-break: keep-all;">검색 추천, 자동 완성 등 AI 기반 편의 기능이 매끄럽게 작동하도록 UX를 설계합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
+                            <i data-lucide="file-check" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">인터랙티브 가이드라인<br><span style="font-size: 0.85em; opacity: 0.6;">(Design Specs)</span></h3>
+                        </div>
+                        <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
+                        <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
+                            <p style="font-size: 0.92rem; color: #64748b; line-height: 1.5; word-break: keep-all;">AX 특화 인터랙션을 포함하여 개발 효율을 극대화하는 정밀 사양을 전달합니다.</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
             </div>
         </section>
     </main>
@@ -477,11 +580,15 @@
 
     <script type="module" src="/src/main.js"></script>
     <script>
+        let mainTimeline;
+
         function initAnimations() {
             if (typeof lucide !== 'undefined') lucide.createIcons();
             if (typeof gsap === 'undefined') return;
 
-            const tl = gsap.timeline();
+            mainTimeline = gsap.timeline();
+            const tl = mainTimeline;
+            
             tl.set(".text-1", { visibility: 'visible' })
               .fromTo(".text-1", { opacity: 0, scale: 0.9, filter: 'blur(15px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 })
               .to(".text-1", { opacity: 0, scale: 1.1, filter: 'blur(10px)', duration: 0.6, ease: 'power2.in' }, "+=0.4");
@@ -494,11 +601,11 @@
             tl.set(".final-logo", { visibility: 'visible' })
               .fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" })
               .to(".final-logo", { opacity: 0, scale: 0.8, duration: 0.5, delay: 0.8 })
-              .to("#hero-showcase-wrapper", { minHeight: "821px", duration: 1.2, ease: "expo.inOut" }, "<")
+              .to("#hero-showcase-wrapper", { minHeight: "921px", duration: 1.2, ease: "expo.inOut" }, "<")
               .to(".bg-blobs", { opacity: 0, duration: 0.8 }, "<")
               .to("#hero-showcase-box", { 
                   width: "360px", 
-                  height: "721px", 
+                  height: "821px", 
                   x: 170,
                   borderRadius: "32px", 
                   backgroundColor: "transparent",
@@ -519,10 +626,46 @@
               .to(".zal-card-container", { opacity: 1, x: 0, duration: 1, ease: "expo.out" }, "-=0.2");
         }
 
+        // 아이콘 클릭 리스너 및 효과
+        document.addEventListener('DOMContentLoaded', () => {
+            const resetBtn = document.getElementById('reset-showcase');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (mainTimeline) {
+                        // 애니메이션 초기 상태로 리셋 후 재시작
+                        gsap.set("#hero-showcase-info", { opacity: 0, x: 0, display: 'none' });
+                        gsap.set(".zal-image-container", { opacity: 0 });
+                        gsap.set(".zal-card-container", { opacity: 0, x: -80 });
+                        gsap.set("#hero-showcase-box", { 
+                            width: "100%", height: "auto", x: 0, 
+                            borderRadius: 0, backgroundColor: "transparent", 
+                            borderColor: "transparent", borderWidth: 0, boxShadow: "none" 
+                        });
+                        gsap.set(".bg-blobs", { opacity: 1 });
+                        document.querySelector('.zal-image-container').classList.remove('show-shadow');
+                        
+                        mainTimeline.restart();
+                    }
+                });
+
+                // 호버 시 회전 효과
+                resetBtn.addEventListener('mouseenter', () => {
+                    gsap.to(resetBtn.querySelector('i'), { rotate: 180, duration: 0.4, ease: "power2.out" });
+                    gsap.to(resetBtn, { backgroundColor: "#e2e8f0", scale: 1.1, duration: 0.2 });
+                });
+                resetBtn.addEventListener('mouseleave', () => {
+                    gsap.to(resetBtn.querySelector('i'), { rotate: 0, duration: 0.4, ease: "power2.out" });
+                    gsap.to(resetBtn, { backgroundColor: "#f1f5f9", scale: 1, duration: 0.2 });
+                });
+            }
+        });
+
         if (document.readyState === 'complete') {
             initAnimations();
         } else {
-            window.addEventListener('load', initAnimations);
+            window.addEventListener('load', () => {
+                initAnimations();
+            });
         }
     </script>
 </body>
