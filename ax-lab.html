@@ -42,41 +42,46 @@
         .mb-24 { margin-bottom: 6rem; }
         .block { display: block; }
 
-        .logo .logo-light { display: none !important; }
-        .logo .logo-dark { display: block !important; }
-        
-        #header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.8) !important; backdrop-filter: blur(10px); z-index: 10001 !important; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        
+        /* Header Style for White Theme */
+        #header { 
+            position: fixed; top: 0; left: 0; width: 100%; 
+            background: #ffffff !important; 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 100001 !important; 
+            transition: all 0.3s ease;
+        }
+        #header .nav-links a, #header .nav-item > span { color: #1e293b !important; }
+        #header .logo .logo-light { display: none !important; }
+        #header .logo .logo-dark { display: block !important; }
+        #header .cta-button { background: #020617 !important; color: #ffffff !important; }
+
         #hero-showcase-box {
-            position: relative; width: 100%; height: 42vh; min-height: 400px; background: #f8fafc; border-radius: 48px; overflow: hidden; border: 1px solid rgba(0,0,0,0.03); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 80px rgba(0,0,0,0.02), 0 20px 40px rgba(0,0,0,0.02);
+            position: relative; width: 100%; height: 500px; background: #f1f5f9; border-radius: 40px; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 50px rgba(0,0,0,0.02); transition: background 0.5s ease;
         }
-        .bg-blobs { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-        .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(140px); opacity: 0.25; }
-        .blob-1 { background: #FFB800; top: -15%; left: -5%; }
-        .blob-2 { background: #4ADE80; bottom: -15%; right: -5%; }
+        #hero-showcase-box.shrunken { background: transparent !important; border: none !important; box-shadow: none !important; }
+        .bg-blobs { position: absolute; inset: 0; z-index: 1; pointer-events: none; transition: opacity 0.5s ease; }
+        #hero-showcase-box.shrunken .bg-blobs { opacity: 0; }
+        .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.3; }
+        .blob-1 { background: #FFB800; top: -10%; left: 5%; }
+        .blob-2 { background: #4ADE80; bottom: -10%; right: 5%; }
+        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 2.8rem; z-index: 10; color: #020617; }
+        .icon-particle { position: absolute; width: 70px; height: 70px; opacity: 0; z-index: 15; }
         
-        .intro-text { position: absolute; font-weight: 900; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 3.2rem; z-index: 10; color: #020617; }
-        
-        /* Premium Icon Particle Style */
-        .icon-particle { 
-            position: absolute; width: 80px; height: 80px; opacity: 0; z-index: 15; 
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5); 
-            border-radius: 24px; 
-            display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 0 1px rgba(255,255,255,0.4);
-        }
-        .icon-particle i { width: 32px; height: 32px; color: #0f172a; stroke-width: 2.2; }
-        
-        .final-logo-box {
-            width: 110px; height: 110px; background: white; border-radius: 32px; 
-            display: flex; align-items: center; justify-content: center; 
-            margin-bottom: 2rem; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(0,0,0,0.02);
-        }
-        .final-logo-box span { font-size: 3rem; font-weight: 900; color: #0f172a; }
+        .zal-image-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 20; padding: 0; background: #ffffff; border-radius: 32px; overflow: hidden; }
+        .zal-image-container::after { content: ""; position: absolute; inset: 0; border-radius: 32px; pointer-events: none; z-index: 25; opacity: 0; transition: opacity 0.5s ease; }
+        .zal-image-container.show-shadow::after { opacity: 1; }
+        .zal-image-container img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.02); }
+
+        #hero-showcase-info { opacity: 0; display: none; flex: 1; padding-left: 2rem; }
+        .info-label { color: #64748b !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; display: block; }
+        .info-title { font-size: 2.2rem; font-weight: 900; color: #0f172a; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
+        .info-desc { font-size: 1.25rem; color: #64748b; line-height: 1.6; margin-bottom: 3rem; word-break: keep-all; }
+        .info-grid { display: grid; grid-template-columns: 1fr; gap: 0.8rem; }
+        .info-item { display: flex; align-items: center; gap: 1.2rem; }
+        .info-item-icon { width: 48px; height: 48px; background: #ffffff; border: 1px solid #f1f5f9; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .info-item-icon i { margin: auto; width: 24px; height: 24px; }
+        .info-item-text h4 { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.15rem; }
+        .info-item-text p { font-size: 0.95rem; color: #64748b; line-height: 1.5; }
         
         .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; }
         .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1000px; margin-bottom: 2rem; }
@@ -91,30 +96,35 @@
             display: block;
             margin-bottom: 1.5rem;
         }
-        .cta-button { background: #020617 !important; color: #ffffff !important; padding: 1rem 2rem; border-radius: 99px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
-        .cta-button:hover { background: #1e293b !important; transform: translateY(-2px); }
 
         .phi-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 3rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
         .phi-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); border-color: #cbd5e1; }
         .phi-icon { width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #64748b; margin-bottom: 2rem; }
 
-        .step-item { position: relative; padding: 3rem; border-right: 1px solid #f1f5f9; transition: all 0.3s ease; }
-        .step-item:last-child { border-right: none; }
-        .step-num { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.75rem; color: #94a3b8; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
-        .step-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem; display: block; }
-        .step-desc { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
+        .process-flow { display: flex; align-items: flex-start; justify-content: space-between; position: relative; padding: 3rem 0; margin-top: 3rem; }
+        .process-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; text-align: left; position: relative; z-index: 2; padding-right: 1.5rem; }
+        .step-num-label { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.7rem; color: #94a3b8; letter-spacing: 0.1em; margin-bottom: 0.8rem; text-transform: uppercase; line-height: 1; }
+        .step-circle { width: 40px; height: 40px; background: #0f172a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 2rem; position: relative; z-index: 3; }
+        .step-arrow { position: absolute; top: 44px; left: 40px; width: calc(100% - 60px); height: 2.5px; background: #0f172a; z-index: 1; display: flex; align-items: center; }
+        .step-arrow::after { content: ''; position: absolute; right: -2px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid #0f172a; }
+        .process-step:last-child .step-arrow { display: none; }
+        .process-step .step-title { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; }
+        .process-step .step-desc { font-size: 0.95rem; color: #64748b; line-height: 1.6; max-width: 100%; word-break: keep-all; }
 
-        .del-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid #f1f5f9; transition: all 0.3s ease; color: #0f172a !important; }
-        .del-item:last-child { border-bottom: none; }
-        .del-item:hover { background: #f1f5f9; }
-        .del-dot { width: 6px; height: 6px; background: #FFB800; border-radius: 50%; }
-        .text-lg { font-size: 1.125rem; }
-        .font-bold { font-weight: 700; }
-        .text-xl { font-size: 1.25rem; }
-        .text-slate-500 { color: #64748b; }
-        .font-light { font-weight: 300; }
-        .leading-relaxed { line-height: 1.625; }
-        
+        /* Custom Logo for AX Lab */
+        #header .logo { height: 55px !important; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+        #header .logo img { height: 100%; width: auto; }
+        .logo-text { font-family: 'Pretendard', sans-serif; font-size: 1rem; font-weight: 400; color: #0f172a; letter-spacing: -0.02em; white-space: nowrap; }
+
+        .del-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid #f1f5f9; transition: all 0.3s ease; color: #0f172a !important; background: white; border-radius: 12px; border: 1px solid #f1f5f9; }
+        .del-item:hover { border-color: #FFB800; transform: translateX(5px); }
+        .del-dot { width: 6px; height: 6px; background: #FFB800; border-radius: 50%; flex-shrink: 0; }
+
+        @media (max-width: 1024px) {
+            .process-flow { flex-direction: column; gap: 4rem; align-items: center; }
+            .step-arrow { display: none; }
+        }
+
         #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
     </style>
 </head>
@@ -122,14 +132,114 @@
 
     <header id="header">
       <div class="container">
-        <nav class="flex items-center justify-center" style="height: 100px; justify-content: space-between;">
-          <a href="/" class="logo"><img src="/ci_02.png" alt="DAUMIS" style="height: 32px;"></a>
-          <div class="flex items-center gap-8">
-            <ul class="flex items-center gap-8" style="list-style: none; margin: 0; padding: 0;">
-              <li><a href="/business.html" style="text-decoration: none; color: #1e293b; font-weight: 600;">비지니스</a></li>
-              <li><a href="/project.html" style="text-decoration: none; color: #1e293b; font-weight: 600;">프로젝트</a></li>
-              <li><a href="/ax-lab.html" style="text-decoration: none; color: #FFB800; font-weight: 700;">NEXT 랩</a></li>
-              <li><a href="/company.html" style="text-decoration: none; color: #1e293b; font-weight: 600;">회사소개</a></li>
+        <nav>
+          <a href="/" class="logo">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
+            <span class="logo-text">다음정보시스템즈</span>
+          </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div class="nav-right">
+            <ul class="nav-links">
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html">프로젝트 실적</a></li>
+                        <li><a href="/clients.html">고객사 & 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/ai-lab.html">AI 리서치 랩</a></li>
+                        <li><a href="/ax-lab.html" class="active">AX 이노베이션 랩</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/company.html#intro">소개</a></li>
+                        <li><a href="/company.html#ceo">CEO</a></li>
+                        <li><a href="/company.html#vision">비전</a></li>
+                        <li><a href="/company.html#history">연혁</a></li>
+                        <li><a href="/company.html#contact">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ul>
             <a href="/#inquiry" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
           </div>
@@ -145,26 +255,96 @@
                     <p class="lab-sub">AX Innovation Lab은 최신 인공지능 기술을 일상의 구체적인 경험으로 설계합니다.<br>우리는 기술이 만드는 삶의 변화에 주목하며, 일상을 혁신하는 최적의 UX 프로덕트를 제안합니다.</p>
                 </div>
                 
-                <div id="hero-showcase-box">
-                    <div class="bg-blobs">
-                        <div class="blob blob-1"></div>
-                        <div class="blob blob-2"></div>
-                    </div>
-                    
-                    <h2 class="intro-text text-1">혁신은 <span style="color: #FFB800;">발견</span>하는 것</h2>
-                    
-                    <div class="step-2-wrapper intro-text text-2 flex flex-col items-center">
-                        <h2 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 2.5rem;">일상의 도구를 재설계합니다</h2>
-                        <div class="flex gap-8">
-                            <div class="icon-particle"><i data-lucide="smartphone"></i></div>
-                            <div class="icon-particle"><i data-lucide="coffee"></i></div>
-                            <div class="icon-particle"><i data-lucide="credit-card"></i></div>
+                <div id="hero-showcase-wrapper" style="position: relative; width: 100%; min-height: 600px; margin-top: 3.5rem;">
+                    <div id="hero-showcase-box" style="margin-top: 0; position: absolute; left: 0; transform: none; width: 100%; border: 0px solid transparent;">
+                        <div class="bg-blobs">
+                            <div class="blob blob-1"></div>
+                            <div class="blob blob-2"></div>
+                        </div>
+                        
+                        <h2 class="intro-text text-1">혁신은 <span style="color: #FFB800;">발견</span>하는 것</h2>
+                        
+                        <div class="step-2-wrapper intro-text text-2 flex flex-col items-center">
+                            <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 2rem;">일상의 도구를 재설계합니다</h2>
+                            <div class="flex gap-6">
+                                <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="smartphone" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                                <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="coffee" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                                <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="credit-card" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="final-logo intro-text flex flex-col items-center">
+                            <div style="width: 100px; height: 100px; background: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.1);"><span style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin: auto;">AX</span></div>
+                            <h1 style="font-size: 2rem; font-weight: 800;">AX Innovation Lab</h1>
+                        </div>
+
+                        <div class="zal-image-container">
+                            <img src="/zal_eat.png" alt="ZAL EAT">
                         </div>
                     </div>
 
-                    <div class="final-logo intro-text flex flex-col items-center">
-                        <div class="final-logo-box"><span>AX</span></div>
-                        <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.03em;">AX Innovation Lab</h1>
+                    <!-- 박스 바깥 좌측에 배치 (초기 opacity: 0) -->
+                    <div class="zal-card-container" style="position: absolute; left: -140px; top: 400px; width: 340px; z-index: 100; pointer-events: none; opacity: 0;">
+                        <img src="/zaleat_cc.png" alt="ZAL Card" style="width: 100%; height: auto; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));">
+                    </div>
+
+                    <div id="hero-showcase-info" style="position: absolute; left: 440px; top: 0; width: calc(100% - 460px);">
+                        <span class="info-label">DAUMIS' AX PRODUCT</span>
+                        <h3 class="info-title">ZAL : <span style="font-size: 0.92em;">잘먹</span></h3>
+                        <p class="info-desc">실물 영수증 없는 식대 정산부터 AI 자동 검증을 통한<br>스마트한 관리까지, 한 번에 가능한 기업용 식대 자동화 서비스입니다.</p>
+                        
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-item-icon">✨</div>
+                                <div class="info-item-text">
+                                    <h4>스마트 영수증 OCR</h4>
+                                    <p>이미지를 업로드하면 AI가 날짜, 시간, 금액, 업종을 자동으로 추출합니다.</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-item-icon">📊</div>
+                                <div class="info-item-text">
+                                    <h4>정책 준수 검증</h4>
+                                    <p>설정된 가이드라인을 실시간으로 체크하여 정산 가능 여부를 즉시 피드백합니다.</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-item-icon">🚀</div>
+                                <div class="info-item-text">
+                                    <h4>정산 대시보드</h4>
+                                    <p>인사/총무팀을 위한 일괄 처리와 이상 탐지 기능으로 정산 시간을 제로화합니다.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 텍스트 시작점 정밀 맞춤: 아이콘(48px) + 간격(1.2rem) = 67.2px (약 4.2rem) -->
+                        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #f1f5f9; padding-left: 4.2rem;">
+                            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 2.5rem; width: 100%;">
+                                <!-- 항목 1 -->
+                                <div class="info-item" style="flex-direction: column; align-items: flex-start; gap: 0.8rem;">
+                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">Zero Hassle</h4>
+                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">영수증 보관 및 제출의<br>번거로움이 사라집니다.</p>
+                                </div>
+                                
+                                <!-- 플러스 커넥터 (완벽 중앙) -->
+                                <div style="color: #64748b; font-size: 1.8rem; font-weight: 600; margin-top: -0.5rem; width: 20px; text-align: center;">+</div>
+                                
+                                <!-- 항목 2 -->
+                                <div class="info-item" style="flex-direction: column; align-items: flex-start; gap: 0.8rem;">
+                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">AI Powered</h4>
+                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">Anthropic API 기반으로<br>데이터 정합성을 보장합니다.</p>
+                                </div>
+
+                                <!-- 플러스 커넥터 (완벽 중앙) -->
+                                <div style="color: #64748b; font-size: 1.8rem; font-weight: 600; margin-top: -0.5rem; width: 20px; text-align: center;">+</div>
+
+                                <!-- 항목 3 -->
+                                <div class="info-item" style="flex-direction: column; align-items: flex-start; gap: 0.8rem;">
+                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">Digital Ledger</h4>
+                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">모든 내역을 디지털화하여<br>투명하게 관리합니다.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,8 +353,11 @@
         <!-- 1. Our Philosophy -->
         <section class="py-32" style="background: #ffffff;">
             <div class="container">
-                <span class="section-label">Our Philosophy</span>
-                <h2 class="section-title">AX의 핵심 원칙</h2>
+                <div class="mb-16">
+                    <span class="section-label">Core Principles</span>
+                    <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">AX의 핵심 원칙</h2>
+                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 5rem !important;">기술의 화려함보다 사용자의 본질적인 필요에 집중합니다.<br>다음정보시스템즈가 지향하는 AX의 3가지 핵심 가치입니다.</p>
+                </div>
                 <div class="grid md-grid-cols-3 gap-8">
                     <div class="phi-card">
                         <div class="phi-icon"><i data-lucide="users"></i></div>
@@ -195,30 +378,37 @@
             </div>
         </section>
 
-        <!-- 2. AX Process -->
-        <section class="py-32" style="background: #f8fafc;">
+        <section class="py-32" style="background: #ffffff;">
             <div class="container">
                 <span class="section-label">AX Process</span>
-                <h2 class="section-title">현실적인 해결책을 만드는 4단계</h2>
-                <div class="grid md-grid-cols-4" style="background: white; border-radius: 24px; overflow: hidden; border: 1px solid #e2e8f0;">
-                    <div class="step-item">
-                        <span class="step-num">STEP 01</span>
-                        <span class="step-title">관찰 (Observe)</span>
+                <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">현실적인 해결책을 만드는 4단계</h2>
+                <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 5rem !important;">체계적인 리서치와 반복적인 검증을 통해<br>현장의 문제를 실질적으로 해결하는 최적화된 프로세스를 제공합니다.</p>
+                <div class="process-flow">
+                    <div class="process-step">
+                        <span class="step-num-label">STEP 01</span>
+                        <div class="step-circle">1</div>
+                        <div class="step-arrow"></div>
+                        <h3 class="step-title">관찰 (Observe)</h3>
                         <p class="step-desc">데이터와 행동 분석을 통해 숨겨진 불편함을 포착합니다.</p>
                     </div>
-                    <div class="step-item">
-                        <span class="step-num">STEP 02</span>
-                        <span class="step-title">재정의 (Redefine)</span>
+                    <div class="process-step">
+                        <span class="step-num-label">STEP 02</span>
+                        <div class="step-circle">2</div>
+                        <div class="step-arrow"></div>
+                        <h3 class="step-title">재정의 (Redefine)</h3>
                         <p class="step-desc">문제의 본질을 다시 정의하여 올바른 방향을 설정합니다.</p>
                     </div>
-                    <div class="step-item">
-                        <span class="step-num">STEP 03</span>
-                        <span class="step-title">단순화 (Simplify)</span>
+                    <div class="process-step">
+                        <span class="step-num-label">STEP 03</span>
+                        <div class="step-circle">3</div>
+                        <div class="step-arrow"></div>
+                        <h3 class="step-title">단순화 (Simplify)</h3>
                         <p class="step-desc">핵심 가치만 남기고 불필요한 과정을 과감히 걷어냅니다.</p>
                     </div>
-                    <div class="step-item">
-                        <span class="step-num">STEP 04</span>
-                        <span class="step-title">반복 (Iterate)</span>
+                    <div class="process-step">
+                        <span class="step-num-label">STEP 04</span>
+                        <div class="step-circle">4</div>
+                        <h3 class="step-title">반복 (Iterate)</h3>
                         <p class="step-desc">실제 작동하는 모델을 구축하고 피드백을 통해 완성합니다.</p>
                     </div>
                 </div>
@@ -228,18 +418,16 @@
         <!-- 3. Deliverables -->
         <section class="py-32" style="background: #ffffff;">
             <div class="container">
-                <div class="grid lg-grid-cols-2 gap-20 items-center">
-                    <div>
-                        <span class="section-label">Deliverables</span>
-                        <h2 class="section-title mb-10">팀이 즉시 실행할 수 있는 결과물</h2>
-                        <p class="text-xl text-slate-500 font-light leading-relaxed">우리는 단순한 기획서에 머물지 않습니다. 현업에서 즉시 워킹할 수 있는 구체적인 가이드라인과 설계 자산을 전달합니다.</p>
-                    </div>
-                    <div style="background: #f8fafc; border-radius: 24px; padding: 1rem; border: 1px solid #e2e8f0;">
-                        <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">문제 정의 문장 (Problem Statement)</span></div>
-                        <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">IA (정보 구조) 설계</span></div>
-                        <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">UX Flow & Wireframe</span></div>
-                        <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">인터랙티브 프로토타입 가이드라인</span></div>
-                    </div>
+                <div class="mb-12">
+                    <span class="section-label">Deliverables</span>
+                    <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">팀이 즉시 실행할 수 있는 결과물</h2>
+                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">우리는 단순한 기획서에 머물지 않습니다.<br>현업에서 즉시 워킹할 수 있는 구체적인 가이드라인과 설계 자산을 전달합니다.</p>
+                </div>
+                <div class="grid md-grid-cols-2 lg-grid-cols-4 gap-6">
+                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">문제 정의 문장 (Problem Statement)</span></div>
+                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">IA (정보 구조) 설계</span></div>
+                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">UX Flow & Wireframe</span></div>
+                    <div class="del-item"><div class="del-dot"></div><span class="font-bold">인터랙티브 프로토타입 가이드라인</span></div>
                 </div>
             </div>
         </section>
@@ -301,7 +489,31 @@
               .to(".step-2-wrapper", { opacity: 0, y: -20, duration: 0.6 }, "+=0.5");
 
             tl.set(".final-logo", { visibility: 'visible' })
-              .fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" });
+              .fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" })
+              .to(".final-logo", { opacity: 0, scale: 0.8, duration: 0.5, delay: 0.8 })
+              .to("#hero-showcase-wrapper", { minHeight: "821px", duration: 1.2, ease: "expo.inOut" }, "<")
+              .to(".bg-blobs", { opacity: 0, duration: 0.8 }, "<")
+              .to("#hero-showcase-box", { 
+                  width: "360px", 
+                  height: "721px", 
+                  x: 170,
+                  borderRadius: "32px", 
+                  backgroundColor: "transparent",
+                  borderColor: "#ffffff",
+                  borderWidth: "6px",
+                  boxShadow: "0 0 0 1px rgba(0,0,0,0.08), 0 20px 60px rgba(0,0,0,0.06)",
+                  duration: 1.2, 
+                  ease: "expo.inOut",
+                  onStart: () => {
+                      document.getElementById('hero-showcase-info').style.display = 'block';
+                  },
+                  onComplete: () => {
+                      document.querySelector('.zal-image-container').classList.add('show-shadow');
+                  }
+              }, "<")
+              .to(".zal-image-container", { opacity: 1, duration: 1 }, "+=0.3")
+              .to("#hero-showcase-info", { opacity: 1, x: 150, duration: 0.8, ease: "power2.out" }, "-=0.6")
+              .to(".zal-card-container", { opacity: 1, x: 0, duration: 1, ease: "expo.out" }, "-=0.2");
         }
 
         if (document.readyState === 'complete') {
