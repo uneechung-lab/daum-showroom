@@ -41,12 +41,23 @@
         #header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(2, 6, 23, 0.6) !important; backdrop-filter: blur(15px); z-index: 10001 !important; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
         #hero-showcase-box {
-            position: relative; width: 100%; height: 40vh; min-height: 380px; background: #020617; border-radius: 40px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+            position: relative; width: 100%; height: 42vh; min-height: 400px; background: #020617; border-radius: 48px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 100px rgba(0,0,0,0.5), inset 0 0 100px rgba(56, 189, 248, 0.05);
         }
-        .grid-layer { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 60px 60px; z-index: 1; opacity: 0.3; }
-        .glow-sphere { position: absolute; width: 350px; height: 350px; background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0) 70%); border-radius: 50%; filter: blur(80px); z-index: 2; opacity: 0; }
-        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 3rem; z-index: 10; color: white; }
-        .neon-text { color: #38bdf8; text-shadow: 0 0 30px rgba(56, 189, 248, 0.4); }
+        .grid-layer { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: 1; opacity: 0.4; }
+        .glow-sphere { position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0) 70%); border-radius: 50%; filter: blur(100px); z-index: 2; opacity: 0; transition: all 1.5s ease; }
+        
+        .intro-text { position: absolute; font-weight: 900; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 3.5rem; z-index: 10; color: white; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .neon-text { color: #38bdf8; text-shadow: 0 0 30px rgba(56, 189, 248, 0.6); }
+
+        /* AI Lab Unique Glass Icon */
+        .ai-particle {
+            width: 90px; height: 90px; background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 28px;
+            display: flex; items-center; justify-center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .ai-particle i { color: #38bdf8; width: 36px; height: 36px; stroke-width: 2.2; }
 
         .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; word-break: keep-all; color: white !important; }
         .lab-sub { font-size: 1.45rem; color: #94a3b8 !important; font-weight: 400; line-height: 1.7; max-width: 1000px; }
@@ -93,10 +104,10 @@
                     <div id="glow2" class="glow-sphere" style="bottom: 5%; right: 10%;"></div>
                     <h2 class="intro-text text-1">데이터를 <span class="neon-text">지능</span>으로</h2>
                     <div class="phase-2-wrapper absolute inset-0 flex flex-col items-center justify-center opacity-0 invisible pointer-events-none">
-                        <h2 style="font-size: 3rem; font-weight: 900; margin-bottom: 3rem; text-align: center;">차세대 금융 AI 엔진<br><span style="color: #64748b;">D-CORE</span></h2>
-                        <div style="position: relative; width: 16rem; height: 16rem; display: flex; items-center; justify-center;">
-                            <div style="position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 999px;"></div>
-                            <div style="width: 4rem; height: 4rem; background: #1e293b; border-radius: 1rem; display: flex; items-center; justify-center; margin: auto;"><i data-lucide="brain" style="color: white; width: 2rem; height: 2rem;"></i></div>
+                        <h2 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 3.5rem; text-align: center; letter-spacing: -0.03em;">차세대 금융 AI 엔진<br><span style="color: #64748b;">D-CORE</span></h2>
+                        <div style="position: relative; width: 18rem; height: 18rem; display: flex; items-center; justify-center;">
+                            <div style="position: absolute; inset: 0; border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 999px; box-shadow: 0 0 40px rgba(56, 189, 248, 0.05);"></div>
+                            <div class="ai-particle" style="margin: auto;"><i data-lucide="brain"></i></div>
                         </div>
                     </div>
                     <div class="final-settle opacity-0 invisible flex flex-col items-center">
