@@ -5,17 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AX Innovation Lab | 다음정보시스템즈</title>
     <link rel="stylesheet" href="/src/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
-        body { font-family: 'Pretendard Variable', sans-serif; background-color: #ffffff; color: #020617; }
+        body { font-family: 'Pretendard Variable', sans-serif; background-color: #ffffff; color: #020617; margin: 0; }
+        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; box-sizing: border-box; }
+        .grid { display: grid; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .flex-col { flex-direction: column; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        @media (min-width: 768px) {
+            .md-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+            .lg-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .gap-10 { gap: 2.5rem; }
+        .gap-12 { gap: 3rem; }
+        .gap-20 { gap: 5rem; }
+        .gap-24 { gap: 6rem; }
+        
+        .py-32 { padding-top: 8rem; padding-bottom: 8rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-10 { margin-bottom: 2.5rem; }
+        .mb-20 { margin-bottom: 5rem; }
+        .mb-24 { margin-bottom: 6rem; }
+        .block { display: block; }
+
         .logo .logo-light { display: none !important; }
         .logo .logo-dark { display: block !important; }
-
+        
+        #header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.8) !important; backdrop-filter: blur(10px); z-index: 10001 !important; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        
         #hero-showcase-box {
             position: relative; width: 100%; height: 40vh; min-height: 380px; background: #f1f5f9; border-radius: 40px; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); margin-top: 3.5rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 50px rgba(0,0,0,0.02);
         }
@@ -23,71 +54,60 @@
         .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.3; }
         .blob-1 { background: #FFB800; top: -10%; left: 5%; }
         .blob-2 { background: #4ADE80; bottom: -10%; right: 5%; }
-        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 2.8rem; z-index: 10; }
+        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 2.8rem; z-index: 10; color: #020617; }
         .icon-particle { position: absolute; width: 70px; height: 70px; opacity: 0; z-index: 15; }
-        #header { background: rgba(255, 255, 255, 0.8) !important; backdrop-filter: blur(10px); z-index: 10001 !important; }
         
-        /* Consistent Title Font Size - 2.8rem */
-        .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a; }
-        .lab-sub { font-size: 1.45rem; color: #64748b; font-weight: 400; line-height: 1.7; max-width: 1000px; }
+        .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; }
+        .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1000px; margin-bottom: 2rem; }
         
         .section-label {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 800;
-            color: #475569;
+            font-size: 0.8rem !important;
+            font-weight: 800 !important;
+            color: #475569 !important;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             display: block;
             margin-bottom: 1.5rem;
         }
-        .cta-button { background: #020617 !important; color: #ffffff !important; }
-        .cta-button:hover { background: #1e293b !important; }
+        .cta-button { background: #020617 !important; color: #ffffff !important; padding: 1rem 2rem; border-radius: 99px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .cta-button:hover { background: #1e293b !important; transform: translateY(-2px); }
 
-        /* Unified Card Style from project.html */
-        .phi-card { 
-            background: #ffffff; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 16px; 
-            padding: 3rem; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); 
-        }
-        .phi-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); 
-            border-color: #cbd5e1;
-        }
+        .phi-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 3rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
+        .phi-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); border-color: #cbd5e1; }
+        .phi-icon { width: 48px; height: 48px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #64748b; margin-bottom: 2rem; }
 
-        /* Process Steps - Dark Grey instead of Yellow */
-        .step-item { position: relative; padding: 2.5rem; }
-        .step-num { font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 800; color: #475569; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
-        .step-circle { width: 12px; height: 12px; background: #e2e8f0; border-radius: 50%; margin-bottom: 1.5rem; position: relative; z-index: 2; }
-        .step-item.active .step-circle { background: #475569; box-shadow: 0 0 0 6px rgba(71, 85, 105, 0.1); }
-        .step-line { position: absolute; top: 3.8rem; left: 3rem; width: 100%; height: 2px; background: #f1f5f9; z-index: 1; }
+        .step-item { position: relative; padding: 3rem; border-right: 1px solid #f1f5f9; transition: all 0.3s ease; }
+        .step-item:last-child { border-right: none; }
+        .step-num { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.75rem; color: #94a3b8; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
+        .step-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem; display: block; }
+        .step-desc { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
 
-        /* Deliverables - Grid Items also follow Card Style if applicable, or clean lists */
-        .del-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
-        .del-item { padding: 2rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 1.5rem; }
+        .del-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid #f1f5f9; transition: all 0.3s ease; }
         .del-item:last-child { border-bottom: none; }
-        .del-dot { width: 6px; height: 6px; background: #475569; border-radius: 50%; }
-
-        #footer { background: #f8fafc; padding: 6rem 0; border-top: 1px solid #f1f5f9; }
+        .del-dot { width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; }
+        .text-lg { font-size: 1.125rem; }
+        .font-bold { font-weight: 700; }
+        .text-xl { font-size: 1.25rem; }
+        .text-slate-500 { color: #64748b; }
+        .font-light { font-weight: 300; }
+        .leading-relaxed { line-height: 1.625; }
+        
+        #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
     </style>
 </head>
 <body class="sub-page">
 
     <header id="header">
       <div class="container">
-        <nav>
-          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS" class="logo-light"><img src="/ci_02.png" alt="DAUMIS" class="logo-dark"></a>
-          <button class="mobile-toggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
-          <div class="nav-right">
-            <ul class="nav-links">
-              <li class="nav-item"><span>비지니스</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>비즈니스</h3><p>핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p></div><div class="mega-right"><ul><li><a href="/business.html">퇴직연금시스템</a></li><li><a href="/investment.html">집합투자증권</a></li><li><a href="/mutual.html">공제업무시스템</a></li><li><a href="/sales.html">영업지원시스템</a></li><li><a href="/asset.html">자산관리시스템</a></li></ul></div></div></div></li>
-              <li class="nav-item"><span>프로젝트</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>프로젝트</h3><p>금융 프로젝트 성과입니다.</p></div><div class="mega-right"><ul><li><a href="/project.html">프로젝트 실적</a></li><li><a href="/clients.html">고객사 & 파트너십</a></li></ul></div></div></div></li>
-              <li class="nav-item active"><span>NEXT 랩</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>NEXT 랩</h3><p>복잡한 금융 로직을 안정적으로 처리합니다.</p></div><div class="mega-right"><ul><li><a href="/ai-lab.html">AI 리서치 랩</a></li><li><a href="/ax-lab.html" class="active">AX 이노베이션 랩</a></li></ul></div></div></div></li>
-              <li class="nav-item"><span>회사소개</span><div class="gnb-mega-menu"><div class="mega-container"><div class="mega-left"><h3>회사소개</h3><p>비전과 철학입니다.</p></div><div class="mega-right"><ul><li><a href="/company.html#intro">소개</a></li><li><a href="/company.html#ceo">CEO</a></li><li><a href="/company.html#vision">비전</a></li><li><a href="/company.html#history">연혁</a></li><li><a href="/company.html#contact">Contact</a></li></ul></div></div></div></li>
+        <nav class="flex items-center justify-center" style="height: 100px; justify-content: space-between;">
+          <a href="/" class="logo"><img src="/ci_02.png" alt="DAUMIS" style="height: 32px;"></a>
+          <div class="flex items-center gap-8">
+            <ul class="flex items-center gap-8" style="list-style: none; margin: 0; padding: 0;">
+              <li><a href="/business.html" style="text-decoration: none; color: #1e293b; font-weight: 600;">비지니스</a></li>
+              <li><a href="/project.html" style="text-decoration: none; color: #1e293b; font-weight: 600;">프로젝트</a></li>
+              <li><a href="/ax-lab.html" style="text-decoration: none; color: #FFB800; font-weight: 700;">NEXT 랩</a></li>
+              <li><a href="/company.html" style="text-decoration: none; color: #1e293b; font-weight: 600;">회사소개</a></li>
             </ul>
             <a href="/#inquiry" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
           </div>
@@ -96,104 +116,103 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="pb-24 bg-white" style="padding-top: 180px !important;">
+        <section class="py-32" style="padding-top: 180px !important; padding-bottom: 4rem;">
             <div class="container">
-                <div class="text-left">
+                <div style="text-align: left;">
                     <h1 class="lab-title">혁신은 가장 평범한<br>일상에서 시작됩니다.</h1>
                     <p class="lab-sub">AX Innovation Lab은 최신 인공지능 기술을 일상의 구체적인 경험으로 설계합니다.<br>우리는 기술이 만드는 삶의 변화에 주목하며, 일상을 혁신하는 최적의 UX 프로덕트를 제안합니다.</p>
                 </div>
+                
                 <div id="hero-showcase-box">
-                    <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div></div>
-                    <h2 class="intro-text text-1">기술, 그 이상의 경험</h2>
-                    <div class="step-2-wrapper absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <h2 class="intro-text text-2" style="font-size: 2.6rem;">AI가 일상이 되는 곳</h2>
-                        <div class="icon-particle bg-white rounded-2xl flex items-center justify-center p-3 shadow-lg border border-slate-100" style="top: 30%; left: 38%;"><img src="https://img.icons8.com/fluency/96/hamburger.png"></div>
-                        <div class="icon-particle bg-white rounded-2xl flex items-center justify-center p-4 shadow-lg border border-slate-100" style="top: 40%; right: 35%;"><img src="https://img.icons8.com/fluency/96/salad.png"></div>
-                        <div class="icon-particle bg-white rounded-2xl flex items-center justify-center p-3 shadow-lg border border-slate-100" style="bottom: 25%; left: 40%;"><img src="https://img.icons8.com/fluency/96/coffee.png"></div>
-                        <div class="icon-particle bg-white rounded-2xl flex items-center justify-center p-3 shadow-lg border border-slate-100" style="bottom: 30%; right: 38%;"><img src="https://img.icons8.com/fluency/96/pizza.png"></div>
+                    <div class="bg-blobs">
+                        <div class="blob blob-1"></div>
+                        <div class="blob blob-2"></div>
                     </div>
-                    <div class="final-logo opacity-0 invisible flex flex-col items-center">
-                        <div class="w-20 h-20 bg-slate-950 rounded-[32px] flex items-center justify-center mb-8 shadow-xl"><span class="text-white font-black text-3xl">AX</span></div>
-                        <h1 class="text-4xl font-bold tracking-tight">AX Innovation Lab</h1>
-                        <div class="w-12 h-1 bg-slate-300 mt-4"></div>
+                    
+                    <h2 class="intro-text text-1">혁신은 <span style="color: #FFB800;">발견</span>하는 것</h2>
+                    
+                    <div class="step-2-wrapper intro-text text-2 flex flex-col items-center">
+                        <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 2rem;">일상의 도구를 재설계합니다</h2>
+                        <div class="flex gap-6">
+                            <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="smartphone" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                            <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="coffee" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                            <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="credit-card" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="final-logo intro-text flex flex-col items-center">
+                        <div style="width: 100px; height: 100px; background: white; border-radius: 24px; display: flex; items-center; justify-center; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.1);"><span style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin: auto;">AX</span></div>
+                        <h1 style="font-size: 2rem; font-weight: 800;">AX Innovation Lab</h1>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 1. Our Philosophy -->
-        <section class="py-32 bg-white">
+        <section class="py-32" style="background: #ffffff;">
             <div class="container">
                 <span class="section-label">Our Philosophy</span>
-                <h2 class="section-title mb-20 tracking-tight">AX의 핵심 원칙</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <h2 class="section-title">AX의 핵심 원칙</h2>
+                <div class="grid md-grid-cols-3 gap-8">
                     <div class="phi-card">
-                        <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-10"><i data-lucide="user" class="text-slate-600 w-6 h-6"></i></div>
-                        <h4 class="text-2xl font-bold mb-4">사람 중심</h4>
-                        <p class="text-slate-500 leading-relaxed text-lg">Human-Centric: 기술보다 사용자의 일상과 필요를 먼저 관찰합니다.</p>
+                        <div class="phi-icon"><i data-lucide="users"></i></div>
+                        <h3 class="text-xl font-bold mb-4">사람 중심 (Human-Centric)</h3>
+                        <p class="text-slate-500">기술보다 사용자의 일상과 필요를 먼저 관찰합니다.</p>
                     </div>
                     <div class="phi-card">
-                        <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-10"><i data-lucide="check-circle" class="text-slate-600 w-6 h-6"></i></div>
-                        <h4 class="text-2xl font-bold mb-4">결정 피로 감소</h4>
-                        <p class="text-slate-500 leading-relaxed text-lg">Decision-Free: 복잡한 선택지를 줄이고 AI가 최적의 답을 제안합니다.</p>
+                        <div class="phi-icon"><i data-lucide="check-circle"></i></div>
+                        <h3 class="text-xl font-bold mb-4">결정 피로 감소 (Decision-Free)</h3>
+                        <p class="text-slate-500">복잡한 선택지를 줄이고 AI가 최적의 답을 제안합니다.</p>
                     </div>
                     <div class="phi-card">
-                        <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-10"><i data-lucide="zap" class="text-slate-600 w-6 h-6"></i></div>
-                        <h4 class="text-2xl font-bold mb-4">빠른 실행</h4>
-                        <p class="text-slate-500 leading-relaxed text-lg">Agile Reality: 아이디어에 머물지 않고 즉시 프로토타입으로 구현합니다.</p>
+                        <div class="phi-icon"><i data-lucide="zap"></i></div>
+                        <h3 class="text-xl font-bold mb-4">빠른 실행 (Agile Reality)</h3>
+                        <p class="text-slate-500">아이디어에 머물지 않고 즉시 프로토타입으로 구현합니다.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 2. AX Process -->
-        <section class="py-32 bg-slate-50/50">
+        <section class="py-32" style="background: #f8fafc;">
             <div class="container">
                 <span class="section-label">AX Process</span>
-                <h2 class="section-title mb-24 tracking-tight">현실적인 해결책을 만드는 4단계</h2>
-                <div class="grid grid-cols-1 md:grid-cols-4">
-                    <div class="step-item active">
-                        <div class="step-line"></div>
-                        <div class="step-circle"></div>
+                <h2 class="section-title">현실적인 해결책을 만드는 4단계</h2>
+                <div class="grid md-grid-cols-4" style="background: white; border-radius: 24px; overflow: hidden; border: 1px solid #e2e8f0;">
+                    <div class="step-item">
                         <span class="step-num">STEP 01</span>
-                        <h4 class="text-xl font-bold mb-4">관찰 (Observe)</h4>
-                        <p class="text-slate-500 leading-relaxed">데이터와 행동 분석을 통해 숨겨진 불편함을 포착합니다.</p>
+                        <span class="step-title">관찰 (Observe)</span>
+                        <p class="step-desc">데이터와 행동 분석을 통해 숨겨진 불편함을 포착합니다.</p>
                     </div>
                     <div class="step-item">
-                        <div class="step-line"></div>
-                        <div class="step-circle"></div>
                         <span class="step-num">STEP 02</span>
-                        <h4 class="text-xl font-bold mb-4">재정의 (Redefine)</h4>
-                        <p class="text-slate-500 leading-relaxed">문제의 본질을 다시 정의하여 올바른 방향을 설정합니다.</p>
+                        <span class="step-title">재정의 (Redefine)</span>
+                        <p class="step-desc">문제의 본질을 다시 정의하여 올바른 방향을 설정합니다.</p>
                     </div>
                     <div class="step-item">
-                        <div class="step-line"></div>
-                        <div class="step-circle"></div>
                         <span class="step-num">STEP 03</span>
-                        <h4 class="text-xl font-bold mb-4">단순화 (Simplify)</h4>
-                        <p class="text-slate-500 leading-relaxed">핵심 가치만 남기고 불필요한 과정을 과감히 걷어냅니다.</p>
+                        <span class="step-title">단순화 (Simplify)</span>
+                        <p class="step-desc">핵심 가치만 남기고 불필요한 과정을 과감히 걷어냅니다.</p>
                     </div>
                     <div class="step-item">
-                        <div class="step-circle"></div>
                         <span class="step-num">STEP 04</span>
-                        <h4 class="text-xl font-bold mb-4">반복 (Iterate)</h4>
-                        <p class="text-slate-500 leading-relaxed">실제 작동하는 모델을 구축하고 피드백을 통해 완성합니다.</p>
+                        <span class="step-title">반복 (Iterate)</span>
+                        <p class="step-desc">실제 작동하는 모델을 구축하고 피드백을 통해 완성합니다.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 3. Deliverables -->
-        <section class="py-32 bg-white">
+        <section class="py-32" style="background: #ffffff;">
             <div class="container">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="grid lg-grid-cols-2 gap-20 items-center">
                     <div>
                         <span class="section-label">Deliverables</span>
-                        <h2 class="section-title mb-10 tracking-tight">팀이 즉시 실행할 수 있는 결과물</h2>
-                        <p class="text-xl text-slate-500 font-light leading-relaxed mb-10">우리는 단순한 기획서에 머물지 않습니다. 현업에서 즉시 워킹할 수 있는 구체적인 가이드라인과 설계 자산을 전달합니다.</p>
+                        <h2 class="section-title mb-10">팀이 즉시 실행할 수 있는 결과물</h2>
+                        <p class="text-xl text-slate-500 font-light leading-relaxed">우리는 단순한 기획서에 머물지 않습니다. 현업에서 즉시 워킹할 수 있는 구체적인 가이드라인과 설계 자산을 전달합니다.</p>
                     </div>
-                    <div class="del-container">
+                    <div style="background: #f8fafc; border-radius: 24px; padding: 1rem; border: 1px solid #e2e8f0;">
                         <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">문제 정의 문장 (Problem Statement)</span></div>
                         <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">IA (정보 구조) 설계</span></div>
                         <div class="del-item"><div class="del-dot"></div><span class="text-lg font-bold">UX Flow & Wireframe</span></div>
@@ -204,48 +223,42 @@
         </section>
     </main>
 
-    <footer id="footer" style="background: #020617; color: white;">
+    <footer id="footer" style="background: #020617; color: white; padding: 6rem 0;">
         <div class="container">
           <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
-            <!-- Branding Section -->
-            <div style="margin-left: -16px; padding: 0;">
-              <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+            <div style="margin-left: -16px;">
+              <div style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 12px;">
                 <span style="font-size: 2.2rem; font-weight: 800; color: #FFB800; letter-spacing: -1px; line-height: 1;">DAUMIS</span>
-                <span style="font-size: 1.2rem; font-weight: 700; color: #FFB800; margin-left: 12px;">다음정보시스템즈</span>
+                <span style="font-size: 1.2rem; font-weight: 700; color: #FFB800;">다음정보시스템즈</span>
               </div>
-              <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
+              <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
               <p style="color: #64748b; font-size: 0.85rem; opacity: 0.8;">Copyright© 2019 by DAUM IS. All right reserved.</p>
             </div>
-
-            <!-- Contact & Office Info Section -->
             <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
               <div>
-                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: white;">Contact</h4>
-                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">Contact</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 2; padding: 0;">
                   <li>T. 02-6247-8413</li>
                   <li>F. 070-4713-9499</li>
                 </ul>
               </div>
               <div>
-                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: white;">금융센터</h4>
-                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">금융센터</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0;">
                   <li>(07332) 서울시 영등포구</li>
-                  <li>국제금융로2길 27-9,</li>
-                  <li>경북빌딩 603호</li>
+                  <li>국제금융로2길 27-9</li>
                 </ul>
               </div>
               <div>
-                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: white;">본사</h4>
-                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">본사</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0;">
                   <li>(08791) 서울시 관악구</li>
-                  <li>관악로 120</li>
-                  <li>아주빌딩 3층</li>
+                  <li>관악로 120, 아주빌딩 3층</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; margin-top: 2rem;">
-          </div>
+          <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; margin-top: 2rem;"></div>
         </div>
     </footer>
 
@@ -267,7 +280,6 @@
 
             tl.set(".final-logo", { visibility: 'visible' })
               .fromTo(".final-logo", { opacity: 0, scale: 0.9, y: 15 }, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "expo.out" });
-            gsap.to(".container", { opacity: 1, y: 0, duration: 1, stagger: 0.2 });
         }
 
         if (document.readyState === 'complete') {
