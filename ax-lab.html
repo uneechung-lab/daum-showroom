@@ -279,13 +279,13 @@
                         </div>
 
                         <div class="zal-image-container">
-                            <img src="/zal_eat.png" alt="ZAL EAT">
+                            <img src="zal_eat.png" alt="ZAL EAT">
                         </div>
                     </div>
 
                     <!-- 박스 바깥 좌측에 배치 (초기 opacity: 0) -->
                     <div class="zal-card-container" style="position: absolute; left: -140px; top: 400px; width: 340px; z-index: 100; pointer-events: none; opacity: 0;">
-                        <img src="/zaleat_cc.png" alt="ZAL Card" style="width: 100%; height: auto; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));">
+                        <img src="zaleat_cc.png" alt="ZAL Card" style="width: 100%; height: auto; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));">
                     </div>
 
                     <div id="hero-showcase-info" style="position: absolute; left: 440px; top: 0; width: calc(100% - 460px);">
@@ -516,11 +516,18 @@
               .to(".zal-card-container", { opacity: 1, x: 0, duration: 1, ease: "expo.out" }, "-=0.2");
         }
 
-        if (document.readyState === 'complete') {
-            initAnimations();
-        } else {
-            window.addEventListener('load', initAnimations);
-        }
+        window.addEventListener('load', () => {
+            // 외부 라이브러리 로드 대기 후 실행
+            const checkLibs = setInterval(() => {
+                if (typeof gsap !== 'undefined' && typeof lucide !== 'undefined') {
+                    clearInterval(checkLibs);
+                    initAnimations();
+                }
+            }, 100);
+            
+            // 최대 5초 대기 후 강제 실행 시도
+            setTimeout(() => clearInterval(checkLibs), 5000);
+        });
     </script>
 </body>
 </html>
