@@ -12,7 +12,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
         body { font-family: 'Pretendard Variable', sans-serif; background-color: #ffffff; color: #020617; margin: 0; }
-        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; box-sizing: border-box; }
+        .container { width: 100%; max-width: 1500px; margin: 0 auto; padding: 0 3rem; box-sizing: border-box; }
         .grid { display: grid; }
         .flex { display: flex; }
         .items-center { align-items: center; }
@@ -48,7 +48,7 @@
             background: #ffffff !important; 
             border-bottom: 1px solid rgba(0,0,0,0.05);
             z-index: 100001 !important; 
-            transition: all 0.3s ease;
+            transition: none;
         }
         #header .nav-links a, #header .nav-item > span { color: #1e293b !important; }
         #header .logo .logo-light { display: none !important; }
@@ -84,7 +84,7 @@
         .info-item-text p { font-size: 0.95rem; color: #64748b; line-height: 1.5; }
         
         .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; }
-        .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1000px; margin-bottom: 2rem; }
+        .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1200px; margin-bottom: 2rem; }
         
         .section-label {
             font-family: 'Outfit', sans-serif;
@@ -135,10 +135,7 @@
         .process-step .step-title { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; }
         .process-step .step-desc { font-size: 0.95rem; color: #64748b; line-height: 1.6; max-width: 100%; word-break: keep-all; }
 
-        /* Custom Logo for AX Lab */
-        #header .logo { height: 55px !important; display: flex; align-items: center; gap: 6px; text-decoration: none; }
-        #header .logo img { height: 100%; width: auto; }
-        .logo-text { font-family: 'Pretendard', sans-serif; font-size: 1rem; font-weight: 400; color: #0f172a; letter-spacing: -0.02em; white-space: nowrap; }
+
 
         .del-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid #f1f5f9; transition: all 0.3s ease; color: #0f172a !important; background: white; border-radius: 12px; border: 1px solid #f1f5f9; }
         .del-item:hover { border-color: #FFB800; transform: translateX(5px); }
@@ -152,16 +149,12 @@
         #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
     </style>
 </head>
-<body class="sub-page">
+<body class="sub-page theme-light">
 
     <header id="header">
       <div class="container">
         <nav>
-          <a href="/" class="logo">
-            <img src="/ci_03.png" alt="DAUMIS" class="logo-light">
-            <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
-            <span class="logo-text">다음정보시스템즈</span>
-          </a>
+          <a href="/" class="logo"><img src="/ci_04.png" alt="DAUMIS" class="logo-light"><img src="/ci_03.png" alt="DAUMIS" class="logo-dark"><span class="logo-text">다음정보시스템즈</span></a>
           
           <button class="mobile-toggle" aria-label="메뉴 열기">
             <span></span>
@@ -543,9 +536,9 @@
         <div class="container">
           <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
             <div style="margin-left: -16px;">
-              <div style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 2.2rem; font-weight: 800; color: #FFB800; letter-spacing: -1px; line-height: 1;">DAUMIS</span>
-                <span style="font-size: 1.2rem; font-weight: 700; color: #FFB800;">다음정보시스템즈</span>
+              <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
+                <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
+                <span style="font-size: 1.2rem; font-weight: 400; color: #FFB800; opacity: 1;">다음정보시스템즈</span>
               </div>
               <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
               <p style="color: #64748b; font-size: 0.85rem; opacity: 0.8;">Copyright© 2019 by DAUM IS. All right reserved.</p>
@@ -670,3 +663,7 @@
     </script>
 </body>
 </html>
+
+
+
+

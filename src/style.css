@@ -342,7 +342,7 @@ header {
   display: flex;
   align-items: center;
   z-index: 10000;
-  transition: var(--transition-smooth);
+  transition: none;
 }
 
 main {
@@ -608,16 +608,24 @@ nav {
 .logo { 
   display: flex; 
   align-items: center; 
-  height: 75px;
+  height: 52px;
+  gap: 8px;
   font-weight: 800; 
   font-size: 2rem; 
   color: var(--daumis-yellow); 
   flex-shrink: 0;
   margin-left: -16px; /* Pull CI left to align with content grid */
+  text-decoration: none;
 }
 
 body.sub-page .logo {
-  height: 75px; 
+  height: 52px; 
+}
+
+body.sub-page header.scrolled .logo,
+body.sub-page header:has(.nav-item:hover) .logo,
+body.sub-page header.menu-open .logo {
+  height: 52px;
 }
 
 /* Removed redundant sub-page header shadow rules to keep it clean */
@@ -635,16 +643,32 @@ body.sub-page header.menu-open .nav-links span {
     color: #1e293b;
 }
 
+.logo-text {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--daumis-yellow);
+  opacity: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+body.sub-page.theme-light .logo-text,
+body.sub-page header.scrolled .logo-text,
+body.sub-page header:has(.nav-item:hover) .logo-text,
+body.sub-page header.menu-open .logo-text {
+  color: #0f172a;
+}
+
 body.sub-page header.scrolled .mobile-toggle span { background: #1e293b; }
 body.sub-page header:has(.nav-item:hover) .mobile-toggle span { background: #1e293b; }
 body.sub-page header.menu-open .mobile-toggle span { background: #1e293b; }
 
-.logo img { height: 100%; width: auto; transition: opacity 0.3s ease; }
+.logo img.logo-light { height: 42px; width: auto; }
+.logo img.logo-dark { height: 52px; width: auto; }
 
 /* Handle dual logo swap only on sub-page scrolling or hover-open */
 .logo .logo-dark { 
     display: none; 
-    height: 68%; /* Further reduced for perfect visual parity */
     margin: auto 0;
 }
 body.sub-page header.scrolled .logo .logo-light { display: none; }
@@ -724,7 +748,7 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
 @media (max-width: 1024px) {
   .nav-right { gap: 1.5rem; }
   .nav-links { gap: 1.5rem; }
-  .logo { height: 50px; }
+  .logo { height: 32px; }
 }
 
 @media (max-width: 768px) {
@@ -759,7 +783,7 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
 }
 
 @media (max-width: 480px) {
-  .logo { height: 40px; }
+  .logo { height: 28px; }
   .section-title { font-size: 1.8rem; }
 }
 
