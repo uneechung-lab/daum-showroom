@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>인재채용 | 다음정보시스템즈</title>
+    <title>오시는 길 | 다음정보시스템즈</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -25,48 +25,72 @@
         padding-top: 180px;
         min-height: 80vh;
       }
-      .recruit-hero {
-        text-align: center;
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
         margin-bottom: 6rem;
       }
-      .recruit-hero h2 {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: #0f172a;
-        margin-bottom: 1.5rem;
+      .contact-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 32px;
+        overflow: hidden;
+        background: white;
+        transition: all 0.3s ease;
       }
-      .recruit-hero p {
-        font-size: 1.5rem;
-        color: #64748b;
+      .contact-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        border-color: var(--daumis-yellow);
       }
-      .process-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        margin-top: 4rem;
-      }
-      .process-card {
-        padding: 3rem;
+      .map-placeholder {
+        height: 400px;
         background: #f8fafc;
-        border-radius: 24px;
-        text-align: center;
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+        border-bottom: 1px solid #f1f5f9;
       }
-      .process-card .num {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1rem;
-        font-weight: 800;
-        color: var(--daumis-yellow);
-        margin-bottom: 1rem;
-        display: block;
+      .contact-info {
+        padding: 3rem;
       }
-      .process-card h4 {
-        font-size: 1.3rem;
+      .contact-info h4 {
+        font-size: 1.8rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        color: #0f172a;
+      }
+      .contact-info p {
+        color: #64748b;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        word-break: keep-all;
+      }
+      .contact-meta {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        gap: 3rem;
+      }
+      .meta-item strong {
+        display: block;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+      }
+      .meta-item span {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #0f172a;
       }
       @media (max-width: 1024px) {
-        .process-grid { grid-template-columns: 1fr 1fr; }
+        .contact-grid { grid-template-columns: 1fr; }
+        .contact-meta { flex-direction: column; gap: 1.5rem; }
         main { padding-top: 140px; }
       }
     </style>
@@ -137,7 +161,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <span>회사소개</span>
+                <span class="active">회사소개</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -150,14 +174,14 @@
                         <li><a href="/overview.html">기업 개요</a></li>
                         <li><a href="/vision.html">비전</a></li>
                         <li><a href="/history.html">연혁</a></li>
-                        <li><a href="/contact.html">오시는 길</a></li>
+                        <li><a href="/contact.html" class="active">오시는 길</a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </li>
               <li class="nav-item">
-                <span class="active">인재채용</span>
+                <span>인재채용</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -166,10 +190,10 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/careers.html" class="active">직무소개</a></li>
-                        <li><a href="/careers.html">채용절차</a></li>
-                        <li><a href="/careers.html">복지제도</a></li>
-                        <li><a href="/careers.html">채용공고</a></li>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
                       </ul>
                     </div>
                   </div>
@@ -184,32 +208,49 @@
 
     <main>
       <div class="container">
-        <div class="recruit-hero">
-          <span class="section-label">Careers</span>
-          <h2>함께 성장하는 즐거움</h2>
-          <p>최고의 동료와 함께 금융 기술의 정점에 도전하세요.</p>
-        </div>
+        <span class="section-label" style="margin-bottom: 2rem;">Contact Us</span>
+        <h2 class="section-title" style="font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 5rem;">오시는 길</h2>
 
-        <div class="process-grid">
-          <div class="process-card">
-            <span class="num">STEP 01</span>
-            <h4>서류 전형</h4>
-            <p>지원서 및 경력기술서 검토</p>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="map-placeholder">
+              <i data-lucide="map-pin" style="width: 48px; height: 48px; opacity: 0.2; margin-bottom: 1.5rem;"></i>
+              <p style="font-weight: 600;">여의도센터 지도 준비 중</p>
+            </div>
+            <div class="contact-info">
+              <h4>여의도센터</h4>
+              <p>(07332) 서울시 영등포구 국제금융로8길 27-9, 동북빌딩 603호</p>
+              <div class="contact-meta">
+                <div class="meta-item">
+                  <strong>Telephone</strong>
+                  <span>02-6247-8413</span>
+                </div>
+                <div class="meta-item">
+                  <strong>Fax</strong>
+                  <span>070-4713-9499</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="process-card">
-            <span class="num">STEP 02</span>
-            <h4>실무 면접</h4>
-            <p>기술 역량 및 직무 적합성 평가</p>
-          </div>
-          <div class="process-card">
-            <span class="num">STEP 03</span>
-            <h4>임원 면접</h4>
-            <p>인성 및 조직 문화 적합성 평가</p>
-          </div>
-          <div class="process-card">
-            <span class="num">STEP 04</span>
-            <h4>최종 합격</h4>
-            <p>처우 협의 및 입사 확정</p>
+          <div class="contact-card">
+            <div class="map-placeholder">
+              <i data-lucide="map-pin" style="width: 48px; height: 48px; opacity: 0.2; margin-bottom: 1.5rem;"></i>
+              <p style="font-weight: 600;">본사 지도 준비 중</p>
+            </div>
+            <div class="contact-info">
+              <h4>본사</h4>
+              <p>(08791) 서울특별시 관악구 관악로 120 우주빌딩 3층</p>
+              <div class="contact-meta">
+                <div class="meta-item">
+                  <strong>Telephone</strong>
+                  <span>02-6247-8413</span>
+                </div>
+                <div class="meta-item">
+                  <strong>Fax</strong>
+                  <span>070-4713-9499</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -219,7 +260,7 @@
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
-            다음정보시스템즈의 미래를 함께할<br>준비가 되셨다면 지금 문을 두드리세요.
+            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>

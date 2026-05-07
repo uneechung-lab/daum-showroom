@@ -225,11 +225,19 @@
         box-shadow: none !important;
       }
       html body.sub-page header.scrolled:not(.menu-open) .nav-links a,
+      html body.sub-page header.scrolled:not(.menu-open) .nav-item > span,
+      html body.sub-page header.scrolled:not(.menu-open) .logo-text {
+        color: var(--daumis-yellow) !important;
+      }
+      /* Ensure nav links are white, only logo text is yellow */
+      html body.sub-page header.scrolled:not(.menu-open) .nav-links a,
       html body.sub-page header.scrolled:not(.menu-open) .nav-item > span {
         color: white !important;
       }
-      html body.sub-page header.scrolled:not(.menu-open) .logo-text {
-        color: var(--daumis-yellow) !important;
+      /* Handle light background states */
+      body.sub-page header.menu-open .logo-text,
+      body.sub-page header:has(.nav-item:hover) .logo-text {
+        color: #0f172a !important;
       }
       html body.sub-page header.scrolled:not(.menu-open) .logo .logo-light { 
         display: block !important; 
@@ -539,11 +547,11 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/company.html#intro">소개</a></li>
-                        <li><a href="/company.html#ceo">CEO</a></li>
-                        <li><a href="/company.html#vision">비전</a></li>
-                        <li><a href="/company.html#history">연혁</a></li>
-                        <li><a href="/company.html#contact">Contact</a></li>
+                        <li><a href="/ceo.html">CEO 인사말</a></li>
+                        <li><a href="/overview.html">기업 개요</a></li>
+                        <li><a href="/vision.html">비전</a></li>
+                        <li><a href="/history.html">연혁</a></li>
+                        <li><a href="/contact.html">오시는 길</a></li>
                       </ul>
                     </div>
                   </div>

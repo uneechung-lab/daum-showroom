@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>인재채용 | 다음정보시스템즈</title>
+    <title>CEO 인사말 | 다음정보시스템즈</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -21,53 +21,62 @@
         z-index: 99999 !important;
         background: #020617 !important;
       }
+      header .nav-links a, 
+      header .nav-item > span {
+        color: white;
+      }
+      header.scrolled .nav-links a,
+      header.scrolled .nav-links span,
+      header:has(.nav-item:hover) .nav-links a,
+      header:has(.nav-item:hover) .nav-links span,
+      header.menu-open .nav-links a,
+      header.menu-open .nav-item > span {
+        color: #1e293b !important;
+      }
+      header .logo-text {
+        color: var(--daumis-yellow) !important;
+      }
+      header:has(.nav-item:hover) .logo-text,
+      header.menu-open .logo-text {
+        color: #0f172a !important;
+      }
       main {
-        padding-top: 180px;
+        padding-top: 280px;
         min-height: 80vh;
       }
-      .recruit-hero {
-        text-align: center;
-        margin-bottom: 6rem;
-      }
-      .recruit-hero h2 {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: #0f172a;
-        margin-bottom: 1.5rem;
-      }
-      .recruit-hero p {
-        font-size: 1.5rem;
-        color: #64748b;
-      }
-      .process-grid {
+      .vision-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        margin-top: 4rem;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 6rem;
+        align-items: center;
       }
-      .process-card {
-        padding: 3rem;
-        background: #f8fafc;
-        border-radius: 24px;
-        text-align: center;
-        position: relative;
-      }
-      .process-card .num {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1rem;
-        font-weight: 800;
-        color: var(--daumis-yellow);
-        margin-bottom: 1rem;
-        display: block;
-      }
-      .process-card h4 {
-        font-size: 1.3rem;
+      .vision-text h2 {
+        font-size: 3.0rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        color: #0f172a;
+      }
+      .vision-text p {
+        font-size: 1.4rem;
+        color: #64748b;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+      }
+      .vision-img {
+        width: 100%;
+        height: 720px;
+        background: none;
+        border-radius: 40px;
+        overflow: hidden;
+      }
+      .section-label {
+        color: #64748b !important;
       }
       @media (max-width: 1024px) {
-        .process-grid { grid-template-columns: 1fr 1fr; }
-        main { padding-top: 140px; }
+        .vision-grid { grid-template-columns: 1fr; gap: 4rem; }
+        .vision-img { height: 400px; }
+        main { padding-top: 200px; }
       }
     </style>
   </head>
@@ -137,7 +146,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <span>회사소개</span>
+                <span class="active">회사소개</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -146,7 +155,7 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/ceo.html">CEO 인사말</a></li>
+                        <li><a href="/ceo.html" class="active">CEO 인사말</a></li>
                         <li><a href="/overview.html">기업 개요</a></li>
                         <li><a href="/vision.html">비전</a></li>
                         <li><a href="/history.html">연혁</a></li>
@@ -157,7 +166,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <span class="active">인재채용</span>
+                <span>인재채용</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -166,10 +175,10 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/careers.html" class="active">직무소개</a></li>
-                        <li><a href="/careers.html">채용절차</a></li>
-                        <li><a href="/careers.html">복지제도</a></li>
-                        <li><a href="/careers.html">채용공고</a></li>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
                       </ul>
                     </div>
                   </div>
@@ -184,32 +193,25 @@
 
     <main>
       <div class="container">
-        <div class="recruit-hero">
-          <span class="section-label">Careers</span>
-          <h2>함께 성장하는 즐거움</h2>
-          <p>최고의 동료와 함께 금융 기술의 정점에 도전하세요.</p>
-        </div>
-
-        <div class="process-grid">
-          <div class="process-card">
-            <span class="num">STEP 01</span>
-            <h4>서류 전형</h4>
-            <p>지원서 및 경력기술서 검토</p>
+        <div class="vision-grid">
+          <div class="vision-text">
+            <span class="section-label">CEO Message</span>
+            <h2>고객의 가치가<br>기술의 기준이 됩니다.</h2>
+            <p style="font-size: 1.15rem; line-height: 1.8;">
+              (주)다음정보시스템즈는 퇴직연금시스템과 집합투자증권 분야의 특화된 기술력을 바탕으로 고객사의 금융 비즈니스의 가치를 실현하는 정보시스템 환경을 구축합니다.<br><br>
+              우리는 단순한 시스템 통합을 넘어, 금융·공공 분야의 깊이 있는 도메인 지식과 컨설팅 역량을 통해 비즈니스의 잠재적 가치를 현실로 만듭니다. 숙련된 전문가들이 제공하는 정교한 설계와 빈틈없는 사후관리는 급변하는 금융 환경 속에서 고객사의 시스템이 최상의 성능을 유지하도록 보장합니다.<br><br>
+              다년간 쌓아온 신뢰를 바탕으로 기술 표준과 법률을 엄격히 준수하며, 고객이 필요로 하는 가장 정확한 서비스를 제공하는 '금융 IT 인프라 전문 기업'으로서 책임을 다하겠습니다.<br><br>
+              흔들림 없는 전문성으로 고객과 함께 성장해 나갈 (주)다음정보시스템즈의 행보에 따뜻한 성원을 부탁드립니다.
+            </p>
+            <div style="margin-top: 4rem; text-align: left;">
+              <p style="color: #0f172a; font-size: 1.2rem; display: flex; align-items: center; gap: 15px;">
+                <span style="font-weight: 400;">다음정보시스템즈 공동대표</span>
+                <span style="font-size: 2.4rem; font-weight: 600;">조은지 / 오제관</span>
+              </p>
+            </div>
           </div>
-          <div class="process-card">
-            <span class="num">STEP 02</span>
-            <h4>실무 면접</h4>
-            <p>기술 역량 및 직무 적합성 평가</p>
-          </div>
-          <div class="process-card">
-            <span class="num">STEP 03</span>
-            <h4>임원 면접</h4>
-            <p>인성 및 조직 문화 적합성 평가</p>
-          </div>
-          <div class="process-card">
-            <span class="num">STEP 04</span>
-            <h4>최종 합격</h4>
-            <p>처우 협의 및 입사 확정</p>
+          <div class="vision-img">
+            <img src="/ceo.png" alt="CEO" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);">
           </div>
         </div>
       </div>
@@ -219,7 +221,7 @@
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
-            다음정보시스템즈의 미래를 함께할<br>준비가 되셨다면 지금 문을 두드리세요.
+            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>

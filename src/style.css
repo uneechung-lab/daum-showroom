@@ -628,35 +628,66 @@ body.sub-page header.menu-open .logo {
   height: 52px;
 }
 
-/* Removed redundant sub-page header shadow rules to keep it clean */
+/* Global GNB 1-depth Color - White by default for dark backgrounds */
+#header .nav-links a, 
+#header .nav-item > span {
+    color: rgba(255, 255, 255, 0.7);
+}
 
-body.sub-page header.scrolled .nav-links a,
-body.sub-page header.scrolled .nav-links span {
-    color: #1e293b;
-}
-body.sub-page header:has(.nav-item:hover) .nav-links a,
-body.sub-page header:has(.nav-item:hover) .nav-links span {
-    color: #1e293b;
-}
-body.sub-page header.menu-open .nav-links a,
-body.sub-page header.menu-open .nav-links span {
+/* Handle light theme pages (like AI Lab) */
+body.theme-light #header .nav-links a,
+body.theme-light #header .nav-item > span {
     color: #1e293b;
 }
 
+/* Revert to dark color on light backgrounds (scrolled, hovered, or menu open) */
+#header.scrolled .nav-links a,
+#header.scrolled .nav-links span,
+#header:has(.nav-item:hover) .nav-links a,
+#header:has(.nav-item:hover) .nav-links span,
+#header.menu-open .nav-links a,
+#header.menu-open .nav-item > span {
+    color: #1e293b !important;
+}
+
+/* Logo Text Style & Color Logic */
 .logo-text {
   font-size: 1.1rem;
   font-weight: 400;
-  color: var(--daumis-yellow);
+  color: var(--daumis-yellow) !important;
   opacity: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
-body.sub-page.theme-light .logo-text,
-body.sub-page header.scrolled .logo-text,
-body.sub-page header:has(.nav-item:hover) .logo-text,
-body.sub-page header.menu-open .logo-text {
-  color: #0f172a;
+/* Revert to dark on light background states */
+body.theme-light .logo-text,
+#header.menu-open .logo-text,
+#header:has(.nav-item:hover) .logo-text,
+#header.scrolled .logo-text {
+  color: #0f172a !important;
+}
+
+/* White Header Theme - Background & Border */
+#header.menu-open,
+#header:has(.nav-item:hover),
+#header.scrolled {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important;
+}
+
+/* Reset border for default dark header */
+#header:not(.menu-open):not(.scrolled):not(:has(.nav-item:hover)) {
+  border-bottom: none !important;
+}
+
+/* CTA Button logic for White Header Theme */
+#header.menu-open .cta-button,
+#header:has(.nav-item:hover) .cta-button,
+#header.scrolled .cta-button {
+  background: #000000 !important;
+  color: #ffffff !important;
 }
 
 body.sub-page header.scrolled .mobile-toggle span { background: #1e293b; }
@@ -698,7 +729,7 @@ body.sub-page header.menu-open .logo .logo-dark { display: flex; }
 .nav-links span { 
   color: var(--text-secondary); 
   text-decoration: none; 
-  font-weight: 600; 
+  font-weight: 500; 
   white-space: nowrap; 
   transition: color 0.2s ease;
   cursor: default;

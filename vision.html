@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>인재채용 | 다음정보시스템즈</title>
+    <title>비전 | 다음정보시스템즈</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -25,48 +25,65 @@
         padding-top: 180px;
         min-height: 80vh;
       }
-      .recruit-hero {
-        text-align: center;
-        margin-bottom: 6rem;
+      .vision-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
       }
-      .recruit-hero h2 {
+      .vision-text h2 {
         font-size: 3.5rem;
         font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 2.5rem;
         color: #0f172a;
-        margin-bottom: 1.5rem;
       }
-      .recruit-hero p {
+      .vision-text p {
         font-size: 1.5rem;
         color: #64748b;
+        line-height: 1.7;
+        margin-bottom: 4rem;
+        word-break: keep-all;
       }
-      .process-grid {
+      .vision-img {
+        width: 100%;
+        height: 500px;
+        background: #f1f5f9;
+        border-radius: 40px;
+        overflow: hidden;
+      }
+      .value-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
-        margin-top: 4rem;
+        margin-top: 6rem;
       }
-      .process-card {
+      .value-card {
         padding: 3rem;
         background: #f8fafc;
         border-radius: 24px;
+        border: 1px solid #f1f5f9;
         text-align: center;
-        position: relative;
       }
-      .process-card .num {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1rem;
-        font-weight: 800;
+      .value-card i {
+        width: 48px;
+        height: 48px;
         color: var(--daumis-yellow);
-        margin-bottom: 1rem;
-        display: block;
+        margin-bottom: 1.5rem;
       }
-      .process-card h4 {
-        font-size: 1.3rem;
+      .value-card h4 {
+        font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 1rem;
+        color: #0f172a;
+      }
+      .value-card p {
+        color: #64748b;
+        line-height: 1.6;
       }
       @media (max-width: 1024px) {
-        .process-grid { grid-template-columns: 1fr 1fr; }
+        .vision-grid { grid-template-columns: 1fr; }
+        .value-grid { grid-template-columns: 1fr; }
         main { padding-top: 140px; }
       }
     </style>
@@ -137,7 +154,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <span>회사소개</span>
+                <span class="active">회사소개</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -148,7 +165,7 @@
                       <ul>
                         <li><a href="/ceo.html">CEO 인사말</a></li>
                         <li><a href="/overview.html">기업 개요</a></li>
-                        <li><a href="/vision.html">비전</a></li>
+                        <li><a href="/vision.html" class="active">비전</a></li>
                         <li><a href="/history.html">연혁</a></li>
                         <li><a href="/contact.html">오시는 길</a></li>
                       </ul>
@@ -157,7 +174,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <span class="active">인재채용</span>
+                <span>인재채용</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -166,10 +183,10 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/careers.html" class="active">직무소개</a></li>
-                        <li><a href="/careers.html">채용절차</a></li>
-                        <li><a href="/careers.html">복지제도</a></li>
-                        <li><a href="/careers.html">채용공고</a></li>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
                       </ul>
                     </div>
                   </div>
@@ -184,32 +201,35 @@
 
     <main>
       <div class="container">
-        <div class="recruit-hero">
-          <span class="section-label">Careers</span>
-          <h2>함께 성장하는 즐거움</h2>
-          <p>최고의 동료와 함께 금융 기술의 정점에 도전하세요.</p>
+        <div class="vision-grid">
+          <div class="vision-img">
+            <img src="/assets/company_vision.png" alt="Vision" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="vision-text">
+            <span class="section-label">Our Vision</span>
+            <h2>금융의 미래,<br>그 <span style="color: var(--daumis-yellow);">다음(DAUM)</span>의 가치</h2>
+            <p>
+              우리는 단순한 시스템 구축을 넘어, 금융 비즈니스의 본질을 이해하고 기술로 혁신을 실현합니다.<br><br>
+              신뢰와 완벽함을 최우선 가치로 삼아, 고객사와 함께 지속 가능한 성장을 이루어 나가는 금융 IT의 든든한 파트너가 되겠습니다.
+            </p>
+          </div>
         </div>
 
-        <div class="process-grid">
-          <div class="process-card">
-            <span class="num">STEP 01</span>
-            <h4>서류 전형</h4>
-            <p>지원서 및 경력기술서 검토</p>
+        <div class="value-grid">
+          <div class="value-card">
+            <i data-lucide="award"></i>
+            <h4>최고의 전문성</h4>
+            <p>금융 도메인에 대한 깊은 이해와<br>독보적인 기술 역량을 보유합니다.</p>
           </div>
-          <div class="process-card">
-            <span class="num">STEP 02</span>
-            <h4>실무 면접</h4>
-            <p>기술 역량 및 직무 적합성 평가</p>
+          <div class="value-card">
+            <i data-lucide="shield-check"></i>
+            <h4>변함없는 신뢰</h4>
+            <p>다년간 쌓아온 신용을 바탕으로<br>안정적인 파트너십을 유지합니다.</p>
           </div>
-          <div class="process-card">
-            <span class="num">STEP 03</span>
-            <h4>임원 면접</h4>
-            <p>인성 및 조직 문화 적합성 평가</p>
-          </div>
-          <div class="process-card">
-            <span class="num">STEP 04</span>
-            <h4>최종 합격</h4>
-            <p>처우 협의 및 입사 확정</p>
+          <div class="value-card">
+            <i data-lucide="zap"></i>
+            <h4>끊임없는 혁신</h4>
+            <p>새로운 기술적 도전을 두려워하지 않고<br>금융 인프라의 미래를 선도합니다.</p>
           </div>
         </div>
       </div>
@@ -219,7 +239,7 @@
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
-            다음정보시스템즈의 미래를 함께할<br>준비가 되셨다면 지금 문을 두드리세요.
+            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>

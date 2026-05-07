@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>연혁 | 다음정보시스템즈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+      body {
+        font-family: var(--font-main);
+        background: white;
+      }
+      body.sub-page #header {
+        position: fixed !important;
+        z-index: 99999 !important;
+        background: #020617 !important;
+      }
+      /* Maintain Header Color on Scroll */
+      html body.sub-page #header.scrolled:not(.menu-open) {
+        background: #020617 !important;
+        box-shadow: none !important;
+      }
+      html body.sub-page #header.scrolled:not(.menu-open) .nav-links a,
+      html body.sub-page #header.scrolled:not(.menu-open) .nav-item > span {
+        color: rgba(255, 255, 255, 0.7) !important;
+      }
+      html body.sub-page #header.scrolled:not(.menu-open) .logo-text {
+        color: var(--daumis-yellow) !important;
+      }
+      html body.sub-page #header.scrolled:not(.menu-open) .logo .logo-light { 
+        display: block !important; 
+      }
+      html body.sub-page #header.scrolled:not(.menu-open) .logo .logo-dark { 
+        display: none !important; 
+      }
+
+      #header .logo-text {
+        color: var(--daumis-yellow) !important;
+      }
+
+      /* White Theme on Hover/Open */
+      body.sub-page #header:has(.nav-item:hover),
+      body.sub-page #header.menu-open {
+        background: #ffffff !important;
+        border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+      }
+      body.sub-page #header:has(.nav-item:hover) .nav-links a,
+      body.sub-page #header:has(.nav-item:hover) .nav-item > span,
+      body.sub-page #header.menu-open .nav-links a,
+      body.sub-page #header.menu-open .nav-item > span {
+        color: #1e293b !important;
+      }
+      body.sub-page #header:has(.nav-item:hover) .logo .logo-light,
+      body.sub-page #header.menu-open .logo .logo-light { 
+        display: none !important; 
+      }
+      body.sub-page #header:has(.nav-item:hover) .logo .logo-dark,
+      body.sub-page #header.menu-open .logo .logo-dark { 
+        display: block !important; 
+      }
+      body.sub-page #header:has(.nav-item:hover) .logo-text,
+      body.sub-page #header.menu-open .logo-text {
+        color: #0f172a !important;
+      }
+      body.sub-page #header:has(.nav-item:hover) .cta-button,
+      body.sub-page #header.menu-open .cta-button {
+        background: #000000 !important;
+        color: #ffffff !important;
+      }
+
+      /* Sidebar & Content Layout */
+      .history-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: 450px 1fr;
+        gap: 6rem;
+        position: relative;
+        overflow: visible !important;
+      }
+
+      /* Left Sticky Side */
+      .history-sidebar {
+        position: sticky;
+        top: 240px;
+        height: calc(100vh - 240px);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sidebar-title-box {
+        margin-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .title-row {
+        display: flex;
+        align-items: center; /* Center vertically */
+        gap: 2rem;
+      }
+
+      .section-label {
+        display: block;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #64748b !important;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .history-title {
+        font-size: 3.2rem; /* Matched to CEO h2 */
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .history-subtitle {
+        font-size: 1.05rem; /* Slightly smaller to fit side-by-side */
+        color: #64748b;
+        margin: 0;
+        line-height: 1.6;
+        word-break: keep-all;
+        max-width: 400px; /* Increased to allow 2 lines */
+      }
+
+      .era-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 2rem; /* Positioned directly below the subtitle */
+        margin-bottom: 5rem;
+      }
+
+      .era-item {
+        margin-bottom: 2.2rem;
+        position: relative;
+        padding-left: 0; /* Removed padding since bar is gone */
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .era-item::before {
+        display: none; /* Removed the yellow vertical bar */
+      }
+
+      .era-range {
+        display: block;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 500;
+        color: #cbd5e1;
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.05em;
+        transition: all 0.4s ease;
+      }
+
+      .era-item.active .era-range {
+        color: #64748b; /* Removed yellow as requested */
+      }
+
+      .era-title {
+        font-size: 1.45rem;
+        font-weight: 500;
+        color: #1e293b;
+        line-height: 1.3;
+        transition: all 0.4s ease;
+      }
+
+      .era-item.active .era-title {
+        color: #0f172a;
+        font-size: 2.9rem; /* Doubled from 1.45rem */
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        transform: none;
+      }
+
+      /* Right Timeline Content */
+      .history-content {
+        padding-top: 240px !important; /* Move up to align with the center of the active era title */
+        padding-bottom: 20rem;
+        padding-left: 6rem; /* Provide ample space for bullets/line */
+        position: relative;
+        overflow: visible !important;
+      }
+
+      /* Global Timeline Line */
+      .history-content::before {
+        content: '';
+        position: absolute;
+        left: 6rem;
+        top: var(--line-top, 69.6px); /* Dynamically synced to first dot via JS */
+        bottom: 20rem;
+        width: 1px;
+        background: #f1f5f9;
+        z-index: 0;
+      }
+
+      .timeline-progress-line {
+        position: absolute;
+        left: 6rem;
+        top: var(--line-top, 69.6px);
+        width: 2px;
+        background: var(--daumis-yellow);
+        z-index: 1;
+        height: 80px; /* Start with first segment colored */
+        transition: height 0.1s ease-out;
+      }
+
+      /* Removed .timeline-active-dot */
+
+      .timeline-section {
+        margin-bottom: 12rem;
+        position: relative;
+        overflow: visible !important;
+      }
+
+      .year-group {
+        position: relative;
+        margin-bottom: 8rem;
+        overflow: visible !important;
+      }
+
+      .bg-year {
+        display: none; /* Removed as per user request */
+      }
+
+      .event-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+        padding-left: 2.5rem; /* Space between line and text */
+        border-left: none !important; 
+      }
+
+      .event-item {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .event-item::before {
+        content: '';
+        position: absolute;
+        left: -2.5rem; /* Centered on global line */
+        top: 0.6rem;
+        width: 9px;
+        height: 9px;
+        background: #fff;
+        border: 2px solid #cbd5e1;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        transition: all 0.3s ease;
+        z-index: 2;
+      }
+
+      .event-item.active::before,
+      .year-group:first-child .event-item:first-child::before {
+        background: var(--daumis-yellow) !important;
+        border-color: var(--daumis-yellow) !important;
+        box-shadow: 0 0 10px rgba(255, 184, 0, 0.5);
+      }
+
+      .year-group:first-child .event-item:first-child::before {
+        width: 12px;
+        height: 12px;
+        box-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
+      }
+
+      .event-date {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #64748b;
+        padding-top: 0.2rem;
+      }
+
+      .event-desc {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #1e293b;
+        line-height: 1.6;
+        word-break: keep-all;
+      }
+
+      /* Main Padding */
+      main {
+        padding-top: 220px;
+        background: #fff;
+      }
+
+      @media (max-width: 1024px) {
+        main { padding-top: 140px; }
+        .history-container {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .history-sidebar {
+          position: static;
+          margin-bottom: 4rem;
+        }
+        .era-nav {
+          display: flex;
+          gap: 2rem;
+          overflow-x: auto;
+          padding-bottom: 1rem;
+        }
+        .era-item {
+          flex-shrink: 0;
+          margin-bottom: 0;
+          padding-left: 0;
+          border-bottom: 2px solid #f1f5f9;
+        }
+        .era-item::before { display: none; }
+        .era-item.active { border-bottom-color: var(--daumis-yellow); }
+        .bg-year { font-size: 8rem; top: -20px; }
+        .event-desc { font-size: 1.1rem; }
+      }
+    </style>
+  </head>
+  <body class="sub-page">
+    <header id="header">
+      <div class="container">
+        <nav>
+          <a href="/" class="logo">
+            <img src="/ci_04.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
+            <span class="logo-text">다음정보시스템즈</span>
+          </a>
+          <div class="nav-right">
+            <ul class="nav-links">
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html">프로젝트 실적</a></li>
+                        <li><a href="/clients.html">고객사 & 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/ai-lab.html">AI 리서치 랩</a></li>
+                        <li><a href="/ax-lab.html">AX 이노베이션 랩</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span class="active">회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/ceo.html">CEO 인사말</a></li>
+                        <li><a href="/overview.html">기업 개요</a></li>
+                        <li><a href="/vision.html">비전</a></li>
+                        <li><a href="/history.html" class="active">연혁</a></li>
+                        <li><a href="/contact.html">오시는 길</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <a href="javascript:void(0)" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="history-container">
+        <!-- Sidebar Navigation -->
+        <aside class="history-sidebar">
+          <div class="sidebar-title-box">
+            <span class="section-label">Our Journey</span>
+            <div class="title-row">
+              <h1 class="history-title">연혁</h1>
+              <p class="history-subtitle">
+                금융 IT의 한계를 넘어, 다음 세대의 가치를 만들어온<br>다음정보시스템즈의 발자취입니다.
+              </p>
+            </div>
+          </div>
+          
+          <ul class="era-nav">
+            <li class="era-item active" data-target="era-3">
+              <span class="era-range">2020 - PRESENT</span>
+              <span class="era-title">사업 확장 및 기술 고도화</span>
+            </li>
+            <li class="era-item" data-target="era-2">
+              <span class="era-range">2017 - 2019</span>
+              <span class="era-title">사업 전문성 심화 및<br>독립 법인 출범</span>
+            </li>
+            <li class="era-item" data-target="era-1">
+              <span class="era-range">2014 - 2016</span>
+              <span class="era-title">IT 분야별 사업 강화 및<br>기반 구축</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Main Timeline Content -->
+        <div class="history-content" id="timeline-content">
+          <!-- Dynamic Progress Line -->
+          <div class="timeline-progress-line" id="progress-line"></div>
+          
+          <!-- Era 3: 2020 - Present -->
+          <section id="era-3" class="timeline-section">
+            <div class="year-group">
+              <div class="bg-year">2025</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2025.03</span>
+                  <span class="event-desc">키움증권 퇴직연금시스템 신규구축 수주</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2024</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2024.05</span>
+                  <span class="event-desc">여성기업 확인 인증 (서울지방중소벤처기업청)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2024.04</span>
+                  <span class="event-desc">다음정보시스템즈 여의도센터 오픈</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2023</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2023.12</span>
+                  <span class="event-desc">건설근로자공제회 통합시스템 구축 컨소시엄 수주</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2023.08</span>
+                  <span class="event-desc">하나증권 퇴직연금시스템 재구축 단독 수주</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2023.07</span>
+                  <span class="event-desc">경찰공제회 회원관리시스템 고도화</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2023.02</span>
+                  <span class="event-desc">IBK시스템 SI 개발, 운영 협력업체 인증 (8년차)</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2021</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2021.10</span>
+                  <span class="event-desc">대신증권 퇴직연금시스템 재구축 단독 수주</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2021.06</span>
+                  <span class="event-desc">사내근로복지기금 설립</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2020</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2020.05</span>
+                  <span class="event-desc">과학기술인공제회 적립형공제 업무 협약 체결</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2020.04</span>
+                  <span class="event-desc">NH투자증권 퇴직연금시스템 재구축 용역</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2020.04</span>
+                  <span class="event-desc">기술평가 우수기업 인증 (NICE평가정보)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2020.03</span>
+                  <span class="event-desc">청년내일채움공제 참여기업 인증</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Era 2: 2017 - 2019 -->
+          <section id="era-2" class="timeline-section">
+            <div class="year-group">
+              <div class="bg-year">2019</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2019.10</span>
+                  <span class="event-desc">MG복지회 차세대 시스템 단독 수주</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2019.09</span>
+                  <span class="event-desc">금융사업본부 분사 및 (주)다음정보시스템즈 설립</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2019.05</span>
+                  <span class="event-desc">KDB산업은행 차세대 시스템 운영 수주</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2018</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2018.11</span>
+                  <span class="event-desc">경영혁신형 중소기업(Main-Biz) 확인 (중소벤처기업부장관)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2018.07</span>
+                  <span class="event-desc">SK(주) 외주용역분야 Biz Partner사 등록</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2018.05</span>
+                  <span class="event-desc">한화투자증권 퇴직연금시스템 구축</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2017</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2017.05</span>
+                  <span class="event-desc">미래창조과학부장관상 수상 (2017년 에너지환경기술 대상)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2017.03</span>
+                  <span class="event-desc">KDB산업은행 차세대 시스템 구축 (집합투자증권/퇴직연금)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2017.03</span>
+                  <span class="event-desc">IBK기업은행 정보시스템 위임업무 수주</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2017.02</span>
+                  <span class="event-desc">IBK시스템 SI 개발 및 운영 협력업체 인증</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2017.01</span>
+                  <span class="event-desc">경찰공제회 시스템 유지보수 수주</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Era 1: 2014 - 2016 -->
+          <section id="era-1" class="timeline-section">
+            <div class="year-group">
+              <div class="bg-year">2016</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2016.10</span>
+                  <span class="event-desc">기업부설연구소 설립 및 인정</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2016.09</span>
+                  <span class="event-desc">ISO 14001:2004 / ISO 9001:2004 SI, 정보통신공사 부문 획득</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2016.01</span>
+                  <span class="event-desc">전력IT사업본부 신설 및 전력IT 업무 강화</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2015</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2015.11</span>
+                  <span class="event-desc">대신증권 연금지급시스템 구축</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2015.08</span>
+                  <span class="event-desc">IBK기업은행 정보시스템 SM 위임업무계약 (퇴직연금)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2015.07</span>
+                  <span class="event-desc">하나대투증권 차세대시스템 구축 (FOS)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2015.04</span>
+                  <span class="event-desc">대한소방공제회 퇴직급여 및 목돈수탁대여 시스템 구축</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="year-group">
+              <div class="bg-year">2014</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">2014.04</span>
+                  <span class="event-desc">과학기술인공제회 정보시스템 통합운영관리 용역 수주</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2014.04</span>
+                  <span class="event-desc">본점 소재지 이전 (관악구 관악로 120, 우주빌딩 4층)</span>
+                </li>
+                <li class="event-item">
+                  <span class="event-date">2014.01</span>
+                  <span class="event-desc">IBK기업은행 POST 차세대 대응개발 (집합투자증권/퇴직연금)</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Bottom CTA Section -->
+      <section class="bottom-cta-section cta-button">
+        <div class="container">
+          <span class="cta-label">문의하기</span>
+          <h2 class="cta-text">
+            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
+          </h2>
+          <div class="cta-arrow-btn">
+            <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+          <div style="margin-left: -16px; padding: 0;">
+            <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
+              <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
+              <span class="logo-text">다음정보시스템즈</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                <li>T. 02-6247-8413</li>
+                <li>F. 070-4713-9499</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <li>국제금융로8길 27-9,</li>
+                <li>동북빌딩 603호</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <li>관악로 120</li>
+                <li>우주빌딩 3층</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Era Navigation Logic
+      const eraItems = document.querySelectorAll('.era-item');
+      const sections = document.querySelectorAll('.timeline-section');
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            eraItems.forEach(item => {
+              item.classList.remove('active');
+              if (item.getAttribute('data-target') === id) {
+                item.classList.add('active');
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
+
+      eraItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const targetId = item.getAttribute('data-target');
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            const headerHeight = 200;
+            const targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      // Scroll Progress Animation
+      const progressLine = document.getElementById('progress-line');
+      const timelineContent = document.getElementById('timeline-content');
+      const eventItems = document.querySelectorAll('.event-item');
+
+      function updateTimelineProgress() {
+        if (!timelineContent || !progressLine || eventItems.length === 0) return;
+
+        const firstItem = eventItems[0];
+        const rect = timelineContent.getBoundingClientRect();
+        const firstItemRect = firstItem.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Active point: dots turn yellow when they reach this relative point in viewport
+        const activePoint = windowHeight * 0.4;
+        
+        // Dynamic Line Start: exactly at the first dot's center
+        // Dot is at firstItemRect.top + 0.6rem (9.6px)
+        const dotCenterOffset = 9.6; 
+        const lineStartInViewport = firstItemRect.top + dotCenterOffset;
+        const lineStartInContent = lineStartInViewport - rect.top;
+
+        // Sync CSS top of the lines to the first dot
+        progressLine.style.top = `${lineStartInContent}px`;
+        timelineContent.style.setProperty('--line-top', `${lineStartInContent}px`);
+
+        const passed = activePoint - lineStartInViewport;
+        
+        // Ensure the first segment is colored from the start
+        let progressHeight = 60; // Initial segment color
+        if (passed > 60) {
+          const lastItem = eventItems[eventItems.length - 1];
+          const lastItemRect = lastItem.getBoundingClientRect();
+          const maxHeight = (lastItemRect.top + dotCenterOffset) - lineStartInViewport;
+          progressHeight = Math.min(passed, maxHeight);
+        }
+        progressLine.style.height = `${progressHeight}px`;
+
+        // Update dots state
+        eventItems.forEach((item, index) => {
+            const itemRect = item.getBoundingClientRect();
+            // First item is active by default, others follow scroll
+            if (index === 0 || itemRect.top + dotCenterOffset <= activePoint) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+      }
+
+      window.addEventListener('scroll', updateTimelineProgress);
+      window.addEventListener('resize', updateTimelineProgress);
+      updateTimelineProgress(); // Initial call
+    </script>
+  </body>
+</html>

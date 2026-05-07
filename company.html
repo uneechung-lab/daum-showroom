@@ -2,88 +2,578 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Company | 다음정보시스템즈</title>
+    <title>회사 소개 | 다음정보시스템즈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+      .detail-hero {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-canvas {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 55%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 40%);
+        mask-image: linear-gradient(to right, transparent, black 40%);
+        opacity: 0.8;
+      }
+      .detail-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      body {
+        font-family: var(--font-main);
+        background: white;
+      }
+      .tabs-nav {
+        border-bottom: 1px solid #f1f5f9;
+        background: white;
+        width: 100%;
+        position: sticky;
+        top: 100px;
+        z-index: 1000;
+      }
+      .company-tabs {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .tab-btn {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        padding: 1.5rem 0;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 1.1rem;
+        position: relative;
+        white-space: nowrap;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-family: 'Pretendard Variable', sans-serif;
+        letter-spacing: -0.02em;
+      }
+      .tab-btn i {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2;
+      }
+      .tab-btn:hover:not(.active) {
+        color: #334155;
+      }
+      .tab-btn.active {
+        background: #020617;
+        color: white;
+        font-weight: 700;
+      }
+
+      .section-content {
+        padding: 8rem 0;
+        display: none;
+      }
+      .section-content.active {
+        display: block;
+        animation: fadeIn 0.6s ease;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Slim Hero Adjustment */
+      body.sub-page header {
+        position: fixed !important;
+        z-index: 99999 !important;
+        background: #020617 !important;
+      }
+      body.sub-page .detail-hero.slim-hero {
+        position: relative;
+        height: 380px;
+        min-height: auto;
+        padding-top: 140px;
+        z-index: 0 !important;
+        background: #020617 !important;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      /* History Timeline */
+      .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .timeline-year {
+        display: flex;
+        gap: 4rem;
+        margin-bottom: 4rem;
+      }
+      .year-label {
+        font-family: 'Outfit', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--daumis-yellow);
+        line-height: 1;
+        width: 150px;
+        flex-shrink: 0;
+      }
+      .year-events {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-left: 2px solid #f1f5f9;
+        padding-left: 3rem;
+      }
+      .year-events li {
+        position: relative;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+        color: #475569;
+        line-height: 1.6;
+      }
+      .year-events li::before {
+        content: '';
+        position: absolute;
+        left: -3rem;
+        top: 0.6rem;
+        width: 12px;
+        height: 12px;
+        background: white;
+        border: 3px solid var(--daumis-yellow);
+        border-radius: 50%;
+        transform: translateX(-50%);
+      }
+      .event-month {
+        font-weight: 700;
+        color: #0f172a;
+        margin-right: 1rem;
+      }
+
+      /* Info Grid */
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+      }
+      .info-card {
+        background: #f8fafc;
+        padding: 3rem;
+        border-radius: 24px;
+        border: 1px solid #f1f5f9;
+      }
+      .info-card h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: #0f172a;
+      }
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .info-table th {
+        text-align: left;
+        padding: 1rem 0;
+        color: #94a3b8;
+        font-weight: 500;
+        width: 120px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .info-table td {
+        padding: 1rem 0;
+        color: #0f172a;
+        font-weight: 600;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      /* Contact Section */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      .contact-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        overflow: hidden;
+      }
+      .map-placeholder {
+        height: 300px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+      }
+      .contact-info {
+        padding: 2rem;
+      }
+      .contact-info h4 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: #0f172a;
+      }
+      .contact-info p {
+        color: #64748b;
+        line-height: 1.6;
+      }
+
+      /* Vision Section */
+      .vision-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
+      }
+      .vision-text h2 {
+        font-size: 3.2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        color: #0f172a;
+      }
+      .vision-text p {
+        font-size: 1.4rem;
+        color: #64748b;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+      }
+      .vision-img {
+        width: 100%;
+        height: 500px;
+        background: #f1f5f9;
+        border-radius: 40px;
+        overflow: hidden;
+      }
+
+      @media (max-width: 1024px) {
+        .timeline-year { gap: 2rem; }
+        .year-label { font-size: 2.5rem; width: 100px; }
+        .info-grid, .contact-grid, .vision-grid { grid-template-columns: 1fr; }
+      }
+    </style>
   </head>
-  <body class="theme-light sub-page"><div class="menu-backdrop"></div>
+  <body class="sub-page">
     <header id="header">
       <div class="container">
         <nav>
-          <a href="/" class="logo"><img src="/ci_04.png" alt="DAUMIS" class="logo-light"><img src="/ci_03.png" alt="DAUMIS" class="logo-dark"><span class="logo-text">다음정보시스템즈</span></a>
+          <a href="/" class="logo">
+            <img src="/ci_04.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
+            <span class="logo-text">다음정보시스템즈</span>
+          </a>
           <div class="nav-right">
             <ul class="nav-links">
-              <li><a href="/business.html">Business</a></li>
-              <li><a href="/solution.html">Solution</a></li>
-              <li><a href="/project.html">Project</a></li>
-              <li><a href="/careers.html">Careers</a></li>
-              <li><a href="javascript:void(0)" class="gnb-trigger" data-menu="company">Company</a></li>
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html">프로젝트 실적</a></li>
+                        <li><a href="/clients.html">고객사 & 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/ai-lab.html">AI 리서치 랩</a></li>
+                        <li><a href="/ax-lab.html">AX 이노베이션 랩</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span class="active">회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/company.html#ceo">CEO 인사말</a></li>
+                        <li><a href="/company.html#overview">기업 개요</a></li>
+                        <li><a href="/company.html#vision">비전</a></li>
+                        <li><a href="/company.html#history">연혁</a></li>
+                        <li><a href="/company.html#contact">오시는 길</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers.html#jobs">직무소개</a></li>
+                        <li><a href="/careers.html#process">채용절차</a></li>
+                        <li><a href="/careers.html#welfare">복지제도</a></li>
+                        <li><a href="/careers.html#announcement">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ul>
-            <a href="/inquiry.html" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
+            <a href="javascript:void(0)" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
           </div>
         </nav>
       </div>
     </header>
-    <!-- Mega Menu Overlay -->
-    <div id="mega-overlay" class="mega-overlay">
-      <div class="overlay-bg"></div>
-      <div class="container overlay-content">
-        <div class="overlay-header">
-          <div class="logo"><img src="/ci_04.png" alt="DAUMIS"></div>
-          <button class="overlay-close"><i data-lucide="x"></i></button>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="detail-hero slim-hero">
+        <canvas id="heroStreamCanvas" class="hero-canvas"></canvas>
+        <div class="container">
+          <span class="section-label">Company / Introduction</span>
+          <h1 class="section-title">회사 소개</h1>
+          <p class="hero-sub">항상 미래를 지향하며 진취적 사고방식으로 새로운 도전을 두려워하지 않는 기업정신으로<br>금융 솔루션의 다음(DAUM) 가치를 만들어 갑니다.</p>
         </div>
-        <div class="mega-grid">
-          <div class="mega-column">
-            <h3 class="mega-title">Business</h3>
-            <ul>
-              <li><a href="/business.html">퇴직연금시스템</a></li>
-              <li><a href="/business.html">집합투자증권</a></li>
-              <li><a href="/business.html">공제업무시스템</a></li>
-              <li><a href="/business.html">영업지원시스템</a></li>
-            </ul>
-          </div>
-          <div class="mega-column">
-            <h3 class="mega-title">Solution</h3>
-            <ul>
-              <li><a href="/solution.html">Core Engine</a></li>
-              <li><a href="/solution.html">Security Logic</a></li>
-              <li><a href="/solution.html">Visual Logic</a></li>
-            </ul>
-          </div>
-          <div class="mega-column">
-            <h3 class="mega-title">Case Studies</h3>
-            <ul>
-              <li><a href="/project.html">프로젝트 실적</a></li>
-              <li><a href="/project.html">고객사 현황</a></li>
-              <li><a href="/project.html">주요 인프라</a></li>
-            </ul>
-          </div>
-          <div class="mega-column">
-            <h3 class="mega-title">Company</h3>
-            <ul>
-              <li><a href="/company.html">CEO 인사말</a></li>
-              <li><a href="/company.html">기업 개요</a></li>
-              <li><a href="/company.html">비전</a></li>
-              <li><a href="/company.html">팀 소개</a></li>
-              <li><a href="/company.html">오시는길</a></li>
-            </ul>
+      </section>
+
+      <!-- Tabs Nav -->
+      <div class="tabs-nav">
+        <div class="container">
+          <div class="company-tabs">
+            <button class="tab-btn active" data-tab="ceo"><i data-lucide="user"></i>CEO 인사말</button>
+            <button class="tab-btn" data-tab="overview"><i data-lucide="info"></i>기업 개요</button>
+            <button class="tab-btn" data-tab="vision"><i data-lucide="eye"></i>비전</button>
+            <button class="tab-btn" data-tab="history"><i data-lucide="history"></i>연혁</button>
+            <button class="tab-btn" data-tab="contact"><i data-lucide="map-pin"></i>오시는 길</button>
           </div>
         </div>
       </div>
-    </div>
-    <main>
-      <section class="detail-hero"><div class="container"><h1 class="section-title">회사 소개</h1></div></section>
-      <section class="detail-content">
+
+      <!-- CEO Message -->
+      <section id="ceo" class="section-content active">
         <div class="container">
-          <div class="content-list">
-            <div class="list-item">
-              <div class="list-image"><img src="/assets/company.png" alt="회사"></div>
-              <div class="list-text">
-                <span class="list-label">About Us</span>
-                <h2 class="list-title">금융의 새로운 미래를 엽니다</h2>
-                <p class="list-desc">다음정보시스템즈는 신뢰와 기술을 바탕으로 혁신적인 금융 솔루션을 제공합니다.</p>
+          <div class="vision-grid">
+            <div class="vision-text">
+              <span class="section-label">CEO Message</span>
+              <h2>고객사의 정보시스템 성능이<br><span style="color: var(--daumis-yellow);">항상 앞서가도록</span> 보장합니다.</h2>
+              <p>
+                안녕하십니까, 다음정보시스템즈입니다.<br><br>
+                우리는 금융 솔루션 구축 경험을 보유한 전문가 그룹으로 구성된 SI 및 컨설팅 전문 기업으로서, 다년간 형성된 신뢰를 바탕으로 모든 사업 부문에서 관련 기술 표준과 법률을 준수하고 있습니다.<br><br>
+                끊임없는 기술 혁신과 진취적인 사고방식으로 고객사가 필요로 하는 최적의 정보시스템 서비스를 제공할 것을 약속드립니다.
+              </p>
+              <div style="margin-top: 3rem;">
+                <p style="font-weight: 800; color: #0f172a; font-size: 1.2rem;">(주)다음정보시스템즈 대표이사</p>
+              </div>
+            </div>
+            <div class="vision-img">
+              <img src="/assets/company_ceo.png" alt="CEO" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overview -->
+      <section id="overview" class="section-content">
+        <div class="container">
+          <div class="info-grid">
+            <div class="info-card">
+              <h3>기업 일반 현황</h3>
+              <table class="info-table">
+                <tr><th>법인명</th><td>(주)다음정보시스템즈</td></tr>
+                <tr><th>설립일</th><td>2019년 09월 (금융사업본부 분사)</td></tr>
+                <tr><th>대표이사</th><td>김희정</td></tr>
+                <tr><th>주요사업</th><td>금융 소프트웨어 개발, SI, 컨설팅</td></tr>
+                <tr><th>소재지</th><td>서울시 영등포구 국제금융로 (여의도센터)</td></tr>
+              </table>
+            </div>
+            <div class="info-card">
+              <h3>주요 사업 분야</h3>
+              <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <li style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem; color: #0f172a;">
+                  <i data-lucide="trending-up" style="color: var(--daumis-yellow);"></i> 집합투자증권
+                </li>
+                <li style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem; color: #0f172a;">
+                  <i data-lucide="wallet" style="color: var(--daumis-yellow);"></i> 퇴직연금시스템
+                </li>
+                <li style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem; color: #0f172a;">
+                  <i data-lucide="users" style="color: var(--daumis-yellow);"></i> 영업지원시스템
+                </li>
+                <li style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem; color: #0f172a;">
+                  <i data-lucide="briefcase" style="color: var(--daumis-yellow);"></i> 자산관리시스템
+                </li>
+                <li style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem; color: #0f172a;">
+                  <i data-lucide="shield-check" style="color: var(--daumis-yellow);"></i> 공제업무시스템
+                </li>
+                <li style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem; color: #0f172a;">
+                  <i data-lucide="line-chart" style="color: var(--daumis-yellow);"></i> 금융 IT 컨설팅
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision -->
+      <section id="vision" class="section-content">
+        <div class="container">
+          <div class="vision-grid">
+            <div class="vision-img">
+              <img src="/assets/company_vision.png" alt="Vision" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="vision-text">
+              <span class="section-label">Our Vision</span>
+              <h2>금융의 미래,<br>그 <span style="color: var(--daumis-yellow);">다음(DAUM)</span>의 가치</h2>
+              <p>
+                우리는 단순한 시스템 구축을 넘어, 금융 비즈니스의 본질을 이해하고 기술로 혁신을 실현합니다.<br><br>
+                신뢰와 완벽함을 최우선 가치로 삼아, 고객사와 함께 지속 가능한 성장을 이루어 나가는 금융 IT의 든든한 파트너가 되겠습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- History -->
+      <section id="history" class="section-content">
+        <div class="container">
+          <div class="timeline">
+            <!-- 2024 -->
+            <div class="timeline-year">
+              <div class="year-label">2024</div>
+              <ul class="year-events">
+                <li><span class="event-month">05</span>여성기업 확인 인증 (서울지방중소벤처기업청)</li>
+                <li><span class="event-month">04</span>다음정보시스템즈 여의도센터 오픈</li>
+              </ul>
+            </div>
+            <!-- 2023 -->
+            <div class="timeline-year">
+              <div class="year-label">2023</div>
+              <ul class="year-events">
+                <li><span class="event-month">08</span>하나증권 퇴직연금시스템 재구축 단독 수주</li>
+                <li><span class="event-month">02</span>IBK시스템 SI개발, 운영 협력업체 인증 (8년차)</li>
+              </ul>
+            </div>
+            <!-- 2021 -->
+            <div class="timeline-year">
+              <div class="year-label">2021</div>
+              <ul class="year-events">
+                <li><span class="event-month">10</span>대신증권 퇴직연금시스템 재구축 단독 수주</li>
+                <li><span class="event-month">06</span>사내근로복지기금 설립</li>
+              </ul>
+            </div>
+            <!-- 2020 -->
+            <div class="timeline-year">
+              <div class="year-label">2020</div>
+              <ul class="year-events">
+                <li><span class="event-month">05</span>과학기술인공제회 적립형공제 업무 협약 체결</li>
+                <li><span class="event-month">04</span>기술평가 우수기업 인증 (NICE평가정보)</li>
+                <li><span class="event-month">03</span>청년내일채움공제 참여기업 인증</li>
+              </ul>
+            </div>
+            <!-- 2019 -->
+            <div class="timeline-year">
+              <div class="year-label">2019</div>
+              <ul class="year-events">
+                <li><span class="event-month">10</span>MG복지회 차세대 시스템 단독 수주</li>
+                <li><span class="event-month">09</span>(주)다음정보시스템즈 설립 (금융사업본부 분사)</li>
+              </ul>
+            </div>
+            <!-- 2018~2014 (Simplified) -->
+            <div class="timeline-year">
+              <div class="year-label">2018~</div>
+              <ul class="year-events">
+                <li><span class="event-month">2018</span>한화투자증권 퇴직연금시스템 구축 / 경영혁신형 중소기업(Main-Biz) 확인</li>
+                <li><span class="event-month">2017</span>한국투자증권 퇴직연금 신시스템 구축 / KDB산업은행 차세대 구축</li>
+                <li><span class="event-month">2016</span>삼성증권 퇴직연금 원장 통합 / 대구은행 수익증권 고도화</li>
+                <li><span class="event-month">2015</span>대한소방공제회 업무시스템 구축 / 경찰공제회 회원관리 재구축</li>
+                <li><span class="event-month">2014</span>(주)다음정보기술 금융사업본부 신설</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section-content">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="map-placeholder">
+                <i data-lucide="map" style="width: 48px; height: 48px; opacity: 0.2; margin-bottom: 1rem;"></i>
+                <span>Map Placeholder (여의도센터)</span>
+              </div>
+              <div class="contact-info">
+                <h4>여의도센터</h4>
+                <p>(07332) 서울시 영등포구 국제금융로8길 27-9, 동북빌딩 603호</p>
+                <p style="margin-top: 1rem; font-weight: 700; color: #0f172a;">T. 02-6247-8413</p>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="map-placeholder">
+                <i data-lucide="map" style="width: 48px; height: 48px; opacity: 0.2; margin-bottom: 1rem;"></i>
+                <span>Map Placeholder (본사)</span>
+              </div>
+              <div class="contact-info">
+                <h4>본사</h4>
+                <p>(08791) 서울특별시 관악구 관악로 120 우주빌딩 3층</p>
+                <p style="margin-top: 1rem; font-weight: 700; color: #0f172a;">F. 070-4713-9499</p>
               </div>
             </div>
           </div>
@@ -92,14 +582,13 @@
 
       <!-- Bottom CTA Section -->
       <section class="bottom-cta-section cta-button">
-        <div class="cta-bg-circle"></div>
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
             함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
           </h2>
           <div class="cta-arrow-btn">
-            <i data-lucide="arrow-right" style="width: 32px; height: 32px;"></i>
+            <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>
           </div>
         </div>
       </section>
@@ -108,7 +597,6 @@
     <footer id="footer">
       <div class="container">
         <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
-          <!-- Branding Section -->
           <div style="margin-left: -16px; padding: 0;">
             <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
               <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
@@ -117,40 +605,122 @@
             <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
             <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
           </div>
-
-          <!-- Contact & Office Info Section -->
           <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
             <div>
               <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
               <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">T. 02-6247-8413</li>
-                <li style="white-space: nowrap;">F. 070-4713-9499</li>
+                <li>T. 02-6247-8413</li>
+                <li>F. 070-4713-9499</li>
               </ul>
             </div>
             <div>
               <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
               <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">(07332) 서울시 영등포구</li>
-                <li style="white-space: nowrap;">국제금융로8길 27-9,</li>
-                <li style="white-space: nowrap;">동북빌딩 603호</li>
+                <li>국제금융로8길 27-9,</li>
+                <li>동북빌딩 603호</li>
               </ul>
             </div>
             <div>
               <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
               <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">(08791) 서울시 관악구</li>
-                <li style="white-space: nowrap;">관악로120</li>
-                <li style="white-space: nowrap;">우주빌딩 3층</li>
+                <li>관악로 120</li>
+                <li>우주빌딩 3층</li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
-          <p style="font-size: 0.85rem; opacity: 0.4;">DAUMIS Digital Showroom</p>
-        </div>
       </div>
     </footer>
+
     <script type="module" src="/src/main.js"></script>
-    <script>lucide.createIcons();</script>
+    <script>
+      // Tabs logic
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const sections = document.querySelectorAll('.section-content');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          
+          tabBtns.forEach(b => b.classList.remove('active'));
+          sections.forEach(s => s.classList.remove('active'));
+          
+          btn.classList.add('active');
+          document.getElementById(tab).classList.add('active');
+        });
+      });
+
+      // Digital Stream Canvas Animation (Sync with project.html)
+      const canvas = document.getElementById('heroStreamCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let streams = [];
+
+        class Stream {
+          constructor(x) {
+            this.x = x;
+            this.reset();
+          }
+          reset() {
+            this.y = Math.random() * -1000;
+            this.speed = 1 + Math.random() * 3;
+            this.chars = [];
+            this.length = 15 + Math.floor(Math.random() * 20);
+            for (let i = 0; i < this.length; i++) {
+              this.chars.push(this.getRandomChar());
+            }
+          }
+          getRandomChar() {
+            const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&';
+            return chars[Math.floor(Math.random() * chars.length)];
+          }
+          draw() {
+            ctx.font = '12px "JetBrains Mono", monospace';
+            this.chars.forEach((char, i) => {
+              const opacity = (i / this.length) * 0.2;
+              ctx.fillStyle = `rgba(255, 184, 0, ${opacity})`;
+              ctx.fillText(char, this.x, this.y + (i * 18));
+            });
+          }
+          update() {
+            this.y += this.speed;
+            if (this.y > height) {
+              this.reset();
+            }
+          }
+        }
+
+        function resize() {
+          width = canvas.width = canvas.offsetWidth;
+          height = canvas.height = canvas.offsetHeight;
+          initStreams();
+        }
+
+        function initStreams() {
+          streams = [];
+          const spacing = 20;
+          const count = Math.floor(width / spacing);
+          for (let i = 0; i < count; i++) {
+            streams.push(new Stream(i * spacing));
+          }
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, width, height);
+          streams.forEach(s => {
+            s.update();
+            s.draw();
+          });
+          requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        animate();
+      }
+
+      lucide.createIcons();
+    </script>
   </body>
 </html>
