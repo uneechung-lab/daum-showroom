@@ -523,6 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
   // Keep open while inside the menu panel
   document.querySelectorAll('.gnb-mega-menu').forEach(menu => {
     menu.addEventListener('mouseenter', () => clearTimeout(closeTimer));
@@ -533,6 +534,97 @@ document.addEventListener('DOMContentLoaded', () => {
       scheduleHide();
     });
   });
+
+  // --- Inquiry Drawer Logic ---
+  const initInquiryDrawer = () => {
+    const drawerHtml = `
+      <div class="drawer-overlay" id="inquiryOverlay"></div>
+      <div class="inquiry-drawer" id="inquiryDrawer">
+        <div class="drawer-header">
+          <h2>도입 문의</h2>
+          <button class="drawer-close" id="closeInquiry"><i data-lucide="x"></i></button>
+        </div>
+        <div class="drawer-content">
+          <form class="drawer-form" id="drawerForm">
+            <div class="form-group">
+              <label>성함<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
+              <input type="text" name="name" placeholder="홍길동" required>
+            </div>
+            <div class="form-group">
+              <label>이메일<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
+              <input type="email" name="email" placeholder="example@company.com" required>
+            </div>
+            <div class="form-group">
+              <label>문의 유형<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
+              <select name="type" required>
+                <option value="" disabled selected>선택해주세요</option>
+                <option value="RPS">퇴직연금시스템 (D-RPS)</option>
+                <option value="WMS">자산관리시스템 (D-WMS)</option>
+                <option value="FTS">집합투자증권시스템 (D-FTS)</option>
+                <option value="AI">AI 리서치/AX 이노베이션</option>
+                <option value="ETC">기타 문의</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>문의 내용<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
+              <textarea name="content" placeholder="궁금하신 내용을 남겨주세요." required></textarea>
+            </div>
+            <div class="drawer-privacy">
+              [개인정보 수집 및 이용 동의]<br>
+              1. 수집 항목: 성함, 이메일<br>
+              2. 수집 목적: 문의 사항에 대한 답변 및 안내<br>
+              3. 보유 기간: 목적 달성 후 즉시 파기
+            </div>
+            <label class="drawer-checkbox">
+              <input type="checkbox" required>
+              <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
+            </label>
+            <button type="submit" class="drawer-submit">
+              문의하기 <i data-lucide="send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', drawerHtml);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    const drawer = document.getElementById('inquiryDrawer');
+    const overlay = document.getElementById('inquiryOverlay');
+    const closeBtn = document.getElementById('closeInquiry');
+    const form = document.getElementById('drawerForm');
+
+    const openDrawer = (e) => {
+      if (e) e.preventDefault();
+      drawer.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+      drawer.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Intercept CTA buttons
+    document.querySelectorAll('a[href="/inquiry.html"], .cta-button').forEach(btn => {
+      btn.addEventListener('click', openDrawer);
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('문의가 성공적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+      closeDrawer();
+      form.reset();
+    });
+  };
+
+  initInquiryDrawer();
 });
 
 if (document.readyState === 'complete') {
