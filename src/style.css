@@ -640,13 +640,13 @@ body.theme-light #header .nav-item > span {
     color: #1e293b;
 }
 
-/* Revert to dark color on light backgrounds (scrolled, hovered, or menu open) */
-#header.scrolled .nav-links a,
-#header.scrolled .nav-links span,
-#header:has(.nav-item:hover) .nav-links a,
-#header:has(.nav-item:hover) .nav-links span,
-#header.menu-open .nav-links a,
-#header.menu-open .nav-item > span {
+/* Revert to dark color on light backgrounds (scrolled, hovered, or menu open) ONLY for sub-pages (excluding force-dark) */
+body.sub-page:not(.force-dark) #header.scrolled .nav-links a,
+body.sub-page:not(.force-dark) #header.scrolled .nav-links span,
+body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .nav-links a,
+body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .nav-links span,
+body.sub-page:not(.force-dark) #header.menu-open .nav-links a,
+body.sub-page:not(.force-dark) #header.menu-open .nav-item > span {
     color: #1e293b !important;
 }
 
@@ -660,39 +660,39 @@ body.theme-light #header .nav-item > span {
   white-space: nowrap;
 }
 
-/* Revert to dark on light background states */
-body.theme-light .logo-text,
-#header.menu-open .logo-text,
-#header:has(.nav-item:hover) .logo-text,
-#header.scrolled .logo-text {
+/* Revert to dark on light background states ONLY for sub-pages (excluding force-dark) */
+body.sub-page.theme-light:not(.force-dark) .logo-text,
+body.sub-page:not(.force-dark) #header.menu-open .logo-text,
+body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .logo-text,
+body.sub-page:not(.force-dark) #header.scrolled .logo-text {
   color: #0f172a !important;
 }
 
-/* White Header Theme - Background & Border */
-#header.menu-open,
-#header:has(.nav-item:hover),
-#header.scrolled {
+/* White Header Theme - Background & Border - ONLY for sub-pages (excluding force-dark) */
+body.sub-page:not(.force-dark) #header.menu-open,
+body.sub-page:not(.force-dark) #header:has(.nav-item:hover),
+body.sub-page:not(.force-dark) #header.scrolled {
   background: #ffffff !important;
   border-bottom: 1px solid rgba(0,0,0,0.05) !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important;
 }
 
-/* Reset border for default dark header */
-#header:not(.menu-open):not(.scrolled):not(:has(.nav-item:hover)) {
+/* Reset border for default dark header (Home) */
+#header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
   border-bottom: none !important;
 }
 
-/* CTA Button logic for White Header Theme */
-#header.menu-open .cta-button,
-#header:has(.nav-item:hover) .cta-button,
-#header.scrolled .cta-button {
+/* CTA Button logic for White Header Theme - ONLY for sub-pages (excluding force-dark) */
+body.sub-page:not(.force-dark) #header.menu-open .cta-button,
+body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .cta-button,
+body.sub-page:not(.force-dark) #header.scrolled .cta-button {
   background: #000000 !important;
   color: #ffffff !important;
 }
 
-body.sub-page header.scrolled .mobile-toggle span { background: #1e293b; }
-body.sub-page header:has(.nav-item:hover) .mobile-toggle span { background: #1e293b; }
-body.sub-page header.menu-open .mobile-toggle span { background: #1e293b; }
+body.sub-page:not(.force-dark) header.scrolled .mobile-toggle span { background: #1e293b; }
+body.sub-page:not(.force-dark) header:has(.nav-item:hover) .mobile-toggle span { background: #1e293b; }
+body.sub-page:not(.force-dark) header.menu-open .mobile-toggle span { background: #1e293b; }
 
 .logo img.logo-light { height: 42px; width: auto; }
 .logo img.logo-dark { height: 52px; width: auto; }
@@ -702,13 +702,13 @@ body.sub-page header.menu-open .mobile-toggle span { background: #1e293b; }
     display: none; 
     margin: auto 0;
 }
-body.sub-page header.scrolled .logo .logo-light { display: none; }
-body.sub-page header:has(.nav-item:hover) .logo .logo-light { display: none; }
-body.sub-page header.menu-open .logo .logo-light { display: none; }
+body.sub-page:not(.force-dark) header.scrolled .logo .logo-light { display: none; }
+body.sub-page:not(.force-dark) header:has(.nav-item:hover) .logo .logo-light { display: none; }
+body.sub-page:not(.force-dark) header.menu-open .logo .logo-light { display: none; }
 
-body.sub-page header.scrolled .logo .logo-dark { display: flex; }
-body.sub-page header:has(.nav-item:hover) .logo .logo-dark { display: flex; }
-body.sub-page header.menu-open .logo .logo-dark { display: flex; }
+body.sub-page:not(.force-dark) header.scrolled .logo .logo-dark { display: flex; }
+body.sub-page:not(.force-dark) header:has(.nav-item:hover) .logo .logo-dark { display: flex; }
+body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex; }
 
 .nav-right { 
   display: flex; 

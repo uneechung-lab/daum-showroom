@@ -99,10 +99,29 @@
       }
 
       /* Slim Hero Adjustment */
-      body.sub-page header {
+      /* Header Theme (White for Company Pages) */
+      #header {
         position: fixed !important;
         z-index: 99999 !important;
-        background: #020617 !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      #header .nav-links a,
+      #header .nav-item > span {
+        color: #0f172a !important;
+      }
+      #header .logo-text {
+        color: #0f172a !important;
+      }
+      #header .logo .logo-light { 
+        display: none !important; 
+      }
+      #header .logo .logo-dark { 
+        display: block !important; 
+      }
+      #header .cta-button {
+        background: #0f172a !important;
+        color: #ffffff !important;
       }
       body.sub-page .detail-hero.slim-hero {
         position: relative;

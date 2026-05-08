@@ -16,29 +16,44 @@
         font-family: var(--font-main);
         background: white;
       }
-      body.sub-page #header {
-        position: fixed !important;
-        z-index: 99999 !important;
-        background: #020617 !important;
+
+      /* Initial State (White Theme for Company Pages) */
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+        background: #ffffff !important;
+        border-bottom: 1px solid #f1f5f9;
       }
-      /* Maintain Header Color on Scroll */
-      html body.sub-page #header.scrolled:not(.menu-open) {
-        background: #020617 !important;
-        box-shadow: none !important;
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
+        color: #0f172a !important;
       }
-      html body.sub-page #header.scrolled:not(.menu-open) .nav-links a,
-      html body.sub-page #header.scrolled:not(.menu-open) .nav-item > span {
-        color: rgba(255, 255, 255, 0.7) !important;
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+        color: #0f172a !important;
       }
-      html body.sub-page #header.scrolled:not(.menu-open) .logo-text {
-        color: var(--daumis-yellow) !important;
-      }
-      html body.sub-page #header.scrolled:not(.menu-open) .logo .logo-light { 
-        display: block !important; 
-      }
-      html body.sub-page #header.scrolled:not(.menu-open) .logo .logo-dark { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
         display: none !important; 
       }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+        display: block !important; 
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+        background: #0f172a !important;
+        color: #ffffff !important;
+      }
+
+      /* Natural Transitions (Smooth like Business Pages) */
+      #header {
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      #header .nav-links a, 
+      #header .nav-item > span, 
+      #header .logo-text,
+      #header .cta-button,
+      #header .logo img {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
 
       #header .logo-text {
         color: var(--daumis-yellow) !important;
@@ -81,7 +96,7 @@
         margin: 0 auto;
         padding: 0 2rem;
         display: grid;
-        grid-template-columns: 450px 1fr;
+        grid-template-columns: 450px 1fr; /* Restored to original balanced width */
         gap: 6rem;
         position: relative;
         overflow: visible !important;
@@ -90,14 +105,14 @@
       /* Left Sticky Side */
       .history-sidebar {
         position: sticky;
-        top: 240px;
-        height: calc(100vh - 240px);
+        top: 280px; /* Matches main padding-top for zero initial movement */
+        height: calc(100vh - 280px);
         display: flex;
         flex-direction: column;
       }
 
       .sidebar-title-box {
-        margin-bottom: 5rem;
+        margin-bottom: 8rem;
         display: flex;
         flex-direction: column;
         gap: 1.2rem;
@@ -105,8 +120,9 @@
 
       .title-row {
         display: flex;
-        align-items: center; /* Center vertically */
-        gap: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
       }
 
       .section-label {
@@ -120,22 +136,15 @@
       }
 
       .history-title {
-        font-size: 3.2rem; /* Matched to CEO h2 */
+        font-size: 3.0rem; /* Matched to CEO h2 exactly */
         font-weight: 700;
         color: #0f172a;
         margin: 0;
         letter-spacing: -0.03em;
-        line-height: 1;
+        line-height: 1.2;
+        word-break: keep-all;
       }
 
-      .history-subtitle {
-        font-size: 1.05rem; /* Slightly smaller to fit side-by-side */
-        color: #64748b;
-        margin: 0;
-        line-height: 1.6;
-        word-break: keep-all;
-        max-width: 400px; /* Increased to allow 2 lines */
-      }
 
       .era-nav {
         list-style: none;
@@ -146,10 +155,12 @@
       }
 
       .era-item {
-        margin-bottom: 2.2rem;
+        margin-bottom: 4.2rem;
         position: relative;
-        padding-left: 0; /* Removed padding since bar is gone */
         cursor: pointer;
+        display: flex;
+        align-items: center; /* Center icon vertically against the whole content block */
+        gap: 1.5rem; /* Gap between icon and text content */
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
@@ -157,19 +168,70 @@
         display: none; /* Removed the yellow vertical bar */
       }
 
-      .era-range {
-        display: block;
-        font-family: 'Outfit', sans-serif;
-        font-size: 1.15rem;
-        font-weight: 500;
-        color: #cbd5e1;
-        margin-bottom: 0.4rem;
-        letter-spacing: 0.05em;
+      .era-icon {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-right: 0.6rem;
+        color: #94a3b8;
+        vertical-align: -0.15rem; /* Better alignment with Korean text */
         transition: all 0.4s ease;
       }
 
+      .era-item.active .era-icon {
+        color: #0f172a; /* Neutral active color instead of yellow */
+      }
+
+      .era-icon {
+        width: 1.8rem;
+        height: 1.8rem;
+        color: #94a3b8;
+        flex-shrink: 0;
+        transition: all 0.4s ease;
+      }
+
+      .era-item.active .era-icon {
+        color: #0f172a;
+      }
+
+      .era-content-box {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .era-step-box {
+        display: flex;
+        align-items: center;
+      }
+
+      .era-step {
+        display: inline-block;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        transition: all 0.4s ease;
+      }
+
+      .era-range {
+        display: inline-block;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #cbd5e1;
+        letter-spacing: 0.05em;
+        margin-left: 0.5rem;
+        transition: all 0.4s ease;
+      }
+
+      .era-item.active .era-step {
+        color: #64748b;
+      }
+
       .era-item.active .era-range {
-        color: #64748b; /* Removed yellow as requested */
+        color: #94a3b8;
       }
 
       .era-title {
@@ -182,7 +244,7 @@
 
       .era-item.active .era-title {
         color: #0f172a;
-        font-size: 2.9rem; /* Doubled from 1.45rem */
+        font-size: 2.2rem;
         font-weight: 600;
         letter-spacing: -0.02em;
         transform: none;
@@ -190,11 +252,24 @@
 
       /* Right Timeline Content */
       .history-content {
-        padding-top: 240px !important; /* Move up to align with the center of the active era title */
+        padding-top: 0.2rem !important;
         padding-bottom: 20rem;
-        padding-left: 6rem; /* Provide ample space for bullets/line */
+        padding-left: 6rem;
         position: relative;
         overflow: visible !important;
+        /* Global Fade-out Mask for both lines and content */
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          black 0%,
+          black 90%,
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          black 0%,
+          black 90%,
+          transparent 100%
+        );
       }
 
       /* Global Timeline Line */
@@ -204,20 +279,22 @@
         left: 6rem;
         top: var(--line-top, 69.6px); /* Dynamically synced to first dot via JS */
         bottom: 20rem;
-        width: 1px;
+        width: 2px; /* Thicker base line */
         background: #f1f5f9;
         z-index: 0;
+        transform: translateX(-50%);
       }
 
       .timeline-progress-line {
         position: absolute;
         left: 6rem;
         top: var(--line-top, 69.6px);
-        width: 2px;
+        width: 4px; /* Thicker progress line */
         background: var(--daumis-yellow);
         z-index: 1;
         height: 80px; /* Start with first segment colored */
         transition: height 0.1s ease-out;
+        transform: translateX(-50%);
       }
 
       /* Removed .timeline-active-dot */
@@ -244,7 +321,6 @@
         margin: 0;
         position: relative;
         z-index: 1;
-        padding-left: 2.5rem; /* Space between line and text */
         border-left: none !important; 
       }
 
@@ -254,15 +330,19 @@
         gap: 2rem;
         margin-bottom: 3rem;
         position: relative;
+        padding-left: 5rem; /* Space for line and dots */
+        transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        transform-origin: left center; /* Critical: Prevent dots from shifting during scale */
+        will-change: opacity, transform;
       }
 
       .event-item::before {
         content: '';
         position: absolute;
-        left: -2.5rem; /* Centered on global line */
-        top: 0.6rem;
-        width: 9px;
-        height: 9px;
+        left: 0; /* Aligned exactly with the global line at 6rem */
+        top: 0.4rem;
+        width: 15px; /* Larger dots */
+        height: 15px;
         background: #fff;
         border: 2px solid #cbd5e1;
         border-radius: 50%;
@@ -279,8 +359,8 @@
       }
 
       .year-group:first-child .event-item:first-child::before {
-        width: 12px;
-        height: 12px;
+        width: 22px; /* Even larger first active dot */
+        height: 22px;
         box-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
       }
 
@@ -302,7 +382,7 @@
 
       /* Main Padding */
       main {
-        padding-top: 220px;
+        padding-top: 280px;
         background: #fff;
       }
 
@@ -453,25 +533,49 @@
           <div class="sidebar-title-box">
             <span class="section-label">Our Journey</span>
             <div class="title-row">
-              <h1 class="history-title">연혁</h1>
-              <p class="history-subtitle">
-                금융 IT의 한계를 넘어, 다음 세대의 가치를 만들어온<br>다음정보시스템즈의 발자취입니다.
-              </p>
+              <h1 class="history-title">
+                다음정보시스템즈의<br>
+                발자취입니다.
+              </h1>
             </div>
           </div>
           
           <ul class="era-nav">
             <li class="era-item active" data-target="era-3">
-              <span class="era-range">2020 - PRESENT</span>
-              <span class="era-title">사업 확장 및 기술 고도화</span>
+              <i data-lucide="zap" class="era-icon"></i>
+              <div class="era-content-box">
+                <div class="era-step-box">
+                  <span class="era-step">Next Step</span>
+                  <span class="era-range">: 2020 - PRESENT</span>
+                </div>
+                <div class="era-title">
+                  시장 지배력 확대 및<br>지능형 혁신(AX) 가속화
+                </div>
+              </div>
             </li>
             <li class="era-item" data-target="era-2">
-              <span class="era-range">2017 - 2019</span>
-              <span class="era-title">사업 전문성 심화 및<br>독립 법인 출범</span>
+              <i data-lucide="layers" class="era-icon"></i>
+              <div class="era-content-box">
+                <div class="era-step-box">
+                  <span class="era-step">Deep Dive</span>
+                  <span class="era-range">: 2017 - 2019</span>
+                </div>
+                <div class="era-title">
+                  독자적 기술력 확보 및<br>금융 IT 전문 법인 도약
+                </div>
+              </div>
             </li>
             <li class="era-item" data-target="era-1">
-              <span class="era-range">2014 - 2016</span>
-              <span class="era-title">IT 분야별 사업 강화 및<br>기반 구축</span>
+              <i data-lucide="building-2" class="era-icon"></i>
+              <div class="era-content-box">
+                <div class="era-step-box">
+                  <span class="era-step">Foundation</span>
+                  <span class="era-range">: 2014 - 2016</span>
+                </div>
+                <div class="era-title">
+                  사업 포트폴리오 다각화 및<br>핵심 역량 내실화
+                </div>
+              </div>
             </li>
           </ul>
         </aside>
@@ -483,6 +587,19 @@
           
           <!-- Era 3: 2020 - Present -->
           <section id="era-3" class="timeline-section">
+            <div class="year-group">
+              <div class="bg-year">2026</div>
+              <ul class="event-list">
+                <li class="event-item">
+                  <span class="event-date">현재</span>
+                  <span class="event-desc" style="line-height: 1.8;">
+                    독보적인 퇴직연금 구축 노하우에 AI 기반 금융 분석 기술을 더해<br>
+                    지능형 자산관리 시스템의 새로운 패러다임을 제시하고 있습니다.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
             <div class="year-group">
               <div class="bg-year">2025</div>
               <ul class="event-list">
@@ -809,8 +926,8 @@
         const activePoint = windowHeight * 0.4;
         
         // Dynamic Line Start: exactly at the first dot's center
-        // Dot is at firstItemRect.top + 0.6rem (9.6px)
-        const dotCenterOffset = 9.6; 
+        // Dot is at firstItemRect.top + 0.4rem (6.4px) + half of 22px (11px) = 17.4px
+        const dotCenterOffset = 17.4; 
         const lineStartInViewport = firstItemRect.top + dotCenterOffset;
         const lineStartInContent = lineStartInViewport - rect.top;
 
@@ -830,14 +947,47 @@
         }
         progressLine.style.height = `${progressHeight}px`;
 
-        // Update dots state
+        // Update items state (Active & Opacity Fade)
         eventItems.forEach((item, index) => {
             const itemRect = item.getBoundingClientRect();
-            // First item is active by default, others follow scroll
+            
+            // 1. Active state (dots/line color)
             if (index === 0 || itemRect.top + dotCenterOffset <= activePoint) {
                 item.classList.add('active');
             } else {
                 item.classList.remove('active');
+            }
+
+            // 2. Opacity & Scale Fade (Center Focus)
+            const itemCenter = itemRect.top + (itemRect.height / 2);
+            const viewportCenter = windowHeight / 2;
+            const distanceFromCenter = Math.abs(itemCenter - viewportCenter);
+            
+            // Thresholds for fade effect
+            const fullOpacityDist = windowHeight * 0.15; // Within 15% of center is fully clear
+            const zeroOpacityDist = windowHeight * 0.45; // Beyond 45% is minimum opacity
+            
+            let opacity = 1;
+            if (distanceFromCenter > fullOpacityDist) {
+                const fadeFactor = (distanceFromCenter - fullOpacityDist) / (zeroOpacityDist - fullOpacityDist);
+                opacity = 1 - Math.min(1, fadeFactor);
+            }
+            
+            // Apply styles (Special case: First item '현재' never fades at the top)
+            const contentElements = item.querySelectorAll('.event-year, .event-desc');
+            
+            if (index === 0 && itemRect.top < viewportCenter) {
+                contentElements.forEach(el => {
+                    el.style.opacity = "1";
+                    el.style.transform = "scale(1)";
+                });
+            } else {
+                const finalOpacity = Math.max(0.1, opacity);
+                const scale = 0.96 + (opacity * 0.04);
+                contentElements.forEach(el => {
+                    el.style.opacity = finalOpacity;
+                    el.style.transform = `scale(${scale})`;
+                });
             }
         });
       }

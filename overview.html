@@ -16,19 +16,43 @@
         font-family: var(--font-main);
         background: white;
       }
-      body.sub-page header {
-        position: fixed !important;
-        z-index: 99999 !important;
-        background: #020617 !important;
+      /* Initial State (White Theme for Company Pages) */
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+        background: #ffffff !important;
+        border-bottom: 1px solid #f1f5f9;
       }
-      header .logo-text {
-        color: var(--daumis-yellow) !important;
-      }
-      header:hover .logo-text,
-      header:has(.nav-item:hover) .logo-text,
-      header.menu-open .logo-text {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
         color: #0f172a !important;
       }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+        color: #0f172a !important;
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
+        display: none !important; 
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+        display: block !important; 
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+        background: #0f172a !important;
+        color: #ffffff !important;
+      }
+
+      /* Natural Transitions (Smooth like Business Pages) */
+      #header {
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      #header .nav-links a, 
+      #header .nav-item > span, 
+      #header .logo-text,
+      #header .cta-button,
+      #header .logo img {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
       main {
         padding-top: 180px;
         min-height: 80vh;
