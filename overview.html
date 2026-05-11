@@ -274,6 +274,246 @@
       .biz-card:hover .biz-photo-container img {
         transform: scale(1.08);
       }
+
+      /* Organization Chart Section - NP Style Refined */
+      .org-section {
+        padding: 10rem 0;
+        background: #ffffff;
+        text-align: left;
+      }
+      .org-header {
+        margin-bottom: 5rem;
+      }
+      .org-label {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.8rem !important;
+        font-weight: 800 !important;
+        color: #475569 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .org-title {
+        font-size: 2.8rem !important;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: #0f172a !important;
+        text-align: left;
+        margin-bottom: 0;
+      }
+      .org-container {
+        max-width: 1400px;
+        margin-left: 0;
+        position: relative;
+      }
+      .org-section * {
+        box-sizing: border-box !important;
+      }
+      
+      .org-tree {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      /* Boxes */
+      .org-box {
+        border: 3px solid #0f172a;
+        background: white;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+        margin-left: 0 !important;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+      }
+      
+      .box-ceo, .box-staff {
+        width: 320px !important;
+        max-width: 320px !important;
+        position: relative;
+        z-index: 10;
+        background: #ffffff !important;
+      }
+      .box-ceo { height: 70px; font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 900; color: #0f172a; margin-bottom: 0; }
+      .box-staff { height: 60px; font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; color: #0f172a; margin-bottom: 0; }
+      
+      /* Nuclear Overlay System */
+      .org-overlay-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .ov-line {
+        position: absolute;
+        background: #0f172a;
+      }
+      
+      /* Removed side line from box */
+      
+      .box-label-en {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: 0.05em;
+        line-height: 1.2;
+      }
+      .box-label-ko {
+        font-size: 1.0rem;
+        font-weight: 500;
+        color: #64748b;
+        margin-top: 0.4rem;
+      }
+      
+      /* Main Connector (Hidden, using pseudo elements instead) */
+      .org-connector-v {
+        display: none;
+      }
+      .org-connector-h {
+        display: none; /* Removed from flow */
+      }
+      
+      /* Division Grid */
+      .org-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        width: max-content;
+        margin-top: 0;
+        align-items: flex-start !important;
+        gap: 0 !important;
+      }
+      
+      .org-branch {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        width: 320px !important;
+        flex: 0 0 320px !important;
+        margin-right: 40px !important;
+      }
+      .org-branch:last-child {
+        margin-right: 0 !important;
+      }
+      
+      .box-tall {
+        background: #ffffff !important;
+        z-index: 10;
+        position: relative;
+      }
+      .org-branch::before {
+        display: none; /* Handled by overlay */
+      }
+      .org-branch:first-child::before {
+        display: none; /* Mgmt connected directly to CFO */
+      }
+      
+      /* Division Header Boxes - Unified Row */
+      .box-header, .box-tall {
+        width: 100%;
+        height: 340px;
+        padding: calc(3rem + 10px) 1.5rem 1.5rem 1.5rem;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      
+      .box-title-area {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      
+      .box-sub-area {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      
+      .inner-team-box {
+        border: 3px solid #0f172a;
+        padding: 0.6rem;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-align: center;
+        color: #0f172a;
+      }
+      
+      /* Sub-teams grid */
+      .sub-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        width: 100%;
+        position: relative;
+      }
+      .sub-split::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 20px;
+        background: #0f172a;
+        transform: translateY(-100%);
+      }
+      .sub-split::after {
+        content: '';
+        position: absolute;
+        top: -0.75rem;
+        left: 25%;
+        right: 25%;
+        height: 2px;
+        background: #0f172a;
+      }
+      
+      .sub-box {
+        border: 2px solid #0f172a;
+        padding: 0.8rem 0.5rem;
+        background: white;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+      .sub-box::before {
+        content: '';
+        position: absolute;
+        top: -0.75rem;
+        left: 50%;
+        width: 2px;
+        height: 0.75rem;
+        background: #0f172a;
+      }
+      
+      .sub-box .box-label-en {
+        font-size: 0.85rem;
+      }
+      
+      .sub-single {
+        grid-template-columns: 1fr;
+      }
+      .sub-single::after { display: none; }
+      
+      .node-placeholder {
+        border: 2px dashed #e2e8f0;
+        color: #cbd5e1;
+      }
       .biz-card h4 {
         font-size: 1.5rem;
         font-weight: 800;
@@ -599,6 +839,101 @@
               </div>
               <div class="biz-photo-container" style="bottom: -70px;">
                 <img src="/profile_04.png" alt="Next Lab Lead">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+ 
+      <!-- Organization Chart Section -->
+      <section class="org-section">
+        <div class="container">
+          <div class="org-header">
+            <span class="org-label">Organization</span>
+            <h2 class="org-title">조직구성</h2>
+          </div>
+          
+          <div class="org-container" style="position: relative;">
+            <!-- Lines Overlay (Behind boxes) -->
+            <div class="org-overlay-lines" style="z-index: 1;">
+              <!-- Pillar CEO-CFO-Mgmt (Deep overlap) -->
+              <div class="ov-line" style="top: 30px; left: 158.5px; width: 3px; height: 350px;"></div>
+              <!-- Horizontal Side Branch (At 130px = CFO Center) -->
+              <div class="ov-line" style="top: 130px; left: 160px; width: 1080px; height: 3px;"></div>
+              <!-- Drop lines for 2, 3, 4 (Deep overlap) -->
+              <div class="ov-line" style="top: 130px; left: 518.5px; width: 3px; height: 150px;"></div>
+              <div class="ov-line" style="top: 130px; left: 878.5px; width: 3px; height: 150px;"></div>
+              <div class="ov-line" style="top: 130px; left: 1238.5px; width: 3px; height: 150px;"></div>
+            </div>
+
+            <div class="org-tree">
+              <!-- CEO -->
+              <div class="org-box box-ceo">CEO</div>
+              <div style="height: 30px;"></div>
+              
+              <!-- CFO -->
+              <div class="org-box box-staff">CFO</div>
+              <div style="height: 30px;"></div>
+              
+              <!-- Divisions Grid -->
+              <div class="org-grid">
+                
+                <!-- 1. Management -->
+                <div class="org-branch">
+                  <div class="org-box box-tall">
+                    <div class="box-title-area">
+                      <div class="box-label-en">Management Div.</div>
+                      <div class="box-label-ko">경영관리본부</div>
+                    </div>
+                    <div class="box-sub-area">
+                      <div class="inner-team-box">인사</div>
+                      <div class="inner-team-box">재무 · 회계</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. 영업본부 -->
+                <div class="org-branch">
+                  <div class="org-box box-tall">
+                    <div class="box-title-area">
+                      <div class="box-label-en">Sales Div.</div>
+                      <div class="box-label-ko">영업본부</div>
+                    </div>
+                    <div class="box-sub-area">
+                      <div class="inner-team-box">영업지원</div>
+                      <div class="inner-team-box">영업기획</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3. 사업본부 -->
+                <div class="org-branch">
+                  <div class="org-box box-tall">
+                    <div class="box-title-area">
+                      <div class="box-label-en">Business Div.</div>
+                      <div class="box-label-ko">사업본부</div>
+                    </div>
+                    <div class="box-sub-area">
+                      <div class="inner-team-box">SI사업</div>
+                      <div class="inner-team-box">SI기획</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. 신사업부 -->
+                <div class="org-branch">
+                  <div class="org-box box-tall">
+                    <div class="box-title-area">
+                      <div class="box-label-en">New Biz Div.</div>
+                      <div class="box-label-ko">신사업부</div>
+                    </div>
+                    <div class="box-sub-area">
+                      <div class="inner-team-box">연구개발</div>
+                      <div class="inner-team-box">기술혁신</div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
