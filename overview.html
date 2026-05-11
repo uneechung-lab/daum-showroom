@@ -13,13 +13,13 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
       body {
-        font-family: var(--font-main);
+        font-family: 'Pretendard Variable', sans-serif;
         background: white;
       }
       /* Initial State (White Theme for Company Pages) */
       #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
         background: #ffffff !important;
-        border-bottom: 1px solid #f1f5f9;
+        border-bottom: none;
       }
       #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
       #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
@@ -45,57 +45,275 @@
                     border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
-      #header .nav-links a, 
-      #header .nav-item > span, 
-      #header .logo-text,
-      #header .cta-button,
-      #header .logo img {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      }
 
       main {
-        padding-top: 180px;
+        padding-top: 0;
         min-height: 80vh;
       }
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4rem;
-      }
-      .info-card {
-        background: #f8fafc;
-        padding: 4rem;
-        border-radius: 32px;
-        border: 1px solid #f1f5f9;
-      }
-      .info-card h3 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 2.5rem;
-        color: #0f172a;
-      }
-      .info-table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .info-table th {
+
+      .hero-section {
+        position: relative;
+        padding: 180px 0 100px;
+        color: #020617;
         text-align: left;
-        padding: 1.2rem 0;
-        color: #94a3b8;
-        font-weight: 500;
-        width: 140px;
-        border-bottom: 1px solid #e2e8f0;
       }
-      .info-table td {
-        padding: 1.2rem 0;
+      .lab-title {
+        font-size: 2.8rem !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3.5rem !important;
+        letter-spacing: -0.02em !important;
+        word-break: keep-all;
+        color: #020617 !important;
+      }
+      .lab-sub {
+        font-size: 1.45rem !important;
+        color: #64748b !important;
+        font-weight: 400 !important;
+        line-height: 1.7 !important;
+        word-break: keep-all;
+        max-width: 1200px !important;
+        margin-bottom: 2rem !important;
+      }
+
+      .stats-bar {
+        position: relative;
+        height: 340px;
+        background: radial-gradient(circle at top left, #1e293b, #020617 80%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3.5rem;
+        border-radius: 24px;
+        overflow: hidden;
+      }
+      .stats-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        text-align: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .stat-item .stat-icon {
+        color: #ffffff;
+        margin-bottom: 1.2rem;
+        display: flex;
+        justify-content: center;
+        opacity: 0.9;
+      }
+      .stat-item h4 {
+        font-size: 0.95rem;
+        color: #ffffff;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        opacity: 0.9;
+      }
+      .stat-item .value-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+      }
+      .stat-item .value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.1;
+      }
+      .stat-item .unit {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 400;
+      }
+
+      /* Certification Bar */
+      .cert-section {
+        padding: 0 0 8rem;
+        background: #ffffff;
+      }
+      .cert-bar {
+        background: #ffffff;
+        border-radius: 24px;
+        height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+        position: relative;
+        z-index: 20;
+        width: 100%;
+      }
+      .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        text-align: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .cert-item {
+        padding: 0 2rem;
+      }
+      .cert-item:last-child {
+        border-right: none;
+      }
+      .cert-emoji {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        display: block;
+        filter: drop-shadow(0 5px 10px rgba(0,0,0,0.08));
+      }
+      .cert-item h4 {
+        font-size: 1.15rem;
+        font-weight: 800;
         color: #0f172a;
-        font-weight: 600;
-        border-bottom: 1px solid #e2e8f0;
-        font-size: 1.1rem;
+        margin-bottom: 0.6rem;
+        letter-spacing: -0.03em;
+        word-break: keep-all;
       }
+      .cert-item p {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .intro-statement {
+        padding: 10rem 0;
+        text-align: center;
+      }
+      .statement-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 2.5rem;
+        line-height: 1.3;
+        letter-spacing: -0.03em;
+      }
+      .statement-desc {
+        font-size: 1.3rem;
+        color: #64748b;
+        max-width: 900px;
+        margin: 0 auto;
+        line-height: 1.9;
+        word-break: keep-all;
+      }
+
+      /* Business Section - Restored Light Box Style */
+      .business-section {
+        padding: 6rem 0;
+        background: #fcfcfc;
+      }
+      .business-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+      .biz-card {
+        background: white;
+        border-radius: 40px;
+        border: 1px solid #e2e8f0;
+        padding: 1.25rem 2rem 2rem 2rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        overflow: hidden;
+        position: relative;
+        height: 420px;
+      }
+      .biz-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        border-color: #cbd5e1;
+      }
+      .biz-photo-container {
+        width: calc(100% + 36px);
+        height: 340px;
+        position: absolute;
+        bottom: -30px;
+        right: -36px;
+        overflow: hidden;
+        z-index: 5;
+        pointer-events: none;
+        border-radius: 0 0 40px 0;
+      }
+      .biz-photo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: 100% bottom;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .biz-expert-meta {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        z-index: 10;
+      }
+      .biz-expert-name {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.1rem;
+      }
+      .biz-expert-email {
+        font-size: 0.85rem;
+        color: #64748b;
+        font-family: 'Inter', sans-serif;
+      }
+      .biz-card:hover .biz-photo-container img {
+        transform: scale(1.08);
+      }
+      .biz-card h4 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 0.4rem;
+        letter-spacing: -0.02em;
+      }
+      .biz-card p {
+        font-size: 1rem;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 0.8rem;
+        word-break: keep-all;
+      }
+      .biz-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: flex-start;
+        margin-bottom: 1.2rem;
+      }
+      .biz-tag {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        background: #f1f5f9;
+        color: #64748b;
+        border-radius: 100px;
+        font-weight: 500;
+      }
+
       @media (max-width: 1024px) {
-        .info-grid { grid-template-columns: 1fr; }
-        main { padding-top: 140px; }
+        .stats-grid, .business-grid { grid-template-columns: repeat(2, 1fr); }
+        .hero-title { font-size: 2.5rem; }
+        .statement-title { font-size: 2.2rem; }
+
+      }
+      @media (max-width: 640px) {
+        .stats-grid, .business-grid { grid-template-columns: 1fr; }
+        .hero-section { height: 350px; }
+
       }
     </style>
   </head>
@@ -174,8 +392,8 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/ceo.html">CEO 인사말</a></li>
                         <li><a href="/overview.html" class="active">기업 개요</a></li>
+                        <li><a href="/ceo.html">CEO 인사말</a></li>
                         <li><a href="/vision.html">비전</a></li>
                         <li><a href="/history.html">연혁</a></li>
                         <li><a href="/contact.html">오시는 길</a></li>
@@ -211,53 +429,190 @@
     </header>
 
     <main>
-      <div class="container">
-        <span class="section-label" style="margin-bottom: 2rem;">Company Overview</span>
-        <h2 class="section-title" style="font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 5rem;">기업 개요</h2>
-        
-        <div class="info-grid">
-          <div class="info-card">
-            <h3>기업 일반 현황</h3>
-            <table class="info-table">
-              <tr><th>법인명</th><td>(주)다음정보시스템즈</td></tr>
-              <tr><th>설립일</th><td>2019년 09월 (금융사업본부 분사)</td></tr>
-              <tr><th>대표이사</th><td>김희정</td></tr>
-              <tr><th>주요사업</th><td>금융 소프트웨어 개발, SI, 컨설팅</td></tr>
-              <tr><th>소재지</th><td>서울시 영등포구 국제금융로 (여의도센터)</td></tr>
-            </table>
+      <!-- Hero Section -->
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 120px !important; background: #ffffff !important;">
+        <div class="container" style="padding-left: 2rem !important;">
+          <div style="text-align: left;">
+            <h1 class="lab-title">
+              금융의 본질을 이해하는 기술이 모여<br>
+              그 다음의 가치 만듭니다.
+            </h1>
+            <p class="lab-sub">
+              다음정보시스템즈는 금융 산업에 특화된 기술력과 구축 경험을 기반으로 고객 비즈니스에 최적화된 금융 솔루션과 서비스를 제공합니다.<br>
+              안정적인 시스템 구축부터 AI 기반 혁신 기술까지, 우리는 금융 IT의 새로운 기준을 만들어가고 있습니다.
+            </p>
           </div>
-          <div class="info-card">
-            <h3>주요 사업 분야</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 2rem;">
-              <li style="display: flex; align-items: center; gap: 1.5rem; font-weight: 700; font-size: 1.2rem; color: #0f172a;">
-                <div style="width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <i data-lucide="trending-up" style="color: var(--daumis-yellow);"></i>
+
+          <div class="stats-bar">
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-icon"><i data-lucide="calendar" style="width: 32px; height: 32px;"></i></div>
+                <h4>설립일</h4>
+                <div class="value-group">
+                  <div class="value">2019</div>
+                  <div class="unit">법인 설립</div>
                 </div>
-                집합투자증권 및 퇴직연금 시스템 구축
-              </li>
-              <li style="display: flex; align-items: center; gap: 1.5rem; font-weight: 700; font-size: 1.2rem; color: #0f172a;">
-                <div style="width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <i data-lucide="shield-check" style="color: var(--daumis-yellow);"></i>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i data-lucide="trending-up" style="width: 32px; height: 32px;"></i></div>
+                <h4>누적매출</h4>
+                <div class="value-group">
+                  <div class="value">360억+</div>
+                  <div class="unit">최근 3년간</div>
                 </div>
-                공제업무 및 자산관리 통합 시스템
-              </li>
-              <li style="display: flex; align-items: center; gap: 1.5rem; font-weight: 700; font-size: 1.2rem; color: #0f172a;">
-                <div style="width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <i data-lucide="line-chart" style="color: var(--daumis-yellow);"></i>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i data-lucide="users" style="width: 32px; height: 32px;"></i></div>
+                <h4>주요 고객사</h4>
+                <div class="value-group">
+                  <div class="value">40+</div>
+                  <div class="unit">제1금융권 파트너십</div>
                 </div>
-                금융 IT 컨설팅 및 프레임워크 공급
-              </li>
-            </ul>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i data-lucide="graduation-cap" style="width: 32px; height: 32px;"></i></div>
+                <h4>기술 인력</h4>
+                <div class="value-group">
+                  <div class="value">100%</div>
+                  <div class="unit">금융 IT 전문 인력</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="cert-bar">
+            <div class="cert-grid">
+              <!-- Cert 1 -->
+              <div class="cert-item">
+                <span class="cert-emoji">🏆</span>
+                <h4>기술평가 우수기업</h4>
+                <p>NICE평가정보 인증 (Grade A)</p>
+              </div>
+              <!-- Cert 2 -->
+              <div class="cert-item">
+                <span class="cert-emoji">🏢</span>
+                <h4>경영혁신형 중소기업</h4>
+                <p>Main-Biz 인증</p>
+              </div>
+              <!-- Cert 3 -->
+              <div class="cert-item">
+                <span class="cert-emoji">👫</span>
+                <h4>여성기업 인증</h4>
+                <p>서울지방중소벤처기업청</p>
+              </div>
+              <!-- Cert 4 -->
+              <div class="cert-item">
+                <span class="cert-emoji">🤝</span>
+                <h4>중소기업 확인</h4>
+                <p>정규 협약 파트너사</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+      
+      <!-- Introduction Statement -->
+      <section class="intro-statement" style="background: #f8fafc; padding-top: 5rem; padding-bottom: 9rem !important; border-top: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 20px 40px rgba(0,0,0,0.02), inset 0 -20px 40px rgba(255,255,255,1);">
+        <div class="container">
+          <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <span class="section-label" style="display: block; margin-bottom: 2.5rem; opacity: 1; color: #475569 !important; font-weight: 800; font-size: 0.8rem; letter-spacing: 0.2em;">DAUMIS</span>
+            <h2 style="color: #0f172a; word-break: keep-all; letter-spacing: -0.04em; margin-bottom: 0 !important; line-height: 1.6;">
+              <span style="font-size: 2.1rem; font-weight: 400; color: #475569; display: block; margin-bottom: 0;">
+                우리는 금융 시스템에 대한 깊은 이해와 검증된 기술력을 바탕으로,<br>
+                급변하는 디지털 환경 속에서 고객사의 안정적인 성장을 지원하는 든든한 파트너입니다.
+              </span>
+              <span style="font-size: 2.1rem; font-weight: 400; color: #000000; display: block;">
+                명쾌한 아키텍처와 혁신적인 솔루션을 통해 금융 IT의 새로운 표준을 제시합니다.
+              </span>
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <!-- Business Section -->
+      <section class="business-section">
+        <div class="container">
+          <div style="margin-bottom: 5rem; text-align: left;">
+            <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Service Portfolio</span>
+            <h2 class="section-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">주요 사업 영역</h2>
+          </div>
+          <div class="business-grid">
+            <!-- Business 1: Financial SI -->
+            <div class="biz-card">
+              <h4>Financial SI</h4>
+              <p>금융권 핵심 업무 시스템을 설계하고 완벽하게 구축합니다.</p>
+              <div class="biz-tags" style="margin-bottom: 1rem;">
+                <span class="biz-tag">퇴직연금</span>
+                <span class="biz-tag">집합투자</span>
+              </div>
+              <div class="biz-expert-meta">
+                <div class="biz-expert-name">조성현 상무</div>
+                <div class="biz-expert-email">roperon@daumit.net</div>
+              </div>
+              <div class="biz-photo-container" style="right: -16px;">
+                <img src="/profile_02.png" alt="Financial SI Lead" style="transform: scale(0.89); transform-origin: bottom right;">
+              </div>
+            </div>
+            <!-- Business 2: Solutions -->
+            <div class="biz-card">
+              <h4>Solutions</h4>
+              <p>효율적인 업무 처리를 위한 통합 관리 솔루션을 제공합니다.</p>
+              <div class="biz-tags" style="margin-bottom: 1rem;">
+                <span class="biz-tag">자산관리</span>
+                <span class="biz-tag">공제업무</span>
+              </div>
+              <div class="biz-expert-meta">
+                <div class="biz-expert-name">김희준 상무</div>
+                <div class="biz-expert-email">hjkim@daumit.net</div>
+              </div>
+              <div class="biz-photo-container">
+                <img src="/profile_01.png" alt="Solutions Lead">
+              </div>
+            </div>
+            <!-- Business 3: Consulting -->
+            <div class="biz-card">
+              <h4>Consulting</h4>
+              <p>IT 전략 수립부터 시스템 아키텍처 진단까지 가이드를 제안합니다.</p>
+              <div class="biz-tags" style="margin-bottom: 1rem;">
+                <span class="biz-tag">IT전략</span>
+                <span class="biz-tag">아키텍처</span>
+              </div>
+              <div class="biz-expert-meta">
+                <div class="biz-expert-name">김지영 이사</div>
+                <div class="biz-expert-email">htkim@daumit.net</div>
+              </div>
+              <div class="biz-photo-container" style="bottom: -70px; right: -16px;">
+                <img src="/profile_03.png" alt="Consulting Lead" style="transform: scale(1.0); transform-origin: bottom right;">
+              </div>
+            </div>
+            <!-- Business 4: Next Lab -->
+            <div class="biz-card">
+              <h4>Next Lab</h4>
+              <p>AI 및 최신 기술을 일상의 금융 경험으로 재설계합니다.</p>
+              <div class="biz-tags" style="margin-bottom: 1rem;">
+                <span class="biz-tag">AI Research</span>
+                <span class="biz-tag">AX Innovation</span>
+              </div>
+              <div class="biz-expert-meta">
+                <div class="biz-expert-name">이현욱 전무</div>
+                <div class="biz-expert-email">hwlee@daumit.net</div>
+              </div>
+              <div class="biz-photo-container" style="bottom: -70px;">
+                <img src="/profile_04.png" alt="Next Lab Lead">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
       <!-- Bottom CTA Section -->
-      <section class="bottom-cta-section cta-button" style="margin-top: 8rem;">
+      <section class="bottom-cta-section cta-button">
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
-            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
+            금융의 미래를 함께 만들어갈<br>준비가 되셨나요? 지금 시작하세요.
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>

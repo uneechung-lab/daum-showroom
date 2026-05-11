@@ -1,10 +1,10 @@
 from PIL import Image
 import os
 
-files = [r'c:\daum_site\public\ci_03.png', r'c:\daum_site\public\ci_04.png']
-for f in files:
-    if os.path.exists(f):
-        with Image.open(f) as img:
-            print(f"{f}: {img.size}")
+images = ["public/profile_01.png", "public/profile_02.png"]
+for img_path in images:
+    if os.path.exists(img_path):
+        with Image.open(img_path) as img:
+            print(f"{img_path}: {img.size}")
     else:
-        print(f"{f} not found")
+        print(f"{img_path}: Not found")

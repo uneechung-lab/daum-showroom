@@ -424,7 +424,7 @@ body.sub-page .gnb-mega-menu {
 }
 
 body.sub-page .gnb-mega-menu.active {
-    border-bottom: 1px solid rgba(255, 184, 0, 0.5);
+    border-bottom: none !important;
 }
 
 /* Instant swap when switching between menus (no animation) */
@@ -668,13 +668,12 @@ body.sub-page:not(.force-dark) #header.scrolled .logo-text {
   color: #0f172a !important;
 }
 
-/* White Header Theme - Background & Border - ONLY for sub-pages (excluding force-dark) */
 body.sub-page:not(.force-dark) #header.menu-open,
 body.sub-page:not(.force-dark) #header:has(.nav-item:hover),
 body.sub-page:not(.force-dark) #header.scrolled {
   background: #ffffff !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
 /* Reset border for default dark header (Home) */

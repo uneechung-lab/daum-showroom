@@ -46,7 +46,7 @@
         #header { 
             position: fixed; top: 0; left: 0; width: 100%; 
             background: #ffffff !important; 
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: none !important;
             z-index: 100001 !important; 
             transition: none;
         }
@@ -243,8 +243,8 @@
                     </div>
                     <div class="mega-right">
                       <ul>
-                        <li><a href="/ceo.html">CEO 인사말</a></li>
                         <li><a href="/overview.html">기업 개요</a></li>
+                        <li><a href="/ceo.html">CEO 인사말</a></li>
                         <li><a href="/vision.html">비전</a></li>
                         <li><a href="/history.html">연혁</a></li>
                         <li><a href="/contact.html">오시는 길</a></li>
@@ -799,8 +799,6 @@
                 cursor.className = "code-cursor";
                 lineDiv.appendChild(cursor);
 
-                lineDiv.appendChild(cursor);
-
                 // Only start drifting up once the content reaches the bottom of the container
                 const containerHeight = document.getElementById("code-stream").clientHeight;
                 const padding = 80; // 2.5rem * 2
@@ -869,7 +867,3 @@
     </script>
 </body>
 </html>
-
-
-
-

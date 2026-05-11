@@ -301,8 +301,8 @@ window.addEventListener('load', () => {
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      mobileToggle.classList.remove('active');
-      navRight.classList.remove('active');
+      if (mobileToggle) mobileToggle.classList.remove('active');
+      if (navRight) navRight.classList.remove('active');
       document.body.style.overflow = 'auto';
     });
   });
