@@ -54,21 +54,27 @@
       }
 
       main {
-        padding-top: 280px;
+        padding-top: 0;
         min-height: 80vh;
+      }
+      .hero-section {
+        position: relative;
+        padding: 180px 0 120px;
+        background: #ffffff;
       }
       .vision-grid {
         display: grid;
         grid-template-columns: 1fr 1.2fr;
         gap: 6rem;
-        align-items: center;
+        align-items: flex-start;
       }
-      .vision-text h2 {
-        font-size: 3.0rem;
+      .vision-text h1 {
+        font-size: 2.8rem;
         font-weight: 700;
         line-height: 1.2;
-        margin-bottom: 2rem;
-        color: #0f172a;
+        margin-bottom: 3.5rem;
+        letter-spacing: -0.02em !important;
+        color: #020617 !important;
       }
       .vision-text p {
         font-size: 1.4rem;
@@ -82,6 +88,7 @@
         background: none;
         border-radius: 40px;
         overflow: hidden;
+        margin-top: 50px;
       }
       .section-label {
         color: #64748b !important;
@@ -205,11 +212,11 @@
     </header>
 
     <main>
-      <div class="container">
-        <div class="vision-grid">
-          <div class="vision-text">
-            <span class="section-label">CEO Message</span>
-            <h2>고객의 가치가<br>기술의 기준이 됩니다.</h2>
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 120px !important; background: #ffffff !important;">
+        <div class="container" style="padding-left: 2rem !important;">
+          <div class="vision-grid">
+            <div class="vision-text">
+              <h1>고객의 가치가<br>기술의 기준이 됩니다.</h1>
             <p style="font-size: 1.15rem; line-height: 1.8;">
               (주)다음정보시스템즈는 퇴직연금시스템과 집합투자증권 분야의 특화된 기술력을 바탕으로 고객사의 금융 비즈니스의 가치를 실현하는 정보시스템 환경을 구축합니다.<br><br>
               우리는 단순한 시스템 통합을 넘어, 금융·공공 분야의 깊이 있는 도메인 지식과 컨설팅 역량을 통해 비즈니스의 잠재적 가치를 현실로 만듭니다. 숙련된 전문가들이 제공하는 정교한 설계와 빈틈없는 사후관리는 급변하는 금융 환경 속에서 고객사의 시스템이 최상의 성능을 유지하도록 보장합니다.<br><br>
@@ -227,6 +234,7 @@
             <img src="/ceo.png" alt="CEO" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);">
           </div>
         </div>
+      </section>
       </div>
 
       <!-- Bottom CTA Section -->

@@ -13,7 +13,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
       body {
-        font-family: var(--font-main);
+        font-family: 'Pretendard Variable', sans-serif;
         background: white;
       }
 
@@ -95,6 +95,7 @@
         max-width: 1400px;
         margin: 0 auto;
         padding: 0 2rem;
+        margin-bottom: 0 !important;
         display: grid;
         grid-template-columns: 450px 1fr; /* Restored to original balanced width */
         gap: 6rem;
@@ -105,10 +106,11 @@
       /* Left Sticky Side */
       .history-sidebar {
         position: sticky;
-        top: 280px; /* Matches main padding-top for zero initial movement */
-        height: calc(100vh - 280px);
+        top: 180px; /* Matches hero padding-top */
+        height: calc(100vh - 180px);
         display: flex;
         flex-direction: column;
+        z-index: 10;
       }
 
       .sidebar-title-box {
@@ -136,11 +138,11 @@
       }
 
       .history-title {
-        font-size: 3.0rem; /* Matched to CEO h2 exactly */
+        font-size: 2.8rem;
         font-weight: 700;
-        color: #0f172a;
-        margin: 0;
-        letter-spacing: -0.03em;
+        color: #020617 !important;
+        margin-bottom: 3.5rem !important;
+        letter-spacing: -0.02em !important;
         line-height: 1.2;
         word-break: keep-all;
       }
@@ -252,8 +254,8 @@
 
       /* Right Timeline Content */
       .history-content {
-        padding-top: 0.2rem !important;
-        padding-bottom: 20rem;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
         padding-left: 6rem;
         position: relative;
         overflow: visible !important;
@@ -278,7 +280,7 @@
         position: absolute;
         left: 6rem;
         top: var(--line-top, 69.6px); /* Dynamically synced to first dot via JS */
-        bottom: 20rem;
+        bottom: 0;
         width: 2px; /* Thicker base line */
         background: #f1f5f9;
         z-index: 0;
@@ -304,11 +306,17 @@
         position: relative;
         overflow: visible !important;
       }
+      .timeline-section:last-child {
+        margin-bottom: 0 !important;
+      }
 
       .year-group {
         position: relative;
         margin-bottom: 8rem;
         overflow: visible !important;
+      }
+      .year-group:last-child {
+        margin-bottom: 0 !important;
       }
 
       .bg-year {
@@ -334,6 +342,9 @@
         transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         transform-origin: left center; /* Critical: Prevent dots from shifting during scale */
         will-change: opacity, transform;
+      }
+      .event-item:first-child {
+        margin-top: 0 !important;
       }
 
       .event-item::before {
@@ -382,7 +393,7 @@
 
       /* Main Padding */
       main {
-        padding-top: 280px;
+        padding-top: 180px;
         background: #fff;
       }
 
@@ -527,18 +538,17 @@
     </header>
 
     <main>
-      <div class="history-container">
+      <div class="history-container" style="padding-left: 2rem !important;">
         <!-- Sidebar Navigation -->
         <aside class="history-sidebar">
-          <div class="sidebar-title-box">
-            <span class="section-label">Our Journey</span>
-            <div class="title-row">
-              <h1 class="history-title">
-                다음정보시스템즈의<br>
-                발자취입니다.
-              </h1>
+            <div class="sidebar-title-box">
+              <div class="title-row">
+                <h1 class="history-title">
+                  다음정보시스템즈의<br>
+                  발자취입니다.
+                </h1>
+              </div>
             </div>
-          </div>
           
           <ul class="era-nav">
             <li class="era-item active" data-target="era-3">
@@ -810,10 +820,10 @@
           </section>
 
         </div>
-      </div>
+      </section>
 
       <!-- Bottom CTA Section -->
-      <section class="bottom-cta-section cta-button">
+      <section class="bottom-cta-section cta-button" style="margin-top: 0 !important; position: relative; z-index: 100;">
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
@@ -974,7 +984,7 @@
             }
             
             // Apply styles (Special case: First item '현재' never fades at the top)
-            const contentElements = item.querySelectorAll('.event-year, .event-desc');
+            const contentElements = item.querySelectorAll('.event-date, .event-desc');
             
             if (index === 0 && itemRect.top < viewportCenter) {
                 contentElements.forEach(el => {

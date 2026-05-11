@@ -1627,7 +1627,7 @@ body.sub-page .module-section {
 /* Bottom CTA Section (LG CNS Style) */
 .bottom-cta-section {
   padding: 0;
-  background: #ffffff;
+  background: #ffffff !important;
   position: relative;
   overflow: hidden;
   cursor: pointer;

@@ -53,8 +53,13 @@
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
       main {
-        padding-top: 280px;
+        padding-top: 0;
         min-height: 80vh;
+      }
+      .hero-section {
+        position: relative;
+        padding: 180px 0 120px;
+        background: #ffffff;
       }
 
       .sidebar-title-box {
@@ -82,11 +87,12 @@
       }
 
       .section-title {
-        font-size: 3.0rem;
+        font-size: 2.8rem;
         font-weight: 700;
-        color: #0f172a;
-        line-height: 1.3;
-        margin-top: 0;
+        color: #020617 !important;
+        line-height: 1.2;
+        margin-bottom: 3.5rem !important;
+        letter-spacing: -0.02em !important;
       }
 
       .contact-grid {
@@ -282,13 +288,13 @@
     </header>
 
     <main>
-      <div class="container">
-        <div class="sidebar-title-box">
-          <div class="title-row">
-            <span class="section-label">Contact Us</span>
-            <h2 class="section-title">오시는 길</h2>
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 120px !important; background: #ffffff !important;">
+        <div class="container" style="padding-left: 2rem !important;">
+          <div class="sidebar-title-box">
+            <div class="title-row">
+              <h1 class="section-title">금융의 내일을 만드는<br>다음정보시스템즈로 오시는 길입니다.</h1>
+            </div>
           </div>
-        </div>
 
         <div class="contact-grid">
           <a href="https://map.naver.com/p/entry/place/19000056" target="_blank" class="contact-link">
@@ -334,7 +340,7 @@
             </div>
           </a>
         </div>
-      </div>
+      </section>
 
       <!-- Bottom CTA Section -->
       <section class="bottom-cta-section cta-button" style="margin-top: 8rem;">
