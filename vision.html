@@ -13,7 +13,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
       body {
-        font-family: var(--font-main);
+        font-family: 'Pretendard Variable', sans-serif;
         background: white;
       }
       /* Initial State (White Theme for Company Pages) */
@@ -39,83 +39,336 @@
         color: #ffffff !important;
       }
 
-      /* Natural Transitions (Smooth like Business Pages) */
+      /* Natural Transitions */
       #header {
         transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
-      #header .nav-links a, 
-      #header .nav-item > span, 
-      #header .logo-text,
-      #header .cta-button,
-      #header .logo img {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      }
+
       main {
-        padding-top: 180px;
+        padding-top: 0;
         min-height: 80vh;
       }
-      .vision-grid {
+
+      .hero-section {
+        position: relative;
+        padding: 180px 0 120px;
+        color: #020617;
+      }
+      .lab-title {
+        font-size: 2.8rem !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3.5rem !important;
+        letter-spacing: -0.02em !important;
+        word-break: keep-all;
+        color: #020617 !important;
+      }
+      .lab-sub {
+        font-size: 1.45rem !important;
+        color: #64748b !important;
+        font-weight: 400 !important;
+        line-height: 1.7 !important;
+        word-break: keep-all;
+        max-width: 1200px !important;
+        margin-bottom: 5rem !important;
+      }
+
+      .section-label {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.8rem !important;
+        font-weight: 800 !important;
+        color: #475569 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        display: block;
+        margin-bottom: 1.2rem;
+      }
+
+      /* Core Values (Now in Hero) */
+      .value-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .value-card {
+        padding: 2.5rem 2rem;
+        background: #ffffff;
+        border-radius: 32px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .value-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        border-color: #cbd5e1;
+      }
+      .value-card .icon-box {
+        width: 56px;
+        height: 56px;
+        background: #f1f5f9;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        color: #0f172a;
+      }
+      .value-card h4 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+      }
+      .value-card p {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.6;
+        word-break: keep-all;
+      }
+
+      /* Content Sections */
+      .vision-container {
+        padding: 6rem 0 10rem;
+      }
+
+      /* Mission Section */
+      .mission-section {
+        margin-bottom: 12rem;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
         gap: 6rem;
         align-items: center;
       }
-      .vision-text h2 {
-        font-size: 3.5rem;
+      .mission-text h2 {
+        font-size: 3.2rem;
         font-weight: 800;
         line-height: 1.2;
         margin-bottom: 2.5rem;
         color: #0f172a;
+        letter-spacing: -0.03em;
       }
-      .vision-text p {
-        font-size: 1.5rem;
+      .mission-text .desc {
+        font-size: 1.25rem;
         color: #64748b;
-        line-height: 1.7;
-        margin-bottom: 4rem;
+        line-height: 1.8;
         word-break: keep-all;
       }
-      .vision-img {
-        width: 100%;
-        height: 500px;
-        background: #f1f5f9;
+      .mission-visual {
+        position: relative;
         border-radius: 40px;
         overflow: hidden;
+        height: 540px;
+        box-shadow: 0 40px 80px rgba(0,0,0,0.1);
       }
-      .value-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        margin-top: 6rem;
+      .mission-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
-      .value-card {
-        padding: 3rem;
+
+      /* Evolution Timeline */
+      .evolution-timeline {
+        margin: 3rem 0 7rem;
+        padding: 4.5rem 1rem 2.5rem;
         background: #f8fafc;
-        border-radius: 24px;
-        border: 1px solid #f1f5f9;
+        border-radius: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .evolution-timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 0.02) 0%, transparent 100%);
+        pointer-events: none;
+      }
+      .timeline-track {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        position: relative;
+        z-index: 1;
+      }
+      .timeline-line {
+        position: absolute;
+        top: 104px; /* Centered: padding-top(4.5rem=72px) + icon-half(32px) = 104px */
+        left: 12.5%;
+        right: 19%; /* Shortened significantly to avoid touching the last icon */
+        height: 4px;
+        background: #e2e8f0;
+        z-index: 0;
+        border-radius: 4px;
+      }
+      .timeline-line::after {
+        content: '';
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left: 14px solid #cbd5e1;
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+      }
+      .timeline-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 80%; /* Extended to 80% as requested */
+        background: #0f172a;
+        transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 4px;
+      }
+      /* Removed progress arrow head */
+      .timeline-node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
+        position: relative;
+        z-index: 2;
       }
-      .value-card i {
-        width: 48px;
-        height: 48px;
-        color: var(--daumis-yellow);
-        margin-bottom: 1.5rem;
+      .node-dot {
+        width: 64px;
+        height: 64px;
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2.5rem;
+        transition: all 0.4s ease;
+        color: #94a3b8;
+        position: relative;
+        z-index: 10; /* Ensure dots are above the line */
       }
-      .value-card h4 {
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
+      .timeline-node.past .node-dot {
+        border-color: #0f172a;
+        background: white;
         color: #0f172a;
       }
-      .value-card p {
+      .timeline-node.active .node-dot {
+        background: #0f172a;
+        border-color: #0f172a;
+        color: white;
+        box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.1);
+      }
+      .timeline-node.active .node-dot::before {
+        content: '';
+        position: absolute;
+        inset: -15px;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+        border-radius: 50%;
+        animation: pulse-ring 2s infinite;
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.95); opacity: 1; }
+        100% { transform: scale(1.1); opacity: 0; }
+      }
+      .node-content {
+        text-align: center;
+        width: 100%;
+        max-width: 240px;
+        margin: 0 auto;
+      }
+      .node-content h4 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.35rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+      }
+      .node-content p {
+        font-size: 1rem;
+        color: #64748b;
+        font-weight: 500;
+        line-height: 1.5;
+        word-break: keep-all;
+      }
+      .timeline-node.active h4 { color: #0f172a; transform: scale(1.05); transition: transform 0.4s ease; }
+      .timeline-node.active p { color: #0f172a; font-weight: 600; }
+
+      /* Strategy Section */
+      .strategy-section {
+        padding: 8rem 0;
+        background: #ffffff;
+      }
+      .strategy-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-top: 1.5rem;
+        align-items: stretch; /* Ensure all items stretch to same height */
+      }
+      .strategy-card {
+        height: 100%; /* Fill the grid cell height */
+        padding: 2rem 2.2rem;
+        background: #ffffff;
+        border-radius: 32px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .strategy-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        border-color: #cbd5e1;
+      }
+      .strategy-card .number-node {
+        width: 44px;
+        height: 44px;
+        background: #0f172a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        transition: all 0.4s ease;
+      }
+      .strategy-card:hover .number-node {
+        background: #cbd5e1;
+        color: #0f172a;
+      }
+      .value-card h4, .strategy-card h4 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 1.2rem;
+        letter-spacing: -0.02em;
+      }
+      .value-card p, .strategy-card p {
+        font-size: 1.05rem;
         color: #64748b;
         line-height: 1.6;
+        word-break: keep-all;
+      }
+
+      @media (max-width: 1024px) {
+        .strategy-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 1200px) {
+        .value-grid { grid-template-columns: repeat(2, 1fr); }
+        .strategy-grid { grid-template-columns: 1fr; gap: 4rem; }
       }
       @media (max-width: 1024px) {
-        .vision-grid { grid-template-columns: 1fr; }
-        .value-grid { grid-template-columns: 1fr; }
-        main { padding-top: 140px; }
+        .mission-section { grid-template-columns: 1fr; gap: 4rem; }
+        .mission-visual { height: 400px; }
       }
     </style>
   </head>
@@ -231,42 +484,146 @@
     </header>
 
     <main>
-      <div class="container">
-        <div class="vision-grid">
-          <div class="vision-img">
-            <img src="/assets/company_vision.png" alt="Vision" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div class="vision-text">
-            <span class="section-label">Our Vision</span>
-            <h2>금융의 미래,<br>그 <span style="color: var(--daumis-yellow);">다음(DAUM)</span>의 가치</h2>
-            <p>
-              우리는 단순한 시스템 구축을 넘어, 금융 비즈니스의 본질을 이해하고 기술로 혁신을 실현합니다.<br><br>
-              신뢰와 완벽함을 최우선 가치로 삼아, 고객사와 함께 지속 가능한 성장을 이루어 나가는 금융 IT의 든든한 파트너가 되겠습니다.
+      <!-- Hero Section -->
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 120px !important; background: #ffffff !important;">
+        <div class="container" style="padding-left: 2rem !important;">
+          <div style="text-align: left;">
+            <h1 class="lab-title">
+              AI 경험(AX)을 선도하는<br>
+              No.1 금융 솔루션 파트너
+            </h1>
+            <p class="lab-sub" style="margin-bottom: 3rem !important;">
+              향후 2~5년 내에 도달하고자 하는 구체적인 모습입니다. 단순히 시스템을 구축하는 단계를 넘어, NEXT Lab을 중심으로 한 AI 기술과 사용자 경험(UX)의 결합(AX)을 통해 금융 IT 시장의 패러다임을 바꾸는 선두주자가 되는 것을 목표로 합니다.
             </p>
+
+            <!-- Evolution Timeline Section -->
+            <div class="evolution-timeline">
+              <div class="timeline-line">
+                <div class="timeline-progress"></div>
+              </div>
+              <div class="timeline-track">
+                <div class="timeline-node past">
+                  <div class="node-dot"><i data-lucide="layers" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-content">
+                    <h4>System Build</h4>
+                    <p>안정적인 금융 핵심<br>시스템 구축 및 운영</p>
+                  </div>
+                </div>
+                <div class="timeline-node past">
+                  <div class="node-dot"><i data-lucide="brain" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-content">
+                    <h4>AI Technology</h4>
+                    <p>AI 기술 융합을 통한<br>지능형 금융 환경 조성</p>
+                  </div>
+                </div>
+                <div class="timeline-node past">
+                  <div class="node-dot"><i data-lucide="sparkles" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-content">
+                    <h4>Transformation (AX)</h4>
+                    <p>AI와 UX의 결합(AX)을<br>통한 지능형 경험 제공</p>
+                  </div>
+                </div>
+                <div class="timeline-node active">
+                  <div class="node-dot"><i data-lucide="trending-up" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-content">
+                    <h4>Paradigm Shift</h4>
+                    <p>금융 IT 시장의 새로운<br>패러다임 선도 및 도약</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+      </section>
 
+      </div>
+    </section>
+
+    <!-- 1. Mission -->
+    <section style="background: #f8fafc; padding: 5rem 0 9rem !important; border-top: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 20px 40px rgba(0,0,0,0.02), inset 0 -20px 40px rgba(255,255,255,1);" id="mission-section">
+      <div class="container">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+          <span class="section-label" style="display: block; margin-bottom: 2.5rem; opacity: 0.7;">MISSION / WHY</span>
+          <h2 style="color: #0f172a; word-break: keep-all; letter-spacing: -0.04em; margin-bottom: 0 !important; line-height: 1.6;">
+            <span style="font-size: 2.1rem; font-weight: 400; color: #475569; display: block; margin-bottom: 0;">
+              전문 금융 솔루션 D:FIN SUITE(퇴직연금, 펀드, 자산관리 등)의 전문성과<br>운영 혁신 플랫폼 ZAL:잘 유니버스(AI 자동 승인, 지능형 근태 관리 등)를 통해
+            </span>
+            <span style="font-size: 2.1rem; font-weight: 400; color: #000000; display: block;">
+              금융 IT 혁신으로 기업과 개인의 가치를 증명하고 연결하는 기술적 토대를 제공합니다.
+            </span>
+          </h2>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 2. Core Values -->
+    <section style="padding: 7rem 0; background: #ffffff;">
+      <div class="container">
+        <div style="margin-bottom: 1.5rem; text-align: left;">
+          <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Core Values / How</span>
+          <h2 class="section-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">비전 달성을 위한 핵심가치</h2>
+          <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">변화하는 금융 환경 속에서도 변하지 않는 다음정보시스템즈의 기술 철학이자 성장의 근간입니다.</p>
+        </div>
         <div class="value-grid">
           <div class="value-card">
-            <i data-lucide="award"></i>
-            <h4>최고의 전문성</h4>
-            <p>금융 도메인에 대한 깊은 이해와<br>독보적인 기술 역량을 보유합니다.</p>
+            <div class="icon-box"><i data-lucide="brain"></i></div>
+            <h4>AX Driven<br><span style="font-size: 0.95rem; font-weight: 500; color: #334155; margin-top: 0.5rem; display: block;">AI를 통한 사용자 경험 혁신</span></h4>
+            <p style="color: #475569;">모든 서비스와 기획의 중심에 AI를 통한 사용자 경험 혁신을 둡니다.</p>
           </div>
           <div class="value-card">
-            <i data-lucide="shield-check"></i>
-            <h4>변함없는 신뢰</h4>
-            <p>다년간 쌓아온 신용을 바탕으로<br>안정적인 파트너십을 유지합니다.</p>
+            <div class="icon-box"><i data-lucide="zap"></i></div>
+            <h4>Agile Implementation<br><span style="font-size: 0.95rem; font-weight: 500; color: #334155; margin-top: 0.5rem; display: block;">빠른 실체화와 검증</span></h4>
+            <p style="color: #475569;">'Vibe Coding'과 같은 최신 툴을 적극 활용하여 아이디어를 빠르게 실체화하고 검증합니다.</p>
           </div>
           <div class="value-card">
-            <i data-lucide="zap"></i>
-            <h4>끊임없는 혁신</h4>
-            <p>새로운 기술적 도전을 두려워하지 않고<br>금융 인프라의 미래를 선도합니다.</p>
+            <div class="icon-box"><i data-lucide="shield-check"></i></div>
+            <h4>Trusted Precision<br><span style="font-size: 0.95rem; font-weight: 500; color: #334155; margin-top: 0.5rem; display: block;">데이터 무결성과 안정성</span></h4>
+            <p style="color: #475569;">금융 IT 전문가로서 데이터의 무결성과 시스템의 안정성을 타협하지 않습니다.</p>
+          </div>
+          <div class="value-card">
+            <div class="icon-box"><i data-lucide="users"></i></div>
+            <h4>One-Team Synergy<br><span style="font-size: 0.95rem; font-weight: 500; color: #334155; margin-top: 0.5rem; display: block;">경계 없는 협업</span></h4>
+            <p style="color: #475569;">개인의 전문성을 존중하되, 프로젝트 성공을 위해 경계 없이 협업하고 공유합니다.</p>
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="vision-container" style="padding-top: 0;">
+      <div class="container">
+
+          <!-- 2. Strategy -->
+          <div class="strategy-section">
+            <div class="strategy-header" style="margin-bottom: 1.5rem; text-align: left;">
+              <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Strategy / What</span>
+              <h2 style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-bottom: 0;">비전 달성을 위한 실행 로드맵</h2>
+              <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">구체적인 실행 전략과 단계별 로드맵을 통해 금융 IT의 지능형 미래를 현실로 만들어갑니다.</p>
+            </div>
+            <div class="strategy-grid">
+              <div class="strategy-card">
+                <div class="number-node">1</div>
+                <h4>D-FIN SUITE 고도화</h4>
+                <p>퇴직연금 및 펀드 판매 시스템의 AI 기반 자산관리 기능 통합을 통한 솔루션 경쟁력 강화</p>
+              </div>
+              <div class="strategy-card">
+                <div class="number-node">2</div>
+                <h4>ZAL:잘 유니버스 확장</h4>
+                <p>AX 기반의 기업 운영 혁신을 넘어선 라이프케어 생태계 구축과 사용자 경험의 지능화</p>
+              </div>
+              <div class="strategy-card">
+                <div class="number-node">3</div>
+                <h4>NEXT Lab 강화</h4>
+                <p>AI를 활용한 서비스 기획 및 개발 프로세스의 표준화(AX) 정립 및 기술 자산화</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
 
       <!-- Bottom CTA Section -->
-      <section class="bottom-cta-section cta-button" style="margin-top: 8rem;">
+      <section class="bottom-cta-section cta-button" style="margin-top: 5rem;">
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
