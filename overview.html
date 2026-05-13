@@ -104,23 +104,13 @@
       }
       .stat-item {
         position: relative;
-        padding: 5rem 1rem 4rem 1rem; /* Fine-tuned vertical position */
+        padding: 5rem 1rem 4rem 1rem;
         border-radius: 24px;
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1;
         overflow: visible;
       }
       
-      .stat-item {
-        position: relative;
-        padding: 5rem 1rem 4rem 1rem; /* Fine-tuned vertical position */
-        border-radius: 24px;
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1;
-        overflow: visible;
-      }
-      
-      /* Unified Spotlight System - Starting from -100px to avoid layering artifacts */
+      /* Unified Spotlight System - Animation ready */
       .stat-item::before,
       .stat-item::after,
       .stat-item .beam-core {
@@ -128,10 +118,29 @@
         position: absolute;
         top: -100px;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) scaleY(0);
+        transform-origin: top;
         pointer-events: none;
         z-index: -1;
-        mix-blend-mode: screen; /* Fixes '탁한' feel by making light additive */
+        mix-blend-mode: screen;
+        opacity: 0;
+      }
+
+      @keyframes spotlightReveal {
+        0% { transform: translateX(-50%) scaleY(0); opacity: 0; }
+        100% { transform: translateX(-50%) scaleY(1); opacity: 1; }
+      }
+
+      @keyframes contentReveal {
+        0% { transform: translateY(30px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+
+      /* Trigger animations when revealed */
+      .stats-bar.revealed .stat-item::before,
+      .stats-bar.revealed .stat-item::after,
+      .stats-bar.revealed .stat-item .beam-core {
+        animation: spotlightReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
       }
 
       /* Base Glow - Permanent */
@@ -143,7 +152,6 @@
           rgba(255, 255, 255, 0.1) 0%, 
           transparent 80%
         );
-        opacity: 1;
       }
 
       /* Conical Beam - Soft Side Edges - Softer Overall */
@@ -159,7 +167,6 @@
         mask-image: conic-gradient(from 145deg at 50% 0%, transparent, black 15deg, black 55deg, transparent 70deg);
         -webkit-mask-image: conic-gradient(from 145deg at 50% 0%, transparent, black 15deg, black 55deg, transparent 70deg);
         filter: blur(25px); /* Slightly more blur for softness */
-        opacity: 0.9;
       }
 
       /* Core Focus - Soft Edges - Softer Overall */
@@ -175,7 +182,6 @@
         mask-image: conic-gradient(from 158deg at 50% 0%, transparent, black 10deg, black 34deg, transparent 44deg);
         -webkit-mask-image: conic-gradient(from 158deg at 50% 0%, transparent, black 10deg, black 34deg, transparent 44deg);
         filter: blur(15px);
-        opacity: 0.7;
       }
 
       .stat-item .stat-icon {
@@ -219,6 +225,36 @@
         transition: color 0.4s ease;
         opacity: 0.8;
       }
+
+      .stat-item .stat-content {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .stats-bar.revealed .stat-item .stat-content {
+        animation: contentReveal 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      }
+
+      /* Sequential Stagger Delays - Animations */
+      .stats-bar.revealed .stat-item:nth-child(1)::before,
+      .stats-bar.revealed .stat-item:nth-child(1)::after,
+      .stats-bar.revealed .stat-item:nth-child(1) .beam-core { animation-delay: 0.1s; }
+      .stats-bar.revealed .stat-item:nth-child(1) .stat-content { animation-delay: 0.4s; }
+
+      .stats-bar.revealed .stat-item:nth-child(2)::before,
+      .stats-bar.revealed .stat-item:nth-child(2)::after,
+      .stats-bar.revealed .stat-item:nth-child(2) .beam-core { animation-delay: 0.3s; }
+      .stats-bar.revealed .stat-item:nth-child(2) .stat-content { animation-delay: 0.6s; }
+
+      .stats-bar.revealed .stat-item:nth-child(3)::before,
+      .stats-bar.revealed .stat-item:nth-child(3)::after,
+      .stats-bar.revealed .stat-item:nth-child(3) .beam-core { animation-delay: 0.5s; }
+      .stats-bar.revealed .stat-item:nth-child(3) .stat-content { animation-delay: 0.8s; }
+
+      .stats-bar.revealed .stat-item:nth-child(4)::before,
+      .stats-bar.revealed .stat-item:nth-child(4)::after,
+      .stats-bar.revealed .stat-item:nth-child(4) .beam-core { animation-delay: 0.7s; }
+      .stats-bar.revealed .stat-item:nth-child(4) .stat-content { animation-delay: 1.0s; }
 
       /* Hover Interaction - Extremely subtle focus and scale */
       .stat-item:hover::after {
@@ -803,38 +839,46 @@
             <div class="stats-grid">
               <div class="stat-item">
                 <div class="beam-core"></div>
-                <div class="stat-icon"><i data-lucide="calendar" style="width: 32px; height: 32px;"></i></div>
-                <h4>설립일</h4>
-                <div class="value-group">
-                  <div class="value">2019</div>
-                  <div class="unit">법인 설립</div>
+                <div class="stat-content">
+                  <div class="stat-icon"><i data-lucide="calendar" style="width: 32px; height: 32px;"></i></div>
+                  <h4>설립일</h4>
+                  <div class="value-group">
+                    <div class="value">2019</div>
+                    <div class="unit">법인 설립</div>
+                  </div>
                 </div>
               </div>
               <div class="stat-item">
                 <div class="beam-core"></div>
-                <div class="stat-icon"><i data-lucide="trending-up" style="width: 32px; height: 32px;"></i></div>
-                <h4>누적매출</h4>
-                <div class="value-group">
-                  <div class="value">360억+</div>
-                  <div class="unit">최근 3년간</div>
+                <div class="stat-content">
+                  <div class="stat-icon"><i data-lucide="trending-up" style="width: 32px; height: 32px;"></i></div>
+                  <h4>누적매출</h4>
+                  <div class="value-group">
+                    <div class="value">360억+</div>
+                    <div class="unit">최근 3년간</div>
+                  </div>
                 </div>
               </div>
               <div class="stat-item">
                 <div class="beam-core"></div>
-                <div class="stat-icon"><i data-lucide="users" style="width: 32px; height: 32px;"></i></div>
-                <h4>주요 고객사</h4>
-                <div class="value-group">
-                  <div class="value">40+</div>
-                  <div class="unit">제1금융권 파트너십</div>
+                <div class="stat-content">
+                  <div class="stat-icon"><i data-lucide="users" style="width: 32px; height: 32px;"></i></div>
+                  <h4>주요 고객사</h4>
+                  <div class="value-group">
+                    <div class="value">40+</div>
+                    <div class="unit">제1금융권 파트너십</div>
+                  </div>
                 </div>
               </div>
               <div class="stat-item">
                 <div class="beam-core"></div>
-                <div class="stat-icon"><i data-lucide="graduation-cap" style="width: 32px; height: 32px;"></i></div>
-                <h4>기술 인력</h4>
-                <div class="value-group">
-                  <div class="value">100%</div>
-                  <div class="unit">금융 IT 전문 인력</div>
+                <div class="stat-content">
+                  <div class="stat-icon"><i data-lucide="graduation-cap" style="width: 32px; height: 32px;"></i></div>
+                  <h4>기술 인력</h4>
+                  <div class="value-group">
+                    <div class="value">100%</div>
+                    <div class="unit">금융 IT 전문 인력</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1119,6 +1163,18 @@
     <script type="module" src="/src/main.js"></script>
     <script>
       lucide.createIcons();
+
+      // Stats Reveal Animation
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      const statsBar = document.querySelector('.stats-bar');
+      if (statsBar) statsObserver.observe(statsBar);
     </script>
   </body>
 </html>
