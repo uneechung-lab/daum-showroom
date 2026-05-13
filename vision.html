@@ -91,7 +91,7 @@
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 1.5rem;
-        margin-top: 1.5rem;
+        margin-top: 0;
       }
       .value-card {
         padding: 2.5rem 2rem;
@@ -172,23 +172,13 @@
 
       /* Evolution Timeline */
       .evolution-timeline {
-        margin: 3rem 0 7rem;
-        padding: 4.5rem 1rem 2.5rem;
-        background: #f8fafc;
-        border-radius: 40px;
+        margin: 5rem 0 4.5rem;
+        padding: 2rem 0;
+        background: transparent;
         position: relative;
-        overflow: hidden;
+        overflow: visible;
       }
-      .evolution-timeline::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 0.02) 0%, transparent 100%);
-        pointer-events: none;
-      }
+      /* Removed evolution-timeline::before radial gradient */
       .timeline-track {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -197,9 +187,9 @@
       }
       .timeline-line {
         position: absolute;
-        top: 104px; /* Centered: padding-top(4.5rem=72px) + icon-half(32px) = 104px */
-        left: 12.5%;
-        right: 19%; /* Shortened significantly to avoid touching the last icon */
+        top: 67px; /* Centered: padding-top(2rem=32px) + icon-half(35px) = 67px */
+        left: 35px; /* Center of the first dot (70px/2) */
+        right: 120px; /* Adjusted to end at the center of the last dot */
         height: 4px;
         background: #e2e8f0;
         z-index: 0;
@@ -220,7 +210,7 @@
         top: 0;
         left: 0;
         height: 100%;
-        width: 80%; /* Extended to 80% as requested */
+        width: 73%; /* Fine-tuned to 73% */
         background: #0f172a;
         transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
         border-radius: 4px;
@@ -229,14 +219,14 @@
       .timeline-node {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
         position: relative;
         z-index: 2;
       }
       .node-dot {
-        width: 64px;
-        height: 64px;
+        width: 70px;
+        height: 70px;
         background: white;
         border: 2px solid #e2e8f0;
         border-radius: 50%;
@@ -273,21 +263,22 @@
         100% { transform: scale(1.1); opacity: 0; }
       }
       .node-content {
-        text-align: center;
+        text-align: left;
         width: 100%;
         max-width: 240px;
-        margin: 0 auto;
+        margin: 0;
       }
       .node-content h4 {
         font-family: 'Outfit', sans-serif;
-        font-size: 1.35rem;
+        font-size: 1.45rem;
         font-weight: 800;
         margin-bottom: 0.8rem;
         color: #0f172a;
         letter-spacing: -0.01em;
+        white-space: nowrap;
       }
       .node-content p {
-        font-size: 1rem;
+        font-size: 1.15rem;
         color: #64748b;
         font-weight: 500;
         line-height: 1.5;
@@ -305,7 +296,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 2.5rem;
-        margin-top: 1.5rem;
+        margin-top: 0;
         align-items: stretch; /* Ensure all items stretch to same height */
       }
       .strategy-card {
@@ -338,6 +329,76 @@
         font-size: 1.2rem;
         margin-bottom: 2rem;
         transition: all 0.4s ease;
+      }
+      .strategy-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 2.2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f1f5f9;
+      }
+      .strategy-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+        border-radius: 16px;
+        margin-left: -0.5rem;
+      }
+      .strategy-item:hover {
+        background: #f8fafc;
+      }
+      .strategy-item .icon-box {
+        width: 36px;
+        height: 36px;
+        background: #f1f5f9;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #0f172a;
+        transition: all 0.3s ease;
+      }
+      .strategy-item:hover .icon-box {
+        background: #0f172a;
+        color: #ffffff;
+      }
+      .strategy-item .icon-box i {
+        width: 18px;
+        height: 18px;
+        opacity: 1;
+      }
+      .strategy-item .item-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+      .strategy-item .item-name {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .strategy-item .item-title {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #1e293b;
+      }
+      .strategy-item .item-sub {
+        font-size: 0.85rem;
+        color: #64748b;
+        font-weight: 500;
+      }
+      .strategy-item .item-desc {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        word-break: keep-all;
+        margin-top: 0.2rem;
+        font-weight: 400;
+        max-width: 280px;
       }
       .strategy-card:hover .number-node {
         background: #cbd5e1;
@@ -485,7 +546,7 @@
 
     <main>
       <!-- Hero Section -->
-      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 120px !important; background: #ffffff !important;">
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 80px !important; background: #ffffff !important;">
         <div class="container" style="padding-left: 2rem !important;">
           <div style="text-align: left;">
             <h1 class="lab-title">
@@ -503,30 +564,30 @@
               </div>
               <div class="timeline-track">
                 <div class="timeline-node past">
-                  <div class="node-dot"><i data-lucide="layers" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-dot"><i data-lucide="layers" style="width: 32px; height: 32px;"></i></div>
                   <div class="node-content">
-                    <h4>System Build</h4>
+                    <h4>System Build<br><span style="font-size: 1rem; font-weight: 600; color: #475569; margin-top: 0.3rem; display: block;">금융 IT의 탄탄한 근간</span></h4>
                     <p>안정적인 금융 핵심<br>시스템 구축 및 운영</p>
                   </div>
                 </div>
                 <div class="timeline-node past">
-                  <div class="node-dot"><i data-lucide="brain" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-dot"><i data-lucide="brain" style="width: 32px; height: 32px;"></i></div>
                   <div class="node-content">
-                    <h4>AI Technology</h4>
+                    <h4>AI Technology<br><span style="font-size: 1rem; font-weight: 600; color: #475569; margin-top: 0.3rem; display: block;">지능형 기술의 융합</span></h4>
                     <p>AI 기술 융합을 통한<br>지능형 금융 환경 조성</p>
                   </div>
                 </div>
                 <div class="timeline-node past">
-                  <div class="node-dot"><i data-lucide="sparkles" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-dot"><i data-lucide="sparkles" style="width: 32px; height: 32px;"></i></div>
                   <div class="node-content">
-                    <h4>Transformation (AX)</h4>
+                    <h4>AX Transformation<br><span style="font-size: 1rem; font-weight: 600; color: #475569; margin-top: 0.3rem; display: block;">AX 기반의 경험 혁신</span></h4>
                     <p>AI와 UX의 결합(AX)을<br>통한 지능형 경험 제공</p>
                   </div>
                 </div>
                 <div class="timeline-node active">
-                  <div class="node-dot"><i data-lucide="trending-up" style="width: 28px; height: 28px;"></i></div>
+                  <div class="node-dot"><i data-lucide="trending-up" style="width: 32px; height: 32px;"></i></div>
                   <div class="node-content">
-                    <h4>Paradigm Shift</h4>
+                    <h4>Paradigm Shift<br><span style="font-size: 1rem; font-weight: 600; color: #475569; margin-top: 0.3rem; display: block;">차세대 패러다임 선도</span></h4>
                     <p>금융 IT 시장의 새로운<br>패러다임 선도 및 도약</p>
                   </div>
                 </div>
@@ -541,7 +602,7 @@
     </section>
 
     <!-- 1. Mission -->
-    <section style="background: #f8fafc; padding: 5rem 0 9rem !important; border-top: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 20px 40px rgba(0,0,0,0.02), inset 0 -20px 40px rgba(255,255,255,1);" id="mission-section">
+    <section style="background: #f8fafc; padding: 4rem 0 9rem !important; border-top: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 20px 40px rgba(0,0,0,0.02), inset 0 -20px 40px rgba(255,255,255,1);" id="mission-section">
       <div class="container">
         <div style="max-width: 1200px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
           <span class="section-label" style="display: block; margin-bottom: 2.5rem; opacity: 0.7;">MISSION / WHY</span>
@@ -560,10 +621,10 @@
     <!-- 2. Core Values -->
     <section style="padding: 7rem 0; background: #ffffff;">
       <div class="container">
-        <div style="margin-bottom: 1.5rem; text-align: left;">
+        <div style="margin-bottom: 4rem; text-align: left;">
           <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Core Values / How</span>
           <h2 class="section-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">비전 달성을 위한 핵심가치</h2>
-          <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">변화하는 금융 환경 속에서도 변하지 않는 다음정보시스템즈의 기술 철학이자 성장의 근간입니다.</p>
+          <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important;">변화하는 금융 환경 속에서도 변하지 않는 다음정보시스템즈의 기술 철학이자 성장의 근간입니다.</p>
         </div>
         <div class="value-grid">
           <div class="value-card">
@@ -595,26 +656,163 @@
 
           <!-- 2. Strategy -->
           <div class="strategy-section">
-            <div class="strategy-header" style="margin-bottom: 1.5rem; text-align: left;">
+            <div class="strategy-header" style="margin-bottom: 4rem; text-align: left;">
               <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Strategy / What</span>
               <h2 style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-bottom: 0;">비전 달성을 위한 실행 로드맵</h2>
-              <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">구체적인 실행 전략과 단계별 로드맵을 통해 금융 IT의 지능형 미래를 현실로 만들어갑니다.</p>
+              <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important;">구체적인 실행 전략과 단계별 로드맵을 통해 금융 IT의 지능형 미래를 현실로 만들어갑니다.</p>
             </div>
             <div class="strategy-grid">
               <div class="strategy-card">
                 <div class="number-node">1</div>
-                <h4>D-FIN SUITE 고도화</h4>
-                <p>퇴직연금 및 펀드 판매 시스템의 AI 기반 자산관리 기능 통합을 통한 솔루션 경쟁력 강화</p>
+                <h4>D : FIN SUITE 고도화</h4>
+                <p style="margin-bottom: 0.5rem;">퇴직연금 및 펀드 판매 시스템의 AI 기반 자산관리 기능 통합을 통한 솔루션 경쟁력 강화</p>
+                <div class="strategy-list">
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="shield-check"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">D-RPS</span>
+                        <span class="item-sub">퇴직연금</span>
+                      </div>
+                      <p class="item-desc">은퇴자산 관리의 새로운 기준을 제시하는 차세대 퇴직연금 플랫폼</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="trending-up"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">D-FTS</span>
+                        <span class="item-sub">집합투자</span>
+                      </div>
+                      <p class="item-desc">신뢰와 안정성이 검증된 Java 기반의 통합 펀드 판매 솔루션</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="briefcase"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">D-MAA</span>
+                        <span class="item-sub">공제업무</span>
+                      </div>
+                      <p class="item-desc">공제회별 특성에 최적화된 맞춤형 운영 및 관리 시스템</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="gem"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">D-WMS</span>
+                        <span class="item-sub">자산관리</span>
+                      </div>
+                      <p class="item-desc">데이터 기반의 알고리즘을 통한 고도화된 미래형 자산관리 솔루션</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="user"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">D-CRM</span>
+                        <span class="item-sub">영업지원</span>
+                      </div>
+                      <p class="item-desc">현장 중심의 마케팅을 실현하는 지능형 영업 지원 솔루션</p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="strategy-card">
                 <div class="number-node">2</div>
-                <h4>ZAL:잘 유니버스 확장</h4>
-                <p>AX 기반의 기업 운영 혁신을 넘어선 라이프케어 생태계 구축과 사용자 경험의 지능화</p>
+                <h4>ZAL : 잘 유니버스 확장</h4>
+                <p style="margin-bottom: 0.5rem;">AX 기반의 기업 운영 혁신을 넘어선 라이프케어 생태계 구축과 사용자 경험의 지능화</p>
+                <div class="strategy-list">
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="utensils"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">잘먹 (ZAL : EAT)</span>
+                      </div>
+                      <p class="item-desc">AI가 시간과 업종을 판독하여 식대 정산을 즉시 승인하는 지능형 식대 관리</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="user-plus"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">잘될 (ZAL : WILL)</span>
+                      </div>
+                      <p class="item-desc">채용 및 프리보딩 과정에서 AI가 궁금한 점에 즉시 답변하는 지능형 채용 지원</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="calendar-check"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">잘됨 (ZAL : DONE)</span>
+                      </div>
+                      <p class="item-desc">위치와 상황에 맞춰 AI가 출근 여부를 확인하는 근태 및 성과 매니징</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="gift"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">잘놀 (ZAL : PLAY)</span>
+                      </div>
+                      <p class="item-desc">AI가 복지 혜택을 먼저 제안하고 챙겨주는 복지 및 커뮤니티 큐레이션</p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="strategy-card">
                 <div class="number-node">3</div>
                 <h4>NEXT Lab 강화</h4>
-                <p>AI를 활용한 서비스 기획 및 개발 프로세스의 표준화(AX) 정립 및 기술 자산화</p>
+                <p style="margin-bottom: 0.5rem;">AI를 활용한 서비스 기획 및 개발 프로세스의 표준화(AX) 정립 및 기술 자산화</p>
+                <div class="strategy-list">
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="code"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">AX Standardization</span>
+                      </div>
+                      <p class="item-desc">AI SI 프로세스의 표준 가이드라인 정립 및 전파</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="database"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">Tech Asset</span>
+                      </div>
+                      <p class="item-desc">검증된 AI 모델 및 개발 프레임워크의 자산화</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="rocket"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">Future Innovation</span>
+                      </div>
+                      <p class="item-desc">차세대 금융 IT 패러다임을 선도할 핵심 기술 연구</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="mouse-pointer-2"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">UX : Design Innovation</span>
+                      </div>
+                      <p class="item-desc">사용자 중심의 직관적인 인터페이스와 유연한 사용자 경험(UX) 연구 및 설계</p>
+                    </div>
+                  </div>
+                  <div class="strategy-item">
+                    <div class="icon-box"><i data-lucide="heart-handshake"></i></div>
+                    <div class="item-info">
+                      <div class="item-name">
+                        <span class="item-title">CX : Customer Excellence</span>
+                      </div>
+                      <p class="item-desc">고객 접점의 가치를 극대화하고 서비스 만족도를 높이는 고객 경험(CX) 고도화</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

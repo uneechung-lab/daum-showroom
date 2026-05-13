@@ -53,7 +53,7 @@
 
       .hero-section {
         position: relative;
-        padding: 180px 0 100px;
+        padding: 180px 0 140px;
         color: #020617;
         text-align: left;
       }
@@ -79,22 +79,16 @@
       .stats-bar {
         position: relative;
         height: 340px;
-        background: url('/bg.png');
-        background-size: cover;
-        background-position: center;
+        background: #000000; /* Pure black for maximum contrast */
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 3.5rem;
-        border-radius: 32px; /* Softer, more organic corner */
+        border-radius: 32px;
         overflow: hidden;
-        /* Inset Skeuomorphic Effects (Etched Look) */
-        border: 1px solid rgba(0, 0, 0, 0.2); /* Darker edge for recessed look */
-        box-shadow: 
-          inset 0 20px 40px rgba(0, 0, 0, 0.5), /* Inner shadow from top */
-          inset 0 -10px 20px rgba(0, 0, 0, 0.3), /* Inner shadow from bottom */
-          0 1px 2px rgba(255, 255, 255, 0.1); /* Subtle outer rim light to define the hole */
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        /* Shadows removed as per request */
       }
       .stats-grid {
         position: relative;
@@ -108,18 +102,98 @@
         margin: 0 auto;
         padding: 0 2rem;
       }
-      .stat-item .stat-icon {
-        color: #ffffff;
-        margin-bottom: 1.2rem;
-        display: flex;
-        justify-content: center;
+      .stat-item {
+        position: relative;
+        padding: 5rem 1rem 4rem 1rem; /* Fine-tuned vertical position */
+        border-radius: 24px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+        overflow: visible;
+      }
+      
+      .stat-item {
+        position: relative;
+        padding: 5rem 1rem 4rem 1rem; /* Fine-tuned vertical position */
+        border-radius: 24px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+        overflow: visible;
+      }
+      
+      /* Unified Spotlight System - Starting from -100px to avoid layering artifacts */
+      .stat-item::before,
+      .stat-item::after,
+      .stat-item .beam-core {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+        z-index: -1;
+        mix-blend-mode: screen; /* Fixes '탁한' feel by making light additive */
+      }
+
+      /* Base Glow - Permanent */
+      .stat-item::before {
+        width: 180%;
+        height: calc(100% + 100px);
+        background: radial-gradient(
+          ellipse at 50% 0%, 
+          rgba(255, 255, 255, 0.1) 0%, 
+          transparent 80%
+        );
+        opacity: 1;
+      }
+
+      /* Conical Beam - Soft Side Edges - Softer Overall */
+      .stat-item::after {
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom, 
+          rgba(255, 255, 255, 0.3) 0%, /* Reduced intensity */
+          rgba(255, 255, 255, 0.1) 70%, 
+          transparent 100%
+        );
+        mask-image: conic-gradient(from 145deg at 50% 0%, transparent, black 15deg, black 55deg, transparent 70deg);
+        -webkit-mask-image: conic-gradient(from 145deg at 50% 0%, transparent, black 15deg, black 55deg, transparent 70deg);
+        filter: blur(25px); /* Slightly more blur for softness */
         opacity: 0.9;
       }
-      .stat-item h4 {
-        font-size: 0.95rem;
+
+      /* Core Focus - Soft Edges - Softer Overall */
+      .stat-item .beam-core {
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom, 
+          rgba(255, 255, 255, 0.2) 0%, /* Reduced intensity */
+          rgba(255, 255, 255, 0.05) 60%, 
+          transparent 100%
+        );
+        mask-image: conic-gradient(from 158deg at 50% 0%, transparent, black 10deg, black 34deg, transparent 44deg);
+        -webkit-mask-image: conic-gradient(from 158deg at 50% 0%, transparent, black 10deg, black 34deg, transparent 44deg);
+        filter: blur(15px);
+        opacity: 0.7;
+      }
+
+      .stat-item .stat-icon {
         color: #ffffff;
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: center;
+        opacity: 1;
+        transition: all 0.4s ease;
+      }
+      .stat-item h4 {
+        font-size: 0.85rem;
+        color: #ffffff; /* Pure white */
         font-weight: 700;
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: all 0.4s ease;
         opacity: 0.9;
       }
       .stat-item .value-group {
@@ -127,17 +201,50 @@
         flex-direction: column;
         align-items: center;
         gap: 0.2rem;
+        transition: all 0.4s ease;
       }
       .stat-item .value {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
         font-weight: 800;
         color: #ffffff;
         line-height: 1.1;
+        letter-spacing: -0.02em;
+        transition: all 0.5s ease;
       }
       .stat-item .unit {
         font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.6);
+        color: #ffffff; /* Pure white */
         font-weight: 400;
+        margin-top: 0.8rem;
+        transition: color 0.4s ease;
+        opacity: 0.8;
+      }
+
+      /* Hover Interaction - Extremely subtle focus and scale */
+      .stat-item:hover::after {
+        background: linear-gradient(
+          to bottom, 
+          rgba(255, 255, 255, 0.35) 0%, /* Extremely subtle increase from permanent state */
+          rgba(255, 255, 255, 0.12) 80%, 
+          transparent 100%
+        );
+        filter: blur(30px); /* Very soft and diffused */
+      }
+      .stat-item:hover .beam-core {
+        opacity: 1;
+        background: linear-gradient(
+          to bottom, 
+          rgba(255, 255, 255, 0.4) 0%, 
+          transparent 100%
+        );
+      }
+      .stat-item:hover .value {
+        transform: scale(1.05);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+      .stat-item:hover .stat-icon {
+        transform: translateY(-5px);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
       }
 
       /* Certification Bar */
@@ -148,11 +255,11 @@
       .cert-bar {
         background: #ffffff;
         border-radius: 24px;
-        height: 340px;
+        height: 180px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 2rem;
+        margin-top: 4rem;
         position: relative;
         z-index: 20;
         width: 100%;
@@ -174,7 +281,7 @@
       }
       .cert-emoji {
         font-size: 3rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.8rem;
         display: block;
         filter: drop-shadow(0 5px 10px rgba(0,0,0,0.08));
       }
@@ -182,7 +289,7 @@
         font-size: 1.15rem;
         font-weight: 800;
         color: #0f172a;
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.3rem;
         letter-spacing: -0.03em;
         word-break: keep-all;
       }
@@ -217,7 +324,7 @@
       /* Business Section - Restored Light Box Style */
       .business-section {
         padding: 8rem 0 18rem 0;
-        background: #fcfcfc;
+        background: #ffffff;
       }
       .business-grid {
         display: grid;
@@ -679,7 +786,7 @@
 
     <main>
       <!-- Hero Section -->
-      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 120px !important; background: #ffffff !important;">
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 140px !important; background: #ffffff !important;">
         <div class="container" style="padding-left: 2rem !important;">
           <div style="text-align: left;">
             <h1 class="lab-title">
@@ -695,6 +802,7 @@
           <div class="stats-bar">
             <div class="stats-grid">
               <div class="stat-item">
+                <div class="beam-core"></div>
                 <div class="stat-icon"><i data-lucide="calendar" style="width: 32px; height: 32px;"></i></div>
                 <h4>설립일</h4>
                 <div class="value-group">
@@ -703,6 +811,7 @@
                 </div>
               </div>
               <div class="stat-item">
+                <div class="beam-core"></div>
                 <div class="stat-icon"><i data-lucide="trending-up" style="width: 32px; height: 32px;"></i></div>
                 <h4>누적매출</h4>
                 <div class="value-group">
@@ -711,6 +820,7 @@
                 </div>
               </div>
               <div class="stat-item">
+                <div class="beam-core"></div>
                 <div class="stat-icon"><i data-lucide="users" style="width: 32px; height: 32px;"></i></div>
                 <h4>주요 고객사</h4>
                 <div class="value-group">
@@ -719,6 +829,7 @@
                 </div>
               </div>
               <div class="stat-item">
+                <div class="beam-core"></div>
                 <div class="stat-icon"><i data-lucide="graduation-cap" style="width: 32px; height: 32px;"></i></div>
                 <h4>기술 인력</h4>
                 <div class="value-group">
@@ -857,14 +968,14 @@
  
       <!-- Organization Chart Section -->
       <section class="org-section" style="padding: 7rem 0 10rem 0 !important;">
-        <div class="container">
-          <div class="org-header" style="margin-bottom: 1.5rem; text-align: left; margin-left: 0 !important; padding-left: 0 !important;">
+        <div class="container" style="padding-left: 2rem !important;">
+          <div class="org-header" style="margin-bottom: 1.5rem; text-align: left; margin-left: -1rem !important;">
             <span class="org-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Organization</span>
             <h2 class="org-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">조직구성</h2>
             <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">금융 전문가와 기술 혁신가가 하나의 팀으로 융합되어 최상의 비즈니스 가치를 창출합니다.</p>
           </div>
           
-          <div class="org-container" style="position: relative; margin-top: 1.5rem;">
+          <div class="org-container" style="position: relative; margin-top: 1.5rem; margin-left: -1rem !important;">
             <!-- Lines Overlay (Behind boxes) -->
             <div class="org-overlay-lines" style="z-index: 1;">
               <!-- Pillar CEO-CFO-Mgmt (Deep overlap) -->
