@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>오시는 길 | 다음정보시스템즈</title>
+    <title>채용공고 | 인재채용 | 다음정보시스템즈</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
       body {
-        font-family: var(--font-main);
+        font-family: 'Pretendard Variable', sans-serif;
         background: white;
       }
       /* Initial State (White Theme for Company Pages) */
@@ -22,7 +22,8 @@
         border-bottom: none;
       }
       #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .mega-right ul li a {
         color: #0f172a !important;
       }
       #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
@@ -39,141 +40,119 @@
         color: #ffffff !important;
       }
 
-      /* Natural Transitions (Smooth like Business Pages) */
       #header {
         transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
-      #header .nav-links a, 
-      #header .nav-item > span, 
-      #header .logo-text,
-      #header .cta-button,
-      #header .logo img {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      }
+
       main {
         padding-top: 0;
         min-height: 80vh;
       }
+
       .hero-section {
         position: relative;
-        padding: 180px 0 120px;
-        background: #ffffff;
+        padding: 180px 0 0;
+        color: #020617;
+        text-align: left;
+      }
+      .lab-title {
+        font-size: 2.8rem !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3.5rem !important;
+        letter-spacing: -0.02em !important;
+        word-break: keep-all;
+        color: #020617 !important;
+      }
+      .lab-sub {
+        font-size: 1.45rem !important;
+        color: #64748b !important;
+        font-weight: 400 !important;
+        line-height: 1.7 !important;
+        word-break: keep-all;
+        max-width: 1200px !important;
+        margin-bottom: 0 !important;
       }
 
-      .sidebar-title-box {
-        margin-bottom: 5rem; /* Adjusted to original feel */
+      .section-container {
+        padding: 0 0 8rem;
+      }
+
+      .announcement-list {
         display: flex;
         flex-direction: column;
+        gap: 1rem;
+      }
+      .announcement-item {
+        padding: 3rem 4rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .announcement-item:hover {
+        border-color: #0f172a;
+        background: #f8fafc;
+        transform: scale(1.005);
+      }
+      .ann-info h4 {
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-bottom: 0.6rem;
+        color: #0f172a;
+      }
+      .ann-meta {
+        font-size: 0.95rem;
+        color: #94a3b8;
+        display: flex;
         gap: 1.2rem;
       }
-
-      .title-row {
+      .ann-status {
+        padding: 0.5rem 1.2rem;
+        background: #f1f5f9;
+        color: #64748b;
+        border-radius: 24px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      .apply-btn {
+        padding: 0.4rem 1.2rem;
+        background: #0f172a;
+        color: white;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .apply-btn:hover {
+        background: #FFB800;
+        color: #0f172a;
+        transform: translateY(-2px);
+      }
+      .apply-btn i,
+      .apply-btn svg {
+        width: 14px !important;
+        height: 14px !important;
+      }
+      .ann-right {
+        display: flex;
+        align-items: center;
         gap: 1.5rem;
       }
 
-      .section-label {
-        font-family: 'Outfit', sans-serif;
-        font-size: 0.8rem !important;
-        font-weight: 800 !important;
-        color: #475569 !important;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        display: block;
-        margin-bottom: 1.2rem;
-      }
-
-      .section-title {
-        font-size: 2.8rem;
-        font-weight: 700;
-        color: #020617 !important;
-        line-height: 1.2;
-        margin-bottom: 3.5rem !important;
-        letter-spacing: -0.02em !important;
-      }
-
-      .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-        margin-bottom: 6rem;
-      }
-      .contact-card {
-        border: 1px solid #e2e8f0;
-        border-radius: 32px;
-        overflow: hidden;
-        background: white;
-        transition: all 0.3s ease;
-      }
-      .contact-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-      }
-      .contact-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-        border-color: #cbd5e1;
-        cursor: pointer;
-      }
-      .map-placeholder {
-        height: 450px;
-        background: #f8fafc;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #94a3b8;
-        border-bottom: 1px solid #f1f5f9;
-        overflow: hidden;
-      }
-      .contact-info {
-        padding: 2rem;
-      }
-      .contact-info h4 {
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: #0f172a;
-      }
-      .contact-info p {
-        color: #64748b;
-        line-height: 1.8;
-        font-size: 1.2rem;
-        word-break: keep-all;
-      }
-      .contact-meta {
-        margin-top: 1.2rem;
-        padding-top: 1.2rem;
-        border-top: 1px solid #f1f5f9;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-      }
-      .meta-item {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-      }
-      .meta-item strong {
-        font-size: 0.8rem;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-      }
-      .meta-item span {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #0f172a;
-      }
       @media (max-width: 1024px) {
-        .contact-grid { grid-template-columns: 1fr; }
-        .contact-meta { flex-direction: column; gap: 1.5rem; }
-        main { padding-top: 140px; }
+        .announcement-item { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+        .hero-section { padding-top: 140px; }
       }
     </style>
   </head>
@@ -243,7 +222,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <span class="active">회사소개</span>
+                <span>회사소개</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -256,14 +235,14 @@
                         <li><a href="/ceo.html">CEO 인사말</a></li>
                         <li><a href="/vision.html">비전</a></li>
                         <li><a href="/history.html">연혁</a></li>
-                        <li><a href="/contact.html" class="active">오시는 길</a></li>
+                        <li><a href="/contact.html">오시는 길</a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </li>
               <li class="nav-item">
-                <span>인재채용</span>
+                <span class="active">인재채용</span>
                 <div class="gnb-mega-menu">
                   <div class="mega-container">
                     <div class="mega-left">
@@ -275,7 +254,7 @@
                         <li><a href="/careers-jobs.html">직무소개</a></li>
                         <li><a href="/careers-process.html">채용절차</a></li>
                         <li><a href="/careers-welfare.html">복지제도</a></li>
-                        <li><a href="/careers-announcement.html">채용공고</a></li>
+                        <li><a href="/careers-announcement.html" class="active">채용공고</a></li>
                       </ul>
                     </div>
                   </div>
@@ -289,66 +268,81 @@
     </header>
 
     <main>
-      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 40px !important; background: #ffffff !important;">
+      <section class="hero-section" style="padding-top: 180px; background: #ffffff !important;">
         <div class="container" style="padding-left: 2rem !important;">
-          <div class="sidebar-title-box">
-            <div class="title-row">
-              <h1 class="section-title">금융의 내일을 만드는<br>다음정보시스템즈로 오시는 길입니다.</h1>
+          <div style="text-align: left;">
+            <h1 class="lab-title">
+              기술의 정점에서 세상을 바꿀<br>
+              당신의 새로운 시작을 기다립니다.
+            </h1>
+            <p class="lab-sub">
+              지금 다음정보시스템즈와 함께 금융 IT의 새로운 역사를 써 내려갈<br>
+              열정적인 인재들의 많은 지원을 기다립니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-container">
+        <div class="container">
+          <div class="announcement-list">
+            <div class="announcement-item">
+              <div class="ann-info">
+                <h4>금융 시스템 Java 개발자 (경력)</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>여의도/서울대입구</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              </div>
+              <div class="ann-right">
+                <span class="ann-status">채용중</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="announcement-item">
+              <div class="ann-info">
+                <h4>AI / 데이터 사이언티스트 (신입/경력)</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>서울대입구</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              </div>
+              <div class="ann-right">
+                <span class="ann-status">채용중</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="announcement-item">
+              <div class="ann-info">
+                <h4>금융 솔루션 기술 컨설턴트</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>여의도</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              <div class="ann-right">
+                <span class="ann-status">채용중</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
             </div>
           </div>
-
-        <div class="contact-grid">
-          <a href="https://map.naver.com/p/entry/place/19000056" target="_blank" class="contact-link">
-            <div class="contact-card">
-              <div class="map-placeholder">
-                <img src="/map_01.png" alt="여의도센터 지도" style="width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block;">
-              </div>
-              <div class="contact-info">
-                <h4>여의도센터</h4>
-                <p>(07332) 서울시 영등포구 국제금융로8길 27-9, 동북빌딩 603호</p>
-                <div class="contact-meta">
-                  <div class="meta-item">
-                    <strong>Telephone</strong>
-                    <span>02-6247-8413</span>
-                  </div>
-                  <div class="meta-item">
-                    <strong>Fax</strong>
-                    <span>070-4713-9499</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="https://map.naver.com/p/entry/place/18700121" target="_blank" class="contact-link">
-            <div class="contact-card">
-              <div class="map-placeholder">
-                <img src="/map_02.png" alt="본사 지도" style="width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block;">
-              </div>
-              <div class="contact-info">
-                <h4>본사</h4>
-                <p>(08791) 서울특별시 관악구 관악로 120 우주빌딩 3층</p>
-                <div class="contact-meta">
-                  <div class="meta-item">
-                    <strong>Telephone</strong>
-                    <span>02-6247-8413</span>
-                  </div>
-                  <div class="meta-item">
-                    <strong>Fax</strong>
-                    <span>070-4713-9499</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
         </div>
       </section>
 
       <!-- Bottom CTA Section -->
-      <section class="bottom-cta-section cta-button" style="margin-top: 0;">
+      <section class="bottom-cta-section cta-button">
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
-            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
+            다음정보시스템즈의 미래를 함께할<br>준비가 되셨다면 지금 문을 두드리세요.
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>

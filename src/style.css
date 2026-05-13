@@ -1345,7 +1345,6 @@ body.sub-page .module-section {
 .module-item {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-top: 3px solid var(--daumis-yellow);
   border-radius: 12px;
   padding: 3rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>채용절차 | 인재채용 | 다음정보시스템즈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+      body {
+        font-family: 'Pretendard Variable', sans-serif;
+        background: white;
+      }
+      /* Initial State (White Theme for Company Pages) */
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+        background: #ffffff !important;
+        border-bottom: none;
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .mega-right ul li a {
+        color: #0f172a !important;
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+        color: #0f172a !important;
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
+        display: none !important; 
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+        display: block !important; 
+      }
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+        background: #0f172a !important;
+        color: #ffffff !important;
+      }
+
+      #header {
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      main {
+        padding-top: 0;
+        min-height: 80vh;
+      }
+
+      .hero-section {
+        position: relative;
+        padding: 180px 0 0; /* Forced to 0 to remove any gap */
+        color: #020617;
+        text-align: left;
+      }
+      .lab-title {
+        font-size: 2.8rem !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        margin-bottom: 3.5rem !important;
+        letter-spacing: -0.02em !important;
+        word-break: keep-all;
+        color: #020617 !important;
+      }
+      .lab-sub {
+        font-size: 1.45rem !important;
+        color: #64748b !important;
+        font-weight: 400 !important;
+        line-height: 1.7 !important;
+        word-break: keep-all;
+        max-width: 1200px !important;
+        margin-bottom: 0 !important;
+      }
+
+      .section-container {
+        padding: 4rem 0 8rem;
+      }
+
+      /* Evolution Timeline (from vision.html) */
+      .evolution-timeline {
+        margin: 5rem 0 4.5rem;
+        padding: 2rem 0;
+        background: transparent;
+        position: relative;
+        overflow: visible;
+      }
+      .timeline-track {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        position: relative;
+        z-index: 1;
+      }
+      .timeline-line {
+        position: absolute;
+        top: 67px; 
+        left: 35px; 
+        right: 30%; /* Adjusted to 30% from the right edge */
+        height: 4px;
+        background: #e2e8f0;
+        z-index: 0;
+        border-radius: 4px;
+      }
+      .timeline-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%; /* Fill the newly shortened line */
+        background: #0f172a;
+        transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 4px;
+      }
+      .timeline-progress::after {
+        content: '';
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left: 14px solid #0f172a; 
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+      }
+      .timeline-node {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        position: relative;
+        z-index: 2;
+      }
+      .node-dot {
+        width: 70px;
+        height: 70px;
+        background: white;
+        border: 2px solid #0f172a; /* All steps are active/past */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2.5rem;
+        transition: all 0.4s ease;
+        color: #0f172a;
+        position: relative;
+        z-index: 10;
+      }
+      .timeline-node.active .node-dot {
+        background: #0f172a;
+        color: white;
+        box-shadow: 0 0 0 8px rgba(15, 23, 42, 0.05);
+      }
+      .node-content {
+        text-align: left;
+        width: 100%;
+        max-width: 240px;
+        margin: 0;
+      }
+      .node-content h4 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.45rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+      }
+      .node-content p {
+        font-size: 1.1rem;
+        color: #64748b;
+        font-weight: 500;
+        line-height: 1.5;
+        word-break: keep-all;
+      }
+      .node-step {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #94a3b8;
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+
+      /* Detailed Process List */
+      .process-detail-section {
+        padding: 8rem 0 10rem;
+        background: #f8fafc;
+      }
+      .detail-container {
+        display: grid;
+        grid-template-columns: 0.9fr 2fr;
+        gap: 7rem;
+        align-items: flex-start;
+      }
+      .detail-side h2 {
+        font-size: 2.8rem !important;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: #0f172a !important;
+        word-break: keep-all;
+        margin-bottom: 0;
+      }
+      .detail-side p {
+        font-size: 1.5rem !important;
+        color: #64748b !important;
+        font-weight: 300 !important;
+        margin-top: 1.2rem !important;
+        line-height: 1.5;
+        letter-spacing: -0.02em;
+        word-break: keep-all;
+      }
+      .detail-label {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.8rem !important;
+        font-weight: 800 !important;
+        color: #475569 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        display: block;
+        margin-bottom: 1rem;
+      }
+      .detail-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .detail-item {
+        padding: 2.5rem 3rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        display: flex;
+        gap: 2.5rem;
+        align-items: center; /* Center aligned for shorter look */
+        transition: all 0.3s ease;
+      }
+      .detail-item:hover {
+        border-color: #0f172a;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        transform: translateY(-5px);
+      }
+      .detail-step {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #ffffff;
+        background: #0f172a; /* Black box like image */
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .detail-content h3 {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 0.4rem;
+        letter-spacing: -0.02em;
+      }
+      .detail-content p {
+        font-size: 1.05rem;
+        color: #64748b;
+        line-height: 1.6;
+        word-break: keep-all;
+      }
+
+      @media (max-width: 1200px) {
+        .detail-container { grid-template-columns: 1fr; gap: 4rem; }
+        .detail-side h2 { font-size: 2.4rem; }
+      }
+      @media (max-width: 1024px) {
+        .timeline-track { grid-template-columns: 1fr; gap: 4rem; }
+        .timeline-line { display: none; }
+        .hero-section { padding-top: 140px; }
+        .detail-item { padding: 2rem; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body class="sub-page">
+    <header id="header">
+      <div class="container">
+        <nav>
+          <a href="/" class="logo">
+            <img src="/ci_04.png" alt="DAUMIS" class="logo-light">
+            <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
+            <span class="logo-text">다음정보시스템즈</span>
+          </a>
+          <div class="nav-right">
+            <ul class="nav-links">
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html">프로젝트 실적</a></li>
+                        <li><a href="/clients.html">고객사 & 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/ai-lab.html">AI 리서치 랩</a></li>
+                        <li><a href="/ax-lab.html">AX 이노베이션 랩</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/overview.html">기업 개요</a></li>
+                        <li><a href="/ceo.html">CEO 인사말</a></li>
+                        <li><a href="/vision.html">비전</a></li>
+                        <li><a href="/history.html">연혁</a></li>
+                        <li><a href="/contact.html">오시는 길</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span class="active">인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers-jobs.html">직무소개</a></li>
+                        <li><a href="/careers-process.html" class="active">채용절차</a></li>
+                        <li><a href="/careers-welfare.html">복지제도</a></li>
+                        <li><a href="/careers-announcement.html">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <a href="javascript:void(0)" class="cta-button">도입 문의 <i data-lucide="arrow-right"></i></a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 80px !important; background: #ffffff !important;">
+        <div class="container" style="padding-left: 2rem !important;">
+          <div style="text-align: left;">
+            <h1 class="lab-title">
+              함께 성장할 동료를 맞이하는<br>
+              공정하고 투명한 과정입니다.
+            </h1>
+            <p class="lab-sub" style="margin-bottom: 3rem !important;">
+              지원자 한 분 한 분의 역량과 열정을 소중히 검토하며,<br>
+              서로의 미래를 확인하는 세심한 채용 프로세스를 운영합니다.
+            </p>
+
+            <!-- Evolution Timeline Section -->
+            <div class="evolution-timeline">
+              <div class="timeline-line">
+                <div class="timeline-progress"></div>
+              </div>
+              <div class="timeline-track">
+                <div class="timeline-node">
+                  <div class="node-dot"><i data-lucide="file-text" style="width: 32px; height: 32px;"></i></div>
+                  <div class="node-content">
+                    <span class="node-step">STEP 01</span>
+                    <h4>서류 전형</h4>
+                    <p>지원서 및 경력기술서 검토</p>
+                  </div>
+                </div>
+                <div class="timeline-node">
+                  <div class="node-dot"><i data-lucide="users" style="width: 32px; height: 32px;"></i></div>
+                  <div class="node-content">
+                    <span class="node-step">STEP 02</span>
+                    <h4>실무 면접</h4>
+                    <p>기술 역량 및 직무 적합성 평가</p>
+                  </div>
+                </div>
+                <div class="timeline-node">
+                  <div class="node-dot"><i data-lucide="user-check" style="width: 32px; height: 32px;"></i></div>
+                  <div class="node-content">
+                    <span class="node-step">STEP 03</span>
+                    <h4>임원 면접</h4>
+                    <p>인성 및 조직 문화 적합성 평가</p>
+                  </div>
+                </div>
+                <div class="timeline-node active">
+                  <div class="node-dot"><i data-lucide="award" style="width: 32px; height: 32px;"></i></div>
+                  <div class="node-content">
+                    <span class="node-step">STEP 04</span>
+                    <h4>최종 합격</h4>
+                    <p>처우 협의 및 입사 확정</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Removed old section-container -->
+
+
+      <!-- Process Details Section -->
+      <section class="process-detail-section">
+        <div class="container">
+          <div class="detail-container">
+            <div class="detail-side">
+              <span class="detail-label">RECRUITMENT / PROCESS</span>
+              <h2>채용 상세<br>프로세스</h2>
+              <p>서류 전형부터 최종 합격까지,<br>공정하고 투명한 절차를 통해 최적의 동료를 모십니다.</p>
+            </div>
+            <div class="detail-list">
+              <div class="detail-item">
+                <div class="detail-step">01</div>
+                <div class="detail-content">
+                  <h3>서류 전형</h3>
+                  <p>지원서 및 경력기술서를 꼼꼼히 검토합니다. 직무 역량과 다음정보시스템즈의 기술 지향점에 부합하는지 면밀히 확인하여 서로의 시작점을 찾습니다.</p>
+                </div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-step">02</div>
+                <div class="detail-content">
+                  <h3>실무 면접</h3>
+                  <p>실무 리더 및 동료들과 기술적 대화를 나눕니다. 지원하신 직무의 전문성은 물론, 복잡한 금융 로직을 풀어가는 문제 해결 방식을 함께 공유합니다.</p>
+                </div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-step">03</div>
+                <div class="detail-content">
+                  <h3>임원 면접</h3>
+                  <p>핵심 가치와 미래 비전을 공유하며, 조직 문화에 융화되어 함께 성장할 수 있는 태도를 확인합니다. 장기적인 파트너로서의 가능성을 고민하는 시간입니다.</p>
+                </div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-step">04</div>
+                <div class="detail-content">
+                  <h3>최종 합격</h3>
+                  <p>모든 전형을 통과하신 분들을 대상으로 처우 및 입사 시기를 최종 조율합니다. 다음정보시스템즈의 새로운 일원이 되어 금융 혁신을 선도할 준비를 마칩니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom CTA Section -->
+      <section class="bottom-cta-section cta-button">
+        <div class="container">
+          <span class="cta-label">문의하기</span>
+          <h2 class="cta-text">
+            다음정보시스템즈의 미래를 함께할<br>준비가 되셨다면 지금 문을 두드리세요.
+          </h2>
+          <div class="cta-arrow-btn">
+            <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+          <div style="margin-left: -16px; padding: 0;">
+            <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
+              <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
+              <span style="font-size: 1.2rem; font-weight: 400; color: #FFB800; opacity: 1;">다음정보시스템즈</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                <li>T. 02-6247-8413</li>
+                <li>F. 070-4713-9499</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <li>국제금융로8길 27-9,</li>
+                <li>동북빌딩 603호</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
+              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                <li>관악로 120</li>
+                <li>우주빌딩 3층</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
