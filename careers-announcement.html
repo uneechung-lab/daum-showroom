@@ -321,6 +321,25 @@
       .back-btn:hover {
         color: #0f172a;
       }
+      .modal-cta-group {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .secondary-btn {
+        background: #f1f5f9;
+        color: #0f172a;
+        border: 1px solid #e2e8f0;
+        padding: 1.2rem;
+        border-radius: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .secondary-btn:hover {
+        background: #e2e8f0;
+      }
       .modal-header h2 {
         font-size: 2.8rem;
         font-weight: 800;
@@ -936,9 +955,6 @@
         const modalScrollArea = document.querySelector('.modal-scroll-area');
 
         modalBody.innerHTML = `
-          <button class="back-btn" onclick="openJobModal('${roleId}')">
-            <i data-lucide="arrow-left"></i> 공고 내용으로 돌아가기
-          </button>
           <div class="modal-header">
             <span class="section-label">Apply Now</span>
             <h2>지원하기</h2>
@@ -981,7 +997,10 @@
                 <input type="file" required>
               </div>
             </div>
-            <button type="submit" class="modal-apply-btn" style="width: 100%; margin-top: 1rem;">지원서 제출하기</button>
+            <div class="modal-cta-group">
+              <button type="button" class="secondary-btn" onclick="openJobModal('${roleId}')">공고 보기</button>
+              <button type="submit" class="modal-apply-btn">지원서 제출</button>
+            </div>
           </form>
         `;
         
