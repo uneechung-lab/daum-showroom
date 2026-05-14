@@ -280,6 +280,28 @@
         .hero-section { padding-top: 140px; }
         .detail-item { padding: 2rem; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       }
+      .download-btn {
+        margin-top: 1.2rem;
+        padding: 0.5rem 1rem;
+        background: #ffffff;
+        color: #0f172a;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        width: fit-content;
+        cursor: pointer;
+      }
+      .download-btn:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+        transform: translateY(-2px);
+      }
     </style>
   </head>
   <body class="sub-page">
@@ -468,6 +490,16 @@
                 <div class="detail-content">
                   <h3>서류 전형</h3>
                   <p>지원서 및 경력기술서를 꼼꼼히 검토합니다. 직무 역량과 다음정보시스템즈의 기술 지향점에 부합하는지 면밀히 확인하여 서로의 시작점을 찾습니다.</p>
+                  <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <a href="#" class="download-btn">
+                      <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                      입사지원서(신입)
+                    </a>
+                    <a href="#" class="download-btn">
+                      <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                      입사지원서(경력)
+                    </a>
+                  </div>
                 </div>
               </div>
               <div class="detail-item">

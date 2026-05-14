@@ -79,6 +79,16 @@
       .section-container {
         padding: 0 0 8rem;
       }
+      .section-label {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        display: block;
+        margin-bottom: 1rem;
+      }
 
       .announcement-list {
         display: flex;
@@ -122,21 +132,23 @@
         font-weight: 600;
       }
       .apply-btn {
-        padding: 0.4rem 1.2rem;
-        background: #0f172a;
-        color: white;
+        padding: 0.5rem 1rem;
+        background: #ffffff;
+        color: #0f172a;
+        border: 1px solid #e2e8f0;
         border-radius: 10px;
-        font-size: 0.85rem;
         font-weight: 700;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: flex;
+        font-size: 0.85rem;
+        display: inline-flex;
         align-items: center;
         gap: 0.4rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        width: fit-content;
       }
       .apply-btn:hover {
-        background: #FFB800;
-        color: #0f172a;
+        background: #f8fafc;
+        border-color: #cbd5e1;
         transform: translateY(-2px);
       }
       .apply-btn i,
@@ -153,6 +165,179 @@
       @media (max-width: 1024px) {
         .announcement-item { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
         .hero-section { padding-top: 140px; }
+      }
+
+      /* Job Detail Modal Styling */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(8px);
+        z-index: 20000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+      .modal-content {
+        background: white;
+        width: 85%;
+        max-width: 860px;
+        max-height: 80vh;
+        border-radius: 32px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 1.5rem 0; /* Add vertical buffer */
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+        transform: translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .modal-scroll-area {
+        overflow-y: auto;
+        padding: 2rem 4rem 3.5rem; /* Balanced internal padding */
+        height: 100%;
+      }
+      .modal-overlay.active .modal-content {
+        transform: translateY(0);
+      }
+      .modal-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+      .modal-close:hover {
+        background: #f8fafc;
+        border-color: #0f172a;
+        transform: rotate(90deg);
+      }
+      .modal-header {
+        margin-bottom: 3rem;
+        border-bottom: 1px solid #f1f5f9;
+        padding-bottom: 2rem;
+      }
+      .modal-header .section-label {
+        margin-bottom: 1.5rem;
+        color: #64748b;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        display: block;
+      }
+      .modal-header h2 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.5rem;
+      }
+      .modal-meta {
+        display: flex;
+        gap: 2rem;
+        color: #64748b;
+        font-weight: 500;
+      }
+      .modal-body {
+        line-height: 1.8;
+      }
+      .jd-section {
+        margin-bottom: 3rem;
+      }
+      .jd-section h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .jd-section h4::before {
+        content: '';
+        width: 4px;
+        height: 16px;
+        background: #0f172a; /* Removed yellow, using corporate navy */
+        border-radius: 2px;
+      }
+      .jd-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .jd-section ul li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.8rem;
+        color: #475569;
+        font-size: 1.1rem;
+      }
+      .jd-section ul li::after {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: #cbd5e1;
+      }
+      .modal-footer {
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: center;
+      }
+      .modal-apply-btn {
+        padding: 1.2rem 4rem;
+        background: #0f172a;
+        color: white;
+        border-radius: 16px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .modal-apply-btn:hover {
+        background: #1e293b;
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+      }
+
+      /* Custom Scrollbar for Modal Scroll Area */
+      .modal-scroll-area::-webkit-scrollbar {
+        width: 14px;
+      }
+      .modal-scroll-area::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .modal-scroll-area::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 20px;
+        border: 4px solid white; /* This creates the 'inside' look by adding space around the thumb */
+      }
+      .modal-scroll-area::-webkit-scrollbar-thumb:hover {
+        background: #cbd5e1;
       }
     </style>
   </head>
@@ -276,8 +461,8 @@
               당신의 새로운 시작을 기다립니다.
             </h1>
             <p class="lab-sub">
-              지금 다음정보시스템즈와 함께 금융 IT의 새로운 역사를 써 내려갈<br>
-              열정적인 인재들의 많은 지원을 기다립니다.
+              공채보다 더 가까운 상시 채용, 다음정보시스템즈는 좋은 인재와의 만남을 언제나 기다리고 있습니다.<br>
+              인재풀에 등록해 주시면, 소중한 인연이 닿는 대로 가장 먼저 연락드리겠습니다.
             </p>
           </div>
         </div>
@@ -285,12 +470,19 @@
 
       <section class="section-container">
         <div class="container">
+          <div style="margin-bottom: 3rem;">
+            <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Open Roles</span>
+            <h2 style="font-size: 2.2rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">상시 채용</h2>
+            <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important; word-break: keep-all;">
+              뛰어난 역량을 보유한 인재라면 상시 검토를 통해 언제든 채용 기회를 제공합니다.
+            </p>
+          </div>
           <div class="announcement-list">
-            <div class="announcement-item">
+            <div class="announcement-item" onclick="openJobModal('developer')">
               <div class="ann-info">
-                <h4>금융 시스템 Java 개발자 (경력)</h4>
+                <h4>금융 시스템 개발자 (경력)</h4>
                 <div class="ann-meta">
-                  <span>정규직</span>
+                  <span>정규직/계약직/프리랜서</span>
                   <span>|</span>
                   <span>여의도/서울대입구</span>
                   <span>|</span>
@@ -298,29 +490,13 @@
                 </div>
               </div>
               <div class="ann-right">
-                <span class="ann-status">채용중</span>
-                <a href="mailto:recruit@daumis.co.kr" class="apply-btn">지원하기 <i data-lucide="arrow-right"></i></a>
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
               </div>
             </div>
-            <div class="announcement-item">
+            <div class="announcement-item" onclick="openJobModal('ai')">
               <div class="ann-info">
-                <h4>AI / 데이터 사이언티스트 (신입/경력)</h4>
-                <div class="ann-meta">
-                  <span>정규직</span>
-                  <span>|</span>
-                  <span>서울대입구</span>
-                  <span>|</span>
-                  <span>상시채용</span>
-                </div>
-              </div>
-              <div class="ann-right">
-                <span class="ann-status">채용중</span>
-                <a href="mailto:recruit@daumis.co.kr" class="apply-btn">지원하기 <i data-lucide="arrow-right"></i></a>
-              </div>
-            </div>
-            <div class="announcement-item">
-              <div class="ann-info">
-                <h4>금융 솔루션 기술 컨설턴트</h4>
+                <h4>AI / 데이터 사이언티스트 (경력)</h4>
                 <div class="ann-meta">
                   <span>정규직</span>
                   <span>|</span>
@@ -328,9 +504,88 @@
                   <span>|</span>
                   <span>상시채용</span>
                 </div>
+              </div>
               <div class="ann-right">
-                <span class="ann-status">채용중</span>
-                <a href="mailto:recruit@daumis.co.kr" class="apply-btn">지원하기 <i data-lucide="arrow-right"></i></a>
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="announcement-item" onclick="openJobModal('consultant')">
+              <div class="ann-info">
+                <h4>금융 솔루션 기술 컨설턴트 (경력)</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>여의도</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              </div>
+              <div class="ann-right">
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-container" style="padding-top: 6rem;">
+        <div class="container">
+          <div style="margin-bottom: 3rem;">
+            <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Talent Pool</span>
+            <h2 style="font-size: 2.2rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">인재풀</h2>
+            <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important; word-break: keep-all;">
+              지원해주신 정보는 인력풀에 안전하게 등록되며, 해당 직무의 채용이 필요할 때 최우선 검토 대상이 됩니다.
+            </p>
+          </div>
+          <div class="announcement-list">
+            <div class="announcement-item" onclick="openJobModal('pm')">
+              <div class="ann-info">
+                <h4>프로젝트 매니지먼트</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>본사/여의도</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              </div>
+              <div class="ann-right">
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="announcement-item" onclick="openJobModal('qa')">
+              <div class="ann-info">
+                <h4>품질 관리 (QA)</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>여의도</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              </div>
+              <div class="ann-right">
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="announcement-item" onclick="openJobModal('uiux')">
+              <div class="ann-info">
+                <h4>UI / UX / CX</h4>
+                <div class="ann-meta">
+                  <span>정규직</span>
+                  <span>|</span>
+                  <span>여의도</span>
+                  <span>|</span>
+                  <span>상시채용</span>
+                </div>
+              </div>
+              <div class="ann-right">
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
               </div>
             </div>
           </div>
@@ -350,6 +605,20 @@
         </div>
       </section>
     </main>
+
+    <!-- Job Detail Modal Overlay (Moved outside main to cover header) -->
+    <div id="jobModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-close" onclick="closeJobModal()">
+          <i data-lucide="x"></i>
+        </div>
+        <div class="modal-scroll-area">
+          <div id="modalBody">
+            <!-- Dynamic Content Loads Here -->
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer id="footer">
       <div class="container">
@@ -392,6 +661,213 @@
     <script type="module" src="/src/main.js"></script>
     <script>
       lucide.createIcons();
+
+      const jobData = {
+        developer: {
+          title: "금융 시스템 개발자 (경력)",
+          label: "Open Roles",
+          meta: ["정규직/계약직/프리랜서", "여의도/서울대입구", "상시채용"],
+          intro: "국내 주요 금융권의 차세대 시스템 및 핵심 금융 솔루션을 개발하고 고도화하는 역할을 수행합니다.",
+          tasks: [
+            "은행, 증권, 보험 등 핵심 기간계 금융 시스템 설계 및 개발",
+            "Java/Spring 기반 고가용성 대규모 트랜잭션 엔진 구축",
+            "대용량 금융 데이터베이스 설계 및 쿼리 최적화",
+            "클라우드(AWS/Azure) 환경의 마이크로서비스 아키텍처 구현"
+          ],
+          requirements: [
+            "Java/Spring 기반 백엔드 개발 경력 3년 이상",
+            "RDBMS(Oracle, MySQL, PostgreSQL 등) 및 SQL 활용 능력",
+            "금융 도메인(퇴직연금, 자산관리 등) 프로젝트 수행 경험",
+            "클린 코드 작성 및 코드 리뷰를 통한 협업 능력"
+          ],
+          preferred: [
+            "대용량 트랜잭션 처리 및 분산 시스템 아키텍처 경험자",
+            "금융권 차세대 프로젝트 PL/PM 경험자",
+            "DevOps 및 CI/CD 파이프라인 구축 유경험자"
+          ]
+        },
+        ai: {
+          title: "AI / 데이터 사이언티스트 (경력)",
+          label: "Open Roles",
+          meta: ["정규직", "여의도", "상시채용"],
+          intro: "금융 빅데이터와 최신 생성형 AI 기술을 결합하여 지능형 금융 솔루션을 리드합니다.",
+          tasks: [
+            "금융 특화 LLM(Large Language Model) 도입 및 튜닝",
+            "이상거래탐지(FDS) 및 자산관리 알고리즘 고도화",
+            "데이터 거버넌스 기반의 AI 서비스 파이프라인 구축",
+            "생성형 AI를 활용한 비즈니스 프로세스 자동화 솔루션 개발"
+          ],
+          requirements: [
+            "AI/머신러닝 관련 실무 경력 3년 이상",
+            "Python, PyTorch, TensorFlow 등 딥러닝 프레임워크 숙련",
+            "NLP, LLM, RAG 등 최신 AI 기술에 대한 깊은 이해",
+            "관련 분야(컴퓨터공학, 통계학 등) 석사 이상 학위 보유자"
+          ],
+          preferred: [
+            "금융 서비스에 AI 기술을 성공적으로 상용화한 경험",
+            "대규모 데이터 엔지니어링 및 MLOps 환경 구축 경험",
+            "글로벌 AI 컨퍼런스 논문 게재 및 경진대회 입상자"
+          ]
+        },
+        consultant: {
+          title: "금융 솔루션 기술 컨설턴트 (경력)",
+          label: "Open Roles",
+          meta: ["정규직", "여의도", "상시채용"],
+          intro: "기술적 전문성을 바탕으로 고객사의 비즈니스 혁신을 위한 디지털 전환 전략을 제안합니다.",
+          tasks: [
+            "고객사 비즈니스 요구사항 분석 및 정보화 전략 수립(ISP/ISP)",
+            "차세대 금융 시스템 아키텍처 설계 및 기술 가이드 제시",
+            "솔루션 도입 제안서 작성 및 기술 PT 수행",
+            "프로젝트 수행 단계별 기술 리스크 관리 및 고도화 전략 제안"
+          ],
+          requirements: [
+            "금융 IT 분야 개발 또는 컨설팅 경력 5년 이상",
+            "금융 비즈니스 로직에 대한 깊은 이해와 시스템화 능력",
+            "뛰어난 문서 작성 능력 및 기술적 커뮤니케이션 스킬",
+            "최신 IT 트렌드(Cloud, MSA, AI)에 대한 통찰력"
+          ],
+          preferred: [
+            "대형 금융사 차세대 시스템 전략 컨설팅 유경험자",
+            "솔루션 아키텍트(SA) 또는 기술 영업 경 경력자",
+            "비즈니스 영어 회화 및 문서 작성 가능자"
+          ]
+        },
+        pm: {
+          title: "프로젝트 매니지먼트",
+          label: "Talent Pool",
+          meta: ["정규직", "본사/여의도", "상시채용"],
+          intro: "복잡한 금융 IT 프로젝트의 성공적인 완수를 위해 전체 라이프사이클을 리드하고 관리합니다.",
+          tasks: [
+            "금융 프로젝트 범위, 일정, 자원 및 리스크 통합 관리",
+            "고객사 및 내/외부 이해관계자 간의 커뮤니케이션 리딩",
+            "프로젝트 품질 확보를 위한 산출물 관리 및 프로세스 준수",
+            "수행 팀원 매니지먼트 및 업무 효율화 방안 수립"
+          ],
+          requirements: [
+            "IT 프로젝트 매니지먼트(PM/PL) 경력 7년 이상",
+            "대규모 금융 시스템 구축 프로젝트 수행 경험 필수",
+            "Agile 및 Waterfall 방법론에 대한 전문 지식",
+            "강한 책임감과 유연한 문제 해결 능력"
+          ],
+          preferred: [
+            "PMP 등 프로젝트 관리 전문 자격증 보유자",
+            "금융권 기간계 시스템 개발자 출신 PM",
+            "다수의 프로젝트 동시 관리 및 협력사 관리 경험자"
+          ]
+        },
+        qa: {
+          title: "품질 관리 (QA)",
+          label: "Talent Pool",
+          meta: ["정규직", "여의도", "상시채용"],
+          intro: "금융 서비스의 무결성과 신뢰성을 확보하기 위해 전문적인 품질 검증 프로세스를 운영합니다.",
+          tasks: [
+            "금융 도메인 특화 테스트 시나리오 설계 및 테스트 케이스 작성",
+            "단위, 통합, 시스템, 성능 테스트 수행 및 결함 관리",
+            "테스트 자동화 도구 도입 및 자동화 환경 구축/운영",
+            "릴리즈 전 품질 리스크 분석 및 배포 가부 의사결정 지원"
+          ],
+          requirements: [
+            "소프트웨어 QA 또는 테스트 엔지니어 경력 3년 이상",
+            "금융 비즈니스 프로세스에 대한 기본적인 이해",
+            "결함 추적 도구(Jira 등) 활용 및 리포팅 능력",
+            "논리적 사고 기반의 꼼꼼한 테스트 수행 능력"
+          ],
+          preferred: [
+            "ISTQB 등 QA 관련 국제 자격증 보유자",
+            "금융권 대규모 시스템 테스트 리딩 경험자",
+            "API 및 UI 자동화 테스트 도구 활용 가능자"
+          ]
+        },
+        uiux: {
+          title: "UI / UX / CX",
+          label: "Talent Pool",
+          meta: ["정규직", "여의도", "상시채용"],
+          intro: "사용자 중심의 사고를 바탕으로 직관적이고 완성도 높은 금융 인터페이스를 설계합니다.",
+          tasks: [
+            "금융 서비스 UI/UX 기획 및 시각화 디자인",
+            "사용자 데이터 및 여정 분석을 통한 통합 고객 경험(CX) 설계",
+            "일관성 있는 경험을 위한 디자인 시스템 구축 및 가이드 수립",
+            "프로토타이핑을 통한 아이디어 구체화 및 사용성 검증"
+          ],
+          requirements: [
+            "UI/UX 디자인 또는 서비스 기획 경력 3년 이상",
+            "Figma, Adobe XD, Protopie 등 디자인 툴 숙련",
+            "복잡한 금융 정보를 정제하여 사용자에게 전달하는 정보 설계 능력",
+            "비즈니스 목표와 사용자 니즈의 균형을 맞추는 통찰력"
+          ],
+          preferred: [
+            "금융/핀테크 서비스 디자인 시스템 구축 경험자",
+            "사용자 리서치 및 UT 기반의 개선 프로젝트 수행 경험",
+            "HTML/CSS 등 퍼블리싱에 대한 기본적인 이해도 보유자"
+          ]
+        }
+      };
+
+      function openJobModal(roleId) {
+        const data = jobData[roleId];
+        if (!data) return;
+
+        const modal = document.getElementById('jobModal');
+        const modalBody = document.getElementById('modalBody');
+
+        modalBody.innerHTML = `
+          <div class="modal-header">
+            <span class="section-label">${data.label}</span>
+            <h2>${data.title}</h2>
+            <div class="modal-meta">
+              ${data.meta.map(m => `<span>${m}</span>`).join('<span>|</span>')}
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="jd-section">
+              <h4>Role Introduction</h4>
+              <p style="font-size: 1.15rem; color: #475569;">${data.intro}</p>
+            </div>
+            <div class="jd-section">
+              <h4>주요 업무 (Key Responsibilities)</h4>
+              <ul>
+                ${data.tasks.map(t => `<li>${t}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="jd-section">
+              <h4>자격 요건 (Qualifications)</h4>
+              <ul>
+                ${data.requirements.map(r => `<li>${r}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="jd-section">
+              <h4>우대 사항 (Preferred)</h4>
+              <ul>
+                ${data.preferred.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="mailto:recruit@daumis.co.kr" class="modal-apply-btn">지금 지원하기</a>
+          </div>
+        `;
+
+        const modalScrollArea = modal.querySelector('.modal-scroll-area');
+        if (modalScrollArea) modalScrollArea.scrollTop = 0;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        lucide.createIcons();
+      }
+
+      function closeJobModal() {
+        const modal = document.getElementById('jobModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Close on outside click
+      window.onclick = function(event) {
+        const modal = document.getElementById('jobModal');
+        if (event.target == modal) {
+          closeJobModal();
+        }
+      }
     </script>
   </body>
 </html>
