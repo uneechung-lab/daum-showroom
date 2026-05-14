@@ -848,17 +848,21 @@
         `;
 
         const modalScrollArea = modal.querySelector('.modal-scroll-area');
-        if (modalScrollArea) modalScrollArea.scrollTop = 0;
-
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Ensure scroll is at top after showing
+        if (modalScrollArea) modalScrollArea.scrollTop = 0;
+        
         lucide.createIcons();
       }
 
       function closeJobModal() {
         const modal = document.getElementById('jobModal');
+        const modalScrollArea = modal.querySelector('.modal-scroll-area');
         modal.classList.remove('active');
         document.body.style.overflow = 'auto';
+        if (modalScrollArea) modalScrollArea.scrollTop = 0;
       }
 
       // Close on outside click
