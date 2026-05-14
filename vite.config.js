@@ -31,6 +31,7 @@ export default defineConfig({
         'careers-process': resolve(__dirname, 'careers-process.html'),
         'careers-welfare': resolve(__dirname, 'careers-welfare.html'),
         'careers-announcement': resolve(__dirname, 'careers-announcement.html'),
+        'apply': resolve(__dirname, 'apply.html'),
       },
     },
   },
