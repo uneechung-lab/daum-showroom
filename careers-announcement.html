@@ -248,6 +248,79 @@
         letter-spacing: 0.2em;
         display: block;
       }
+
+      /* Form Styles within Modal */
+      .apply-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .form-group label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .form-group input, 
+      .form-group select, 
+      .form-group textarea {
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      .form-group input:focus, 
+      .form-group select:focus, 
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #0f172a;
+        background: white;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .file-upload-box {
+        border: 2px dashed #e2e8f0;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        background: #f8fafc;
+        cursor: pointer;
+        position: relative;
+      }
+      .file-upload-box:hover {
+        border-color: #94a3b8;
+      }
+      .file-upload-box input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .back-btn {
+        background: none;
+        border: none;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        padding: 0;
+      }
+      .back-btn:hover {
+        color: #0f172a;
+      }
       .modal-header h2 {
         font-size: 2.8rem;
         font-weight: 800;
@@ -843,7 +916,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button onclick="location.href='/apply.html?job=' + encodeURIComponent('${data.title}')" class="modal-apply-btn">지금 지원하기</button>
+            <button onclick="showApplyForm('${roleId}')" class="modal-apply-btn">지금 지원하기</button>
           </div>
         `;
 
@@ -855,6 +928,71 @@
         if (modalScrollArea) modalScrollArea.scrollTop = 0;
         
         lucide.createIcons();
+      }
+
+      function showApplyForm(roleId) {
+        const data = jobData[roleId];
+        const modalBody = document.getElementById('modalBody');
+        const modalScrollArea = document.querySelector('.modal-scroll-area');
+
+        modalBody.innerHTML = `
+          <button class="back-btn" onclick="openJobModal('${roleId}')">
+            <i data-lucide="arrow-left"></i> 공고 내용으로 돌아가기
+          </button>
+          <div class="modal-header">
+            <span class="section-label">Apply Now</span>
+            <h2>지원하기</h2>
+            <p style="color: #64748b; margin-top: 0.5rem;">${data.title}</p>
+          </div>
+          <form class="apply-form" onsubmit="handleApplySubmit(event)">
+            <div class="form-group">
+              <label>지원 직무</label>
+              <select required id="formJobSelect">
+                ${Object.keys(jobData).map(key => `
+                  <option value="${jobData[key].title}" ${key === roleId ? 'selected' : ''}>
+                    ${jobData[key].title}
+                  </option>
+                `).join('')}
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>이름</label>
+                <input type="text" placeholder="성함을 입력하세요" required>
+              </div>
+              <div class="form-group">
+                <label>전화번호</label>
+                <input type="tel" placeholder="010-0000-0000" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>이메일</label>
+              <input type="email" placeholder="example@daumis.co.kr" required>
+            </div>
+            <div class="form-group">
+              <label>메시지</label>
+              <textarea rows="4" placeholder="간단한 자기소개나 전달하실 내용을 입력하세요"></textarea>
+            </div>
+            <div class="form-group">
+              <label>지원서 첨부</label>
+              <div class="file-upload-box">
+                <i data-lucide="upload-cloud"></i>
+                <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">파일을 선택하거나 드래그하세요 (PDF, Word)</p>
+                <input type="file" required>
+              </div>
+            </div>
+            <button type="submit" class="modal-apply-btn" style="width: 100%; margin-top: 1rem;">지원서 제출하기</button>
+          </form>
+        `;
+        
+        if (modalScrollArea) modalScrollArea.scrollTop = 0;
+        lucide.createIcons();
+      }
+
+      function handleApplySubmit(event) {
+        event.preventDefault();
+        alert('지원서가 성공적으로 접수되었습니다. 감사합니다.');
+        closeJobModal();
       }
 
       function closeJobModal() {
