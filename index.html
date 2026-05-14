@@ -26,7 +26,16 @@
       var overlay = document.getElementById('intro-overlay');
       var canvas  = document.getElementById('intro-canvas');
       if (!overlay || !canvas) return;
+
+      // Check if intro has already played in this session
+      if (sessionStorage.getItem('intro_played')) {
+        overlay.style.display = 'none';
+        window._introPlaying = false;
+        return;
+      }
+      
       window._introPlaying = true; // signal main.js to hide content initially
+      sessionStorage.setItem('intro_played', 'true');
 
       // ---- Setup canvas ----
       var ctx = canvas.getContext('2d');
@@ -456,16 +465,16 @@
           
           <div class="bento-grid">
             <div class="bento-card">
-              <div class="stat-value" data-target="240">0</div>
+              <div class="stat-value" data-target="40" data-suffix="+">40+</div>
               <p class="card-desc">주요 고객사 현황</p>
             </div>
             <div class="bento-card">
-              <div class="stat-value" data-target="15000">0</div>
+              <div class="stat-value" data-target="138" data-suffix="+">138+</div>
               <p class="card-desc">누적 프로젝트 수행</p>
             </div>
             <div class="bento-card">
-              <div class="stat-value" data-target="90" data-suffix="%">0</div>
-              <p class="card-desc">1금융권 점유율</p>
+              <div class="stat-value" data-target="90" data-suffix="%">90%</div>
+              <p class="card-desc">퇴직연금 점유율</p>
             </div>
           </div>
           <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
@@ -514,37 +523,48 @@
           <span class="section-label">Company / Philosophy</span>
           <h2 class="section-title">신뢰를 기술로<br>연결합니다</h2>
           
-          <div class="bento-grid">
-            <div class="bento-card large">
-              <h3 class="card-title">CEO 인사말</h3>
-              <p class="card-desc" style="line-height: 1.8; margin-top: 1.5rem; font-size: 1rem;">
-                "지난 20년간 대한민국 금융 인프라의 디지털 전환을 이끌어온 다음정보시스템즈는, 
-                이제 AI와 데이터 기술을 결합하여 더 지능적이고 안전한 금융 세상을 만들고자 합니다. 
-                고객의 신뢰를 기술적 완벽함으로 보답하겠습니다."
+          <div class="bento-grid" style="grid-template-columns: repeat(20, 1fr);">
+            <div class="bento-card large" style="grid-column: span 11; grid-row: span 2; display: flex; flex-direction: column; justify-content: flex-start; cursor: pointer; min-height: 380px; padding: 2rem;" onclick="location.href='/ceo.html'">
+              <h3 class="card-title" style="margin-bottom: 0;">CEO 인사말</h3>
+              <p style="font-size: 1.5rem; font-weight: 800; color: #fff; margin: 1.5rem 0 1.25rem; line-height: 1.3; word-break: keep-all;">
+                고객의 가치가<br>기술의 기준이 됩니다.
               </p>
-              <div style="margin-top: 3rem; display: flex; align-items: center; gap: 1rem;">
-                <div style="width: 40px; height: 1px; background: var(--daumis-yellow);"></div>
-                <p style="font-weight: 700; font-size: 1.1rem;">대표이사 김다움</p>
+              <div class="card-desc" style="line-height: 1.7; font-size: 1.1rem; color: #cbd5e1; font-weight: 400; word-break: keep-all; flex-grow: 1;">
+                <p>(주)다음정보시스템즈는 퇴직연금시스템과 집합투자증권 분야의 특화된 기술력을 바탕으로 고객사의 금융 비즈니스의 가치를 실현하는 정보시스템 환경을 구축합니다. 우리는 단순한 시스템 통합을 넘어, 도메인 지식과 컨설팅 역량을 통해 비즈니스의 잠재적 가치를 현실로 만듭니다. 숙련된 전문가들의 정교한 설계로 최상의 성능을 보장하겠습니다...</p>
+              </div>
+              <div style="margin-top: 2rem; display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 36px; height: 1.5px; background: var(--daumis-yellow);"></div>
+                <p style="font-weight: 800; font-size: 1.2rem; color: #fff;">공동대표 조은지 / 오제관</p>
               </div>
             </div>
-            <div class="bento-card">
-              <h3 class="card-title">기업 비전</h3>
-              <p class="card-desc" style="font-size: 1.2rem; color: var(--daumis-yellow); font-weight: 700;">Global Standard <br>Finance Tech</p>
+            
+            <div class="bento-card" style="grid-column: span 9; display: flex; flex-direction: column; justify-content: flex-start; min-height: 180px; padding: 2rem; cursor: pointer;" onclick="location.href='/vision.html'">
+              <h3 class="card-title" style="margin-bottom: 0;">기업 비전</h3>
+              <p style="font-size: 1.5rem; color: #fff; font-weight: 800; margin: 1.5rem 0 1.25rem; line-height: 1.3; letter-spacing: -0.01em;">
+                AI 경험(AX)을 선도하는<br>No.1 금융 솔루션 파트너
+              </p>
+              <p style="font-size: 1.1rem; color: #cbd5e1; font-weight: 400; line-height: 1.7; word-break: keep-all;">
+                단순히 시스템을 구축하는 단계를 넘어, NEXT Lab을 중심으로 한 AI 기술과 사용자 경험(UX)의 결합(AX)을 통해 금융 IT 시장의 패러다임을...
+              </p>
             </div>
-            <div class="bento-card wide">
-              <h3 class="card-title">연혁</h3>
-              <div class="job-list" style="margin-top: 1.5rem; gap: 1.5rem;">
-                <div style="display:flex; gap: 1.5rem;">
-                  <strong style="color:var(--daumis-yellow); min-width: 50px;">2024</strong> 
-                  <span style="font-size: 0.9rem;">차세대 퇴직연금 시스템 3.0 공식 라이선스 획득</span>
+            
+            <div class="bento-card" style="grid-column: span 9; display: flex; flex-direction: column; justify-content: flex-start; min-height: 180px; padding: 2rem;">
+              <h3 class="card-title" style="margin-bottom: 1.5rem;">연혁</h3>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display:grid; grid-template-columns: 85px 95px 1fr; gap: 3px; align-items: baseline;">
+                  <strong style="color:var(--daumis-yellow); font-size: 1.05rem; font-family: 'Outfit', sans-serif;">Next Step</strong>
+                  <span style="font-size: 0.95rem; color: #94a3b8; font-family: 'Outfit', sans-serif;">2020 - 현재</span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.4; word-break: keep-all;">시장 지배력 확대 및 지능형 혁신(AX) 가속화</span>
                 </div>
-                <div style="display:flex; gap: 1.5rem;">
-                  <strong style="color:var(--daumis-yellow); min-width: 50px;">2018</strong> 
-                  <span style="font-size: 0.9rem;">집합투자증권 전문 운용 라이브러리 고도화</span>
+                <div style="display:grid; grid-template-columns: 85px 95px 1fr; gap: 3px; align-items: baseline;">
+                  <strong style="color:var(--daumis-yellow); font-size: 1.05rem; font-family: 'Outfit', sans-serif;">Deep Dive</strong>
+                  <span style="font-size: 0.85rem; color: #94a3b8; font-family: 'Outfit', sans-serif;">2017 - 2019</span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.4; word-break: keep-all;">독자적 기술력 확보 및 금융 IT 전문 법인 도약</span>
                 </div>
-                <div style="display:flex; gap: 1.5rem;">
-                  <strong style="color:var(--daumis-yellow); min-width: 50px;">2004</strong> 
-                  <span style="font-size: 0.9rem;">(주)다음정보시스템즈 설립 및 금융 SI 사업 개시</span>
+                <div style="display:grid; grid-template-columns: 85px 95px 1fr; gap: 3px; align-items: baseline;">
+                  <strong style="color:var(--daumis-yellow); font-size: 1.05rem; font-family: 'Outfit', sans-serif;">Foundation</strong>
+                  <span style="font-size: 0.85rem; color: #94a3b8; font-family: 'Outfit', sans-serif;">2014 - 2016</span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.4; word-break: keep-all;">사업 포트폴리오 다각화 및 핵심 역량 내실화</span>
                 </div>
               </div>
             </div>
@@ -556,35 +576,61 @@
       <section id="careers" style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="container">
           <span class="section-label">Careers / Culture</span>
-          <h2 class="section-title">금융 기술의 미래를<br>함께 만듭니다</h2>
+          <h2 class="section-title">금융 기술의 미래를<br>함께 만듭니다.</h2>
           
-          <div class="bento-grid">
-            <div class="bento-card large" style="cursor: pointer;" onclick="location.href='/careers-jobs.html'">
-              <h3 class="card-title">직무 소개</h3>
-              <p class="card-desc">엔지니어부터 컨설턴트까지, 각 분야의 전문가들이 모였습니다.</p>
-              <div class="tag-cloud">
-                <span>Core Engine</span>
-                <span>Security</span>
-                <span>UX Design</span>
-                <span>Finance AI</span>
+          <div class="bento-grid" style="grid-template-columns: repeat(20, 1fr); grid-auto-rows: minmax(180px, auto); gap: 1.5rem;">
+            <div class="bento-card large" style="grid-column: span 11; grid-row: span 2; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-start; padding: 2.5rem;" onclick="location.href='/careers-jobs.html'">
+              <h3 class="card-title" style="margin-bottom: 0;">직무 소개</h3>
+              <p style="font-size: 1.6rem; color: #fff; font-weight: 800; margin: 1.5rem 0 1rem; line-height: 1.3; word-break: keep-all;">
+                금융 혁신의 내일을<br>함께할 핵심 직무
+              </p>
+              <p style="font-size: 1.1rem; color: #cbd5e1; font-weight: 400; line-height: 1.6; word-break: keep-all; margin-bottom: 2.25rem;">
+                금융 도메인 지식과 최신 기술력을 겸비한 전문가들이 혁신적 솔루션의 표준을 만듭니다.
+              </p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex-grow: 1;">
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                  <span style="font-size: 1.1rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.9rem; line-height: 1.1; font-weight: 500;">
+                    <i data-lucide="code-2" style="width: 24px; height: 24px; color: #ffffff;"></i>금융 시스템 개발
+                    <span style="font-size: 0.75rem; background: var(--daumis-yellow); color: #000; padding: 3px 7px; border-radius: 4px; font-weight: 800; margin-left: 0.6rem; vertical-align: middle; white-space: nowrap;">상시채용</span>
+                  </span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.9rem; line-height: 1.1; font-weight: 500;">
+                    <i data-lucide="search" style="width: 24px; height: 24px; color: #ffffff;"></i>기술 컨설턴트
+                    <span style="font-size: 0.75rem; background: var(--daumis-yellow); color: #000; padding: 3px 7px; border-radius: 4px; font-weight: 800; margin-left: 0.6rem; vertical-align: middle; white-space: nowrap;">상시채용</span>
+                  </span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.9rem; line-height: 1.1; font-weight: 500;">
+                    <i data-lucide="cpu" style="width: 24px; height: 24px; color: #ffffff;"></i>AI / 데이터 분석
+                    <span style="font-size: 0.75rem; background: var(--daumis-yellow); color: #000; padding: 3px 7px; border-radius: 4px; font-weight: 800; margin-left: 0.6rem; vertical-align: middle; white-space: nowrap;">상시채용</span>
+                  </span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                  <span style="font-size: 1.1rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.9rem; line-height: 1.1; font-weight: 500;">
+                    <i data-lucide="clipboard-list" style="width: 24px; height: 24px; color: #ffffff;"></i>프로젝트 매니지먼트
+                  </span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.9rem; line-height: 1.1; font-weight: 500;">
+                    <i data-lucide="shield-check" style="width: 24px; height: 24px; color: #ffffff;"></i>품질 관리 (QA)
+                  </span>
+                  <span style="font-size: 1.1rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.9rem; line-height: 1.1; font-weight: 500;">
+                    <i data-lucide="layout" style="width: 24px; height: 24px; color: #ffffff;"></i>UI/UX/CX
+                  </span>
+                </div>
               </div>
             </div>
-            <div class="bento-card" style="cursor: pointer;" onclick="location.href='/careers-welfare.html'">
-              <h3 class="card-title">복지 제도</h3>
-              <p class="card-desc">창의적인 몰입을 지원하는 환경</p>
+
+            <div class="bento-card" style="grid-column: span 9; cursor: pointer; padding: 2rem; display: flex; flex-direction: column; justify-content: center;" onclick="location.href='/careers-welfare.html'">
+              <h3 class="card-title" style="margin-bottom: 0.8rem;">복지 제도</h3>
+              <p style="font-size: 1.3rem; color: #fff; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.4;">임직원의 성취와 행복 지원</p>
+              <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; word-break: keep-all;">
+                식대 지원(연 240만), 복지카드, 장기근속 포상 등 최상의 몰입 환경을 보장합니다.
+              </p>
             </div>
-            <div class="bento-card tall" style="cursor: pointer;" onclick="location.href='/careers-announcement.html'">
-              <h3 class="card-title">채용 중인 공고</h3>
-              <div class="job-list">
-                <div class="job-item">Backend Developer</div>
-                <div class="job-item">Finance Consultant</div>
-                <div class="job-item">DevOps Engineer</div>
-              </div>
-              <a href="/careers-announcement.html" class="cta-button" style="margin-top: auto;">지원하기</a>
-            </div>
-            <div class="bento-card">
-              <h3 class="card-title">기업 문화</h3>
-              <p class="card-desc">신뢰와 Precision의 가치</p>
+
+
+            <div class="bento-card" style="grid-column: span 9; cursor: pointer; padding: 2rem; display: flex; flex-direction: column; justify-content: center;" onclick="location.href='/careers-process.html'">
+              <h3 class="card-title" style="margin-bottom: 0.8rem;">기업 문화</h3>
+              <p style="font-size: 1.3rem; color: #fff; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.4;">완벽한 몰입, 조화로운 삶</p>
+              <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; word-break: keep-all;">
+                신뢰와 완벽함을 추구하며, 당신의 성장이 회사의 가치가 되는 문화를 만듭니다.
+              </p>
             </div>
           </div>
         </div>

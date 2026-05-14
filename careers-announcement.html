@@ -234,9 +234,9 @@
         transform: rotate(90deg);
       }
       .modal-header {
-        margin-bottom: 3rem;
+        margin-bottom: 1.5rem;
         border-bottom: 1px solid #f1f5f9;
-        padding-bottom: 2rem;
+        padding-bottom: 1rem;
       }
       .modal-header .section-label {
         margin-bottom: 1.5rem;
@@ -262,8 +262,8 @@
       }
       .form-group label {
         font-size: 0.9rem;
-        font-weight: 700;
-        color: #0f172a;
+        font-weight: 600;
+        color: #475569;
       }
       .form-group input, 
       .form-group select, 
@@ -276,6 +276,17 @@
         font-size: 1rem;
         transition: all 0.3s ease;
       }
+      .form-group select {
+        padding-right: 3rem; /* Extra padding for custom arrow */
+        cursor: pointer;
+        appearance: none; /* Hide default arrow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1.2rem;
+      }
       .form-group input:focus, 
       .form-group select:focus, 
       .form-group textarea:focus {
@@ -284,9 +295,9 @@
         background: white;
       }
       .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
         gap: 1rem;
+        width: 100%;
       }
       .file-upload-box {
         border: 2px dashed #e2e8f0;
@@ -328,17 +339,31 @@
         margin-top: 2rem;
       }
       .secondary-btn {
-        background: #f1f5f9;
+        background: #ffffff;
         color: #0f172a;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #0f172a;
         padding: 1.2rem;
         border-radius: 16px;
         font-weight: 700;
+        font-size: 1.1rem; /* Same as modal-apply-btn */
         cursor: pointer;
         transition: all 0.3s ease;
       }
       .secondary-btn:hover {
-        background: #e2e8f0;
+        background: #f8fafc;
+        border-color: #0f172a;
+      }
+      .modal-apply-btn {
+        width: 100%;
+        padding: 1.2rem;
+        border-radius: 16px;
+        border: none;
+        background: #0f172a;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
       }
       .modal-header h2 {
         font-size: 2.8rem;
@@ -572,7 +597,7 @@
           <div class="announcement-list">
             <div class="announcement-item" onclick="openJobModal('developer')">
               <div class="ann-info">
-                <h4>금융 시스템 개발자 (경력)</h4>
+                <h4>금융 시스템 개발자</h4>
                 <div class="ann-meta">
                   <span>정규직/계약직/프리랜서</span>
                   <span>|</span>
@@ -588,7 +613,7 @@
             </div>
             <div class="announcement-item" onclick="openJobModal('ai')">
               <div class="ann-info">
-                <h4>AI / 데이터 사이언티스트 (경력)</h4>
+                <h4>AI / 데이터 사이언티스트</h4>
                 <div class="ann-meta">
                   <span>정규직</span>
                   <span>|</span>
@@ -604,7 +629,7 @@
             </div>
             <div class="announcement-item" onclick="openJobModal('consultant')">
               <div class="ann-info">
-                <h4>금융 솔루션 기술 컨설턴트 (경력)</h4>
+                <h4>금융 솔루션 기술 컨설턴트</h4>
                 <div class="ann-meta">
                   <span>정규직</span>
                   <span>|</span>
@@ -756,7 +781,7 @@
 
       const jobData = {
         developer: {
-          title: "금융 시스템 개발자 (경력)",
+          title: "금융 시스템 개발자",
           label: "Open Roles",
           meta: ["정규직/계약직/프리랜서", "여의도/서울대입구", "상시채용"],
           intro: "국내 주요 금융권의 차세대 시스템 및 핵심 금융 솔루션을 개발하고 고도화하는 역할을 수행합니다.",
@@ -779,7 +804,7 @@
           ]
         },
         ai: {
-          title: "AI / 데이터 사이언티스트 (경력)",
+          title: "AI / 데이터 사이언티스트",
           label: "Open Roles",
           meta: ["정규직", "여의도", "상시채용"],
           intro: "금융 빅데이터와 최신 생성형 AI 기술을 결합하여 지능형 금융 솔루션을 리드합니다.",
@@ -802,7 +827,7 @@
           ]
         },
         consultant: {
-          title: "금융 솔루션 기술 컨설턴트 (경력)",
+          title: "금융 솔루션 기술 컨설턴트",
           label: "Open Roles",
           meta: ["정규직", "여의도", "상시채용"],
           intro: "기술적 전문성을 바탕으로 고객사의 비즈니스 혁신을 위한 디지털 전환 전략을 제안합니다.",
@@ -958,32 +983,56 @@
           <div class="modal-header">
             <span class="section-label">Apply Now</span>
             <h2>지원하기</h2>
-            <p style="color: #64748b; margin-top: 0.5rem;">${data.title}</p>
           </div>
           <form class="apply-form" onsubmit="handleApplySubmit(event)">
-            <div class="form-group">
-              <label>지원 직무</label>
-              <select required id="formJobSelect">
-                ${Object.keys(jobData).map(key => `
-                  <option value="${jobData[key].title}" ${key === roleId ? 'selected' : ''}>
-                    ${jobData[key].title}
-                  </option>
-                `).join('')}
-              </select>
+            <div class="form-row">
+              <div class="form-group" style="flex: 1.5;">
+                <label>지원 직무</label>
+                <select required id="formJobSelect">
+                  ${Object.keys(jobData).map(key => `
+                    <option value="${jobData[key].title}" ${key === roleId ? 'selected' : ''}>
+                      ${jobData[key].title}
+                    </option>
+                  `).join('')}
+                </select>
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label>경력 구분</label>
+                <select required id="formExpType" onchange="toggleRankSelect()">
+                  <option value="경력" selected>경력</option>
+                  <option value="신입">신입</option>
+                </select>
+              </div>
+              <div class="form-group" id="rankGroup" style="flex: 1;">
+                <label id="rankLabel">기술 등급</label>
+                <select id="formRank">
+                  <option value="">선택</option>
+                  <option value="초급">초급</option>
+                  <option value="중급">중급</option>
+                  <option value="고급">고급</option>
+                  <option value="특급">특급</option>
+                </select>
+              </div>
             </div>
             <div class="form-row">
-              <div class="form-group">
+              <div class="form-group" style="flex: 1.5;">
                 <label>이름</label>
                 <input type="text" placeholder="성함을 입력하세요" required>
               </div>
-              <div class="form-group">
+              <div class="form-group" style="flex: 2;">
                 <label>전화번호</label>
                 <input type="tel" placeholder="010-0000-0000" required>
               </div>
             </div>
-            <div class="form-group">
-              <label>이메일</label>
-              <input type="email" placeholder="example@daumis.co.kr" required>
+            <div class="form-row">
+              <div class="form-group" style="flex: 1.5;">
+                <label>이메일</label>
+                <input type="email" placeholder="example@daumis.co.kr" required>
+              </div>
+              <div class="form-group" style="flex: 2;">
+                <label>포트폴리오 URL</label>
+                <input type="url" placeholder="https://portfolio.com">
+              </div>
             </div>
             <div class="form-group">
               <label>메시지</label>
@@ -993,7 +1042,7 @@
               <label>지원서 첨부</label>
               <div class="file-upload-box">
                 <i data-lucide="upload-cloud"></i>
-                <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">파일을 선택하거나 드래그하세요 (PDF, Word)</p>
+                <p style="font-size: 1rem; color: #64748b; margin-top: 0.5rem;">파일을 선택하거나 드래그하세요 (PDF, Word)</p>
                 <input type="file" required>
               </div>
             </div>
@@ -1006,6 +1055,30 @@
         
         if (modalScrollArea) modalScrollArea.scrollTop = 0;
         lucide.createIcons();
+      }
+
+      function toggleRankSelect() {
+        const expType = document.getElementById('formExpType').value;
+        const label = document.getElementById('rankLabel');
+        const select = document.getElementById('formRank');
+        
+        if (expType === '경력') {
+          label.innerText = '기술 등급';
+          select.innerHTML = `
+            <option value="">선택</option>
+            <option value="초급">초급</option>
+            <option value="중급">중급</option>
+            <option value="고급">고급</option>
+            <option value="특급">특급</option>
+          `;
+        } else {
+          label.innerText = '업무 경험';
+          select.innerHTML = `
+            <option value="">선택</option>
+            <option value="인턴 등 관련 경험 있음">인턴 등 관련 경험 있음</option>
+            <option value="해당 직무 경험 없음">해당 직무 경험 없음</option>
+          `;
+        }
       }
 
       function handleApplySubmit(event) {
