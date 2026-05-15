@@ -273,6 +273,12 @@
           black 90%,
           transparent 100%
         );
+        transition: -webkit-mask-image 0.4s ease, mask-image 0.4s ease;
+      }
+
+      .history-content.bottom-reached {
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
       }
 
       /* Global Timeline Line */
@@ -821,14 +827,15 @@
           </section>
 
         </div>
-      </section>
+      </div>
 
       <!-- Bottom CTA Section -->
-      <section class="bottom-cta-section cta-button" style="margin-top: 0 !important; position: relative; z-index: 100;">
+      <section class="bottom-cta-section" style="margin-top: 0 !important; position: relative; z-index: 100;">
         <div class="container">
           <span class="cta-label">문의하기</span>
           <h2 class="cta-text">
-            함께 금융의 미래를 만들어갈<br>비즈니스 파트너십이 필요하다면 지금 문의하세요.
+            <span>함께 금융의 미래를 만들어갈 비즈니스 파트너십이</span>
+            <span>필요하다면 지금 문의하세요.</span>
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 24px; height: 24px;"></i>
@@ -933,23 +940,17 @@
         const firstItemRect = firstItem.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         
-        // Active point: dots turn yellow when they reach this relative point in viewport
         const activePoint = windowHeight * 0.4;
-        
-        // Dynamic Line Start: exactly at the first dot's center
-        // Dot is at firstItemRect.top + 0.4rem (6.4px) + half of 22px (11px) = 17.4px
         const dotCenterOffset = 17.4; 
         const lineStartInViewport = firstItemRect.top + dotCenterOffset;
         const lineStartInContent = lineStartInViewport - rect.top;
 
-        // Sync CSS top of the lines to the first dot
         progressLine.style.top = `${lineStartInContent}px`;
         timelineContent.style.setProperty('--line-top', `${lineStartInContent}px`);
 
         const passed = activePoint - lineStartInViewport;
         
-        // Ensure the first segment is colored from the start
-        let progressHeight = 60; // Initial segment color
+        let progressHeight = 60;
         if (passed > 60) {
           const lastItem = eventItems[eventItems.length - 1];
           const lastItemRect = lastItem.getBoundingClientRect();
@@ -958,45 +959,52 @@
         }
         progressLine.style.height = `${progressHeight}px`;
 
-        // Update items state (Active & Opacity Fade)
+        const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 500;
+        
+        // Toggle mask based on bottom reach
+        if (isAtBottom) {
+            timelineContent.classList.add('bottom-reached');
+        } else {
+            timelineContent.classList.remove('bottom-reached');
+        }
+
+        const viewportCenter = windowHeight / 2;
+        const fullOpacityDist = windowHeight * 0.15;
+
         eventItems.forEach((item, index) => {
             const itemRect = item.getBoundingClientRect();
             
-            // 1. Active state (dots/line color)
             if (index === 0 || itemRect.top + dotCenterOffset <= activePoint) {
                 item.classList.add('active');
             } else {
                 item.classList.remove('active');
             }
 
-            // 2. Opacity & Scale Fade (Center Focus)
-            const itemCenter = itemRect.top + (itemRect.height / 2);
-            const viewportCenter = windowHeight / 2;
-            const distanceFromCenter = Math.abs(itemCenter - viewportCenter);
-            
-            // Thresholds for fade effect
-            const fullOpacityDist = windowHeight * 0.15; // Within 15% of center is fully clear
-            const zeroOpacityDist = windowHeight * 0.45; // Beyond 45% is minimum opacity
-            
-            let opacity = 1;
-            if (distanceFromCenter > fullOpacityDist) {
-                const fadeFactor = (distanceFromCenter - fullOpacityDist) / (zeroOpacityDist - fullOpacityDist);
-                opacity = 1 - Math.min(1, fadeFactor);
-            }
-            
-            // Apply styles (Special case: First item '현재' never fades at the top)
             const contentElements = item.querySelectorAll('.event-date, .event-desc');
             
-            if (index === 0 && itemRect.top < viewportCenter) {
+            if (isAtBottom) {
                 contentElements.forEach(el => {
                     el.style.opacity = "1";
                     el.style.transform = "scale(1)";
                 });
             } else {
-                const finalOpacity = Math.max(0.1, opacity);
+                const itemCenter = itemRect.top + (itemRect.height / 2);
+                const distanceFromCenter = Math.abs(itemCenter - viewportCenter);
+                
+                let opacity = 1;
+                if (distanceFromCenter > fullOpacityDist) {
+                    const fadeFactor = (distanceFromCenter - fullOpacityDist) / (windowHeight * 0.3); // Smoother fade
+                    opacity = 1 - Math.min(0.9, fadeFactor);
+                }
+
+                // Special case: First item '현재' never fades at the top
+                if (index === 0 && itemRect.top < viewportCenter) {
+                    opacity = 1;
+                }
+
                 const scale = 0.96 + (opacity * 0.04);
                 contentElements.forEach(el => {
-                    el.style.opacity = finalOpacity;
+                    el.style.opacity = opacity;
                     el.style.transform = `scale(${scale})`;
                 });
             }

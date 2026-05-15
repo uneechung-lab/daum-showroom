@@ -1653,10 +1653,16 @@ body.sub-page .module-section {
   font-size: 2.2rem;
   font-weight: 700;
   color: #0f172a;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-bottom: 2.5rem;
   word-break: keep-all;
-  max-width: 800px;
+  width: 100%;
+  overflow: visible !important;
+}
+
+.cta-text span {
+  display: block;
+  white-space: nowrap;
 }
 
 .cta-arrow-btn {
