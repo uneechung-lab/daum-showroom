@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용 관리 | DAUMIS Admin</title>
+    <link rel="stylesheet" href="/admin/admin-style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <i data-lucide="layout-dashboard"></i>
+                <span>DAUMIS ADMIN</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/admin/index.html"><i data-lucide="home"></i> 대시보드 홈</a></li>
+                <li class="nav-item"><a href="/admin/projects.html"><i data-lucide="briefcase"></i> 프로젝트 실적</a></li>
+                <li class="nav-item"><a href="/admin/partners.html"><i data-lucide="users"></i> 고객사 & 파트너</a></li>
+                <li class="nav-item"><a href="/admin/history.html"><i data-lucide="history"></i> 연혁 관리</a></li>
+                <li class="nav-item active"><a href="/admin/careers.html"><i data-lucide="user-plus"></i> 채용 관리</a></li>
+                <li class="nav-item"><a href="/admin/inquiries.html"><i data-lucide="message-square"></i> 문의 내역</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer" style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="external-link" style="width: 14px;"></i> 메인사이트 가기
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <div class="page-title">
+                <h1>채용 공고 & 지원자 관리</h1>
+                <p>인재 영입을 위한 공고 등록 및 지원 현황을 관리합니다.</p>
+            </div>
+            <div class="header-actions" style="display: flex; gap: 0.5rem;">
+                <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);"><i data-lucide="download" style="width: 14px;"></i> 지원현황 엑셀 다운로드</button>
+                <button class="btn btn-primary">+ 신규 공고 등록</button>
+            </div>
+        </header>
+
+        <!-- Recruitment Stats -->
+        <section class="stats-grid" style="margin-bottom: 2rem;">
+            <div class="stat-card">
+                <span class="stat-label">진행 중인 공고</span>
+                <div class="stat-value">3건</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">이번 주 지원자</span>
+                <div class="stat-value">12명</div>
+            </div>
+        </section>
+
+        <!-- Tab Menu -->
+        <div style="display: flex; gap: 2rem; border-bottom: 1px solid var(--admin-border); margin-bottom: 1.5rem;">
+            <button style="padding: 1rem 0; border: none; background: none; border-bottom: 2px solid var(--admin-accent); font-weight: 700; cursor: pointer;">공고 목록</button>
+            <button style="padding: 1rem 0; border: none; background: none; color: var(--admin-text-sub); font-weight: 500; cursor: pointer;">지원자 현황</button>
+        </div>
+
+        <!-- Job Posting List Table -->
+        <section class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>공고명</th>
+                        <th>부서</th>
+                        <th>유형</th>
+                        <th>마감일</th>
+                        <th>지원자</th>
+                        <th>상태</th>
+                        <th style="text-align: right;">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600;">금융 시스템 아키텍트 경력직 채용</td>
+                        <td>금융사업부</td>
+                        <td>정규직</td>
+                        <td>2024.06.30</td>
+                        <td>8명</td>
+                        <td><span class="badge badge-complete">진행중</span></td>
+                        <td style="text-align: right;">
+                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
+                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Career Modal -->
+    <div class="modal-overlay" id="careerModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">신규 채용 공고 등록</h2>
+                <button class="modal-close" onclick="closeModal('careerModal')"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="careerForm">
+                    <div class="form-group">
+                        <label class="form-label">공고 제목</label>
+                        <input type="text" class="form-control" placeholder="예: 금융 시스템 아키텍트 경력직 채용" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">모집 부서</label>
+                            <input type="text" class="form-control" placeholder="예: 금융사업부">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">고용 형태</label>
+                            <select class="form-control">
+                                <option>정규직</option>
+                                <option>계약직</option>
+                                <option>인턴</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">마감일</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">주요 업무 (Job Description)</label>
+                        <textarea class="form-control" placeholder="담당하게 될 업무를 상세히 적어주세요"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">자격 요건 및 우대사항</label>
+                        <textarea class="form-control" placeholder="필수 역량 및 우대 기술 스택 등"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">복지 및 혜택</label>
+                        <textarea class="form-control" placeholder="해당 직무에 제공되는 특화 복지가 있다면 입력하세요"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('careerModal')">취소</button>
+                <button class="btn btn-primary">저장하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        document.querySelector('.header-actions .btn-primary').onclick = function() {
+            openModal('careerModal');
+        };
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

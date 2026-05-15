@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 관리 | DAUMIS Admin</title>
+    <link rel="stylesheet" href="/admin/admin-style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/scripts/supabase-client.js"></script>
+
+    <!-- Flatpickr (Premium Calendar) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+
+    <style>
+        /* Flatpickr Base Styling (Recovered) */
+        .flatpickr-calendar { 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            border: 1px solid #e2e8f0; 
+            font-family: 'Pretendard Variable', sans-serif;
+        }
+        /* Safely fix the year clipping without breaking the layout */
+        .flatpickr-month { 
+            padding-top: 10px !important; 
+            padding-bottom: 10px !important; 
+            height: auto !important;
+        }
+        .flatpickr-current-month {
+            position: relative !important;
+            padding-top: 0 !important;
+            height: auto !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* Ensure calendar is not cut off by modal */
+        .modal-body { overflow-y: visible !important; }
+        #projectModal .modal-content { overflow: visible !important; }
+
+        /* File Upload Styling */
+        .upload-area { border: 2px dashed #e2e8f0; padding: 1.5rem; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fdfdfd; margin-top: 0.5rem; }
+        .upload-area:hover { border-color: #020617; background: #f8fafc; }
+        .preview-img { max-height: 60px; margin-top: 1rem; display: none; margin-left: auto; margin-right: auto; object-fit: contain; border: 1px solid #eee; padding: 5px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <i data-lucide="layout-dashboard"></i>
+                <span>DAUMIS ADMIN</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/admin/index.html"><i data-lucide="home"></i> 대시보드 홈</a></li>
+                <li class="nav-item active"><a href="/admin/projects.html"><i data-lucide="briefcase"></i> 프로젝트 실적</a></li>
+                <li class="nav-item"><a href="/admin/partners.html"><i data-lucide="users"></i> 고객사 & 파트너</a></li>
+                <li class="nav-item"><a href="/admin/history.html"><i data-lucide="history"></i> 연혁 관리</a></li>
+                <li class="nav-item"><a href="/admin/careers.html"><i data-lucide="user-plus"></i> 채용 관리</a></li>
+                <li class="nav-item"><a href="/admin/inquiries.html"><i data-lucide="message-square"></i> 문의 내역</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer" style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="external-link" style="width: 14px;"></i> 메인사이트 가기
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <div class="page-title">
+                <h1>프로젝트 실적 관리</h1>
+                <p>사이트에 노출되는 주요 프로젝트 성과를 관리합니다.</p>
+            </div>
+            <div class="header-actions">
+                <!-- 상단 버튼은 하단으로 이동합니다 -->
+            </div>
+        </header>
+
+        <!-- Filter & Search Bar -->
+        <section style="width: 100%; box-sizing: border-box; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+            <div class="category-chips" id="categoryChips" style="display: flex; gap: 0.6rem; flex-wrap: wrap; flex: 1;">
+                <button class="chip active" data-value="all">전체 <span class="count" id="count-all">0</span></button>
+                <button class="chip" data-value="pension">퇴직연금 <span class="count" id="count-pension">0</span></button>
+                <button class="chip" data-value="investment">집합투자증권 <span class="count" id="count-investment">0</span></button>
+                <button class="chip" data-value="mutual">공제업무시스템 <span class="count" id="count-mutual">0</span></button>
+                <button class="chip" data-value="consulting">컨설팅 <span class="count" id="count-consulting">0</span></button>
+                <button class="chip" data-value="etc">유지보수 및 기타 <span class="count" id="count-etc">0</span></button>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem; width: 340px; flex-shrink: 0; margin-right: 0;">
+                <input type="text" id="searchInput" placeholder="프로젝트명 또는 고객사 검색" style="flex: 1; margin: 0; padding: 0.75rem 1rem; font-size: 1.05rem; border-radius: 8px; border: 1px solid var(--admin-border); outline: none; box-sizing: border-box;" onkeyup="if(event.key==='Enter') {currentPage=1; applyFilters()}">
+                <button class="btn" style="margin: 0; background: #1e293b; color: #fff; box-sizing: border-box;" onclick="currentPage=1; applyFilters()">검색</button>
+            </div>
+        </section>
+
+        <!-- Project List Table -->
+        <section class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 100px; cursor: pointer; white-space: nowrap;" onclick="handleSort('no')">
+                            <div style="display: flex; align-items: center; gap: 4px;">No <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('category')">
+                            <div style="display: flex; align-items: center; gap: 4px;">카테고리 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('title')">
+                            <div style="display: flex; align-items: center; gap: 4px;">프로젝트명 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('client')">
+                            <div style="display: flex; align-items: center; gap: 4px;">고객사 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('start_date')">
+                            <div style="display: flex; align-items: center; gap: 4px;">수행년도 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('status')">
+                            <div style="display: flex; align-items: center; gap: 4px;">진행 상태 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="text-align: center; width: 260px;">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터가 동적으로 삽입됩니다 -->
+                </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            <!-- Pagination & Add Button -->
+            <div style="padding: 1.5rem 2rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-top: 1px solid var(--admin-border);">
+                <div></div> <!-- Left balance -->
+                <div id="pagination" style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <!-- 페이지 버튼이 동적으로 생성됩니다 -->
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button class="btn btn-primary" id="addNewBtn" style="white-space: nowrap;">+ 신규 프로젝트 등록</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">신규 프로젝트 등록</h2>
+                <button class="modal-close" onclick="closeModal('projectModal')"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="projectForm">
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">카테고리</label>
+                            <select id="editCategory" class="form-control">
+                                <option value="pension">퇴직연금</option>
+                                <option value="investment">집합투자증권</option>
+                                <option value="mutual">공제업무시스템</option>
+                                <option value="consulting">컨설팅</option>
+                                <option value="etc">유지보수 및 기타</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">프로젝트명</label>
+                            <input type="text" id="editTitle" class="form-control" placeholder="프로젝트명을 입력하세요" required>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">고객사명</label>
+                            <input type="text" id="editClient" class="form-control" placeholder="예: 키움증권">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label">수행 시작월</label>
+                                <input type="text" id="editStartDate" class="form-control" placeholder="연도.월">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">수행 종료월</label>
+                                <input type="text" id="editEndDate" class="form-control" placeholder="연도.월">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin: 1.5rem 0; padding: 1.25rem 1.5rem; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <div id="highlightHeader" style="display: flex; align-items: center; gap: 0.8rem;">
+                            <input type="checkbox" id="editIsHighlight" onchange="toggleCarouselFields()">
+                            <label for="editIsHighlight" style="cursor: pointer; font-weight: 700; color: #0f172a; font-size: 1.1rem;">상단 진행 중 섹션(Carousel)에 노출</label>
+                        </div>
+
+                        <div id="carouselFields" style="display: none; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed #cbd5e1;">
+                            <div class="form-group">
+                                <label class="form-label" style="color: #475569;">고객사 로고 (이미지 업로드)</label>
+                                <input type="file" id="logoUpload" style="display: none;" accept="image/*">
+                                <div class="upload-area" onclick="document.getElementById('logoUpload').click()" style="background: #fff; border-style: solid; border-width: 1px;">
+                                    <i data-lucide="upload-cloud" style="width: 24px; margin-bottom: 0.5rem; color: #64748b;"></i>
+                                    <div style="font-size: 0.85rem; color: #64748b;">클릭하여 로고 업로드</div>
+                                </div>
+                                <img id="logoPreview" class="preview-img">
+                                <input type="hidden" id="editLogoUrl">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label" style="color: #475569;">상세 내용 (상단 진행중 섹션 노출용)</label>
+                                <textarea id="editDescription" class="form-control" rows="3" placeholder="캐러셀에 노출될 상세 설명을 입력하세요" style="background: #fff;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 자동 설정되는 항목들은 숨김 처리 -->
+                    <input type="hidden" id="editStatus" value="ONGOING">
+                    <input type="hidden" id="editIcon" value="wallet">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('projectModal')">취소</button>
+                <button class="btn btn-primary">저장하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectForm = document.getElementById('projectForm');
+        const projectTableBody = document.querySelector('.data-table tbody');
+        let allProjects = [];
+        let filteredProjects = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        // 1. 프로젝트 목록 불러오기
+        async function fetchProjects() {
+            const { data, error } = await supabaseClient
+                .from('projects')
+                .select('*');
+
+            if (error) {
+                console.error('Error fetching projects:', error);
+                return;
+            }
+
+            // 수행시작일 기준 내림차순, 같을 경우 고객사명 오름차순(가나다순) 정렬
+            data.sort((a, b) => {
+                const dateA = a.start_date || '';
+                const dateB = b.start_date || '';
+                if (dateA !== dateB) {
+                    return dateA < dateB ? 1 : -1;
+                }
+                const clientA = a.client || '';
+                const clientB = b.client || '';
+                return clientA.localeCompare(clientB);
+            });
+
+            // 정렬된 순서대로 번호 부여 (최신 프로젝트가 가장 높은 번호)
+            allProjects = data.map((p, idx) => ({
+                ...p,
+                displayNo: data.length - idx
+            }));
+            updateCounts();
+            applyFilters();
+        }
+
+        // 카테고리별 개수 업데이트
+        function updateCounts() {
+            const counts = {
+                all: allProjects.length,
+                pension: allProjects.filter(p => p.category === 'pension').length,
+                investment: allProjects.filter(p => p.category === 'investment').length,
+                mutual: allProjects.filter(p => p.category === 'mutual').length,
+                consulting: allProjects.filter(p => p.category === 'consulting').length,
+                etc: allProjects.filter(p => p.category === 'etc').length
+            };
+
+            for (const [key, value] of Object.entries(counts)) {
+                const el = document.getElementById(`count-${key}`);
+                if (el) el.innerText = value;
+            }
+        }
+
+        // 2. 필터 적용 및 테이블 렌더링
+        let currentCategory = 'all';
+        let sortColumn = 'no';
+        let sortDirection = 'desc';
+        let currentEditId = null; // 수정 중인 프로젝트 ID
+
+        function handleSort(column) {
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+            applyFilters();
+        }
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.onclick = function() {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.value;
+                currentPage = 1;
+                applyFilters();
+            };
+        });
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = currentCategory;
+
+            // 1. 필터링
+            filteredProjects = allProjects.filter(p => {
+                const matchesSearch = p.title.toLowerCase().includes(searchTerm) || 
+                                    (p.client && p.client.toLowerCase().includes(searchTerm));
+                const matchesCategory = category === 'all' || p.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            // 2. 정렬
+            filteredProjects.sort((a, b) => {
+                let valA = a[sortColumn] || '';
+                let valB = b[sortColumn] || '';
+                
+                // 가상 컬럼 'no' 처리 (부여된 고유 번호 기준)
+                if (sortColumn === 'no') {
+                    valA = a.displayNo;
+                    valB = b.displayNo;
+                }
+
+                if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            renderTable();
+            renderPagination();
+        }
+
+        function renderTable() {
+            projectTableBody.innerHTML = '';
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pagedData = filteredProjects.slice(start, end);
+
+            if (pagedData.length === 0) {
+                projectTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem; color: #94a3b8;">데이터가 없습니다.</td></tr>';
+                return;
+            }
+
+            pagedData.forEach((project) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color: #94a3b8;">${project.displayNo}</td>
+                    <td><span class="badge" style="background: #e0f2fe; color: #075985;">${project.category.toUpperCase()}</span></td>
+                    <td style="font-weight: 600;">${project.title}</td>
+                    <td>${project.client || '-'}</td>
+                    <td>${project.start_date || ''} ~ ${project.end_date || '현재'}</td>
+                    <td><span class="badge ${project.status === 'ONGOING' ? 'badge-pending' : 'badge-complete'}">${project.status}</span></td>
+                    <td style="text-align: center; white-space: nowrap;">
+                        <button class="btn btn-delete-action" onclick="deleteProject('${project.id}')">
+                            <i data-lucide="trash-2"></i> 삭제
+                        </button>
+                        <button class="btn btn-edit-action" onclick="openEditModal('${project.id}')">
+                            <i data-lucide="edit-2"></i> 수정
+                        </button>
+                    </td>
+                `;
+                projectTableBody.appendChild(tr);
+            });
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const paginationEl = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+            paginationEl.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // 페이지 버튼 그룹화 (10개씩)
+            const groupSize = 10;
+            const currentGroup = Math.floor((currentPage - 1) / groupSize);
+            const startPage = currentGroup * groupSize + 1;
+            const endPage = Math.min(startPage + groupSize - 1, totalPages);
+
+            // [이전] 버튼
+            if (currentGroup > 0) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'btn';
+                prevBtn.style.background = '#fff';
+                prevBtn.style.border = '1px solid var(--admin-border)';
+                prevBtn.innerHTML = '<i data-lucide="chevron-left" style="width:16px"></i>';
+                prevBtn.onclick = () => {
+                    currentPage = startPage - 1;
+                    applyFilters();
+                };
+                paginationEl.appendChild(prevBtn);
+            }
+
+            // 숫자 버튼들
+            for (let i = startPage; i <= endPage; i++) {
+                const btn = document.createElement('button');
+                btn.className = `btn ${i === currentPage ? 'btn-primary' : ''}`;
+                btn.style.background = i === currentPage ? '' : '#fff';
+                btn.style.border = i === currentPage ? '' : '1px solid var(--admin-border)';
+                btn.innerText = i;
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderTable();
+                    renderPagination();
+                };
+                paginationEl.appendChild(btn);
+            }
+
+            // [다음] 버튼
+            if (endPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'btn';
+                nextBtn.style.background = '#fff';
+                nextBtn.style.border = '1px solid var(--admin-border)';
+                nextBtn.innerHTML = '<i data-lucide="chevron-right" style="width:16px"></i>';
+                nextBtn.onclick = () => {
+                    currentPage = endPage + 1;
+                    applyFilters();
+                };
+                paginationEl.appendChild(nextBtn);
+            }
+            lucide.createIcons();
+        }
+
+        // 3. 프로젝트 저장하기
+        async function saveProject() {
+            const category = document.getElementById('editCategory').value;
+            const endDate = document.getElementById('editEndDate').value;
+            const fileInput = document.getElementById('logoUpload');
+            let logoUrl = document.getElementById('editLogoUrl').value;
+
+            // 1. 파일 업로드 로직
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Math.random()}.${fileExt}`;
+                const filePath = `logos/${fileName}`;
+
+                const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                    .from('project-assets') // 버킷명이 'project-assets'라고 가정
+                    .upload(filePath, file);
+
+                if (uploadError) {
+                    alert('로고 업로드 중 오류가 발생했습니다: ' + uploadError.message);
+                    return;
+                }
+
+                // 공개 URL 가져오기
+                const { data: publicUrlData } = supabaseClient.storage
+                    .from('project-assets')
+                    .getPublicUrl(filePath);
+                
+                logoUrl = publicUrlData.publicUrl;
+            }
+            
+            // 자동 설정 로직
+            const iconMap = { pension: 'wallet', investment: 'trending-up', mutual: 'shield-check', consulting: 'clipboard-list', etc: 'settings' };
+            // 지능형 상태 판별 로직 (현재 날짜와 비교)
+            const now = new Date();
+            const currentYearMonth = now.getFullYear() + '.' + String(now.getMonth() + 1).padStart(2, '0');
+            
+            let status = 'ONGOING';
+            if (endDate && endDate !== '' && endDate !== '현재') {
+                if (endDate < currentYearMonth) {
+                    status = 'COMPLETED';
+                } else {
+                    status = 'ONGOING';
+                }
+            }
+            
+            const icon = iconMap[category] || 'briefcase';
+
+            const formData = {
+                title: document.getElementById('editTitle').value,
+                category: category,
+                status: status,
+                client: document.getElementById('editClient').value,
+                logo_url: logoUrl,
+                description: document.getElementById('editDescription').value,
+                is_highlight: document.getElementById('editIsHighlight').checked,
+                start_date: document.getElementById('editStartDate').value,
+                end_date: endDate || '현재',
+                icon_name: icon
+            };
+
+            if (!formData.title) { alert('프로젝트명을 입력해 주세요.'); return; }
+
+            let result;
+            if (currentEditId) {
+                result = await supabaseClient.from('projects').update(formData).eq('id', currentEditId);
+            } else {
+                result = await supabaseClient.from('projects').insert([formData]);
+            }
+
+            if (result.error) alert('오류 발생: ' + result.error.message);
+            else {
+                alert(currentEditId ? '수정되었습니다!' : '저장되었습니다!');
+                closeModal('projectModal');
+                fetchProjects();
+            }
+        }
+
+        async function openEditModal(id) {
+            const { data, error } = await supabaseClient.from('projects').select('*').eq('id', id).single();
+            if (error) { alert('데이터 로드 실패'); return; }
+
+            currentEditId = id;
+            document.getElementById('modalTitle').innerText = '프로젝트 정보 수정';
+            
+            document.getElementById('editTitle').value = data.title || '';
+            document.getElementById('editCategory').value = data.category || 'pension';
+            document.getElementById('editClient').value = data.client || '';
+            document.getElementById('editLogoUrl').value = data.logo_url || '';
+            if (data.logo_url) {
+                const preview = document.getElementById('logoPreview');
+                preview.src = data.logo_url;
+                preview.style.display = 'block';
+            } else {
+                document.getElementById('logoPreview').style.display = 'none';
+            }
+            document.getElementById('editDescription').value = data.description || '';
+            document.getElementById('editIsHighlight').checked = data.is_highlight || false;
+            toggleCarouselFields(); // 필드 노출 상태 업데이트
+            
+            document.getElementById('editStartDate').value = data.start_date || '';
+            document.getElementById('editEndDate').value = (data.end_date && data.end_date !== '현재') ? data.end_date : '';
+
+            openModal('projectModal');
+        }
+
+        // 이미지 미리보기 로직
+        document.getElementById('logoUpload').onchange = function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('logoPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Flatpickr 초기화 (연도/월 전용)
+        const fpConfig = {
+            locale: 'ko',
+            plugins: [
+                new monthSelectPlugin({
+                    shorthand: true, // "Jan" 대신 "1월"
+                    dateFormat: "Y.m", // 실제 저장 값
+                    altFormat: "Y.m"   // 화면 표시 값
+                })
+            ],
+            disableMobile: "true"
+        };
+        flatpickr("#editStartDate", fpConfig);
+        flatpickr("#editEndDate", fpConfig);
+
+        // 캐러셀 필드 노출 토글
+        function toggleCarouselFields() {
+            const isHighlight = document.getElementById('editIsHighlight').checked;
+            const carouselFields = document.getElementById('carouselFields');
+            carouselFields.style.display = isHighlight ? 'block' : 'none';
+        }
+
+        async function deleteProject(id) {
+            if (!confirm('정말로 삭제하시겠습니까?')) return;
+            const { error } = await supabaseClient.from('projects').delete().eq('id', id);
+            if (error) alert('삭제 중 오류: ' + error.message);
+            else fetchProjects();
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchProjects);
+        
+        document.getElementById('addNewBtn').onclick = function() {
+            currentEditId = null; // 수정 모드 해제
+            document.getElementById('projectForm').reset();
+            document.getElementById('modalTitle').innerText = '신규 프로젝트 등록';
+            
+            // 기본값 설정: Carousel 노출 체크 활성화
+            const highlightCheck = document.getElementById('editIsHighlight');
+            highlightCheck.checked = true;
+            toggleCarouselFields(); // 필드 즉시 노출
+            
+            document.getElementById('logoPreview').style.display = 'none';
+            openModal('projectModal');
+        };
+
+        document.querySelector('.modal-footer .btn-primary').onclick = saveProject;
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

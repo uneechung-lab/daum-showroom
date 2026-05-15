@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인 | DAUMIS Admin</title>
+    <link rel="stylesheet" href="/admin/admin-style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0f172a;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header img {
+            width: 160px;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .input-group:focus-within {
+            border-color: #fbbf24;
+        }
+
+        .form-control-custom {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+        }
+
+        .input-group-suffix {
+            background: #f8fafc;
+            padding: 0.75rem 1rem;
+            color: #94a3b8;
+            font-weight: 600;
+            border-left: 1px solid #e2e8f0;
+            user-select: none;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #fbbf24;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: #fbbf24;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            background-color: #f59e0b;
+        }
+
+        .error-msg {
+            background-color: #fee2e2;
+            color: #ef4444;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            text-align: center;
+        }
+
+        .back-to-site {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-to-site:hover {
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-header">
+            <img src="/ci_03.png" alt="DAUMIS">
+            <h2>Admin Dashboard</h2>
+        </div>
+
+        <div id="errorBox" class="error-msg">정보가 올바르지 않습니다.</div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">관리자 계정</label>
+                <div class="input-group">
+                    <input type="text" id="username" class="form-control-custom" placeholder="admin" required>
+                    <div class="input-group-suffix">@daumit.net</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="login-btn">로그인</button>
+        </form>
+
+        <a href="/" class="back-to-site">메인 홈페이지로 돌아가기</a>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorBox = document.getElementById('errorBox');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const fullEmail = username + '@daumit.net';
+
+            // 수정된 계정 정보: admin@daumit.net / 1234
+            if(fullEmail === 'admin@daumit.net' && password === '1234') {
+                window.location.href = '/admin/index.html';
+            } else {
+                errorBox.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
