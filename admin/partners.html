@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객사 관리 | DAUMIS Admin</title>
+    <link rel="stylesheet" href="/admin/admin-style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <i data-lucide="layout-dashboard"></i>
+                <span>DAUMIS ADMIN</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/admin/index.html"><i data-lucide="home"></i> 대시보드 홈</a></li>
+                <li class="nav-item"><a href="/admin/projects.html"><i data-lucide="briefcase"></i> 프로젝트 실적</a></li>
+                <li class="nav-item active"><a href="/admin/partners.html"><i data-lucide="users"></i> 고객사 & 파트너</a></li>
+                <li class="nav-item"><a href="/admin/history.html"><i data-lucide="history"></i> 연혁 관리</a></li>
+                <li class="nav-item"><a href="/admin/careers.html"><i data-lucide="user-plus"></i> 채용 관리</a></li>
+                <li class="nav-item"><a href="/admin/inquiries.html"><i data-lucide="message-square"></i> 문의 내역</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer" style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="external-link" style="width: 14px;"></i> 메인사이트 가기
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <div class="page-title">
+                <h1>고객사 & 파트너 관리</h1>
+                <p>로고 및 파트너십 정보를 관리합니다.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary">+ 신규 고객사 등록</button>
+            </div>
+        </header>
+
+        <!-- Partner List Table -->
+        <section class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 100px;">로고</th>
+                        <th>업체명</th>
+                        <th>구분</th>
+                        <th>등록일</th>
+                        <th style="text-align: right;">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">LOGO</div></td>
+                        <td style="font-weight: 600;">IBK기업은행</td>
+                        <td><span class="badge" style="background: #dcfce7; color: #166534;">고객사</span></td>
+                        <td>2024.01.10</td>
+                        <td style="text-align: right;">
+                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
+                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">LOGO</div></td>
+                        <td style="font-weight: 600;">마이크로소프트</td>
+                        <td><span class="badge" style="background: #e0f2fe; color: #075985;">파트너</span></td>
+                        <td>2023.11.05</td>
+                        <td style="text-align: right;">
+                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
+                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Partner Modal -->
+    <div class="modal-overlay" id="partnerModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">신규 고객사/파트너 등록</h2>
+                <button class="modal-close" onclick="closeModal('partnerModal')"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="partnerForm">
+                    <div class="form-group">
+                        <label class="form-label">업체명</label>
+                        <input type="text" class="form-control" placeholder="예: IBK기업은행" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">구분</label>
+                        <select class="form-control">
+                            <option value="client">고객사 (CLIENT)</option>
+                            <option value="partner">파트너사 (PARTNER)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">로고 이미지</label>
+                        <div style="border: 2px dashed var(--admin-border); padding: 1.5rem; text-align: center; border-radius: 8px;">
+                            <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 0.5rem;">권장 사이즈: 가로형 투명 PNG</p>
+                            <input type="file">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">노출 순서</label>
+                        <input type="number" class="form-control" value="0">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('partnerModal')">취소</button>
+                <button class="btn btn-primary">저장하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        document.querySelector('.header-actions .btn-primary').onclick = function() {
+            openModal('partnerModal');
+        };
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

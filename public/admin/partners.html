@@ -8,6 +8,13 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/scripts/supabase-client.js"></script>
+    <style>
+        .upload-area { border: 2px dashed #e2e8f0; padding: 1.5rem; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fdfdfd; margin-top: 0.5rem; }
+        .upload-area:hover { border-color: #020617; background: #f8fafc; }
+        .preview-img { max-height: 60px; margin-top: 1rem; display: none; margin-left: auto; margin-right: auto; object-fit: contain; border: 1px solid #eee; padding: 5px; border-radius: 4px; background: #f8fafc; }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -43,45 +50,59 @@
                 <p>로고 및 파트너십 정보를 관리합니다.</p>
             </div>
             <div class="header-actions">
-                <button class="btn btn-primary">+ 신규 고객사 등록</button>
+                <!-- 마이그레이션 버튼 삭제 -->
             </div>
         </header>
+
+        <!-- Filter & Search Bar -->
+        <section style="width: 100%; box-sizing: border-box; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+            <div class="category-chips" id="categoryChips" style="display: flex; gap: 0.6rem; flex-wrap: wrap; flex: 1;">
+                <button class="chip active" data-value="all">전체 <span class="count" id="count-all">0</span></button>
+                <button class="chip" data-value="client">고객사 (CLIENT) <span class="count" id="count-client">0</span></button>
+                <button class="chip" data-value="partner">파트너사 (PARTNER) <span class="count" id="count-partner">0</span></button>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem; width: 340px; flex-shrink: 0; margin-right: 0;">
+                <input type="text" id="searchInput" placeholder="업체명 검색" style="flex: 1; margin: 0; padding: 0.75rem 1rem; font-size: 1.05rem; border-radius: 8px; border: 1px solid var(--admin-border); outline: none; box-sizing: border-box;" onkeyup="if(event.key==='Enter') {currentPage=1; applyFilters()}">
+                <button class="btn" style="margin: 0; background: #1e293b; color: #fff; box-sizing: border-box;" onclick="currentPage=1; applyFilters()">검색</button>
+            </div>
+        </section>
 
         <!-- Partner List Table -->
         <section class="data-card">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th style="width: 100px;">로고</th>
-                        <th>업체명</th>
-                        <th>구분</th>
-                        <th>등록일</th>
-                        <th style="text-align: right;">관리</th>
+                        <th style="width: 100px; cursor: pointer; white-space: nowrap;" onclick="handleSort('no')">
+                            <div style="display: flex; align-items: center; gap: 4px;">No <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="width: 140px; text-align: center;">로고</th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('name')">
+                            <div style="display: flex; align-items: center; gap: 4px;">업체명 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('type')">
+                            <div style="display: flex; align-items: center; gap: 4px;">구분 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="cursor: pointer; white-space: nowrap;" onclick="handleSort('created_at')">
+                            <div style="display: flex; align-items: center; gap: 4px;">등록일 <i data-lucide="chevrons-up-down" style="width: 14px;"></i></div>
+                        </th>
+                        <th style="text-align: center; width: 260px;">관리</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">LOGO</div></td>
-                        <td style="font-weight: 600;">IBK기업은행</td>
-                        <td><span class="badge" style="background: #dcfce7; color: #166534;">고객사</span></td>
-                        <td>2024.01.10</td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">LOGO</div></td>
-                        <td style="font-weight: 600;">마이크로소프트</td>
-                        <td><span class="badge" style="background: #e0f2fe; color: #075985;">파트너</span></td>
-                        <td>2023.11.05</td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
-                        </td>
-                    </tr>
+                    <!-- 데이터가 동적으로 삽입됩니다 -->
                 </tbody>
             </table>
+            
+            <!-- Pagination & Add Button -->
+            <div style="padding: 1.5rem 2rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-top: 1px solid var(--admin-border);">
+                <div></div> <!-- Left balance -->
+                <div id="pagination" style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <!-- 페이지 버튼이 동적으로 생성됩니다 -->
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button class="btn btn-primary" id="addNewBtn" style="white-space: nowrap;">+ 신규 고객사 등록</button>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -95,44 +116,385 @@
             <div class="modal-body">
                 <form id="partnerForm">
                     <div class="form-group">
-                        <label class="form-label">업체명</label>
-                        <input type="text" class="form-control" placeholder="예: IBK기업은행" required>
-                    </div>
-                    <div class="form-group">
                         <label class="form-label">구분</label>
-                        <select class="form-control">
+                        <select id="editType" class="form-control">
                             <option value="client">고객사 (CLIENT)</option>
                             <option value="partner">파트너사 (PARTNER)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">로고 이미지</label>
-                        <div style="border: 2px dashed var(--admin-border); padding: 1.5rem; text-align: center; border-radius: 8px;">
-                            <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 0.5rem;">권장 사이즈: 가로형 투명 PNG</p>
-                            <input type="file">
-                        </div>
+                        <label class="form-label">업체명</label>
+                        <input type="text" id="editName" class="form-control" placeholder="예: IBK기업은행" required>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">노출 순서</label>
-                        <input type="number" class="form-control" value="0">
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label class="form-label">로고 이미지</label>
+                        <input type="file" id="logoUpload" style="display: none;" accept="image/*">
+                        <div class="upload-area" onclick="document.getElementById('logoUpload').click()" style="background: #fff; border-style: solid; border-width: 1px;">
+                            <i data-lucide="upload-cloud" style="width: 24px; margin-bottom: 0.5rem; color: #64748b;"></i>
+                            <div style="font-size: 0.85rem; color: #64748b;">클릭하여 로고 업로드 (가로형 PNG 권장)</div>
+                        </div>
+                        <img id="logoPreview" class="preview-img">
+                        <input type="hidden" id="editLogoUrl">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('partnerModal')">취소</button>
-                <button class="btn btn-primary">저장하기</button>
+                <button class="btn btn-primary" id="saveBtn">저장하기</button>
             </div>
         </div>
     </div>
 
     <script>
+        const partnerTableBody = document.querySelector('.data-table tbody');
+        let allPartners = [];
+        let filteredPartners = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        
-        document.querySelector('.header-actions .btn-primary').onclick = function() {
+
+        // 1. 데이터 불러오기
+        async function fetchPartners() {
+            const { data, error } = await supabaseClient
+                .from('partners')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching partners:', error);
+                projectTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">오류가 발생했습니다. (테이블 스키마 문제일 수 있습니다)</td></tr>';
+                return;
+            }
+
+            // 정렬된 순서대로 번호 부여
+            allPartners = data.map((p, idx) => ({
+                ...p,
+                displayNo: data.length - idx
+            }));
+            updateCounts();
+            applyFilters();
+        }
+
+        // 카테고리 개수 업데이트
+        function updateCounts() {
+            const counts = {
+                all: allPartners.length,
+                client: allPartners.filter(p => p.type === 'client' || p.category === 'client').length,
+                partner: allPartners.filter(p => p.type === 'partner' || p.category === 'partner').length
+            };
+
+            for (const [key, value] of Object.entries(counts)) {
+                const el = document.getElementById(`count-${key}`);
+                if (el) el.innerText = value;
+            }
+        }
+
+        // 2. 필터 적용 및 테이블 렌더링
+        let currentCategory = 'all';
+        let sortColumn = 'no';
+        let sortDirection = 'desc';
+        let currentEditId = null;
+
+        function handleSort(column) {
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+            applyFilters();
+        }
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.onclick = function() {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.value;
+                currentPage = 1;
+                applyFilters();
+            };
+        });
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = currentCategory;
+
+            filteredPartners = allPartners.filter(p => {
+                const nameMatch = p.name ? p.name.toLowerCase().includes(searchTerm) : (p.company_name && p.company_name.toLowerCase().includes(searchTerm));
+                const typeMatch = category === 'all' || p.type === category || p.category === category;
+                return nameMatch && typeMatch;
+            });
+
+            filteredPartners.sort((a, b) => {
+                let valA = a[sortColumn] || '';
+                let valB = b[sortColumn] || '';
+                
+                if (sortColumn === 'no') {
+                    valA = a.displayNo;
+                    valB = b.displayNo;
+                }
+
+                if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            renderTable();
+            renderPagination();
+        }
+
+        function renderTable() {
+            partnerTableBody.innerHTML = '';
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pagedData = filteredPartners.slice(start, end);
+
+            if (pagedData.length === 0) {
+                partnerTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem; color: #94a3b8;">데이터가 없습니다.</td></tr>';
+                return;
+            }
+
+            pagedData.forEach((partner) => {
+                const tr = document.createElement('tr');
+                const isClient = partner.type === 'client' || partner.category === 'client';
+                const typeLabel = isClient ? '고객사' : '파트너사';
+                const typeColor = isClient ? 'background: #dcfce7; color: #166534;' : 'background: #e0f2fe; color: #075985;';
+                const partnerName = partner.name || partner.company_name || partner.client_name || '-';
+                const createdAt = partner.created_at ? new Date(partner.created_at).toLocaleDateString() : '-';
+
+                tr.innerHTML = `
+                    <td style="color: #94a3b8;">${partner.displayNo}</td>
+                    <td style="text-align: center;">
+                        ${partner.logo_url ? `<img src="${partner.logo_url}" style="max-height: 35px; max-width: 100px; object-fit: contain;">` : '<div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8; margin: 0 auto;">LOGO</div>'}
+                    </td>
+                    <td style="font-weight: 600;">${partnerName}</td>
+                    <td><span class="badge" style="${typeColor}">${typeLabel}</span></td>
+                    <td>${createdAt}</td>
+                    <td style="text-align: center; white-space: nowrap;">
+                        <button class="btn btn-delete-action" onclick="deletePartner('${partner.id}')">
+                            <i data-lucide="trash-2"></i> 삭제
+                        </button>
+                        <button class="btn btn-edit-action" onclick="openEditModal('${partner.id}')">
+                            <i data-lucide="edit-2"></i> 수정
+                        </button>
+                    </td>
+                `;
+                partnerTableBody.appendChild(tr);
+            });
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const paginationEl = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredPartners.length / itemsPerPage);
+            paginationEl.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            const groupSize = 10;
+            const currentGroup = Math.floor((currentPage - 1) / groupSize);
+            const startPage = currentGroup * groupSize + 1;
+            const endPage = Math.min(startPage + groupSize - 1, totalPages);
+
+            if (currentGroup > 0) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'btn';
+                prevBtn.style.background = '#fff';
+                prevBtn.style.border = '1px solid var(--admin-border)';
+                prevBtn.innerHTML = '<i data-lucide="chevron-left" style="width:16px"></i>';
+                prevBtn.onclick = () => { currentPage = startPage - 1; applyFilters(); };
+                paginationEl.appendChild(prevBtn);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const btn = document.createElement('button');
+                btn.className = `btn ${i === currentPage ? 'btn-primary' : ''}`;
+                btn.style.background = i === currentPage ? '' : '#fff';
+                btn.style.border = i === currentPage ? '' : '1px solid var(--admin-border)';
+                btn.innerText = i;
+                btn.onclick = () => { currentPage = i; renderTable(); renderPagination(); };
+                paginationEl.appendChild(btn);
+            }
+
+            if (endPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'btn';
+                nextBtn.style.background = '#fff';
+                nextBtn.style.border = '1px solid var(--admin-border)';
+                nextBtn.innerHTML = '<i data-lucide="chevron-right" style="width:16px"></i>';
+                nextBtn.onclick = () => { currentPage = endPage + 1; applyFilters(); };
+                paginationEl.appendChild(nextBtn);
+            }
+            lucide.createIcons();
+        }
+
+        // 3. 데이터 저장하기
+        async function savePartner() {
+            const fileInput = document.getElementById('logoUpload');
+            let logoUrl = document.getElementById('editLogoUrl').value;
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Math.random()}.${fileExt}`;
+                const filePath = `logos/${fileName}`;
+
+                const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                    .from('project-assets')
+                    .upload(filePath, file);
+
+                if (uploadError) {
+                    alert('로고 업로드 오류: ' + uploadError.message);
+                    return;
+                }
+
+                const { data: publicUrlData } = supabaseClient.storage.from('project-assets').getPublicUrl(filePath);
+                logoUrl = publicUrlData.publicUrl;
+            }
+
+            const formData = {
+                name: document.getElementById('editName').value,
+                type: document.getElementById('editType').value,
+                logo_url: logoUrl
+            };
+
+            if (!formData.name) { alert('업체명을 입력해주세요.'); return; }
+
+            let result;
+            if (currentEditId) {
+                result = await supabaseClient.from('partners').update(formData).eq('id', currentEditId);
+            } else {
+                result = await supabaseClient.from('partners').insert([formData]);
+            }
+
+            if (result.error) {
+                alert('저장 실패 (테이블 스키마를 확인하세요. name, type, logo_url): ' + result.error.message);
+            } else {
+                alert(currentEditId ? '수정되었습니다!' : '저장되었습니다!');
+                closeModal('partnerModal');
+                fetchPartners();
+            }
+        }
+
+        async function openEditModal(id) {
+            const { data, error } = await supabaseClient.from('partners').select('*').eq('id', id).single();
+            if (error) { alert('데이터 로드 실패'); return; }
+
+            currentEditId = id;
+            document.getElementById('modalTitle').innerText = '고객사 정보 수정';
+            
+            document.getElementById('editName').value = data.name || data.company_name || '';
+            document.getElementById('editType').value = data.type || data.category || 'client';
+            document.getElementById('editLogoUrl').value = data.logo_url || '';
+            
+            const preview = document.getElementById('logoPreview');
+            if (data.logo_url) {
+                preview.src = data.logo_url;
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+
+            openModal('partnerModal');
+        }
+
+        document.getElementById('logoUpload').onchange = function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('logoPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        };
+
+        async function deletePartner(id) {
+            if (!confirm('정말로 삭제하시겠습니까?')) return;
+            const { error } = await supabaseClient.from('partners').delete().eq('id', id);
+            if (error) alert('삭제 오류: ' + error.message);
+            else fetchPartners();
+        }
+
+        document.getElementById('addNewBtn').onclick = function() {
+            currentEditId = null;
+            document.getElementById('partnerForm').reset();
+            document.getElementById('modalTitle').innerText = '신규 고객사 등록';
+            document.getElementById('logoPreview').style.display = 'none';
             openModal('partnerModal');
         };
 
+        document.getElementById('saveBtn').onclick = savePartner;
+
+        // 마이그레이션 스크립트 실행 함수 (데이터 밀어넣기 버튼 클릭 시)
+        async function runMigration() {
+            if (!confirm('초기 고객사 데이터 40여 개를 DB에 삽입하시겠습니까?')) return;
+            
+            const rawData = [
+  {"name":"키움증권","type":"client","logo_url":"/ci_kw.png"},
+  {"name":"토스","type":"client","logo_url":"/ci_toss.png"},
+  {"name":"삼성생명","type":"client","logo_url":"/ci_ss.png"},
+  {"name":"고객사 4","type":"client","logo_url":"/assets/client_01.png"},
+  {"name":"고객사 5","type":"client","logo_url":"/assets/client_02.png"},
+  {"name":"고객사 6","type":"client","logo_url":"/assets/client_03.png"},
+  {"name":"고객사 7","type":"client","logo_url":"/assets/client_04.gif"},
+  {"name":"고객사 8","type":"client","logo_url":"/assets/client_05.jpg"},
+  {"name":"고객사 9","type":"client","logo_url":"/assets/client_06.png"},
+  {"name":"고객사 10","type":"client","logo_url":"/assets/client_07.png"},
+  {"name":"고객사 11","type":"client","logo_url":"/assets/client_08.png"},
+  {"name":"고객사 12","type":"client","logo_url":"/assets/client_09.png"},
+  {"name":"고객사 13","type":"client","logo_url":"/assets/client_10.gif"},
+  {"name":"고객사 14","type":"client","logo_url":"/assets/client_11.png"},
+  {"name":"고객사 15","type":"client","logo_url":"/assets/client_12.png"},
+  {"name":"고객사 16","type":"client","logo_url":"/assets/client_13.png"},
+  {"name":"고객사 17","type":"client","logo_url":"/assets/client_14.png"},
+  {"name":"고객사 18","type":"client","logo_url":"/assets/client_15.png"},
+  {"name":"고객사 19","type":"client","logo_url":"/assets/client_16.png"},
+  {"name":"고객사 20","type":"client","logo_url":"/assets/client_17.png"},
+  {"name":"고객사 21","type":"client","logo_url":"/assets/client_18.png"},
+  {"name":"고객사 22","type":"client","logo_url":"/assets/client_19.png"},
+  {"name":"고객사 23","type":"client","logo_url":"/assets/client_20.png"},
+  {"name":"고객사 24","type":"client","logo_url":"/assets/client_21.png"},
+  {"name":"고객사 25","type":"client","logo_url":"/assets/client_22.png"},
+  {"name":"고객사 26","type":"client","logo_url":"/assets/client_23.png"},
+  {"name":"고객사 27","type":"client","logo_url":"/assets/client_24.png"},
+  {"name":"고객사 28","type":"client","logo_url":"/assets/client_25.png"},
+  {"name":"고객사 29","type":"client","logo_url":"/assets/client_26.png"},
+  {"name":"고객사 30","type":"client","logo_url":"/assets/client_27.png"},
+  {"name":"고객사 31","type":"client","logo_url":"/assets/client_28.png"},
+  {"name":"고객사 32","type":"client","logo_url":"/assets/client_29.png"},
+  {"name":"고객사 33","type":"client","logo_url":"/assets/client_30.png"},
+  {"name":"고객사 34","type":"client","logo_url":"/assets/client_39.png"},
+  {"name":"고객사 35","type":"client","logo_url":"/assets/client_40.png"},
+  {"name":"고객사 36","type":"client","logo_url":"/assets/client_41.png"},
+  {"name":"고객사 37","type":"client","logo_url":"/assets/client_31.png"},
+  {"name":"고객사 38","type":"client","logo_url":"/assets/client_32.png"},
+  {"name":"고객사 39","type":"client","logo_url":"/assets/client_33.png"},
+  {"name":"고객사 40","type":"client","logo_url":"/assets/client_34.png"},
+  {"name":"고객사 41","type":"client","logo_url":"/assets/client_35.png"},
+  {"name":"고객사 42","type":"client","logo_url":"/assets/client_36.png"},
+  {"name":"고객사 43","type":"client","logo_url":"/assets/client_37.png"},
+  {"name":"고객사 44","type":"client","logo_url":"/assets/client_38.png"}
+            ];
+
+            let successCount = 0;
+            for (const item of rawData) {
+                const { error } = await supabaseClient.from('partners').insert([item]);
+                if (error) {
+                    console.error('Insert error:', error);
+                } else {
+                    successCount++;
+                }
+            }
+            alert(`완료! 성공적으로 ${successCount}개의 고객사 데이터를 삽입했습니다.\n(실패한 데이터가 있다면 테이블 컬럼명을 확인해 주세요)`);
+            fetchPartners();
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchPartners);
         lucide.createIcons();
     </script>
 </body>

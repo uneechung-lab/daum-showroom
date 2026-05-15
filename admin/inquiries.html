@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 내역 관리 | DAUMIS Admin</title>
+    <link rel="stylesheet" href="/admin/admin-style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="admin-logo">
+                <i data-lucide="layout-dashboard"></i>
+                <span>DAUMIS ADMIN</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/admin/index.html"><i data-lucide="home"></i> 대시보드 홈</a></li>
+                <li class="nav-item"><a href="/admin/projects.html"><i data-lucide="briefcase"></i> 프로젝트 실적</a></li>
+                <li class="nav-item"><a href="/admin/partners.html"><i data-lucide="users"></i> 고객사 & 파트너</a></li>
+                <li class="nav-item"><a href="/admin/history.html"><i data-lucide="history"></i> 연혁 관리</a></li>
+                <li class="nav-item"><a href="/admin/careers.html"><i data-lucide="user-plus"></i> 채용 관리</a></li>
+                <li class="nav-item active"><a href="/admin/inquiries.html"><i data-lucide="message-square"></i> 문의 내역</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer" style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="external-link" style="width: 14px;"></i> 메인사이트 가기
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <div class="page-title">
+                <h1>문의하기 접수 내역</h1>
+                <p>고객으로부터 접수된 도입 문의 및 비즈니스 제안을 확인합니다.</p>
+            </div>
+        </header>
+
+        <!-- Inquiry Filter -->
+        <section class="data-card" style="margin-bottom: 1.5rem; padding: 1.25rem; display: flex; gap: 1rem;">
+            <button class="btn btn-primary">전체 (42)</button>
+            <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);">미확인 (12)</button>
+            <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);">진행중 (5)</button>
+            <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);">완료 (25)</button>
+        </section>
+
+        <!-- Inquiry List Table -->
+        <section class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;">날짜</th>
+                        <th>이름/회사</th>
+                        <th>제목</th>
+                        <th>연락처</th>
+                        <th>상태</th>
+                        <th style="text-align: right;">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024.05.15</td>
+                        <td>
+                            <div style="font-weight: 600;">김철수</div>
+                            <div style="font-size: 0.8rem; color: var(--admin-text-sub);">한국은행</div>
+                        </td>
+                        <td>퇴직연금 시스템 도입 문의의 건</td>
+                        <td>010-1234-5678</td>
+                        <td><span class="badge badge-pending">미확인</span></td>
+                        <td style="text-align: right;">
+                            <button class="btn" style="padding: 0.4rem 0.8rem; background: #f1f5f9; font-size: 0.8rem;">상세보기</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Inquiry Detail Modal -->
+    <div class="modal-overlay" id="inquiryModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>문의 상세 내역</h2>
+                <button class="modal-close" onclick="closeModal('inquiryModal')"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="color: var(--admin-text-sub); font-weight: 600;">작성자</span>
+                        <span id="view-name">김철수 (한국은행)</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="color: var(--admin-text-sub); font-weight: 600;">연락처</span>
+                        <span id="view-contact">010-1234-5678 / admin@bok.or.kr</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem;">
+                        <span style="color: var(--admin-text-sub); font-weight: 600;">접수일시</span>
+                        <span>2024.05.15 14:30</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">문의 제목</label>
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">퇴직연금 시스템 도입 문의의 건</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">문의 내용</label>
+                    <div style="line-height: 1.6; color: #334155; white-space: pre-wrap; background: #fff; border: 1px solid var(--admin-border); padding: 1rem; border-radius: 8px;">
+안녕하세요. 한국은행 IT전략팀 김철수입니다.
+귀사의 퇴직연금 시스템 도입을 검토 중입니다.
+상세 브로슈어와 제안서 초안을 받아볼 수 있을까요?
+                    </div>
+                </div>
+                <hr style="border: 0; border-top: 1px solid var(--admin-border); margin: 2rem 0;">
+                <div class="form-group">
+                    <label class="form-label">처리 상태 변경</label>
+                    <select class="form-control" style="width: 200px;">
+                        <option>미확인</option>
+                        <option>확인 중 / 담당자 배정</option>
+                        <option>처리 완료 / 회신 완료</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('inquiryModal')">닫기</button>
+                <button class="btn btn-primary">상태 저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        // Connect Detail button to modal
+        document.querySelectorAll('.data-table .btn').forEach(btn => {
+            btn.onclick = function() {
+                openModal('inquiryModal');
+            };
+        });
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

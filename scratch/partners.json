@@ -1,0 +1,222 @@
+[
+  {
+    "name": "키움증권",
+    "type": "client",
+    "logo_url": "/ci_kw.png"
+  },
+  {
+    "name": "토스",
+    "type": "client",
+    "logo_url": "/ci_toss.png"
+  },
+  {
+    "name": "삼성생명",
+    "type": "client",
+    "logo_url": "/ci_ss.png"
+  },
+  {
+    "name": "고객사 4",
+    "type": "client",
+    "logo_url": "/assets/client_01.png"
+  },
+  {
+    "name": "고객사 5",
+    "type": "client",
+    "logo_url": "/assets/client_02.png"
+  },
+  {
+    "name": "고객사 6",
+    "type": "client",
+    "logo_url": "/assets/client_03.png"
+  },
+  {
+    "name": "고객사 7",
+    "type": "client",
+    "logo_url": "/assets/client_04.gif"
+  },
+  {
+    "name": "고객사 8",
+    "type": "client",
+    "logo_url": "/assets/client_05.jpg"
+  },
+  {
+    "name": "고객사 9",
+    "type": "client",
+    "logo_url": "/assets/client_06.png"
+  },
+  {
+    "name": "고객사 10",
+    "type": "client",
+    "logo_url": "/assets/client_07.png"
+  },
+  {
+    "name": "고객사 11",
+    "type": "client",
+    "logo_url": "/assets/client_08.png"
+  },
+  {
+    "name": "고객사 12",
+    "type": "client",
+    "logo_url": "/assets/client_09.png"
+  },
+  {
+    "name": "고객사 13",
+    "type": "client",
+    "logo_url": "/assets/client_10.gif"
+  },
+  {
+    "name": "고객사 14",
+    "type": "client",
+    "logo_url": "/assets/client_11.png"
+  },
+  {
+    "name": "고객사 15",
+    "type": "client",
+    "logo_url": "/assets/client_12.png"
+  },
+  {
+    "name": "고객사 16",
+    "type": "client",
+    "logo_url": "/assets/client_13.png"
+  },
+  {
+    "name": "고객사 17",
+    "type": "client",
+    "logo_url": "/assets/client_14.png"
+  },
+  {
+    "name": "고객사 18",
+    "type": "client",
+    "logo_url": "/assets/client_15.png"
+  },
+  {
+    "name": "고객사 19",
+    "type": "client",
+    "logo_url": "/assets/client_16.png"
+  },
+  {
+    "name": "고객사 20",
+    "type": "client",
+    "logo_url": "/assets/client_17.png"
+  },
+  {
+    "name": "고객사 21",
+    "type": "client",
+    "logo_url": "/assets/client_18.png"
+  },
+  {
+    "name": "고객사 22",
+    "type": "client",
+    "logo_url": "/assets/client_19.png"
+  },
+  {
+    "name": "고객사 23",
+    "type": "client",
+    "logo_url": "/assets/client_20.png"
+  },
+  {
+    "name": "고객사 24",
+    "type": "client",
+    "logo_url": "/assets/client_21.png"
+  },
+  {
+    "name": "고객사 25",
+    "type": "client",
+    "logo_url": "/assets/client_22.png"
+  },
+  {
+    "name": "고객사 26",
+    "type": "client",
+    "logo_url": "/assets/client_23.png"
+  },
+  {
+    "name": "고객사 27",
+    "type": "client",
+    "logo_url": "/assets/client_24.png"
+  },
+  {
+    "name": "고객사 28",
+    "type": "client",
+    "logo_url": "/assets/client_25.png"
+  },
+  {
+    "name": "고객사 29",
+    "type": "client",
+    "logo_url": "/assets/client_26.png"
+  },
+  {
+    "name": "고객사 30",
+    "type": "client",
+    "logo_url": "/assets/client_27.png"
+  },
+  {
+    "name": "고객사 31",
+    "type": "client",
+    "logo_url": "/assets/client_28.png"
+  },
+  {
+    "name": "고객사 32",
+    "type": "client",
+    "logo_url": "/assets/client_29.png"
+  },
+  {
+    "name": "고객사 33",
+    "type": "client",
+    "logo_url": "/assets/client_30.png"
+  },
+  {
+    "name": "고객사 34",
+    "type": "client",
+    "logo_url": "/assets/client_39.png"
+  },
+  {
+    "name": "고객사 35",
+    "type": "client",
+    "logo_url": "/assets/client_40.png"
+  },
+  {
+    "name": "고객사 36",
+    "type": "client",
+    "logo_url": "/assets/client_41.png"
+  },
+  {
+    "name": "고객사 37",
+    "type": "client",
+    "logo_url": "/assets/client_31.png"
+  },
+  {
+    "name": "고객사 38",
+    "type": "client",
+    "logo_url": "/assets/client_32.png"
+  },
+  {
+    "name": "고객사 39",
+    "type": "client",
+    "logo_url": "/assets/client_33.png"
+  },
+  {
+    "name": "고객사 40",
+    "type": "client",
+    "logo_url": "/assets/client_34.png"
+  },
+  {
+    "name": "고객사 41",
+    "type": "client",
+    "logo_url": "/assets/client_35.png"
+  },
+  {
+    "name": "고객사 42",
+    "type": "client",
+    "logo_url": "/assets/client_36.png"
+  },
+  {
+    "name": "고객사 43",
+    "type": "client",
+    "logo_url": "/assets/client_37.png"
+  },
+  {
+    "name": "고객사 44",
+    "type": "client",
+    "logo_url": "/assets/client_38.png"
+  }
+]
