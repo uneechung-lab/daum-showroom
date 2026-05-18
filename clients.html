@@ -157,15 +157,15 @@
       
       .slider-track {
         display: flex;
-        width: calc(450px * 12); /* Card width * number of cards * 2 */
-        animation: scroll 40s linear infinite;
+        width: var(--track-width, calc(450px * 12)); /* Card width * number of cards * 2 */
+        animation: scroll var(--scroll-duration, 40s) linear infinite;
       }
       .slider-track:hover {
         animation-play-state: paused;
       }
       @keyframes scroll {
         0% { transform: translateX(0); }
-        100% { transform: translateX(calc(-450px * 6)); }
+        100% { transform: translateX(var(--scroll-amount, calc(-450px * 6))); }
       }
 
       .case-card {
@@ -653,10 +653,109 @@
       }
 
       // --- Staggered Entrance Animation for Logos ---
-      document.querySelectorAll('.client-item').forEach((item, index) => {
-        // 간격을 0.15초로 늘리고 개별 애니메이션 속도를 높여 하나씩 팝업되는 느낌 강조
-        item.style.animationDelay = `${0.3 + (index * 0.15)}s`;
-      });
+      function applyStaggeredAnimation() {
+        document.querySelectorAll('.client-item').forEach((item, index) => {
+          item.style.animationDelay = `${0.3 + (index * 0.15)}s`;
+        });
+      }
+      applyStaggeredAnimation();
+    </script>
+    
+    <!-- Supabase Dynamic Data Fetching Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      (async function() {
+        const SUPABASE_URL = 'https://hypyydfzyahscznwltnf.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5cHl5ZGZ6eWFoc2N6bndsdG5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3Njg2OTgsImV4cCI6MjA5NDM0NDY5OH0.fd_vtDVcyCZpBKVEywmvpp7EWhwsAe3QAr0RadFG7D8';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        try {
+          // 1. Fetch Top Section Configuration
+          const { data: configData, error: configError } = await supabase
+            .from('partners')
+            .select('*')
+            .eq('name', 'TOP_SECTION_CONFIG');
+            
+          if (!configError && configData && configData.length > 0) {
+            const config = JSON.parse(configData[0].logo_url);
+            
+            // Render Headline
+            if (config.headline) {
+              const headlineHTML = config.headline.trim().replace(/\n/g, '<br>');
+              document.querySelector('#clients-intro h2').innerHTML = headlineHTML;
+            }
+            
+            // Render Success Stories Carousel
+            if (config.stories && config.stories.length > 0) {
+              const track = document.querySelector('#cases-section .slider-track');
+              track.innerHTML = '';
+              
+              const storyCount = config.stories.length;
+              track.style.setProperty('--track-width', `calc(450px * ${storyCount * 2})`);
+              track.style.setProperty('--scroll-amount', `calc(-450px * ${storyCount})`);
+              track.style.setProperty('--scroll-duration', `${storyCount * 6.5}s`);
+              
+              // Render original cards
+              config.stories.forEach(story => {
+                const card = document.createElement('div');
+                card.className = 'case-card';
+                card.innerHTML = `
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="${story.logo}" alt="${story.company}"></div>
+                    <div class="quote-text">${story.quote.replace(/\n/g, '<br>')}</div>
+                  </div>
+                  <p class="stats-text">${story.stats.replace(/\n/g, '<br>')}</p>
+                `;
+                track.appendChild(card);
+              });
+              
+              // Render duplicate cards for infinite rolling loop
+              config.stories.forEach(story => {
+                const card = document.createElement('div');
+                card.className = 'case-card';
+                card.innerHTML = `
+                  <div class="quote-header">
+                    <div class="client-logo-box"><img src="${story.logo}"></div>
+                    <div class="quote-text">${story.quote.replace(/\n/g, '<br>')}</div>
+                  </div>
+                  <p class="stats-text">${story.stats.replace(/\n/g, '<br>')}</p>
+                `;
+                track.appendChild(card);
+              });
+            }
+          }
+        } catch (e) {
+          console.error("Error loading top section config from Supabase:", e);
+        }
+        
+        try {
+          // 2. Fetch Partners Grid
+          const { data: partners, error: partnersError } = await supabase
+            .from('partners')
+            .select('*')
+            .not('name', 'eq', 'TOP_SECTION_CONFIG')
+            .not('partner_type', 'eq', 'config')
+            .order('order_index', { ascending: true })
+            .order('created_at', { ascending: false });
+            
+          if (!partnersError && partners && partners.length > 0) {
+            const grid = document.querySelector('.client-grid');
+            grid.innerHTML = '';
+            
+            partners.forEach(partner => {
+              const item = document.createElement('div');
+              item.className = 'client-item';
+              item.innerHTML = `<img src="${partner.logo_url}" alt="${partner.name || 'Client'}">`;
+              grid.appendChild(item);
+            });
+            
+            // Re-apply entrance delay animations to the new dynamic items
+            applyStaggeredAnimation();
+          }
+        } catch (e) {
+          console.error("Error loading partners grid from Supabase:", e);
+        }
+      })();
     </script>
   </body>
 </html>

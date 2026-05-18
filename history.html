@@ -369,14 +369,15 @@
         z-index: 2;
       }
 
-      .event-item.active::before,
-      .year-group:first-child .event-item:first-child::before {
+      .event-item.active::before {
         background: var(--daumis-yellow) !important;
         border-color: var(--daumis-yellow) !important;
         box-shadow: 0 0 10px rgba(255, 184, 0, 0.5);
       }
 
-      .year-group:first-child .event-item:first-child::before {
+      .event-item.active-first::before {
+        background: var(--daumis-yellow) !important;
+        border-color: var(--daumis-yellow) !important;
         width: 22px; /* Even larger first active dot */
         height: 22px;
         box-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
@@ -557,43 +558,8 @@
               </div>
             </div>
           
-          <ul class="era-nav">
-            <li class="era-item active" data-target="era-3">
-              <i data-lucide="zap" class="era-icon"></i>
-              <div class="era-content-box">
-                <div class="era-step-box">
-                  <span class="era-step">Next Step</span>
-                  <span class="era-range">: 2020 - PRESENT</span>
-                </div>
-                <div class="era-title">
-                  시장 지배력 확대 및<br>지능형 혁신(AX) 가속화
-                </div>
-              </div>
-            </li>
-            <li class="era-item" data-target="era-2">
-              <i data-lucide="layers" class="era-icon"></i>
-              <div class="era-content-box">
-                <div class="era-step-box">
-                  <span class="era-step">Deep Dive</span>
-                  <span class="era-range">: 2017 - 2019</span>
-                </div>
-                <div class="era-title">
-                  독자적 기술력 확보 및<br>금융 IT 전문 법인 도약
-                </div>
-              </div>
-            </li>
-            <li class="era-item" data-target="era-1">
-              <i data-lucide="building-2" class="era-icon"></i>
-              <div class="era-content-box">
-                <div class="era-step-box">
-                  <span class="era-step">Foundation</span>
-                  <span class="era-range">: 2014 - 2016</span>
-                </div>
-                <div class="era-title">
-                  사업 포트폴리오 다각화 및<br>핵심 역량 내실화
-                </div>
-              </div>
-            </li>
+          <ul class="era-nav" id="era-nav-container">
+            <!-- 시대 대메뉴 설정이 로딩된 후 동적 생성됩니다 -->
           </ul>
         </aside>
 
@@ -601,231 +567,9 @@
         <div class="history-content" id="timeline-content">
           <!-- Dynamic Progress Line -->
           <div class="timeline-progress-line" id="progress-line"></div>
-          
-          <!-- Era 3: 2020 - Present -->
-          <section id="era-3" class="timeline-section">
-            <div class="year-group">
-              <div class="bg-year">2026</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">현재</span>
-                  <span class="event-desc" style="line-height: 1.8;">
-                    독보적인 퇴직연금 구축 노하우에 AI 기반 금융 분석 기술을 더해<br>
-                    지능형 자산관리 시스템의 새로운 패러다임을 제시하고 있습니다.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2025</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2025.03</span>
-                  <span class="event-desc">키움증권 퇴직연금시스템 신규구축 수주</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2024</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2024.05</span>
-                  <span class="event-desc">여성기업 확인 인증 (서울지방중소벤처기업청)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2024.04</span>
-                  <span class="event-desc">다음정보시스템즈 여의도센터 오픈</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2023</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2023.12</span>
-                  <span class="event-desc">건설근로자공제회 통합시스템 구축 컨소시엄 수주</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2023.08</span>
-                  <span class="event-desc">하나증권 퇴직연금시스템 재구축 단독 수주</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2023.07</span>
-                  <span class="event-desc">경찰공제회 회원관리시스템 고도화</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2023.02</span>
-                  <span class="event-desc">IBK시스템 SI 개발, 운영 협력업체 인증 (8년차)</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2021</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2021.10</span>
-                  <span class="event-desc">대신증권 퇴직연금시스템 재구축 단독 수주</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2021.06</span>
-                  <span class="event-desc">사내근로복지기금 설립</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2020</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2020.05</span>
-                  <span class="event-desc">과학기술인공제회 적립형공제 업무 협약 체결</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2020.04</span>
-                  <span class="event-desc">NH투자증권 퇴직연금시스템 재구축 용역</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2020.04</span>
-                  <span class="event-desc">기술평가 우수기업 인증 (NICE평가정보)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2020.03</span>
-                  <span class="event-desc">청년내일채움공제 참여기업 인증</span>
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Era 2: 2017 - 2019 -->
-          <section id="era-2" class="timeline-section">
-            <div class="year-group">
-              <div class="bg-year">2019</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2019.10</span>
-                  <span class="event-desc">MG복지회 차세대 시스템 단독 수주</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2019.09</span>
-                  <span class="event-desc">금융사업본부 분사 및 (주)다음정보시스템즈 설립</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2019.05</span>
-                  <span class="event-desc">KDB산업은행 차세대 시스템 운영 수주</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2018</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2018.11</span>
-                  <span class="event-desc">경영혁신형 중소기업(Main-Biz) 확인 (중소벤처기업부장관)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2018.07</span>
-                  <span class="event-desc">SK(주) 외주용역분야 Biz Partner사 등록</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2018.05</span>
-                  <span class="event-desc">한화투자증권 퇴직연금시스템 구축</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2017</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2017.05</span>
-                  <span class="event-desc">미래창조과학부장관상 수상 (2017년 에너지환경기술 대상)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2017.03</span>
-                  <span class="event-desc">KDB산업은행 차세대 시스템 구축 (집합투자증권/퇴직연금)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2017.03</span>
-                  <span class="event-desc">IBK기업은행 정보시스템 위임업무 수주</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2017.02</span>
-                  <span class="event-desc">IBK시스템 SI 개발 및 운영 협력업체 인증</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2017.01</span>
-                  <span class="event-desc">경찰공제회 시스템 유지보수 수주</span>
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          <!-- Era 1: 2014 - 2016 -->
-          <section id="era-1" class="timeline-section">
-            <div class="year-group">
-              <div class="bg-year">2016</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2016.10</span>
-                  <span class="event-desc">기업부설연구소 설립 및 인정</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2016.09</span>
-                  <span class="event-desc">ISO 14001:2004 / ISO 9001:2004 SI, 정보통신공사 부문 획득</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2016.01</span>
-                  <span class="event-desc">전력IT사업본부 신설 및 전력IT 업무 강화</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2015</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2015.11</span>
-                  <span class="event-desc">대신증권 연금지급시스템 구축</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2015.08</span>
-                  <span class="event-desc">IBK기업은행 정보시스템 SM 위임업무계약 (퇴직연금)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2015.07</span>
-                  <span class="event-desc">하나대투증권 차세대시스템 구축 (FOS)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2015.04</span>
-                  <span class="event-desc">대한소방공제회 퇴직급여 및 목돈수탁대여 시스템 구축</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="year-group">
-              <div class="bg-year">2014</div>
-              <ul class="event-list">
-                <li class="event-item">
-                  <span class="event-date">2014.04</span>
-                  <span class="event-desc">과학기술인공제회 정보시스템 통합운영관리 용역 수주</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2014.04</span>
-                  <span class="event-desc">본점 소재지 이전 (관악구 관악로 120, 우주빌딩 4층)</span>
-                </li>
-                <li class="event-item">
-                  <span class="event-date">2014.01</span>
-                  <span class="event-desc">IBK기업은행 POST 차세대 대응개발 (집합투자증권/퇴직연금)</span>
-                </li>
-              </ul>
-            </div>
-          </section>
-
+          <div style="text-align: center; color: #94a3b8; padding: 6rem 0; font-weight: 500; font-size: 1.1rem; width: 100%;">
+              연혁 정보를 불러오는 중입니다...
+          </div>
         </div>
       </div>
 
@@ -883,54 +627,280 @@
     </footer>
 
     <script type="module" src="/src/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
       // Initialize Lucide icons
       lucide.createIcons();
 
-      // Era Navigation Logic
-      const eraItems = document.querySelectorAll('.era-item');
-      const sections = document.querySelectorAll('.timeline-section');
+      let eventItems = [];
+      let progressLine = null;
+      let timelineContent = null;
+      let eraItems = document.querySelectorAll('.era-item');
 
-      const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -70% 0px',
-        threshold: 0
-      };
+      async function loadTimeline() {
+        const SUPABASE_URL = 'https://hypyydfzyahscznwltnf.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5cHl5ZGZ6eWFoc2N6bndsdG5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3Njg2OTgsImV4cCI6MjA5NDM0NDY5OH0.fd_vtDVcyCZpBKVEywmvpp7EWhwsAe3QAr0RadFG7D8';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            eraItems.forEach(item => {
-              item.classList.remove('active');
-              if (item.getAttribute('data-target') === id) {
-                item.classList.add('active');
+        try {
+          const { data, error } = await supabase.from('history').select('*');
+          if (error) {
+            console.error("Failed to load history:", error.message);
+            return;
+          }
+
+          if (!data || data.length === 0) {
+            document.getElementById('timeline-content').innerHTML = `
+              <div class="timeline-progress-line" id="progress-line"></div>
+              <div style="text-align: center; color: #94a3b8; padding: 6rem 0; font-weight: 500; font-size: 1.1rem; width: 100%;">
+                  등록된 연혁 데이터가 없습니다. 어드민에서 먼저 등록해 주세요.
+              </div>
+            `;
+            return;
+          }
+
+          // Parse special Era configuration rows
+          const eraConfigs = {
+              'era-3': { step: 'Next Step', range: '2020 - PRESENT', title: '시장 지배력 확대 및\n지능형 혁신(AX) 가속화' },
+              'era-2': { step: 'Deep Dive', range: '2017 - 2019', title: '독자적 기술력 확보 및\n금융 IT 전문 법인 도약' },
+              'era-1': { step: 'Foundation', range: '2014 - 2016', title: '사업 포트폴리오 다각화 및\n핵심 역량 내실화' }
+          };
+
+          const normalMilestones = data.filter(item => {
+              if (item.year === 'ERA_CONFIG') {
+                  const parts = item.content.split('||');
+                  if (parts.length >= 3) {
+                      eraConfigs[item.month] = {
+                          step: parts[0],
+                          range: parts[1],
+                          title: parts[2]
+                      };
+                  }
+                  return false;
+              }
+              return true;
+          });
+
+          // Extract and sort era keys dynamically: era-1, era-2, era-3, era-4... descending
+          const eraKeys = Object.keys(eraConfigs).sort((a, b) => {
+              const numA = parseInt(a.replace('era-', '')) || 0;
+              const numB = parseInt(b.replace('era-', '')) || 0;
+              return numB - numA; // Descending
+          });
+
+          // Render Sidebar Era Menu dynamically
+          const eraNavContainer = document.getElementById('era-nav-container');
+          if (eraNavContainer) {
+              eraNavContainer.innerHTML = '';
+              const eraIcons = {
+                  'era-3': 'zap',
+                  'era-2': 'layers',
+                  'era-1': 'building-2'
+              };
+              
+              eraKeys.forEach((eraId, index) => {
+                  const conf = eraConfigs[eraId];
+                  const li = document.createElement('li');
+                  li.className = `era-item ${index === 0 ? 'active' : ''}`;
+                  li.setAttribute('data-target', eraId);
+                  
+                  const iconName = eraIcons[eraId] || 'compass';
+                  li.innerHTML = `
+                      <i data-lucide="${iconName}" class="era-icon"></i>
+                      <div class="era-content-box">
+                        <div class="era-step-box">
+                          <span class="era-step">${conf.step}</span>
+                          <span class="era-range">: ${conf.range}</span>
+                        </div>
+                        <div class="era-title">
+                          ${conf.title.replace(/\n/g, '<br>')}
+                        </div>
+                      </div>
+                  `;
+                  eraNavContainer.appendChild(li);
+              });
+              lucide.createIcons();
+              
+              // Re-bind global reference
+              eraItems = document.querySelectorAll('.era-item');
+          }
+
+          // Sort: Year desc, Month desc (putting '현재' or higher first)
+          normalMilestones.sort((a, b) => {
+              if (a.year !== b.year) {
+                  return parseInt(b.year) - parseInt(a.year);
+              }
+              if (a.month === '현재') return -1;
+              if (b.month === '현재') return 1;
+              return b.month.localeCompare(a.month);
+          });
+
+          // Group by Era dynamically based on parsed DB ranges
+          const eras = {};
+          eraKeys.forEach(eraId => {
+              eras[eraId] = [];
+          });
+
+          normalMilestones.forEach(item => {
+              const yr = parseInt(item.year);
+              // Find matching era dynamically based on ranges!
+              let matchedEra = null;
+              for (const eraId of eraKeys) {
+                  const conf = eraConfigs[eraId];
+                  const range = conf.range;
+                  const cleanRange = range.toUpperCase().replace(/\s/g, '');
+                  const isOpenEnded = cleanRange.includes('PRESENT') || cleanRange.includes('미래') || cleanRange.includes('현재');
+                  const separator = cleanRange.includes('~') ? '~' : '-';
+                  const rangeParts = cleanRange.split(separator);
+                  if (isOpenEnded) {
+                      const startYear = parseInt(rangeParts[0]);
+                      if (yr >= startYear) {
+                          matchedEra = eraId;
+                          break;
+                      }
+                  } else {
+                      const startYear = parseInt(rangeParts[0]);
+                      const endYear = parseInt(rangeParts[1]);
+                      if (yr >= startYear && yr <= endYear) {
+                          matchedEra = eraId;
+                          break;
+                      }
+                  }
+              }
+              if (matchedEra) {
+                  eras[matchedEra].push(item);
+              }
+          });
+
+          const timelineContainer = document.getElementById('timeline-content');
+          timelineContainer.innerHTML = '<div class="timeline-progress-line" id="progress-line"></div>';
+
+          // Helper to group by year
+          function groupEraByYear(eraItems) {
+              const groups = {};
+              eraItems.forEach(item => {
+                  if (!groups[item.year]) groups[item.year] = [];
+                  groups[item.year].push(item);
+              });
+              return groups;
+          }
+
+          // Render each Era dynamically
+          eraKeys.forEach(eraId => {
+              const eraItems = eras[eraId];
+              
+              const section = document.createElement('section');
+              section.id = eraId;
+              section.className = 'timeline-section';
+
+              if (!eraItems || eraItems.length === 0) {
+                  // Premium empty era placeholder to keep DOM layout and sidebar scrolling 100% active and stable
+                  section.innerHTML = `
+                      <div class="year-group" style="margin-bottom: 2rem;">
+                          <div style="padding-left: 5rem; color: #94a3b8; font-size: 1.15rem; font-weight: 500; font-family: 'Pretendard Variable', sans-serif;">
+                              해당 시대의 연혁 정보를 준비 중입니다.
+                          </div>
+                      </div>
+                  `;
+                  timelineContainer.appendChild(section);
+                  return;
+              }
+
+              const yearGroups = groupEraByYear(eraItems);
+              const sortedYears = Object.keys(yearGroups).sort((a, b) => parseInt(b) - parseInt(a));
+
+              sortedYears.forEach(year => {
+                  const items = yearGroups[year];
+                  const yearDiv = document.createElement('div');
+                  yearDiv.className = 'year-group';
+                  yearDiv.innerHTML = `<div class="bg-year">${year}</div>`;
+
+                  const ul = document.createElement('ul');
+                  ul.className = 'event-list';
+
+                  items.forEach(item => {
+                      const li = document.createElement('li');
+                      li.className = 'event-item';
+                      const descHTML = item.content.replace(/\n/g, '<br>');
+                      const dateText = item.month === '현재' || item.month.includes('.') ? item.month : `${item.year}.${item.month}`;
+                      li.innerHTML = `
+                          <span class="event-date">${dateText}</span>
+                          <span class="event-desc" style="${item.month === '현재' ? 'line-height: 1.8;' : ''}">${descHTML}</span>
+                      `;
+                      ul.appendChild(li);
+                  });
+
+                  yearDiv.appendChild(ul);
+                  section.appendChild(yearDiv);
+              });
+
+              timelineContainer.appendChild(section);
+          });
+
+          // Bind animations after render
+          initTimelineAnimations();
+        } catch (err) {
+          console.error("Error in loadTimeline:", err);
+        }
+      }
+
+      function initTimelineAnimations() {
+          progressLine = document.getElementById('progress-line');
+          timelineContent = document.getElementById('timeline-content');
+          eventItems = document.querySelectorAll('.event-item');
+
+          const sections = document.querySelectorAll('.timeline-section');
+          const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+          };
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                eraItems.forEach(item => {
+                  item.classList.remove('active');
+                  if (item.getAttribute('data-target') === id) {
+                    item.classList.add('active');
+                  }
+                });
               }
             });
-          }
-        });
-      }, observerOptions);
+          }, observerOptions);
 
-      sections.forEach(section => observer.observe(section));
+          sections.forEach(section => observer.observe(section));
 
-      eraItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const targetId = item.getAttribute('data-target');
-          const targetSection = document.getElementById(targetId);
-          if (targetSection) {
-            const headerHeight = 200;
-            const targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-            window.scrollTo({
-              top: targetPos,
-              behavior: 'smooth'
-            });
+          eraItems.forEach(item => {
+            // Re-bind click event to use dynamic sections
+            item.onclick = () => {
+              const targetId = item.getAttribute('data-target');
+              const targetSection = document.getElementById(targetId);
+              if (targetSection) {
+                const headerHeight = 200;
+                const targetPos = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                window.scrollTo({
+                  top: targetPos,
+                  behavior: 'smooth'
+                });
+              }
+            };
+          });
+
+          // Run after a short delay to ensure browser layout paint has completed for 100% accurate coordinates!
+          setTimeout(() => {
+              updateTimelineProgress();
+          }, 150);
+
+          // Force first era active at the very top of the page initially
+          if (window.scrollY < 120 && eraItems.length > 0) {
+              eraItems.forEach((item, index) => {
+                  if (index === 0) item.classList.add('active');
+                  else item.classList.remove('active');
+              });
           }
-        });
-      });
-      // Scroll Progress Animation
-      const progressLine = document.getElementById('progress-line');
-      const timelineContent = document.getElementById('timeline-content');
-      const eventItems = document.querySelectorAll('.event-item');
+      }
 
       function updateTimelineProgress() {
         if (!timelineContent || !progressLine || eventItems.length === 0) return;
@@ -948,17 +918,6 @@
         progressLine.style.top = `${lineStartInContent}px`;
         timelineContent.style.setProperty('--line-top', `${lineStartInContent}px`);
 
-        const passed = activePoint - lineStartInViewport;
-        
-        let progressHeight = 60;
-        if (passed > 60) {
-          const lastItem = eventItems[eventItems.length - 1];
-          const lastItemRect = lastItem.getBoundingClientRect();
-          const maxHeight = (lastItemRect.top + dotCenterOffset) - lineStartInViewport;
-          progressHeight = Math.min(passed, maxHeight);
-        }
-        progressLine.style.height = `${progressHeight}px`;
-
         const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 500;
         
         // Toggle mask based on bottom reach
@@ -971,13 +930,30 @@
         const viewportCenter = windowHeight / 2;
         const fullOpacityDist = windowHeight * 0.15;
 
+        const isScrollAtTop = window.scrollY < 80; // Secure threshold for page top
+
+        // 1. First, update active state and opacity/scale of all items
         eventItems.forEach((item, index) => {
             const itemRect = item.getBoundingClientRect();
             
-            if (index === 0 || itemRect.top + dotCenterOffset <= activePoint) {
+            // Only the first item is active if we are at the very top of the scroll
+            let isActive = false;
+            if (index === 0) {
+                isActive = true;
+            } else if (!isScrollAtTop && itemRect.top + dotCenterOffset <= activePoint) {
+                isActive = true;
+            }
+
+            if (isActive) {
                 item.classList.add('active');
+                if (index === 0) {
+                    item.classList.add('active-first');
+                } else {
+                    item.classList.remove('active-first');
+                }
             } else {
                 item.classList.remove('active');
+                item.classList.remove('active-first');
             }
 
             const contentElements = item.querySelectorAll('.event-date, .event-desc');
@@ -997,7 +973,7 @@
                     opacity = 1 - Math.min(0.9, fadeFactor);
                 }
 
-                // Special case: First item '현재' never fades at the top
+                // Special case: First item never fades at the top
                 if (index === 0 && itemRect.top < viewportCenter) {
                     opacity = 1;
                 }
@@ -1009,11 +985,40 @@
                 });
             }
         });
+
+        // 2. Next, calculate the lowest active dot's index based on the freshly updated active classes
+        let lastActiveIndex = 0;
+        eventItems.forEach((item, index) => {
+            if (item.classList.contains('active')) {
+                lastActiveIndex = index;
+            }
+        });
+
+        // 3. Anchor the progress line exactly to the center of the next dot
+        const nextIndex = Math.min(lastActiveIndex + 1, eventItems.length - 1);
+        const targetItem = eventItems[nextIndex];
+        const targetItemRect = targetItem.getBoundingClientRect();
+        
+        const progressHeight = (targetItemRect.top + dotCenterOffset) - lineStartInViewport;
+        progressLine.style.height = `${progressHeight}px`;
       }
 
-      window.addEventListener('scroll', updateTimelineProgress);
+      function onScrollHandler() {
+          updateTimelineProgress();
+          // Force first era active at the very top of the page
+          if (window.scrollY < 120 && eraItems.length > 0) {
+              eraItems.forEach((item, index) => {
+                  if (index === 0) item.classList.add('active');
+                  else item.classList.remove('active');
+              });
+          }
+      }
+
+      window.addEventListener('scroll', onScrollHandler);
       window.addEventListener('resize', updateTimelineProgress);
-      updateTimelineProgress(); // Initial call
+      
+      // Load dynamic database data on DOM load
+      window.addEventListener('DOMContentLoaded', loadTimeline);
     </script>
   </body>
 </html>

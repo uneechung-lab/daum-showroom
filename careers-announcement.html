@@ -585,7 +585,21 @@
         </div>
       </section>
 
-      <section class="section-container">
+      <section class="section-container" id="projectRolesSection" style="display: none;">
+        <div class="container">
+          <div style="margin-bottom: 3rem;">
+            <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Project Roles</span>
+            <h2 style="font-size: 2.2rem; font-weight: 700; color: #0f172a; letter-spacing: -0.02em;">프로젝트 채용</h2>
+            <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important; word-break: keep-all;">
+              특정 목표를 위해 함께할 스페셜티 중심의 프로젝트 전문가를 모십니다.
+            </p>
+          </div>
+          <div class="announcement-list" id="projectRolesList">
+          </div>
+        </div>
+      </section>
+
+      <section class="section-container" id="openRolesSection" style="padding-top: 4rem;">
         <div class="container">
           <div style="margin-bottom: 3rem;">
             <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Open Roles</span>
@@ -594,14 +608,14 @@
               뛰어난 역량을 보유한 인재라면 상시 검토를 통해 언제든 채용 기회를 제공합니다.
             </p>
           </div>
-          <div class="announcement-list">
+          <div class="announcement-list" id="openRolesList">
             <div class="announcement-item" onclick="openJobModal('developer')">
               <div class="ann-info">
                 <h4>금융 시스템 개발자</h4>
                 <div class="ann-meta">
                   <span>정규직/계약직/프리랜서</span>
                   <span>|</span>
-                  <span>여의도/서울대입구</span>
+                  <span>본사/여의도</span>
                   <span>|</span>
                   <span>상시채용</span>
                 </div>
@@ -656,20 +670,20 @@
               지원해주신 정보는 인력풀에 안전하게 등록되며, 해당 직무의 채용이 필요할 때 최우선 검토 대상이 됩니다.
             </p>
           </div>
-          <div class="announcement-list">
+          <div class="announcement-list" id="talentPoolList">
             <div class="announcement-item" onclick="openJobModal('pm')">
               <div class="ann-info">
                 <h4>프로젝트 매니지먼트</h4>
                 <div class="ann-meta">
                   <span>정규직</span>
                   <span>|</span>
-                  <span>본사/여의도</span>
+                  <span>여의도</span>
                   <span>|</span>
-                  <span>상시채용</span>
+                  <span>인재풀</span>
                 </div>
               </div>
               <div class="ann-right">
-                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">인재풀 등록</span>
                 <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
               </div>
             </div>
@@ -677,15 +691,15 @@
               <div class="ann-info">
                 <h4>품질 관리 (QA)</h4>
                 <div class="ann-meta">
-                  <span>정규직</span>
+                  <span>정규직/계약직/프리랜서</span>
                   <span>|</span>
-                  <span>여의도</span>
+                  <span>본사/여의도</span>
                   <span>|</span>
-                  <span>상시채용</span>
+                  <span>인재풀</span>
                 </div>
               </div>
               <div class="ann-right">
-                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">인재풀 등록</span>
                 <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
               </div>
             </div>
@@ -693,15 +707,15 @@
               <div class="ann-info">
                 <h4>UI / UX / CX</h4>
                 <div class="ann-meta">
-                  <span>정규직</span>
+                  <span>정규직/계약직/프리랜서</span>
                   <span>|</span>
-                  <span>여의도</span>
+                  <span>본사/여의도</span>
                   <span>|</span>
-                  <span>상시채용</span>
+                  <span>인재풀</span>
                 </div>
               </div>
               <div class="ann-right">
-                <span class="ann-status" style="background: #e2e8f0; color: #475569;">상시 접수</span>
+                <span class="ann-status" style="background: #e2e8f0; color: #475569;">인재풀 등록</span>
                 <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
               </div>
             </div>
@@ -783,7 +797,7 @@
         developer: {
           title: "금융 시스템 개발자",
           label: "Open Roles",
-          meta: ["정규직/계약직/프리랜서", "여의도/서울대입구", "상시채용"],
+          meta: ["정규직/계약직/프리랜서", "본사/여의도", "상시채용"],
           intro: "국내 주요 금융권의 차세대 시스템 및 핵심 금융 솔루션을 개발하고 고도화하는 역할을 수행합니다.",
           tasks: [
             "은행, 증권, 보험 등 핵심 기간계 금융 시스템 설계 및 개발",
@@ -852,7 +866,7 @@
         pm: {
           title: "프로젝트 매니지먼트",
           label: "Talent Pool",
-          meta: ["정규직", "본사/여의도", "상시채용"],
+          meta: ["정규직", "여의도", "인재풀"],
           intro: "복잡한 금융 IT 프로젝트의 성공적인 완수를 위해 전체 라이프사이클을 리드하고 관리합니다.",
           tasks: [
             "금융 프로젝트 범위, 일정, 자원 및 리스크 통합 관리",
@@ -875,7 +889,7 @@
         qa: {
           title: "품질 관리 (QA)",
           label: "Talent Pool",
-          meta: ["정규직", "여의도", "상시채용"],
+          meta: ["정규직/계약직/프리랜서", "본사/여의도", "인재풀"],
           intro: "금융 서비스의 무결성과 신뢰성을 확보하기 위해 전문적인 품질 검증 프로세스를 운영합니다.",
           tasks: [
             "금융 도메인 특화 테스트 시나리오 설계 및 테스트 케이스 작성",
@@ -898,7 +912,7 @@
         uiux: {
           title: "UI / UX / CX",
           label: "Talent Pool",
-          meta: ["정규직", "여의도", "상시채용"],
+          meta: ["정규직/계약직/프리랜서", "본사/여의도", "인재풀"],
           intro: "사용자 중심의 사고를 바탕으로 직관적이고 완성도 높은 금융 인터페이스를 설계합니다.",
           tasks: [
             "금융 서비스 UI/UX 기획 및 시각화 디자인",
@@ -1101,7 +1115,129 @@
         if (event.target == modal) {
           closeJobModal();
         }
-      }
+      };
+
+      // --- Supabase Dynamic Fetching & Rendering ---
+      (async function() {
+        const SUPABASE_URL = 'https://hypyydfzyahscznwltnf.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5cHl5ZGZ6eWFoc2N6bndsdG5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3Njg2OTgsImV4cCI6MjA5NDM0NDY5OH0.fd_vtDVcyCZpBKVEywmvpp7EWhwsAe3QAr0RadFG7D8';
+        
+        // Load Supabase script dynamically if not loaded
+        if (!window.supabase) {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+          document.head.appendChild(script);
+          await new Promise(r => script.onload = r);
+        }
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        try {
+          const { data, error } = await supabase
+            .from('job_postings')
+            .select('*')
+            .eq('is_active', true);
+            
+          if (!error && data && data.length > 0) {
+            console.log("Loaded dynamic job postings from Supabase:", data);
+            
+            const newJobData = {};
+            const openRolesHTML = [];
+            const projectRolesHTML = [];
+            const talentPoolHTML = [];
+            
+            data.forEach((job) => {
+              const roleId = 'job_' + job.id;
+              
+              // Parse job content details
+              let contentDetails = {};
+              try {
+                contentDetails = typeof job.content === 'string' ? JSON.parse(job.content) : job.content;
+              } catch(e) {
+                console.error("Failed to parse job content:", e);
+              }
+              
+              const label = contentDetails.label || 'Open Roles';
+              const locationText = job.job_type === '정규직' ? '여의도' : '본사/여의도';
+              let deadlineText = '';
+              if (label === 'Open Roles' || label === 'Talent Pool') {
+                  deadlineText = label === 'Open Roles' ? '상시채용' : '인재풀';
+              } else {
+                  const startStr = contentDetails.startDate || '';
+                  const endStr = job.end_date || '';
+                  if (startStr && endStr) deadlineText = `${startStr} ~ ${endStr}`;
+                  else if (endStr) deadlineText = `~ ${endStr}`;
+                  else deadlineText = (label === 'Immediate' ? '채용시 마감' : (contentDetails.contractPeriod || '프로젝트 단위'));
+              }
+              const meta = [job.job_type, locationText, deadlineText];
+              
+              const intro = contentDetails.intro || "";
+              const tasks = contentDetails.tasks || [];
+              const requirements = contentDetails.requirements || [];
+              const preferred = contentDetails.preferred || [];
+              
+              // Update jobData object so the modal can read it
+              newJobData[roleId] = {
+                title: job.title,
+                label: label,
+                meta: meta,
+                intro: intro,
+                tasks: tasks,
+                requirements: requirements,
+                preferred: preferred
+              };
+              
+              const statusText = label === 'Open Roles' ? '상시 접수' : (label === 'Immediate' ? '즉시 채용' : (label === 'Project' ? '프로젝트 채용' : '인재풀 등록'));
+              
+              const itemHTML = `
+                <div class="announcement-item" onclick="openJobModal('${roleId}')">
+                  <div class="ann-info">
+                    <h4>${job.title}</h4>
+                    <div class="ann-meta">
+                      ${meta.map(m => `<span>${m}</span>`).join('<span>|</span>')}
+                    </div>
+                  </div>
+                  <div class="ann-right">
+                    <span class="ann-status" style="background: #e2e8f0; color: #475569;">${statusText}</span>
+                    <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
+                  </div>
+                </div>
+              `;
+              
+              if (label === 'Project') {
+                projectRolesHTML.push(itemHTML);
+              } else if (label === 'Open Roles' || label === 'Immediate') {
+                openRolesHTML.push(itemHTML);
+              } else {
+                talentPoolHTML.push(itemHTML);
+              }
+            });
+            
+            // Replace the local jobData
+            Object.assign(jobData, newJobData);
+            
+            // Update DOM
+            if (projectRolesHTML.length > 0) {
+              const projSection = document.getElementById('projectRolesSection');
+              if (projSection) projSection.style.display = 'block';
+              document.getElementById('projectRolesList').innerHTML = projectRolesHTML.join('');
+            }
+            if (openRolesHTML.length > 0) {
+              document.getElementById('openRolesList').innerHTML = openRolesHTML.join('');
+            }
+            if (talentPoolHTML.length > 0) {
+              document.getElementById('talentPoolList').innerHTML = talentPoolHTML.join('');
+            }
+            
+            // Re-render Lucide icons
+            if (window.lucide) {
+              lucide.createIcons();
+            }
+          }
+        } catch (e) {
+          console.error("Error fetching dynamic job postings:", e);
+        }
+      })();
     </script>
   </body>
 </html>

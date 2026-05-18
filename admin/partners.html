@@ -8,6 +8,13 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/scripts/supabase-client.js"></script>
+    <style>
+        .upload-area { border: 2px dashed #e2e8f0; padding: 1.5rem; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fdfdfd; margin-top: 0.5rem; }
+        .upload-area:hover { border-color: #020617; background: #f8fafc; }
+        .preview-img { max-height: 60px; margin-top: 1rem; display: none; margin-left: auto; margin-right: auto; object-fit: contain; border: 1px solid #eee; padding: 5px; border-radius: 4px; background: #f8fafc; }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -43,45 +50,52 @@
                 <p>로고 및 파트너십 정보를 관리합니다.</p>
             </div>
             <div class="header-actions">
-                <button class="btn btn-primary">+ 신규 고객사 등록</button>
             </div>
         </header>
 
-        <!-- Partner List Table -->
-        <section class="data-card">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th style="width: 100px;">로고</th>
-                        <th>업체명</th>
-                        <th>구분</th>
-                        <th>등록일</th>
-                        <th style="text-align: right;">관리</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">LOGO</div></td>
-                        <td style="font-weight: 600;">IBK기업은행</td>
-                        <td><span class="badge" style="background: #dcfce7; color: #166534;">고객사</span></td>
-                        <td>2024.01.10</td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><div style="width: 80px; height: 35px; background: #f1f5f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">LOGO</div></td>
-                        <td style="font-weight: 600;">마이크로소프트</td>
-                        <td><span class="badge" style="background: #e0f2fe; color: #075985;">파트너</span></td>
-                        <td>2023.11.05</td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Filter & Search Bar -->
+        <section style="width: 100%; box-sizing: border-box; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+            <div class="category-chips" id="categoryChips" style="display: flex; gap: 0.6rem; flex-wrap: wrap; flex: 1;">
+                <button class="chip active" data-value="all">전체 <span class="count" id="count-all">0</span></button>
+                <button class="chip" data-value="highlight">우수사례 <span class="count" id="count-highlight">0</span></button>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem; width: 500px; flex-shrink: 0; margin-right: 0;">
+                <!-- Custom Dropdown Sort Selector -->
+                <div class="custom-select-container" style="position: relative; user-select: none; display: flex; align-items: center;">
+                    <div id="customSortTrigger" style="display: flex; align-items: center; gap: 4px; padding: 0.75rem 0.75rem; font-size: 0.95rem; cursor: pointer; color: #475569; font-weight: 600; background: transparent; transition: all 0.2s;">
+                        <span id="customSortLabel">최신순</span>
+                        <i data-lucide="chevron-down" style="width: 14px; height: 14px; transition: transform 0.2s; color: #64748b;" id="customSortArrow"></i>
+                    </div>
+                    <div id="customSortDropdown" style="display: none; position: absolute; top: calc(100% + 4px); right: 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05); z-index: 100; min-width: 110px; padding: 0.35rem; overflow: hidden; transform-origin: top right;">
+                        <div class="custom-option active" data-value="created_at-desc" style="padding: 0.55rem 0.85rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; color: #1e293b; background: #f1f5f9; cursor: pointer; transition: background 0.15s;">
+                            최신순
+                        </div>
+                        <div class="custom-option" data-value="name-asc" style="padding: 0.55rem 0.85rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; color: #475569; background: transparent; cursor: pointer; transition: background 0.15s;">
+                            가나다순
+                        </div>
+                    </div>
+                </div>
+                <input type="text" id="searchInput" placeholder="업체명 검색" style="flex: 1; margin: 0; padding: 0.75rem 1rem; font-size: 1.05rem; border-radius: 8px; border: 1px solid var(--admin-border); outline: none; box-sizing: border-box;" onkeyup="if(event.key==='Enter') {currentPage=1; applyFilters()}">
+                <button class="btn" style="margin: 0; background: #1e293b; color: #fff; box-sizing: border-box;" onclick="currentPage=1; applyFilters()">검색</button>
+            </div>
+        </section>
+
+        <!-- Partner List Card Grid -->
+        <section style="background: transparent; border: none; box-shadow: none; padding: 0; width: 100%;">
+            <div id="partnerCardGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; width: 100%;">
+                <!-- 카드들이 동적으로 삽입됩니다 -->
+            </div>
+            
+            <!-- Pagination & Add Button -->
+            <div style="padding: 1.5rem 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-top: 1px solid var(--admin-border); margin-top: 2rem;">
+                <div></div> <!-- Left balance -->
+                <div id="pagination" style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <!-- 페이지 버튼이 동적으로 생성됩니다 -->
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button class="btn btn-primary" id="addNewBtn" style="white-space: nowrap;">+ 신규 고객사 등록</button>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -94,46 +108,733 @@
             </div>
             <div class="modal-body">
                 <form id="partnerForm">
-                    <div class="form-group">
-                        <label class="form-label">업체명</label>
-                        <input type="text" class="form-control" placeholder="예: IBK기업은행" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">구분</label>
-                        <select class="form-control">
-                            <option value="client">고객사 (CLIENT)</option>
-                            <option value="partner">파트너사 (PARTNER)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">로고 이미지</label>
-                        <div style="border: 2px dashed var(--admin-border); padding: 1.5rem; text-align: center; border-radius: 8px;">
-                            <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 0.5rem;">권장 사이즈: 가로형 투명 PNG</p>
-                            <input type="file">
+                    <!-- 1행 구성 (구분, 업체명, 노출 순서) -->
+                    <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">구분</label>
+                            <select id="editType" class="form-control">
+                                <option value="client">고객사 (CLIENT)</option>
+                                <option value="partner">파트너사 (PARTNER)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">업체명</label>
+                            <input type="text" id="editName" class="form-control" placeholder="예: IBK기업은행" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">노출 순서 (낮을수록 먼저 노출)</label>
+                            <input type="number" id="editOrderIndex" class="form-control" value="0">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">노출 순서</label>
-                        <input type="number" class="form-control" value="0">
+
+                    <!-- 그 아래 로고 이미지 -->
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="form-label">로고 이미지</label>
+                        <input type="file" id="logoUpload" style="display: none;" accept="image/*">
+                        <div class="upload-area" onclick="document.getElementById('logoUpload').click()" style="background: #fff; border-style: solid; border-width: 1px;">
+                            <i data-lucide="upload-cloud" style="width: 24px; margin-bottom: 0.5rem; color: #64748b;"></i>
+                            <div style="font-size: 0.85rem; color: #64748b;">클릭하여 로고 업로드 (가로형 PNG 권장)</div>
+                        </div>
+                        <img id="logoPreview" class="preview-img">
+                        <input type="hidden" id="editLogoUrl">
+                    </div>
+
+                    <!-- 우수 사례 노출 체크박스 및 세부 설정 (맨 마지막 행) -->
+                    <div class="form-group" style="margin: 0; padding: 1.25rem 1.5rem; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <div id="highlightHeader" style="display: flex; align-items: center; gap: 0.8rem;">
+                            <input type="checkbox" id="editIsHighlight" onchange="toggleHighlightFields()">
+                            <label for="editIsHighlight" style="cursor: pointer; font-weight: 700; color: #0f172a; font-size: 1.1rem;">우수 사례(Slide)에 노출</label>
+                        </div>
+
+                        <div id="highlightFields" style="display: none; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed #cbd5e1;">
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label class="form-label" style="color: #475569; font-weight: 600;">우수 사례 핵심 한 줄 (Quote)</label>
+                                <input type="text" id="editQuote" class="form-control" placeholder="예: 혁신적인 퇴직연금 시스템을 성공적으로 구축했습니다." style="background: #fff;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label" style="color: #475569; font-weight: 600;">상세 성과 내용 (Stats/Description)</label>
+                                <textarea id="editStats" class="form-control" rows="3" placeholder="예: 성공적인 자동화로 운영 효율을 60% 높였습니다." style="background: #fff; font-family: inherit;"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('partnerModal')">취소</button>
-                <button class="btn btn-primary">저장하기</button>
+                <button class="btn btn-primary" id="saveBtn">저장하기</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Global error handlers for production debugging
+        window.onerror = function(message, source, lineno, colno, error) {
+            alert(`[JS 에러 발생]\n메시지: ${message}\n파일: ${source}\n라인: ${lineno}:${colno}`);
+            return false;
+        };
+        window.onunhandledrejection = function(event) {
+            alert(`[비동기 에러 발생]\n원인: ${event.reason}`);
+        };
+
+        const partnerTableBody = document.getElementById('partnerCardGrid');
+        let allPartners = [];
+        let filteredPartners = [];
+        let currentPage = 1;
+        const itemsPerPage = 14;
+
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        
-        document.querySelector('.header-actions .btn-primary').onclick = function() {
+
+        // ==========================================
+        // [1] 상단 영역 데이터 (헤드라인 & 우수사례) 로드 백그라운드 로직
+        // ==========================================
+        const defaultTopConfig = {
+            headline: "초일류 금융사부터\n공공 비즈니스까지, 금융의 미래를 구축하고 있습니다.",
+            stories: []
+        };
+
+        let currentTopConfig = { ...defaultTopConfig };
+
+        async function loadTopSectionConfig() {
+            // 1. localStorage에서 빠른 복구
+            const localConfig = localStorage.getItem('partners_top_config');
+            if (localConfig) {
+                try {
+                    currentTopConfig = JSON.parse(localConfig);
+                } catch (e) {
+                    console.error("LocalConfig parse error", e);
+                }
+            }
+            
+            // 2. Supabase에서 최신 상태 불러오기
+            try {
+                const { data, error } = await supabaseClient
+                    .from('partners')
+                    .select('*')
+                    .eq('name', 'TOP_SECTION_CONFIG');
+                    
+                if (!error && data && data.length > 0) {
+                    currentTopConfig = JSON.parse(data[0].logo_url);
+                    localStorage.setItem('partners_top_config', data[0].logo_url);
+                }
+            } catch (err) {
+                console.error("Failed to load config from Supabase:", err);
+            }
+        }
+
+        // 우수사례 필드 노출 토글
+        function toggleHighlightFields() {
+            const isHighlight = document.getElementById('editIsHighlight').checked;
+            const highlightFields = document.getElementById('highlightFields');
+            highlightFields.style.display = isHighlight ? 'block' : 'none';
+        }
+
+
+        // ==========================================
+        // [2] 하단 고객사 목록 및 테이블 관리 로직
+        // ==========================================
+        async function fetchPartners() {
+            const { data, error } = await supabaseClient
+                .from('partners')
+                .select('*')
+                .order('order_index', { ascending: true })
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching partners:', error);
+                partnerTableBody.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 4rem; color: #ef4444; background: #fff5f5; border-radius: 12px; border: 1px solid #fee2e2;">데이터를 불러오는 중 오류가 발생했습니다. (테이블 스키마 또는 RLS 설정 문제일 수 있습니다)</div>';
+                return;
+            }
+
+            // 상단 레이아웃 설정 데이터(TOP_SECTION_CONFIG) 제외 후 가공
+            const realPartners = data.filter(p => p.name !== 'TOP_SECTION_CONFIG' && p.partner_type !== 'config');
+            allPartners = realPartners.map((p, idx) => ({
+                ...p,
+                displayNo: realPartners.length - idx
+            }));
+            
+            updateCounts();
+            applyFilters();
+        }
+
+        function updateCounts() {
+            const counts = {
+                all: allPartners.length,
+                highlight: allPartners.filter(p => currentTopConfig.stories.some(s => s.company === p.name)).length
+            };
+
+            for (const [key, value] of Object.entries(counts)) {
+                const el = document.getElementById(`count-${key}`);
+                if (el) el.innerText = value;
+            }
+        }
+
+        let currentCategory = 'all';
+        let sortColumn = 'created_at';
+        let sortDirection = 'desc';
+        let currentEditId = null;
+
+        function handleSortSelect(value) {
+            const [column, direction] = value.split('-');
+            sortColumn = column;
+            sortDirection = direction;
+            applyFilters();
+        }
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.onclick = function() {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.value;
+                currentPage = 1;
+                applyFilters();
+            };
+        });
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = currentCategory;
+
+            filteredPartners = allPartners.filter(p => {
+                const nameMatch = p.name ? p.name.toLowerCase().includes(searchTerm) : false;
+                
+                let typeMatch = true;
+                if (category === 'highlight') {
+                    typeMatch = currentTopConfig.stories.some(s => s.company === p.name);
+                }
+                
+                return nameMatch && typeMatch;
+            });
+
+            filteredPartners.sort((a, b) => {
+                let valA = a[sortColumn];
+                let valB = b[sortColumn];
+                
+                if (sortColumn === 'no') {
+                    valA = a.displayNo;
+                    valB = b.displayNo;
+                }
+
+                if (valA === null || valA === undefined) valA = '';
+                if (valB === null || valB === undefined) valB = '';
+
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            renderTable();
+            renderPagination();
+        }
+
+        function renderTable() {
+            partnerTableBody.innerHTML = '';
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pagedData = filteredPartners.slice(start, end);
+
+            if (pagedData.length === 0) {
+                partnerTableBody.innerHTML = '<div style="grid-column: 1 / -1; text-align:center; padding: 4rem; color: #94a3b8; background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; font-weight: 500;">등록된 데이터가 없습니다.</div>';
+                return;
+            }
+
+            pagedData.forEach((partner) => {
+                const story = currentTopConfig.stories.find(s => s.company === partner.name);
+                const isHighlight = !!story;
+                
+                const highlightBadge = isHighlight ? `
+                    <div style="position: absolute; top: 12px; right: 12px; display: flex; align-items: center; gap: 3px; background: #e0e7ff; color: #3730a3; padding: 4px 8px; border-radius: 9999px; font-size: 0.725rem; font-weight: 700; border: 1px solid #c7d2fe;">
+                        <i data-lucide="star" style="width: 11px; height: 11px; fill: #3730a3;"></i> 우수사례
+                    </div>
+                ` : '';
+
+                const isClient = partner.partner_type === 'client';
+                const typeBadge = `
+                    <span style="display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.725rem; font-weight: 700; ${isClient ? 'background: #dcfce7; color: #166534;' : 'background: #e0f2fe; color: #075985;'}">
+                        ${isClient ? '고객사' : '파트너사'}
+                    </span>
+                `;
+
+                const logoUrl = partner.logo_url || '';
+                const orderIndex = partner.order_index !== null ? partner.order_index : 0;
+                const createdAt = partner.created_at ? new Date(partner.created_at).toLocaleDateString() : '-';
+                const partnerName = partner.name || '-';
+
+                const card = document.createElement('div');
+                card.className = 'partner-card';
+                card.style.cursor = 'pointer';
+                card.onclick = (e) => {
+                    openEditModal(partner.id);
+                };
+
+                if (isHighlight) {
+                    card.style.position = 'relative';
+                    card.style.background = 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)';
+                    card.style.border = '1px solid #e2e8f0';
+                    card.style.borderRadius = '16px';
+                    card.style.padding = '1.5rem';
+                    card.style.gridColumn = 'span 2';
+                    card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
+                    card.style.transition = 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)';
+
+                    card.onmouseenter = () => {
+                        card.style.transform = 'translateY(-6px)';
+                        card.style.borderColor = '#94a3b8';
+                        card.style.boxShadow = '0 12px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.04)';
+                    };
+                    card.onmouseleave = () => {
+                        card.style.transform = 'translateY(0)';
+                        card.style.borderColor = '#e2e8f0';
+                        card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
+                    };
+
+                    card.innerHTML = `
+                        ${highlightBadge}
+                        <div style="display: flex; gap: 1.5rem; height: 100%; flex-wrap: wrap;">
+                            <!-- Left: Basic info & action buttons -->
+                            <div style="flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 0.75rem;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 600;">No. ${partner.displayNo}</span>
+                                    ${typeBadge}
+                                </div>
+                                
+                                <div style="height: 80px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 0.75rem; border: 1px solid #e2e8f0; overflow: hidden; margin-top: 0.25rem;">
+                                    ${logoUrl ? `<img src="${logoUrl}" alt="${partnerName}" style="max-width: 100%; max-height: 100%; object-fit: contain;">` : '<div style="font-size: 11px; color: #94a3b8; font-weight: 600;">NO LOGO</div>'}
+                                </div>
+                                
+                                <div style="display: flex; gap: 0.5rem; margin-top: auto; border-top: 1px solid #f1f5f9; padding-top: 1rem;">
+                                    <button class="btn btn-delete-action" style="flex: 1; margin: 0; padding: 0.55rem 0.75rem; font-size: 0.9rem; justify-content: center; font-weight: 600;" onclick="event.stopPropagation(); showDeleteConfirmModal('${partner.id}')">
+                                        <i data-lucide="trash-2"></i> 삭제
+                                    </button>
+                                    <button class="btn btn-edit-action" style="flex: 1; margin: 0; padding: 0.55rem 0.75rem; font-size: 0.9rem; justify-content: center; font-weight: 600;" onclick="event.stopPropagation(); openEditModal('${partner.id}')">
+                                        <i data-lucide="edit-2"></i> 수정
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Right: Success story details -->
+                            <div style="flex: 1.3; min-width: 280px; display: flex; flex-direction: column; gap: 0.5rem; border-left: 1px dashed #e2e8f0; padding-left: 1.5rem; justify-content: center;">
+                                <div style="font-size: 1.1rem; font-weight: 800; color: #1e1b4b; line-height: 1.45; word-break: keep-all; overflow-wrap: break-word;">
+                                    ${story.quote || '내용 없음'}
+                                </div>
+                                <div style="font-size: 0.9rem; color: #475569; line-height: 1.6; white-space: pre-line; margin-top: 0.25rem; border-top: 1px dashed #f1f5f9; padding-top: 0.5rem; word-break: keep-all; overflow-wrap: break-word;">
+                                    ${story.stats || '내용 없음'}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    card.style.position = 'relative';
+                    card.style.background = '#ffffff';
+                    card.style.border = '1px solid #e2e8f0';
+                    card.style.borderRadius = '16px';
+                    card.style.padding = '1.5rem';
+                    card.style.display = 'flex';
+                    card.style.flexDirection = 'column';
+                    card.style.gap = '1rem';
+                    card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
+                    card.style.transition = 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)';
+
+                    card.onmouseenter = () => {
+                        card.style.transform = 'translateY(-6px)';
+                        card.style.borderColor = '#94a3b8';
+                        card.style.boxShadow = '0 12px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.04)';
+                    };
+                    card.onmouseleave = () => {
+                        card.style.transform = 'translateY(0)';
+                        card.style.borderColor = '#e2e8f0';
+                        card.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)';
+                    };
+
+                    card.innerHTML = `
+                        ${highlightBadge}
+                        
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem;">
+                            <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 600;">No. ${partner.displayNo}</span>
+                            ${typeBadge}
+                        </div>
+                        
+                        <div style="height: 80px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 0.75rem; border: 1px solid #f1f5f9; overflow: hidden;">
+                            ${logoUrl ? `<img src="${logoUrl}" alt="${partnerName}" style="max-width: 100%; max-height: 100%; object-fit: contain;">` : '<div style="font-size: 11px; color: #94a3b8; font-weight: 600; letter-spacing: 0.5px;">NO LOGO</div>'}
+                        </div>
+                        
+                        <div style="display: flex; gap: 0.5rem; margin-top: auto; border-top: 1px solid #f1f5f9; padding-top: 1rem;">
+                            <button class="btn btn-delete-action" style="flex: 1; margin: 0; padding: 0.55rem 0.75rem; font-size: 0.9rem; justify-content: center; font-weight: 600;" onclick="event.stopPropagation(); showDeleteConfirmModal('${partner.id}')">
+                                <i data-lucide="trash-2"></i> 삭제
+                            </button>
+                            <button class="btn btn-edit-action" style="flex: 1; margin: 0; padding: 0.55rem 0.75rem; font-size: 0.9rem; justify-content: center; font-weight: 600;" onclick="event.stopPropagation(); openEditModal('${partner.id}')">
+                                <i data-lucide="edit-2"></i> 수정
+                            </button>
+                        </div>
+                    `;
+                }
+                partnerTableBody.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const paginationEl = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredPartners.length / itemsPerPage);
+            paginationEl.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            const groupSize = 10;
+            const currentGroup = Math.floor((currentPage - 1) / groupSize);
+            const startPage = currentGroup * groupSize + 1;
+            const endPage = Math.min(startPage + groupSize - 1, totalPages);
+
+            if (currentGroup > 0) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'btn';
+                prevBtn.style.background = '#fff';
+                prevBtn.style.border = '1px solid var(--admin-border)';
+                prevBtn.innerHTML = '<i data-lucide="chevron-left" style="width:16px"></i>';
+                prevBtn.onclick = () => { currentPage = startPage - 1; applyFilters(); };
+                paginationEl.appendChild(prevBtn);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const btn = document.createElement('button');
+                btn.className = `btn ${i === currentPage ? 'btn-primary' : ''}`;
+                btn.style.background = i === currentPage ? '' : '#fff';
+                btn.style.border = i === currentPage ? '' : '1px solid var(--admin-border)';
+                btn.innerText = i;
+                btn.onclick = () => { currentPage = i; renderTable(); renderPagination(); };
+                paginationEl.appendChild(btn);
+            }
+
+            if (endPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'btn';
+                nextBtn.style.background = '#fff';
+                nextBtn.style.border = '1px solid var(--admin-border)';
+                nextBtn.innerHTML = '<i data-lucide="chevron-right" style="width:16px"></i>';
+                nextBtn.onclick = () => { currentPage = endPage + 1; applyFilters(); };
+                paginationEl.appendChild(nextBtn);
+            }
+            lucide.createIcons();
+        }
+
+        async function savePartner() {
+            const fileInput = document.getElementById('logoUpload');
+            let logoUrl = document.getElementById('editLogoUrl').value;
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Math.random()}.${fileExt}`;
+                const filePath = `logos/${fileName}`;
+
+                const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                    .from('project-assets')
+                    .upload(filePath, file);
+
+                if (uploadError) {
+                    alert('로고 업로드 오류: ' + uploadError.message);
+                    return;
+                }
+
+                const { data: publicUrlData } = supabaseClient.storage.from('project-assets').getPublicUrl(filePath);
+                logoUrl = publicUrlData.publicUrl;
+            }
+
+            const formData = {
+                name: document.getElementById('editName').value.trim(),
+                partner_type: document.getElementById('editType').value,
+                order_index: parseInt(document.getElementById('editOrderIndex').value || '0'),
+                logo_url: logoUrl
+            };
+
+            if (!formData.name) { alert('업체명을 입력해주세요.'); return; }
+
+            let result;
+            if (currentEditId) {
+                // 이전 이름 백업 (스토리 매칭 수정용)
+                const { data: prevData } = await supabaseClient.from('partners').select('name').eq('id', currentEditId).single();
+                const prevName = prevData ? prevData.name : formData.name;
+                
+                result = await supabaseClient.from('partners').update(formData).eq('id', currentEditId);
+                
+                if (!result.error) {
+                    await syncHighlightStory(formData.name, formData.logo_url, prevName);
+                }
+            } else {
+                result = await supabaseClient.from('partners').insert([formData]);
+                if (!result.error) {
+                    await syncHighlightStory(formData.name, formData.logo_url);
+                }
+            }
+
+            if (result.error) {
+                alert('저장 실패 (테이블 스키마 또는 RLS 설정을 확인하세요): ' + result.error.message);
+            } else {
+                alert(currentEditId ? '수정되었습니다!' : '저장되었습니다!');
+                closeModal('partnerModal');
+                fetchPartners();
+            }
+        }
+
+        // 우수사례 JSON 연동 동기화 로직
+        async function syncHighlightStory(name, logoUrl, prevName = null) {
+            const isHighlight = document.getElementById('editIsHighlight').checked;
+            const quote = document.getElementById('editQuote').value.trim();
+            const stats = document.getElementById('editStats').value.trim();
+            
+            const matchName = prevName || name;
+            
+            if (isHighlight) {
+                // 우수사례 등록 또는 업데이트
+                let storyIndex = currentTopConfig.stories.findIndex(s => s.company === matchName);
+                const storyData = { company: name, logo: logoUrl, quote, stats };
+                
+                if (storyIndex > -1) {
+                    currentTopConfig.stories[storyIndex] = storyData;
+                } else {
+                    currentTopConfig.stories.unshift(storyData); // 신규 등록 시 맨 앞에 추가하여 최신 우수사례가 먼저 노출되도록 개선
+                }
+            } else {
+                // 우수사례 제외
+                currentTopConfig.stories = currentTopConfig.stories.filter(s => s.company !== matchName);
+            }
+
+            const configStr = JSON.stringify(currentTopConfig);
+            localStorage.setItem('partners_top_config', configStr);
+            
+            try {
+                const { error } = await supabaseClient
+                    .from('partners')
+                    .update({ logo_url: configStr })
+                    .eq('name', 'TOP_SECTION_CONFIG');
+                if (error) console.error("Error syncing highlight story in Supabase:", error);
+            } catch (err) {
+                console.error("DB connection error during sync:", err);
+            }
+        }
+
+        async function openEditModal(id) {
+            const { data, error } = await supabaseClient.from('partners').select('*').eq('id', id).single();
+            if (error) { alert('데이터 로드 실패'); return; }
+
+            currentEditId = id;
+            document.getElementById('modalTitle').innerText = '고객사 정보 수정';
+            
+            document.getElementById('editName').value = data.name || '';
+            document.getElementById('editType').value = data.partner_type || 'client';
+            document.getElementById('editOrderIndex').value = data.order_index !== null ? data.order_index : 0;
+            document.getElementById('editLogoUrl').value = data.logo_url || '';
+            
+            const preview = document.getElementById('logoPreview');
+            if (data.logo_url) {
+                preview.src = data.logo_url;
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+
+            // 우수 사례 로드 및 매칭
+            const story = currentTopConfig.stories.find(s => s.company === data.name);
+            if (story) {
+                document.getElementById('editIsHighlight').checked = true;
+                document.getElementById('editQuote').value = story.quote || '';
+                document.getElementById('editStats').value = story.stats || '';
+            } else {
+                document.getElementById('editIsHighlight').checked = false;
+                document.getElementById('editQuote').value = '';
+                document.getElementById('editStats').value = '';
+            }
+            toggleHighlightFields();
+
+            openModal('partnerModal');
+        }
+
+        document.getElementById('logoUpload').onchange = function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('logoPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        };
+
+        let partnerIdToDelete = null;
+
+        function showDeleteConfirmModal(id) {
+            partnerIdToDelete = id;
+            const partner = allPartners.find(p => p.id === id);
+            const partnerName = partner ? partner.name : '고객사';
+            
+            const nameSpan = document.getElementById('deleteConfirmPartnerName');
+            if (nameSpan) nameSpan.innerText = partnerName;
+            
+            const modal = document.getElementById('deleteConfirmModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.offsetHeight; // force reflow
+                modal.style.opacity = '1';
+                const dialog = modal.querySelector('div');
+                if (dialog) dialog.style.transform = 'scale(1)';
+            }
+        }
+
+        function closeDeleteConfirmModal() {
+            const modal = document.getElementById('deleteConfirmModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                const dialog = modal.querySelector('div');
+                if (dialog) dialog.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    partnerIdToDelete = null;
+                }, 250);
+            }
+        }
+
+        async function executeDeletePartner() {
+            if (!partnerIdToDelete) return;
+            const id = partnerIdToDelete;
+            const partner = allPartners.find(p => p.id === id);
+            const partnerName = partner ? partner.name : '';
+            
+            closeDeleteConfirmModal();
+            console.log("executeDeletePartner 함수 실행", id, partnerName);
+            
+            try {
+                const { error } = await supabaseClient.from('partners').delete().eq('id', id);
+                
+                if (error) {
+                    alert('삭제 오류: ' + error.message);
+                } else {
+                    // 삭제 시 우수사례 설정에서도 자동으로 즉시 탈락 처리
+                    if (partnerName) {
+                        currentTopConfig.stories = currentTopConfig.stories.filter(s => s.company !== partnerName);
+                        const configStr = JSON.stringify(currentTopConfig);
+                        localStorage.setItem('partners_top_config', configStr);
+                        
+                        try {
+                            await supabaseClient
+                                .from('partners')
+                                .update({ logo_url: configStr })
+                                .eq('name', 'TOP_SECTION_CONFIG');
+                        } catch (err) {
+                            console.error("Failed to delete partner from config", err);
+                        }
+                    }
+                    
+                    fetchPartners();
+                }
+            } catch (err) {
+                alert("삭제 처리 중 예외 발생: " + err.message);
+                console.error(err);
+            }
+        }
+
+        document.getElementById('addNewBtn').onclick = function() {
+            currentEditId = null;
+            document.getElementById('partnerForm').reset();
+            document.getElementById('modalTitle').innerText = '신규 고객사 등록';
+            document.getElementById('editOrderIndex').value = '0';
+            document.getElementById('editIsHighlight').checked = false;
+            toggleHighlightFields();
+            document.getElementById('logoPreview').style.display = 'none';
             openModal('partnerModal');
         };
 
+        document.getElementById('saveBtn').onclick = savePartner;
+
+        // Custom select dropdown logic
+        const trigger = document.getElementById('customSortTrigger');
+        const dropdown = document.getElementById('customSortDropdown');
+        const label = document.getElementById('customSortLabel');
+        const arrow = document.getElementById('customSortArrow');
+
+        if (trigger && dropdown) {
+            trigger.onclick = (e) => {
+                e.stopPropagation();
+                const isOpen = dropdown.style.display === 'block';
+                dropdown.style.display = isOpen ? 'none' : 'block';
+                if (arrow) arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+            };
+
+            document.querySelectorAll('.custom-option').forEach(option => {
+                option.onmouseenter = () => {
+                    if (!option.classList.contains('active')) {
+                        option.style.background = '#f1f5f9';
+                    }
+                };
+                option.onmouseleave = () => {
+                    if (!option.classList.contains('active')) {
+                        option.style.background = 'transparent';
+                    }
+                };
+
+                option.onclick = (e) => {
+                    e.stopPropagation();
+                    const val = option.dataset.value;
+                    
+                    // Update trigger label
+                    label.innerText = option.innerText.trim();
+                    
+                    // Update active state in UI
+                    document.querySelectorAll('.custom-option').forEach(o => {
+                        o.classList.remove('active');
+                        o.style.background = 'transparent';
+                        o.style.color = '#475569';
+                    });
+                    option.classList.add('active');
+                    option.style.background = '#f1f5f9';
+                    option.style.color = '#1e293b';
+
+                    // Close dropdown
+                    dropdown.style.display = 'none';
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+
+                    // Trigger sort
+                    handleSortSelect(val);
+                };
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                dropdown.style.display = 'none';
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+            });
+        }
+
+        // 초기 실행 함수 묶음
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadTopSectionConfig();
+            await fetchPartners();
+        });
+        
         lucide.createIcons();
     </script>
+
+    <!-- Custom Premium Deletion Confirmation Modal -->
+    <div id="deleteConfirmModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s ease;">
+        <div style="background: #ffffff; border-radius: 20px; width: 100%; max-width: 440px; padding: 2rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem;">
+                <div style="width: 40px; height: 40px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ef4444;">
+                    <i data-lucide="alert-triangle" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">데이터 삭제 확인</h3>
+            </div>
+            <p style="font-size: 0.95rem; color: #475569; line-height: 1.6; margin: 0 0 2rem 0; word-break: keep-all;">
+                정말로 <span id="deleteConfirmPartnerName" style="font-weight: 700; color: #0f172a;">고객사</span> 정보를 완전히 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeDeleteConfirmModal()" style="margin: 0; padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600;">취소</button>
+                <button class="btn" style="margin: 0; padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600; background: #ef4444; color: #ffffff; border: none;" onclick="executeDeletePartner()">삭제하기</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

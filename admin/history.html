@@ -8,6 +8,8 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/scripts/supabase-client.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -39,50 +41,64 @@
     <main class="main-content">
         <header class="content-header">
             <div class="page-title">
-                <h1>기업 연혁 관리</h1>
+                <h1>연혁 관리</h1>
                 <p>회사의 주요 발자취를 시간순으로 관리합니다.</p>
-            </div>
-            <div class="header-actions">
-                <button class="btn btn-primary">+ 신규 연혁 등록</button>
             </div>
         </header>
 
-        <!-- History List Table -->
-        <section class="data-card">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th style="width: 100px;">년도</th>
-                        <th style="width: 80px;">월</th>
-                        <th>내용</th>
-                        <th style="width: 100px;">중요도</th>
-                        <th style="text-align: right;">관리</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-weight: 700; font-family: 'Outfit';">2024</td>
-                        <td>01</td>
-                        <td>IBK기업은행 POST 차세대 대응개발 (집합투자증권/퇴직연금)</td>
-                        <td><span class="badge badge-complete">주요</span></td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 700; font-family: 'Outfit';">2023</td>
-                        <td>05</td>
-                        <td>다음에이아이 쇼룸 오픈 및 자산관리 플랫폼 고도화</td>
-                        <td><span class="badge" style="background: #f1f5f9; color: #64748b;">일반</span></td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #f1f5f9;"><i data-lucide="edit-2" style="width: 14px;"></i></button>
-                            <button class="btn" style="padding: 0.3rem 0.6rem; background: #fee2e2; color: #ef4444;"><i data-lucide="trash-2" style="width: 14px;"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <!-- Dynamic Tabbed History List Table -->
+        <div style="display: grid; grid-template-columns: 420px 1fr; gap: 2rem; align-items: start;">
+            <!-- Left Era Selector Sidebar -->
+            <section class="data-card" style="padding: 2rem; margin: 0; display: flex; flex-direction: column; gap: 1.5rem;">
+                <div>
+                    <div style="margin: 0 0 1.5rem 0; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; min-height: 56px; box-sizing: border-box;">
+                        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; line-height: 1;">
+                            <span>시대 선택 (Era)</span>
+                        </div>
+                        <button class="btn" style="padding: 0.35rem 0.6rem; background: #e0f2fe; color: #0369a1; border: none; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 0.2rem; cursor: pointer; border-radius: 4px; margin: 0; line-height: 1; height: 28px;" onclick="openEraAddModal()">
+                            <i data-lucide="plus" style="width: 14px; height: 14px; stroke-width: 3;"></i> 추가
+                        </button>
+                    </div>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem;" id="adminEraTabs">
+                        <!-- Dynamic accordion-style Era config tabs populate here -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Right Milestones List Table -->
+            <section class="data-card" style="margin: 0; padding: 2rem;">
+                <div style="margin: 0 0 1.5rem 0; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; min-height: 56px; box-sizing: border-box;">
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; line-height: 1;">
+                        <span id="rightTableTitle" style="line-height: 1;">세부 연혁 리스트</span>
+                    </div>
+                    <button class="btn btn-primary" id="addNewBtn" style="white-space: nowrap; margin: 0; display: inline-flex; align-items: center; justify-content: center;">+ 신규 연혁 등록</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px; cursor: pointer; user-select: none;" onclick="sortBy('year')">
+                                <div style="display: flex; align-items: center; gap: 4px;">년도 <i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></div>
+                            </th>
+                            <th style="width: 100px; cursor: pointer; user-select: none;" onclick="sortBy('month')">
+                                <div style="display: flex; align-items: center; gap: 4px;">월 <i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></div>
+                            </th>
+                            <th style="cursor: pointer; user-select: none;" onclick="sortBy('content')">
+                                <div style="display: flex; align-items: center; gap: 4px;">내용 <i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></div>
+                            </th>
+                            <th style="width: 120px; cursor: pointer; user-select: none;" onclick="sortBy('is_major')">
+                                <div style="display: flex; align-items: center; gap: 4px;">중요도 <i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></div>
+                            </th>
+                            <th style="text-align: center; width: 260px;">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #94a3b8; padding: 3rem;">데이터를 불러오는 중입니다...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
     </main>
 
     <!-- History Modal -->
@@ -93,45 +109,765 @@
                 <button class="modal-close" onclick="closeModal('historyModal')"><i data-lucide="x"></i></button>
             </div>
             <div class="modal-body">
-                <form id="historyForm">
+                <form id="historyForm" onsubmit="event.preventDefault();">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="form-group">
                             <label class="form-label">연도 (Year)</label>
-                            <input type="text" class="form-control" placeholder="예: 2024" required>
+                            <input type="text" id="editYear" class="form-control" placeholder="예: 2024" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">월 (Month)</label>
-                            <input type="text" class="form-control" placeholder="예: 05 (또는 현재)" required>
+                            <input type="text" id="editMonth" class="form-control" placeholder="예: 05 (또는 현재)" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">연혁 내용</label>
-                        <textarea class="form-control" placeholder="해당 시점의 주요 성과를 입력하세요"></textarea>
+                        <textarea id="editContent" class="form-control" style="height: 120px; line-height: 1.6;" placeholder="해당 시점의 주요 성과를 입력하세요" required></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top: 1.5rem;">
                         <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                            <input type="checkbox" style="width: 18px; height: 18px;">
-                            <span class="form-label" style="margin: 0;">주요 연혁으로 강조 (타임라인 노란색 강조)</span>
+                            <input type="checkbox" id="editIsMajor" style="width: 18px; height: 18px;">
+                            <span class="form-label" style="margin: 0; user-select: none;">주요 연혁으로 강조 (타임라인 노란색 강조)</span>
                         </label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('historyModal')">취소</button>
-                <button class="btn btn-primary">저장하기</button>
+                <button class="btn btn-primary" id="saveBtn">저장하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Era Edit & Add Modal -->
+    <div class="modal-overlay" id="eraEditModal">
+        <div class="modal-container" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="eraModalTitle">대메뉴 시대(Era) 설정 수정</h2>
+                <button class="modal-close" onclick="closeModal('eraEditModal')"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="eraEditForm" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label class="form-label">메뉴 단계 (Step)</label>
+                        <input type="text" id="eraEditStep" class="form-control" placeholder="예: Next Step" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">기간 범위 (Range)</label>
+                        <input type="text" id="eraEditRange" class="form-control" placeholder="예: 2020 - PRESENT" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">볼드 타이틀 (Description)</label>
+                        <textarea id="eraEditTitle" class="form-control" style="height: 80px; line-height: 1.5;" placeholder="예: 시장 지배력 확대 및\n지능형 혁신(AX) 가속화" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('eraEditModal')">취소</button>
+                <button class="btn btn-primary" id="saveEraBtn" style="background: #10b981; border: none;">수정완료</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milestone Delete Confirm Modal -->
+    <div id="deleteConfirmModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s ease;">
+        <div style="background: #ffffff; border-radius: 20px; width: 100%; max-width: 440px; padding: 2rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem;">
+                <div style="width: 40px; height: 40px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ef4444;">
+                    <i data-lucide="alert-triangle" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">데이터 삭제 확인</h3>
+            </div>
+            <p style="font-size: 0.95rem; color: #475569; line-height: 1.6; margin: 0 0 2rem 0; word-break: keep-all;">
+                선택하신 연혁 데이터를 정말로 완전히 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeDeleteConfirmModal()" style="margin: 0; padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600;">취소</button>
+                <button class="btn" style="margin: 0; padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600; background: #ef4444; color: #ffffff; border: none;" onclick="executeDeleteHistory()">삭제하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Era Delete Confirm Modal -->
+    <div id="eraDeleteConfirmModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s ease;">
+        <div style="background: #ffffff; border-radius: 20px; width: 100%; max-width: 440px; padding: 2rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem;">
+                <div style="width: 40px; height: 40px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ef4444;">
+                    <i data-lucide="alert-triangle" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">대메뉴 삭제 확인</h3>
+            </div>
+            <p style="font-size: 0.95rem; color: #475569; line-height: 1.6; margin: 0 0 2rem 0; word-break: keep-all;">
+                현재 선택된 시대의 대메뉴 설정(타이틀 및 기간 정보)을 초기화하시겠습니까? (세부 연혁 목록 데이터는 유지되며 대메뉴 정보만 초기 설정값으로 비워집니다.)
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeEraDeleteConfirmModal()" style="margin: 0; padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600;">취소</button>
+                <button class="btn" style="margin: 0; padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600; background: #ef4444; color: #ffffff; border: none;" onclick="executeEraDelete()">삭제하기</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Default history data and era configurations to migrate if DB is empty
+        const defaultMilestones = [
+            // Era Configurations
+            { year: 'ERA_CONFIG', month: 'era-3', content: 'Next Step||2020 - PRESENT||시장 지배력 확대 및\n지능형 혁신(AX) 가속화', is_major: false },
+            { year: 'ERA_CONFIG', month: 'era-2', content: 'Deep Dive||2017 - 2019||독자적 기술력 확보 및\n금융 IT 전문 법인 도약', is_major: false },
+            { year: 'ERA_CONFIG', month: 'era-1', content: 'Foundation||2014 - 2016||사업 포트폴리오 다각화 및\n핵심 역량 내실화', is_major: false },
+            
+            // Standard Milestones
+            { year: '2026', month: '현재', content: '독보적인 퇴직연금 구축 노하우에 AI 기반 금융 분석 기술을 더해\n지능형 자산관리 시스템의 새로운 패러다임을 제시하고 있습니다.', is_major: true },
+            { year: '2025', month: '03', content: '키움증권 퇴직연금시스템 신규구축 수주', is_major: false },
+            { year: '2024', month: '05', content: '여성기업 확인 인증 (서울지방중소벤처기업청)', is_major: false },
+            { year: '2024', month: '04', content: '다음정보시스템즈 여의도센터 오픈', is_major: false },
+            { year: '2023', month: '12', content: '건설근로자공제회 통합시스템 구축 컨소시엄 수주', is_major: false },
+            { year: '2023', month: '08', content: '하나증권 퇴직연금시스템 재구축 단독 수주', is_major: false },
+            { year: '2023', month: '07', content: '경찰공제회 회원관리시스템 고도화', is_major: false },
+            { year: '2023', month: '02', content: 'IBK시스템 SI 개발, 운영 협력업체 인증 (8년차)', is_major: false },
+            { year: '2021', month: '10', content: '대신증권 퇴직연금시스템 재구축 단독 수주', is_major: false },
+            { year: '2021', month: '06', content: '사내근로복지기금 설립', is_major: false },
+            { year: '2020', month: '05', content: '과학기술인공제회 적립형공제 업무 협약 체결', is_major: false },
+            { year: '2020', month: '04', content: 'NH투자증권 퇴직연금시스템 재구축 용역', is_major: false },
+            { year: '2020', month: '04', content: '기술평가 우수기업 인증 (NICE평가정보)', is_major: false },
+            { year: '2020', month: '03', content: '청년내일채움공제 참여기업 인증', is_major: false },
+            { year: '2019', month: '10', content: 'MG복지회 차세대 시스템 단독 수주', is_major: false },
+            { year: '2019', month: '09', content: '금융사업본부 분사 및 (주)다음정보시스템즈 설립', is_major: false },
+            { year: '2019', month: '05', content: 'KDB산업은행 차세대 시스템 운영 수주', is_major: false },
+            { year: '2018', month: '11', content: '경영혁신형 중소기업(Main-Biz) 확인 (중소벤처기업부장관)', is_major: false },
+            { year: '2018', month: '07', content: 'SK(주) 외주용역분야 Biz Partner사 등록', is_major: false },
+            { year: '2018', month: '05', content: '한화투자증권 퇴직연금시스템 구축', is_major: false },
+            { year: '2017', month: '05', content: '미래창조과학부장관상 수상 (2017년 에너지환경기술 대상)', is_major: false },
+            { year: '2017', month: '03', content: 'KDB산업은행 차세대 시스템 구축 (집합투자증권/퇴직연금)', is_major: false },
+            { year: '2017', month: '03', content: 'IBK기업은행 정보시스템 위임업무 수주', is_major: false },
+            { year: '2017', month: '02', content: 'IBK시스템 SI 개발 및 운영 협력업체 인증', is_major: false },
+            { year: '2017', month: '01', content: '경찰공제회 시스템 유지보수 수주', is_major: false },
+            { year: '2016', month: '10', content: '기업부설연구소 설립 및 인정', is_major: false },
+            { year: '2016', month: '09', content: 'ISO 14001:2004 / ISO 9001:2004 SI, 정보통신공사 부문 획득', is_major: false },
+            { year: '2016', month: '01', content: '전력IT사업본부 신설 및 전력IT 업무 강화', is_major: false },
+            { year: '2015', month: '11', content: '대신증권 연금지급시스템 구축', is_major: false },
+            { year: '2015', month: '08', content: 'IBK기업은행 정보시스템 SM 위임업무계약 (퇴직연금)', is_major: false },
+            { year: '2015', month: '07', content: '하나대투증권 차세대시스템 구축 (FOS)', is_major: false },
+            { year: '2015', month: '04', content: '대한소방공제회 퇴직급여 및 목돈수탁대여 시스템 구축', is_major: false },
+            { year: '2014', month: '04', content: '과학기술인공제회 정보시스템 통합운영관리 용역 수주', is_major: false },
+            { year: '2014', month: '04', content: '본점 소재지 이전 (관악구 관악로 120, 우주빌딩 4층)', is_major: false },
+            { year: '2014', month: '01', content: 'IBK기업은행 POST 차세대 대응개발 (집합투자증권/퇴직연금)', is_major: false }
+        ];
+
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        
-        document.querySelector('.header-actions .btn-primary').onclick = function() {
+
+        let allHistory = [];
+        let allEraConfigs = [];
+        let currentEditId = null;
+        let historyIdToDelete = null;
+        let activeAdminEra = 'era-3'; // Default Selected Era Tab
+        let currentEraEditMode = 'edit'; // 'edit' or 'add'
+
+        let currentSort = {
+            column: 'year',
+            direction: 'desc'
+        };
+
+        function sortBy(column) {
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'asc';
+            }
+
+            allHistory.sort((a, b) => {
+                let valA = a[column];
+                let valB = b[column];
+
+                if (column === 'year' || column === 'month') {
+                    const numA = parseInt(valA) || (valA === '현재' ? 9999 : 0);
+                    const numB = parseInt(valB) || (valB === '현재' ? 9999 : 0);
+                    return currentSort.direction === 'asc' ? numA - numB : numB - numA;
+                }
+
+                if (valA === null || valA === undefined) valA = '';
+                if (valB === null || valB === undefined) valB = '';
+
+                if (typeof valA === 'string') {
+                    return currentSort.direction === 'asc' 
+                        ? valA.localeCompare(valB) 
+                        : valB.localeCompare(valA);
+                } else {
+                    return currentSort.direction === 'asc' 
+                        ? (valA > valB ? 1 : -1) 
+                        : (valA < valB ? 1 : -1);
+                }
+            });
+
+            // Update UI indicators
+            updateHeaderSortIndicators('history', column, currentSort.direction);
+            renderHistoryTable();
+        }
+
+        function updateHeaderSortIndicators(page, column, direction) {
+            const ths = document.querySelectorAll('.data-table thead th');
+            ths.forEach(th => {
+                const icon = th.querySelector('.sort-icon');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'chevrons-up-down');
+                    icon.style.color = '#94a3b8';
+                }
+            });
+
+            let clickedTh = null;
+            if (page === 'careers') {
+                const indexMap = {
+                    'label': 0,
+                    'title': 1,
+                    'department': 2,
+                    'job_type': 3,
+                    'deadline': 4,
+                    'is_active': 5
+                };
+                clickedTh = ths[indexMap[column]];
+            } else if (page === 'history') {
+                const indexMap = {
+                    'year': 0,
+                    'month': 1,
+                    'content': 2,
+                    'is_major': 3
+                };
+                clickedTh = ths[indexMap[column]];
+            }
+
+            if (clickedTh) {
+                const icon = clickedTh.querySelector('.sort-icon');
+                if (icon) {
+                    const iconName = direction === 'asc' ? 'chevron-up' : 'chevron-down';
+                    icon.setAttribute('data-lucide', iconName);
+                    icon.style.color = '#3b82f6';
+                }
+            }
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        const tableBody = document.getElementById('historyTableBody');
+
+        async function fetchHistory() {
+            try {
+                const { data, error } = await supabaseClient.from('history').select('*');
+                if (error) {
+                    tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444; padding: 3rem;">연혁 데이터를 로드하는 중 오류가 발생했습니다: ${error.message}</td></tr>`;
+                    return;
+                }
+
+                // Auto-migration if empty
+                if (!data || data.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #3b82f6; padding: 3rem;">초기 연혁 데이터를 마이그레이션하는 중입니다...</td></tr>`;
+                    console.log("History table is empty. Migrating default milestones...");
+                    const { error: insertError } = await supabaseClient.from('history').insert(defaultMilestones);
+                    if (insertError) {
+                        alert("초기 데이터 마이그레이션 실패: " + insertError.message);
+                        tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444; padding: 3rem;">마이그레이션 실패: ${insertError.message}</td></tr>`;
+                    } else {
+                        console.log("Migration succeeded! Reloading...");
+                        fetchHistory();
+                    }
+                    return;
+                }
+
+                // Separate configs and normal milestones
+                allEraConfigs = [];
+                allHistory = data.filter(item => {
+                    if (item.year === 'ERA_CONFIG') {
+                        allEraConfigs.push(item);
+                        return false;
+                    }
+                    return true;
+                });
+
+                // Ensure 3 configs exist, fallback if they aren't created yet
+                if (allEraConfigs.length < 3) {
+                    const existingMonths = allEraConfigs.map(c => c.month);
+                    const missingConfigs = defaultMilestones.filter(m => m.year === 'ERA_CONFIG' && !existingMonths.includes(m.month));
+                    if (missingConfigs.length > 0) {
+                        await supabaseClient.from('history').insert(missingConfigs);
+                        allEraConfigs = [];
+                        allHistory = [];
+                        fetchHistory();
+                        return;
+                    }
+                }
+
+                // Sort Eras by their keys: era-1, era-2, era-3, era-4...
+                allEraConfigs.sort((a, b) => {
+                    const numA = parseInt(a.month.replace('era-', ''));
+                    const numB = parseInt(b.month.replace('era-', ''));
+                    return numB - numA; // Descending order (latest era on top)
+                });
+
+                sortHistory();
+                switchAdminEra(activeAdminEra);
+            } catch (err) {
+                tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444; padding: 3rem;">예외 발생: ${err.message}</td></tr>`;
+            }
+        }
+
+        function sortHistory() {
+            allHistory.sort((a, b) => {
+                if (a.year !== b.year) {
+                    return parseInt(b.year) - parseInt(a.year);
+                }
+                if (a.month === '현재') return -1;
+                if (b.month === '현재') return 1;
+                return b.month.localeCompare(a.month);
+            });
+        }
+
+        function switchAdminEra(eraId) {
+            activeAdminEra = eraId;
+            renderEraTabsAndDetails();
+            renderHistoryTable();
+        }
+
+        function renderEraTabsAndDetails() {
+            const eraNav = document.getElementById('adminEraTabs');
+            eraNav.innerHTML = '';
+            
+            const eraIcons = {
+                'era-3': 'zap',
+                'era-2': 'layers',
+                'era-1': 'building-2'
+            };
+
+            allEraConfigs.forEach(eraConf => {
+                const eraKey = eraConf.month;
+                const conf = eraConf || { content: 'Step||Range||Title' };
+                const parts = conf.content.split('||');
+                const step = parts[0] || 'Step';
+                const range = parts[1] || 'Range';
+                const title = parts[2] || 'Title';
+
+                const iconName = eraIcons[eraKey] || 'compass';
+
+                const li = document.createElement('li');
+                li.className = 'era-tab';
+                li.setAttribute('data-target', eraKey);
+                
+                if (eraKey === activeAdminEra) {
+                    // Expanded active card (same light background, but 2px solid black border)
+                    li.className = 'era-tab active';
+                    li.style = "padding: 1.25rem; border-radius: 12px; background: #f8fafc; border: 2px solid #000000; color: #0f172a; display: flex; flex-direction: column; gap: 0.85rem; cursor: pointer;";
+                    li.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: space-between; color: #0f172a;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <i data-lucide="${iconName}" style="width: 18px; color: #3b82f6;"></i>
+                                <span style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase;">${step}</span>
+                            </div>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; font-family: 'Outfit';">${range}</span>
+                        </div>
+                        <p style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0; line-height: 1.4; word-break: keep-all; white-space: pre-line; letter-spacing: -0.02em;">${title}</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                            <button class="btn btn-delete-action" style="justify-content: center; width: 100%; margin: 0; padding: 0.55rem !important;" onclick="event.stopPropagation(); showEraDeleteConfirmModal()"><i data-lucide="trash-2"></i> 삭제</button>
+                            <button class="btn btn-edit-action" style="justify-content: center; width: 100%; margin: 0; padding: 0.55rem !important;" onclick="event.stopPropagation(); openEraEditModal()"><i data-lucide="edit-2"></i> 수정</button>
+                        </div>
+                    `;
+                    // Update right-hand table title dynamically
+                    document.getElementById('rightTableTitle').innerText = `${step.toUpperCase()} 세부 연혁 리스트`;
+                } else {
+                    // Collapsed inactive button tab (kept #f8fafc background)
+                    li.style = "padding: 1rem; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s;";
+                    li.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 0.6rem;">
+                            <i data-lucide="${iconName}" style="width: 16px;"></i>
+                            <span style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">${step}</span>
+                        </div>
+                        <span style="font-size: 0.75rem; color: #64748b; font-family: 'Outfit'; font-weight: 600;">${range}</span>
+                    `;
+                }
+
+                li.onclick = () => {
+                    switchAdminEra(eraKey);
+                };
+
+                eraNav.appendChild(li);
+            });
+
+            lucide.createIcons();
+        }
+
+        function openEraAddModal() {
+            currentEraEditMode = 'add';
+            document.getElementById('eraModalTitle').innerText = '신규 시대(Era) 등록';
+            document.getElementById('saveEraBtn').innerText = '등록하기';
+            
+            document.getElementById('eraEditStep').value = '';
+            document.getElementById('eraEditRange').value = '';
+            document.getElementById('eraEditTitle').value = '';
+            
+            openModal('eraEditModal');
+        }
+
+        function openEraEditModal() {
+            currentEraEditMode = 'edit';
+            document.getElementById('eraModalTitle').innerText = '대메뉴 시대(Era) 설정 수정';
+            document.getElementById('saveEraBtn').innerText = '수정완료';
+
+            const conf = allEraConfigs.find(c => c.month === activeAdminEra) || { content: '||||' };
+            const parts = conf.content.split('||');
+            
+            document.getElementById('eraEditStep').value = parts[0] || '';
+            document.getElementById('eraEditRange').value = parts[1] || '';
+            document.getElementById('eraEditTitle').value = parts[2] || '';
+            
+            openModal('eraEditModal');
+        }
+
+        async function saveEraSettings() {
+            const step = document.getElementById('eraEditStep').value.trim();
+            const range = document.getElementById('eraEditRange').value.trim();
+            const title = document.getElementById('eraEditTitle').value.trim();
+
+            if (!step || !range || !title) {
+                alert('모든 설정 항목을 빈칸 없이 작성해 주세요.');
+                return;
+            }
+
+            const combinedContent = `${step}||${range}||${title}`;
+            const btn = document.getElementById('saveEraBtn');
+            btn.disabled = true;
+            btn.innerText = '저장 중...';
+
+            try {
+                if (currentEraEditMode === 'add') {
+                    // Create new Era key dynamically
+                    const nextEraNumber = allEraConfigs.length + 1;
+                    const newEraKey = `era-${nextEraNumber}`;
+                    
+                    const payload = {
+                        year: 'ERA_CONFIG',
+                        month: newEraKey,
+                        content: combinedContent,
+                        is_major: false
+                    };
+
+                    const { error } = await supabaseClient
+                        .from('history')
+                        .insert([payload]);
+
+                    if (error) {
+                        alert('시대 등록 오류: ' + error.message);
+                    } else {
+                        closeModal('eraEditModal');
+                        activeAdminEra = newEraKey; // set newly created era active
+                        allHistory = [];
+                        allEraConfigs = [];
+                        await fetchHistory();
+                    }
+                } else {
+                    // Edit existing Era Config
+                    const { error } = await supabaseClient
+                        .from('history')
+                        .update({ content: combinedContent })
+                        .eq('year', 'ERA_CONFIG')
+                        .eq('month', activeAdminEra);
+                    
+                    if (error) {
+                        alert('시대 수정 오류: ' + error.message);
+                    } else {
+                        closeModal('eraEditModal');
+                        allHistory = [];
+                        allEraConfigs = [];
+                        await fetchHistory();
+                    }
+                }
+            } catch (err) {
+                alert('대메뉴 저장 중 에러 발생: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = currentEraEditMode === 'add' ? '등록하기' : '수정완료';
+            }
+        }
+
+        document.getElementById('saveEraBtn').onclick = saveEraSettings;
+
+        // Custom Era Delete control
+        function showEraDeleteConfirmModal() {
+            const modal = document.getElementById('eraDeleteConfirmModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.offsetHeight; // force reflow
+                modal.style.opacity = '1';
+                const dialog = modal.querySelector('div');
+                if (dialog) dialog.style.transform = 'scale(1)';
+            }
+        }
+
+        function closeEraDeleteConfirmModal() {
+            const modal = document.getElementById('eraDeleteConfirmModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                const dialog = modal.querySelector('div');
+                if (dialog) dialog.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 250);
+            }
+        }
+
+        async function executeEraDelete() {
+            closeEraDeleteConfirmModal();
+            try {
+                const { error } = await supabaseClient
+                    .from('history')
+                    .delete()
+                    .eq('year', 'ERA_CONFIG')
+                    .eq('month', activeAdminEra);
+                
+                if (error) {
+                    alert('대메뉴 삭제 오류: ' + error.message);
+                } else {
+                    allHistory = [];
+                    allEraConfigs = [];
+                    
+                    // Find fallback active era dynamically from remaining configurations
+                    const { data } = await supabaseClient
+                        .from('history')
+                        .select('*')
+                        .eq('year', 'ERA_CONFIG');
+                    
+                    if (data && data.length > 0) {
+                        data.sort((a, b) => {
+                            const numA = parseInt(a.month.replace('era-', ''));
+                            const numB = parseInt(b.month.replace('era-', ''));
+                            return numB - numA;
+                        });
+                        activeAdminEra = data[0].month;
+                    } else {
+                        activeAdminEra = 'era-3';
+                    }
+
+                    fetchHistory();
+                }
+            } catch (err) {
+                alert('대메뉴 삭제 중 에러 발생: ' + err.message);
+            }
+        }
+
+        function renderHistoryTable() {
+            tableBody.innerHTML = '';
+            
+            // Filter milestones based on selected Admin Era Tab
+            const filteredHistory = allHistory.filter(item => {
+                const yr = parseInt(item.year);
+                
+                // Get active Era Config range logic
+                const conf = allEraConfigs.find(c => c.month === activeAdminEra);
+                if (!conf) return false;
+
+                const parts = conf.content.split('||');
+                const range = parts[1] || '2020 - PRESENT';
+                
+                // Parse Range to figure out filtering years automatically!
+                // Examples: "2020 - PRESENT" -> yr >= 2020
+                // "2017 - 2019" -> yr >= 2017 && yr <= 2019
+                // "2014 - 2016" -> yr >= 2014 && yr <= 2016
+                const cleanRange = range.toUpperCase().replace(/\s/g, '');
+                const isOpenEnded = cleanRange.includes('PRESENT') || cleanRange.includes('미래') || cleanRange.includes('현재');
+                const separator = cleanRange.includes('~') ? '~' : '-';
+                const rangeParts = cleanRange.split(separator);
+                if (isOpenEnded) {
+                    const startYear = parseInt(rangeParts[0]);
+                    return yr >= startYear;
+                } else {
+                    const startYear = parseInt(rangeParts[0]);
+                    const endYear = parseInt(rangeParts[1]);
+                    return yr >= startYear && yr <= endYear;
+                }
+            });
+
+            if (filteredHistory.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 3rem;">해당 시대에 등록된 세부 연혁 정보가 없습니다.</td></tr>`;
+                return;
+            }
+
+            filteredHistory.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.style.cursor = 'pointer';
+                tr.onclick = (e) => {
+                    if (e.target.closest('button')) return;
+                    openEditModal(item.id);
+                };
+                tr.innerHTML = `
+                    <td style="font-weight: 700; font-family: 'Outfit';">${item.year}</td>
+                    <td>${item.month}</td>
+                    <td style="word-break: keep-all; line-height: 1.6; white-space: pre-line;">${item.content}</td>
+                    <td><span class="badge ${item.is_major ? 'badge-complete' : ''}" style="${!item.is_major ? 'background: #f1f5f9; color: #64748b;' : ''}">${item.is_major ? '주요' : '일반'}</span></td>
+                    <td style="text-align: center; white-space: nowrap;">
+                        <button class="btn btn-delete-action" onclick="event.stopPropagation(); showDeleteConfirmModal('${item.id}')">
+                            <i data-lucide="trash-2"></i> 삭제
+                        </button>
+                        <button class="btn btn-edit-action" onclick="event.stopPropagation(); openEditModal('${item.id}')">
+                            <i data-lucide="edit-2"></i> 수정
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+            lucide.createIcons();
+        }
+
+        document.getElementById('addNewBtn').onclick = function() {
+            currentEditId = null;
+            document.getElementById('historyForm').reset();
+            
+            // Set dynamic defaults based on currently active admin era range
+            const conf = allEraConfigs.find(c => c.month === activeAdminEra);
+            if (conf) {
+                const range = conf.content.split('||')[1] || '2020 - PRESENT';
+                const cleanRange = range.toUpperCase().replace(/\s/g, '');
+                const startYear = parseInt(cleanRange.split('-')[0]) || 2020;
+                document.getElementById('editYear').value = startYear.toString();
+            } else {
+                document.getElementById('editYear').value = '2026';
+            }
+            document.getElementById('editMonth').value = '01';
+
+            document.getElementById('modalTitle').innerText = '신규 연혁 등록';
             openModal('historyModal');
         };
 
-        lucide.createIcons();
+        function openEditModal(id) {
+            currentEditId = id;
+            const item = allHistory.find(h => h.id === id);
+            if (!item) return;
+
+            document.getElementById('modalTitle').innerText = '연혁 수정';
+            document.getElementById('editYear').value = item.year;
+            document.getElementById('editMonth').value = item.month;
+            document.getElementById('editContent').value = item.content;
+            document.getElementById('editIsMajor').checked = item.is_major;
+            openModal('historyModal');
+        }
+
+        async function savePartner() {
+            const year = document.getElementById('editYear').value.trim();
+            const month = document.getElementById('editMonth').value.trim();
+            const content = document.getElementById('editContent').value.trim();
+            const is_major = document.getElementById('editIsMajor').checked;
+
+            if (!year || !month || !content) {
+                alert('연도, 월, 내용을 모두 작성해 주세요.');
+                return;
+            }
+
+            if (year === 'ERA_CONFIG') {
+                alert('ERA_CONFIG는 시대 설정 전용 특수 키값으로 사용할 수 없습니다.');
+                return;
+            }
+
+            const payload = { year, month, content, is_major };
+
+            try {
+                if (currentEditId) {
+                    const { error } = await supabaseClient
+                        .from('history')
+                        .update(payload)
+                        .eq('id', currentEditId);
+
+                    if (error) {
+                        alert('수정 오류: ' + error.message);
+                    } else {
+                        closeModal('historyModal');
+                        allHistory = [];
+                        fetchHistory();
+                    }
+                } else {
+                    const { error } = await supabaseClient
+                        .from('history')
+                        .insert([payload]);
+
+                    if (error) {
+                        alert('등록 오류: ' + error.message);
+                    } else {
+                        closeModal('historyModal');
+                        allHistory = [];
+                        
+                        // Automatically set currently viewed tab based on inserted year
+                        const yr = parseInt(year);
+                        
+                        // Find matching era dynamically!
+                        let matchedEra = activeAdminEra;
+                        for (let ec of allEraConfigs) {
+                            const range = ec.content.split('||')[1] || '';
+                            const cleanRange = range.toUpperCase().replace(/\s/g, '');
+                            const isOpenEnded = cleanRange.includes('PRESENT') || cleanRange.includes('미래') || cleanRange.includes('현재');
+                            const separator = cleanRange.includes('~') ? '~' : '-';
+                            const rangeParts = cleanRange.split(separator);
+                            if (isOpenEnded) {
+                                const startYear = parseInt(rangeParts[0]);
+                                if (yr >= startYear) { matchedEra = ec.month; break; }
+                            } else {
+                                const startYear = parseInt(rangeParts[0]);
+                                const endYear = parseInt(rangeParts[1]);
+                                if (yr >= startYear && yr <= endYear) { matchedEra = ec.month; break; }
+                            }
+                        }
+                        activeAdminEra = matchedEra;
+
+                        fetchHistory();
+                    }
+                }
+            } catch (err) {
+                alert('저장 중 에러 발생: ' + err.message);
+            }
+        }
+
+        document.getElementById('saveBtn').onclick = savePartner;
+
+        // Custom modal control
+        function showDeleteConfirmModal(id) {
+            historyIdToDelete = id;
+            const modal = document.getElementById('deleteConfirmModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.offsetHeight; // force reflow
+                modal.style.opacity = '1';
+                const dialog = modal.querySelector('div');
+                if (dialog) dialog.style.transform = 'scale(1)';
+            }
+        }
+
+        function closeDeleteConfirmModal() {
+            const modal = document.getElementById('deleteConfirmModal');
+            if (modal) {
+                modal.style.opacity = '0';
+                const dialog = modal.querySelector('div');
+                if (dialog) dialog.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    historyIdToDelete = null;
+                }, 250);
+            }
+        }
+
+        async function executeDeleteHistory() {
+            if (!historyIdToDelete) return;
+            const id = historyIdToDelete;
+            closeDeleteConfirmModal();
+
+            try {
+                const { error } = await supabaseClient.from('history').delete().eq('id', id);
+                if (error) {
+                    alert('삭제 오류: ' + error.message);
+                } else {
+                    allHistory = [];
+                    fetchHistory();
+                }
+            } catch (err) {
+                alert('삭제 처리 중 에러 발생: ' + err.message);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchHistory);
     </script>
 </body>
 </html>
