@@ -185,6 +185,7 @@
 
             // 수정된 계정 정보: admin@daumit.net / 1234
             if(fullEmail === 'admin@daumit.net' && password === '1234') {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
                 window.location.href = '/admin/index.html';
             } else {
                 errorBox.style.display = 'block';
