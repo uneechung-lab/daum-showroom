@@ -46,9 +46,10 @@ serve(async (req) => {
       if (jobData) jobTitle = jobData.title;
     }
 
-    // 2. 환경 변수에서 Resend API 키 및 수신 이메일 주소 획득
+    // 2. 환경 변수에서 Resend API 키, 수신 이메일 주소 및 사이트 도메인 획득
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') || "re_your_api_key";
     const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || "admin@daumit.net"; // 알림 메일을 받을 주소
+    const SITE_URL = Deno.env.get('SITE_URL') || "https://www.daumis.com";
 
     // 3. 담당자(상무님) 알림 메일 발송
     const adminEmailBody = {
@@ -97,7 +98,7 @@ serve(async (req) => {
           </div>
 
           <div style="text-align: center; border-top: 1px solid #f1f5f9; padding-top: 2rem;">
-            <a href="http://localhost:3000/admin/careers.html" target="_blank" style="display: inline-block; padding: 0.9rem 2.25rem; background: #0f172a; color: #ffffff; font-weight: 700; font-size: 0.95rem; border-radius: 14px; text-decoration: none; box-shadow: 0 8px 20px rgba(15,23,42,0.15); transition: background 0.2s;">
+            <a href="${SITE_URL}/admin/careers.html" target="_blank" style="display: inline-block; padding: 0.9rem 2.25rem; background: #0f172a; color: #ffffff; font-weight: 700; font-size: 0.95rem; border-radius: 14px; text-decoration: none; box-shadow: 0 8px 20px rgba(15,23,42,0.15); transition: background 0.2s;">
               어드민 대시보드에서 이력서 보기
             </a>
           </div>
