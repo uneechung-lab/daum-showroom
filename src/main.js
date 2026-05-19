@@ -3,6 +3,70 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// --- Global Custom Alert & Confirm Overrides ---
+window.showCustomAlert = function(message) {
+  const existing = document.getElementById('customAlertModal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'customAlertModal';
+  modal.style.position = 'fixed';
+  modal.style.inset = '0';
+  modal.style.background = 'rgba(15, 23, 42, 0.4)';
+  modal.style.backdropFilter = 'blur(8px)';
+  modal.style.webkitBackdropFilter = 'blur(8px)';
+  modal.style.zIndex = '99999';
+  modal.style.display = 'flex';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
+  modal.style.opacity = '0';
+  modal.style.transition = 'opacity 0.2s ease';
+
+  const isError = message.includes('실패') || message.includes('오류') || message.includes('에러');
+  const iconName = isError ? 'alert-triangle' : 'check-circle-2';
+  const iconColor = isError ? '#ef4444' : '#10b981';
+  const iconBg = isError ? '#fee2e2' : '#d1fae5';
+
+  modal.innerHTML = `
+    <div style="background: #ffffff; border-radius: 20px; width: 90%; max-width: 380px; padding: 2.25rem 1.75rem; box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.2); border: 1px solid #f1f5f9; text-align: center; transform: scale(0.95); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; flex-direction: column; align-items: center; box-sizing: border-box; font-family: 'Pretendard', sans-serif;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: ${iconBg}; border-radius: 50%; margin-bottom: 1.25rem;">
+        <i data-lucide="${iconName}" style="width: 28px; height: 28px; color: ${iconColor};"></i>
+      </div>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0 0 1.5rem 0; line-height: 1.6; word-break: keep-all;">
+        ${message.replace(/\n/g, '<br>')}
+      </h3>
+      <button onclick="window.closeCustomAlert()" style="width: 100%; padding: 0.8rem; background: #0f172a; color: #ffffff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-family: 'Pretendard', sans-serif; outline: none; transition: background 0.2s;">
+        확인
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+  modal.offsetHeight; // force reflow
+  modal.style.opacity = '1';
+  modal.querySelector('div').style.transform = 'scale(1)';
+};
+
+window.closeCustomAlert = function() {
+  const modal = document.getElementById('customAlertModal');
+  if (modal) {
+    modal.style.opacity = '0';
+    modal.querySelector('div').style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      modal.remove();
+    }, 200);
+  }
+};
+
+window.alert = function(message) {
+  window.showCustomAlert(message);
+};
+
 // --- Canvas Wave Animation ---
 class WaveRenderer {
   constructor() {
@@ -551,18 +615,26 @@ document.addEventListener('DOMContentLoaded', () => {
               <input type="text" name="name" placeholder="홍길동" required>
             </div>
             <div class="form-group">
+              <label>회사명<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
+              <input type="text" name="company" placeholder="주식회사 에이아이" required>
+            </div>
+            <div class="form-group">
               <label>이메일<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
               <input type="email" name="email" placeholder="example@company.com" required>
+            </div>
+            <div class="form-group">
+              <label>연락처<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
+              <input type="tel" name="phone" placeholder="010-0000-0000" required>
             </div>
             <div class="form-group">
               <label>문의 유형<span class="required" style="color:#ef4444; margin-left:4px;">*</span></label>
               <select name="type" required>
                 <option value="" disabled selected>선택해주세요</option>
-                <option value="RPS">퇴직연금시스템 (D-RPS)</option>
-                <option value="WMS">자산관리시스템 (D-WMS)</option>
-                <option value="FTS">집합투자증권시스템 (D-FTS)</option>
-                <option value="AI">AI 리서치/AX 이노베이션</option>
-                <option value="ETC">기타 문의</option>
+                <option value="퇴직연금시스템 (D-RPS) 도입 문의">퇴직연금시스템 (D-RPS)</option>
+                <option value="자산관리시스템 (D-WMS) 도입 문의">자산관리시스템 (D-WMS)</option>
+                <option value="집합투자증권시스템 (D-FTS) 도입 문의">집합투자증권시스템 (D-FTS)</option>
+                <option value="AI 리서치/AX 이노베이션 기술 실증 제안">AI 리서치/AX 이노베이션</option>
+                <option value="기타 도입 문의">기타 문의</option>
               </select>
             </div>
             <div class="form-group">
@@ -571,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="drawer-privacy">
               [개인정보 수집 및 이용 동의]<br>
-              1. 수집 항목: 성함, 이메일<br>
+              1. 수집 항목: 성함, 회사명, 이메일, 연락처<br>
               2. 수집 목적: 문의 사항에 대한 답변 및 안내<br>
               3. 보유 기간: 목적 달성 후 즉시 파기
             </div>
@@ -616,15 +688,89 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', openDrawer);
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      alert('문의가 성공적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
-      closeDrawer();
-      form.reset();
+      const submitBtn = form.querySelector('.drawer-submit');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '접수 중... <i data-lucide="loader-2" class="animate-spin" style="width:16px; height:16px; margin-left:4px; display:inline-block; vertical-align:middle;"></i>';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+
+      try {
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const company = formData.get('company');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const type = formData.get('type');
+        const content = formData.get('content');
+
+        // Dynamically load Supabase client if not loaded
+        if (!window.supabase) {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+          document.head.appendChild(script);
+          await new Promise(r => script.onload = r);
+        }
+
+        const SUPABASE_URL = 'https://hypyydfzyahscznwltnf.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5cHl5ZGZ6eWFoc2N6bndsdG5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3Njg2OTgsImV4cCI6MjA5NDM0NDY5OH0.fd_vtDVcyCZpBKVEywmvpp7EWhwsAe3QAr0RadFG7D8';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const { error } = await supabase
+          .from('inquiries')
+          .insert({
+            name,
+            company,
+            email,
+            phone,
+            subject: type,
+            content,
+            status: '미확인'
+          });
+
+        if (error) throw error;
+
+        // 알림 메일 발송 Edge Function 호출 (상무님 이메일 알림)
+        try {
+          await fetch(`${SUPABASE_URL}/functions/v1/send-inquiry-email`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${SUPABASE_KEY}`
+            },
+            body: JSON.stringify({
+              name,
+              company,
+              email,
+              phone,
+              subject: type,
+              content
+            })
+          });
+        } catch (emailErr) {
+          console.error('이메일 발송 알림 실패:', emailErr);
+        }
+
+        alert('문의가 성공적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        closeDrawer();
+        form.reset();
+      } catch (err) {
+        console.error('Error submitting inquiry:', err);
+        alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '문의하기 <i data-lucide="send"></i>';
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+      }
     });
   };
 
   initInquiryDrawer();
+  ScrollTrigger.refresh();
 });
 
 if (document.readyState === 'complete') {

@@ -8,6 +8,29 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/scripts/supabase-client.js?v=2"></script>
+    <style>
+        .data-table th {
+            text-align: center !important;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.2s;
+            padding: 1rem 0.75rem !important;
+        }
+        .data-table th:hover {
+            background-color: #f1f5f9;
+        }
+        .data-table th span {
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        .data-table td {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -45,11 +68,13 @@
         </header>
 
         <!-- Inquiry Filter -->
-        <section class="data-card" style="margin-bottom: 1.5rem; padding: 1.25rem; display: flex; gap: 1rem;">
-            <button class="btn btn-primary">전체 (42)</button>
-            <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);">미확인 (12)</button>
-            <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);">진행중 (5)</button>
-            <button class="btn" style="background: #fff; border: 1px solid var(--admin-border);">완료 (25)</button>
+        <section class="data-card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
+            <div class="category-chips">
+                <button onclick="filterStatus('전체')" class="chip active" id="chip-all">전체 <span class="count" id="count-all">0</span></button>
+                <button onclick="filterStatus('미확인')" class="chip" id="chip-unconfirmed">미확인 <span class="count" id="count-unconfirmed">0</span></button>
+                <button onclick="filterStatus('진행중')" class="chip" id="chip-ongoing">진행중 <span class="count" id="count-ongoing">0</span></button>
+                <button onclick="filterStatus('완료')" class="chip" id="chip-complete">완료 <span class="count" id="count-complete">0</span></button>
+            </div>
         </section>
 
         <!-- Inquiry List Table -->
@@ -57,26 +82,56 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th style="width: 120px;">날짜</th>
-                        <th>이름/회사</th>
-                        <th>제목</th>
-                        <th>연락처</th>
-                        <th>상태</th>
-                        <th style="text-align: right;">관리</th>
+                        <th onclick="handleSort('rowNum')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                번호 <span id="sort-rowNum-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('created_at')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                날짜 <span id="sort-created_at-container"><i data-lucide="chevron-down" style="width: 14px; color: #3b82f6;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('name')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                이름 <span id="sort-name-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('company')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                회사 <span id="sort-company-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('subject')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                문의 제목 <span id="sort-subject-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('phone')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                연락처 <span id="sort-phone-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('email')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                이메일 <span id="sort-email-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th onclick="handleSort('status')">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                상태 <span id="sort-status-container"><i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i></span>
+                            </div>
+                        </th>
+                        <th style="cursor: default;">관리</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="inquiriesTableBody">
                     <tr>
-                        <td>2024.05.15</td>
-                        <td>
-                            <div style="font-weight: 600;">김철수</div>
-                            <div style="font-size: 0.8rem; color: var(--admin-text-sub);">한국은행</div>
-                        </td>
-                        <td>퇴직연금 시스템 도입 문의의 건</td>
-                        <td>010-1234-5678</td>
-                        <td><span class="badge badge-pending">미확인</span></td>
-                        <td style="text-align: right;">
-                            <button class="btn" style="padding: 0.4rem 0.8rem; background: #f1f5f9; font-size: 0.8rem;">상세보기</button>
+                        <td colspan="9" style="text-align: center; padding: 4rem; color: #64748b;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                <i data-lucide="loader-2" class="animate-spin" style="width: 24px; height: 24px;"></i>
+                                <span>문의 내역을 불러오는 중입니다...</span>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -92,69 +147,304 @@
                 <button class="modal-close" onclick="closeModal('inquiryModal')"><i data-lucide="x"></i></button>
             </div>
             <div class="modal-body">
-                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--admin-border);">
                     <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="color: var(--admin-text-sub); font-weight: 600;">작성자</span>
-                        <span id="view-name">김철수 (한국은행)</span>
+                        <span style="color: var(--admin-text-sub); font-weight: 600; font-size: 0.95rem;">작성자</span>
+                        <span id="view-name" style="font-weight: 700; color: var(--admin-text-main);">-</span>
                     </div>
                     <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <span style="color: var(--admin-text-sub); font-weight: 600;">연락처</span>
-                        <span id="view-contact">010-1234-5678 / admin@bok.or.kr</span>
+                        <span style="color: var(--admin-text-sub); font-weight: 600; font-size: 0.95rem;">연락처</span>
+                        <span id="view-contact" style="color: var(--admin-text-main);">-</span>
                     </div>
                     <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem;">
-                        <span style="color: var(--admin-text-sub); font-weight: 600;">접수일시</span>
-                        <span>2024.05.15 14:30</span>
+                        <span style="color: var(--admin-text-sub); font-weight: 600; font-size: 0.95rem;">접수일시</span>
+                        <span id="view-date" style="color: var(--admin-text-main);">-</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">문의 제목</label>
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">퇴직연금 시스템 도입 문의의 건</div>
+                    <div id="view-subject" style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem; color: var(--admin-text-main);">-</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">문의 내용</label>
-                    <div style="line-height: 1.6; color: #334155; white-space: pre-wrap; background: #fff; border: 1px solid var(--admin-border); padding: 1rem; border-radius: 8px;">
-안녕하세요. 한국은행 IT전략팀 김철수입니다.
-귀사의 퇴직연금 시스템 도입을 검토 중입니다.
-상세 브로슈어와 제안서 초안을 받아볼 수 있을까요?
-                    </div>
+                    <div id="view-content" style="line-height: 1.7; color: #334155; white-space: pre-wrap; background: #ffffff; border: 1px solid var(--admin-border); padding: 1.25rem; border-radius: 10px; font-size: 1.05rem; min-height: 120px;">-</div>
                 </div>
                 <hr style="border: 0; border-top: 1px solid var(--admin-border); margin: 2rem 0;">
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0;">
                     <label class="form-label">처리 상태 변경</label>
-                    <select class="form-control" style="width: 200px;">
-                        <option>미확인</option>
-                        <option>확인 중 / 담당자 배정</option>
-                        <option>처리 완료 / 회신 완료</option>
+                    <select class="form-control" id="edit-status" style="width: 220px; font-weight: 600;">
+                        <option value="미확인">미확인</option>
+                        <option value="진행중">진행중</option>
+                        <option value="완료">완료</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
+                <button class="btn" onclick="deleteCurrentInquiry()" style="background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; margin-right: auto; font-weight: 700;">삭제</button>
                 <button class="btn btn-secondary" onclick="closeModal('inquiryModal')">닫기</button>
-                <button class="btn btn-primary">상태 저장</button>
+                <button class="btn btn-primary" onclick="saveInquiryStatus()" id="btnSaveStatus">상태 저장</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Global variables
+        let inquiriesList = [];
+        let filteredList = [];
+        let currentFilter = '전체';
+        let selectedInquiry = null;
+        let sortColumn = 'created_at';
+        let sortDirection = 'desc';
+
+        function renderHeaders() {
+            const fields = ['rowNum', 'created_at', 'name', 'company', 'subject', 'phone', 'email', 'status'];
+            fields.forEach(field => {
+                const container = document.getElementById(`sort-${field}-container`);
+                if (!container) return;
+                
+                if (sortColumn === field) {
+                    const iconName = sortDirection === 'asc' ? 'chevron-up' : 'chevron-down';
+                    container.innerHTML = `<i data-lucide="${iconName}" style="width: 14px; color: #3b82f6;" class="sort-icon"></i>`;
+                } else {
+                    container.innerHTML = `<i data-lucide="chevrons-up-down" style="width: 14px; color: #94a3b8;" class="sort-icon"></i>`;
+                }
+            });
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        function handleSort(field) {
+            const sortField = field === 'rowNum' ? 'created_at' : field;
+            
+            if (sortColumn === field) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = field;
+                sortDirection = (field === 'created_at' || field === 'rowNum') ? 'desc' : 'asc';
+            }
+            
+            inquiriesList.sort((a, b) => {
+                let valA = a[sortField] || '';
+                let valB = b[sortField] || '';
+
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            renderHeaders();
+            renderInquiries();
+        }
+
+        // Open/Close Modals
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        
-        // Connect row and detail button click to modal
-        document.querySelectorAll('.data-table tbody tr').forEach(tr => {
-            tr.style.cursor = 'pointer';
-            tr.onclick = function(e) {
-                if (e.target.closest('button')) return;
-                openModal('inquiryModal');
-            };
-        });
-        document.querySelectorAll('.data-table tbody .btn').forEach(btn => {
-            btn.onclick = function(e) {
-                e.stopPropagation();
-                openModal('inquiryModal');
-            };
-        });
 
-        lucide.createIcons();
+        // Format Date Helper
+        function formatDate(timestamp) {
+            if (!timestamp) return '-';
+            const date = new Date(timestamp);
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const min = String(date.getMinutes()).padStart(2, '0');
+            return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
+        }
+
+        // Fetch Inquiries from Supabase
+        async function fetchInquiries() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('inquiries')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                inquiriesList = data || [];
+                updateStats();
+                renderHeaders();
+                renderInquiries();
+
+                // URL 파라미터에서 inquiryId 추출하여 즉시 모달 열기
+                const urlParams = new URLSearchParams(window.location.search);
+                const inquiryId = urlParams.get('inquiryId');
+                if (inquiryId) {
+                    showInquiryDetail(inquiryId);
+                }
+            } catch (err) {
+                console.error("Error fetching inquiries:", err);
+                document.getElementById('inquiriesTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="9" style="text-align: center; padding: 4rem; color: #ef4444; font-weight: 600;">
+                            데이터를 불러오는 중 오류가 발생했습니다: ${err.message}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Update Statistics Counters
+        function updateStats() {
+            const allCount = inquiriesList.length;
+            const unconfirmedCount = inquiriesList.filter(item => item.status === '미확인').length;
+            const ongoingCount = inquiriesList.filter(item => item.status === '진행중').length;
+            const completeCount = inquiriesList.filter(item => item.status === '완료').length;
+
+            document.getElementById('count-all').innerText = allCount;
+            document.getElementById('count-unconfirmed').innerText = unconfirmedCount;
+            document.getElementById('count-ongoing').innerText = ongoingCount;
+            document.getElementById('count-complete').innerText = completeCount;
+        }
+
+        // Render Table list based on current active filter
+        function renderInquiries() {
+            const tbody = document.getElementById('inquiriesTableBody');
+            
+            if (currentFilter === '전체') {
+                filteredList = inquiriesList;
+            } else {
+                filteredList = inquiriesList.filter(item => item.status === currentFilter);
+            }
+
+            if (filteredList.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" style="text-align: center; padding: 4rem; color: #64748b; font-weight: 500;">
+                            등록된 문의 내역이 없습니다.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredList.map((item, index) => {
+                let badgeClass = 'badge-pending';
+                let badgeStyle = '';
+                if (item.status === '진행중') {
+                    badgeStyle = 'style="background: #e0f2fe; color: #0369a1;"';
+                    badgeClass = 'badge';
+                } else if (item.status === '완료') {
+                    badgeClass = 'badge badge-complete';
+                }
+
+                const rowNum = filteredList.length - index;
+
+                return `
+                    <tr style="cursor: pointer;" onclick="showInquiryDetail('${item.id}')">
+                        <td style="color: var(--admin-text-sub); font-weight: 600;">${rowNum}</td>
+                        <td>${formatDate(item.created_at).split(' ')[0]}</td>
+                        <td style="font-weight: 600; color: var(--admin-text-main);">${item.name}</td>
+                        <td style="color: var(--admin-text-main);">${item.company || '-'}</td>
+                        <td style="font-weight: 500; color: var(--admin-text-main);">${item.subject || '-'}</td>
+                        <td style="color: var(--admin-text-main);">${item.phone || '-'}</td>
+                        <td style="color: var(--admin-text-main); word-break: break-all;">${item.email || '-'}</td>
+                        <td><span class="${badgeClass}" ${badgeStyle}>${item.status || '미확인'}</span></td>
+                        <td style="text-align: right;" onclick="event.stopPropagation();">
+                            <button class="btn" onclick="showInquiryDetail('${item.id}')" style="padding: 0.4rem 0.85rem; background: #f1f5f9; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--admin-border); border-radius: 6px; color: var(--admin-text-main);">상세보기</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Filter status trigger
+        function filterStatus(status) {
+            currentFilter = status;
+            
+            // Remove active classes
+            document.querySelectorAll('.category-chips button').forEach(btn => btn.classList.remove('active'));
+            
+            // Set current active
+            if (status === '전체') document.getElementById('chip-all').classList.add('active');
+            else if (status === '미확인') document.getElementById('chip-unconfirmed').classList.add('active');
+            else if (status === '진행중') document.getElementById('chip-ongoing').classList.add('active');
+            else if (status === '완료') document.getElementById('chip-complete').classList.add('active');
+
+            renderInquiries();
+        }
+
+        // Show detailed Modal
+        function showInquiryDetail(id) {
+            selectedInquiry = inquiriesList.find(item => item.id === id);
+            if (!selectedInquiry) return;
+
+            document.getElementById('view-name').innerText = `${selectedInquiry.name} (${selectedInquiry.company || '회사 미정'})`;
+            document.getElementById('view-contact').innerText = `${selectedInquiry.phone || '-'} / ${selectedInquiry.email || '-'}`;
+            document.getElementById('view-date').innerText = formatDate(selectedInquiry.created_at);
+            document.getElementById('view-subject').innerText = selectedInquiry.subject || '제목 없음';
+            document.getElementById('view-content').innerText = selectedInquiry.content || '내용이 없습니다.';
+            
+            // Set select status dropdown
+            document.getElementById('edit-status').value = selectedInquiry.status || '미확인';
+
+            openModal('inquiryModal');
+        }
+
+        // Update inquiry status in Supabase
+        async function saveInquiryStatus() {
+            if (!selectedInquiry) return;
+
+            const btn = document.getElementById('btnSaveStatus');
+            const newStatus = document.getElementById('edit-status').value;
+
+            btn.disabled = true;
+            btn.innerText = '저장 중...';
+
+            try {
+                const { error } = await supabaseClient
+                    .from('inquiries')
+                    .update({ status: newStatus })
+                    .eq('id', selectedInquiry.id);
+
+                if (error) throw error;
+
+                alert('상태가 성공적으로 저장되었습니다.');
+                closeModal('inquiryModal');
+                fetchInquiries();
+            } catch (err) {
+                console.error("Error updating status:", err);
+                alert('상태 저장 중 오류가 발생했습니다: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = '상태 저장';
+            }
+        }
+
+        // Delete current inquiry from database
+        function deleteCurrentInquiry() {
+            if (!selectedInquiry) return;
+
+            showAdminConfirm(`정말로 이 문의 내역을 삭제하시겠습니까?\n삭제 후에는 복구할 수 없습니다.`, async () => {
+                try {
+                    const { error } = await supabaseClient
+                        .from('inquiries')
+                        .delete()
+                        .eq('id', selectedInquiry.id);
+
+                    if (error) throw error;
+
+                    alert('문의 내역이 성공적으로 삭제되었습니다.');
+                    closeModal('inquiryModal');
+                    fetchInquiries();
+                } catch (err) {
+                    console.error("Error deleting inquiry:", err);
+                    alert('삭제 중 오류가 발생했습니다: ' + err.message);
+                }
+            });
+        }
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchInquiries();
+        });
     </script>
 </body>
 </html>

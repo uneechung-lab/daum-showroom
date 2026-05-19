@@ -142,3 +142,53 @@ window.closeAdminConfirm = function(result) {
         }, 250);
     }
 };
+
+// --- Mobile Responsive Header and Toggle Injection ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Avoid injecting on login page
+    if (window.location.pathname.includes('login.html')) return;
+
+    // Create and inject mobile header
+    const mobileHeader = document.createElement('div');
+    mobileHeader.className = 'mobile-admin-header';
+    mobileHeader.innerHTML = `
+        <button class="mobile-sidebar-toggle" aria-label="메뉴 열기">
+            <i data-lucide="menu" style="width: 24px; height: 24px; color: #ffffff;"></i>
+        </button>
+        <span class="mobile-header-title">DAUMIS ADMIN</span>
+    `;
+    document.body.insertBefore(mobileHeader, document.body.firstChild);
+
+    // Create and inject sidebar overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-sidebar-overlay';
+    document.body.appendChild(overlay);
+
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = mobileHeader.querySelector('.mobile-sidebar-toggle');
+
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        // Close sidebar if nav link is clicked
+        sidebar.querySelectorAll('.nav-item a').forEach(a => {
+            a.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+    }
+
+    // Refresh lucide icons for the newly injected mobile header
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+});
