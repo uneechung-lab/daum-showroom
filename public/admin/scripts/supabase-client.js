@@ -1,6 +1,7 @@
-// 1. 로그인 상태 보안 체크 (미인증 사용자 차단 및 로그인 페이지로 리다이렉트)
+// 1. 로그인 상태 보안 체크 (미인증 사용자 차단 및 로그인 페이지로 리다이렉트 - 원래 가려던 페이지 저장)
 if (sessionStorage.getItem('isAdminLoggedIn') !== 'true' && !window.location.pathname.includes('login.html')) {
-    window.location.replace('/admin/login.html');
+    const returnTo = encodeURIComponent(window.location.pathname + window.location.search);
+    window.location.replace(`/admin/login.html?returnTo=${returnTo}`);
 }
 
 // Supabase 클라이언트 초기화 설정 (변수명 충돌 방지를 위해 supabaseClient로 정의)

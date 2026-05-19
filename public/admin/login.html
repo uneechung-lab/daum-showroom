@@ -186,7 +186,15 @@
             // 수정된 계정 정보: admin@daumit.net / 1234
             if(fullEmail === 'admin@daumit.net' && password === '1234') {
                 sessionStorage.setItem('isAdminLoggedIn', 'true');
-                window.location.href = '/admin/index.html';
+                
+                // 로그인 완료 후 가려던 원본 페이지가 있으면 그곳으로, 없으면 메인으로 이동
+                const urlParams = new URLSearchParams(window.location.search);
+                const returnTo = urlParams.get('returnTo');
+                if (returnTo) {
+                    window.location.href = decodeURIComponent(returnTo);
+                } else {
+                    window.location.href = '/admin/index.html';
+                }
             } else {
                 errorBox.style.display = 'block';
             }
