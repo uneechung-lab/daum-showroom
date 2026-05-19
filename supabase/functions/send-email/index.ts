@@ -98,7 +98,7 @@ serve(async (req) => {
           </div>
 
           <div style="text-align: center; border-top: 1px solid #f1f5f9; padding-top: 2rem;">
-            <a href="${SITE_URL}/admin/careers.html" target="_blank" style="display: inline-block; padding: 0.9rem 2.25rem; background: #0f172a; color: #ffffff; font-weight: 700; font-size: 0.95rem; border-radius: 14px; text-decoration: none; box-shadow: 0 8px 20px rgba(15,23,42,0.15); transition: background 0.2s;">
+            <a href="${SITE_URL}/admin/careers.html?applicantId=${newRecord.id}" target="_blank" style="display: inline-block; padding: 0.9rem 2.25rem; background: #0f172a; color: #ffffff; font-weight: 700; font-size: 0.95rem; border-radius: 14px; text-decoration: none; box-shadow: 0 8px 20px rgba(15,23,42,0.15); transition: background 0.2s;">
               어드민 대시보드에서 이력서 보기
             </a>
           </div>

@@ -681,6 +681,7 @@
         let activeTab = 'careers';
         let selectedApplicantId = null;
         let applicantFilter = 'all';
+        let pendingApplicantIdToOpen = null;
 
         // High fidelity premium live applicant data
         let allApplicants = [];
@@ -728,6 +729,11 @@
                 });
                 
                 renderApplicants();
+
+                if (pendingApplicantIdToOpen) {
+                    openApplicantModal(pendingApplicantIdToOpen);
+                    pendingApplicantIdToOpen = null;
+                }
             } catch (err) {
                 console.error("데이터 로드 중 시스템 오류:", err);
             }
@@ -997,8 +1003,19 @@
         };
 
         // Initialize
-        fetchCareers();
-        fetchApplicantsCountOnly();
+        async function initDashboard() {
+            await fetchCareers();
+            await fetchApplicantsCountOnly();
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const applicantId = urlParams.get('applicantId');
+            if (applicantId) {
+                pendingApplicantIdToOpen = applicantId;
+                switchTab('applicants');
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', initDashboard);
     </script>
 
     <!-- Custom Premium Deletion Confirmation Modal -->
