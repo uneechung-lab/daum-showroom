@@ -918,7 +918,8 @@
             if (app.file && app.file !== '이력서.pdf' && app.file !== '') {
                 if (app.file.startsWith('http://') || app.file.startsWith('https://')) {
                     resumeLink.href = app.file;
-                    resumeName.innerText = app.file.split('/').pop() || '이력서 다운로드';
+                    const fileExt = app.file.split('.').pop() || 'pdf';
+                    resumeName.innerText = `${app.name}_이력서.${fileExt}`;
                 } else {
                     resumeLink.href = '#';
                     resumeName.innerText = app.file;

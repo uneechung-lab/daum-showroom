@@ -1260,7 +1260,10 @@
 
             let resumeUrl = '';
             if (file) {
-                const filePath = `resumes/${Date.now()}_${file.name}`;
+                const fileExt = file.name.split('.').pop() || 'pdf';
+                const sanitizedName = `${Date.now()}_${Math.random().toString(36).substring(2, 10)}.${fileExt}`;
+                const filePath = `resumes/${sanitizedName}`;
+                
                 const { data: uploadData, error: uploadError } = await window.supabaseClientInstance.storage
                     .from('project-assets')
                     .upload(filePath, file, {
