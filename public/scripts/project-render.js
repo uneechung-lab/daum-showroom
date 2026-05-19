@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="project-card wide">
                     <div class="card-header">
                         <div class="company-logo">
-                            ${p.logo_url ? `<img src="${p.logo_url}" alt="${p.client}">` : `<span class="logo-placeholder">${p.client}</span>`}
+                            ${p.logo_url ? `<img src="${p.logo_url}" alt="${p.client || ''}">` : `<span class="logo-placeholder">${p.client || ''}</span>`}
                         </div>
                     </div>
                     <div class="project-content">
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                         </div>
                         <div class="project-info">
-                            <h3><span class="company-name">${p.client}</span> ${p.title}</h3>
+                            <h3>${p.client ? `<span class="company-name">${p.client}</span>` : ''} ${p.title || ''}</h3>
                             <p style="color: #64748b; font-size: 1.1rem; max-width: 800px;">${p.description || ''}</p>
                         </div>
                         <div class="project-year">${dateStr}</div>
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3><span class="company-name">${p.client}</span> ${p.title}</h3>
+                    <h3>${p.client ? `<span class="company-name">${p.client}</span>` : ''} ${p.title || ''}</h3>
                 </div>
                 <div class="project-year">${dateDisplay}</div>
             `;

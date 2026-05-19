@@ -751,6 +751,24 @@
       </div>
     </div>
 
+    <!-- Success Modal Overlay -->
+    <div id="successModal" class="modal-overlay">
+      <div class="modal-content" style="max-width: 480px; text-align: center; padding: 3rem 2rem; border-radius: 24px; align-items: center;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: #f0fdf4; border-radius: 50%; margin-bottom: 2rem;">
+          <i data-lucide="check-circle-2" style="width: 48px; height: 48px; color: #10b981;"></i>
+        </div>
+        <h2 style="font-size: 1.8rem; font-weight: 800; color: #0f172a; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.3;">
+          지원서가 성공적으로<br>접수되었습니다.
+        </h2>
+        <p style="font-size: 1.05rem; color: #64748b; line-height: 1.6; margin-bottom: 2rem; word-break: keep-all;">
+          다음정보시스템즈의 미래를 함께할 소중한 지원에 깊이 감사드립니다. 제출하신 서류는 검토 후 빠른 시일 내에 연락드리겠습니다.
+        </p>
+        <button onclick="closeSuccessModal()" class="modal-apply-btn" style="width: 100%; padding: 1.1rem; border-radius: 16px; font-size: 1.05rem; margin-top: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+          확인
+        </button>
+      </div>
+    </div>
+
     <footer id="footer">
       <div class="container">
         <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
@@ -791,6 +809,71 @@
 
     <script type="module" src="/src/main.js"></script>
     <script>
+      // Override global alert with premium glassmorphic modal
+      window.showCustomAlert = function(message) {
+        const existing = document.getElementById('customAlertModal');
+        if (existing) existing.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'customAlertModal';
+        modal.className = 'modal-overlay active';
+        modal.style.position = 'fixed';
+        modal.style.inset = '0';
+        modal.style.background = 'rgba(15, 23, 42, 0.4)';
+        modal.style.backdropFilter = 'blur(10px)';
+        modal.style.webkitBackdropFilter = 'blur(10px)';
+        modal.style.zIndex = '99999';
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.opacity = '0';
+        modal.style.transition = 'opacity 0.25s ease';
+
+        const isError = message.includes('실패') || message.includes('오류') || message.includes('에러');
+        const iconName = isError ? 'alert-triangle' : 'check-circle-2';
+        const iconColor = isError ? '#ef4444' : '#10b981';
+        const iconBg = isError ? '#fee2e2' : '#d1fae5';
+
+        modal.innerHTML = `
+          <div style="background: #ffffff; border-radius: 24px; width: 90%; max-width: 400px; padding: 2.5rem 2rem; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25); border: 1px solid #f1f5f9; text-align: center; transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; flex-direction: column; align-items: center;">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: ${iconBg}; border-radius: 50%; margin-bottom: 1.5rem;">
+              <i data-lucide="${iconName}" style="width: 32px; height: 32px; color: ${iconColor};"></i>
+            </div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0 0 1.75rem 0; line-height: 1.6; word-break: keep-all;">
+              ${message.replace(/\n/g, '<br>')}
+            </h3>
+            <button onclick="window.closeCustomAlert()" class="modal-apply-btn" style="width: 100%; padding: 0.875rem; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
+              확인
+            </button>
+          </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
+        modal.offsetHeight; // force reflow
+        modal.style.opacity = '1';
+        modal.querySelector('div').style.transform = 'scale(1)';
+      };
+
+      window.closeCustomAlert = function() {
+        const modal = document.getElementById('customAlertModal');
+        if (modal) {
+          modal.style.opacity = '0';
+          modal.querySelector('div').style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            modal.remove();
+          }, 250);
+        }
+      };
+
+      window.alert = function(message) {
+        window.showCustomAlert(message);
+      };
+
       lucide.createIcons();
 
       const jobData = {
@@ -989,7 +1072,9 @@
       }
 
       function showApplyForm(roleId) {
+        window.currentApplyPostingId = roleId;
         const data = jobData[roleId];
+        const modal = document.getElementById('jobModal');
         const modalBody = document.getElementById('modalBody');
         const modalScrollArea = document.querySelector('.modal-scroll-area');
 
@@ -1054,10 +1139,10 @@
             </div>
             <div class="form-group">
               <label>지원서 첨부</label>
-              <div class="file-upload-box">
-                <i data-lucide="upload-cloud"></i>
-                <p style="font-size: 1rem; color: #64748b; margin-top: 0.5rem;">파일을 선택하거나 드래그하세요 (PDF, Word)</p>
-                <input type="file" required>
+              <div class="file-upload-box" style="transition: all 0.3s ease;">
+                <i data-lucide="upload-cloud" style="transition: all 0.3s ease;"></i>
+                <p style="font-size: 1rem; color: #64748b; margin-top: 0.5rem; transition: all 0.3s ease; word-break: break-all;">파일을 선택하거나 드래그하세요 (PDF, Word)</p>
+                <input type="file" required onchange="handleFileChange(this)">
               </div>
             </div>
             <div class="modal-cta-group">
@@ -1067,6 +1152,8 @@
           </form>
         `;
         
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
         if (modalScrollArea) modalScrollArea.scrollTop = 0;
         lucide.createIcons();
       }
@@ -1095,10 +1182,126 @@
         }
       }
 
-      function handleApplySubmit(event) {
+      function handleFileChange(input) {
+        const box = input.closest('.file-upload-box');
+        const textEl = box.querySelector('p');
+        const iconEl = box.querySelector('i');
+        
+        if (input.files && input.files[0]) {
+          const file = input.files[0];
+          textEl.innerText = file.name;
+          textEl.style.color = '#0f172a';
+          textEl.style.fontWeight = '600';
+          box.style.borderColor = '#10b981'; // Green border for success
+          box.style.background = '#f0fdf4'; // Light green background
+          
+          if (iconEl) {
+            iconEl.setAttribute('data-lucide', 'check-circle-2');
+            iconEl.style.color = '#10b981';
+            if (window.lucide) {
+              lucide.createIcons();
+            }
+          }
+        } else {
+          textEl.innerText = '파일을 선택하거나 드래그하세요 (PDF, Word)';
+          textEl.style.color = '#64748b';
+          textEl.style.fontWeight = '400';
+          box.style.borderColor = '#e2e8f0';
+          box.style.background = '#f8fafc';
+          
+          if (iconEl) {
+            iconEl.setAttribute('data-lucide', 'upload-cloud');
+            iconEl.style.color = '';
+            if (window.lucide) {
+              lucide.createIcons();
+            }
+          }
+        }
+      }
+
+      async function handleApplySubmit(event) {
         event.preventDefault();
-        alert('지원서가 성공적으로 접수되었습니다. 감사합니다.');
-        closeJobModal();
+        
+        // Extract form values
+        const inputs = event.target.querySelectorAll('input');
+        const select = event.target.querySelector('select');
+        const textarea = event.target.querySelector('textarea');
+        const selects = event.target.querySelectorAll('select');
+        
+        const name = inputs[0].value;
+        const phone = inputs[1].value;
+        const email = inputs[2].value;
+        const portfolioUrl = inputs[3].value || '';
+        const message = textarea.value || '';
+        
+        const fileInput = event.target.querySelector('input[type="file"]');
+        const fileName = (fileInput && fileInput.files && fileInput.files[0]) ? fileInput.files[0].name : '';
+        
+        const expType = document.getElementById('formExpType').value;
+        const rank = document.getElementById('formRank').value;
+        
+        // Build metadata in cover_letter
+        const coverLetter = `[경력구분: ${expType} / ${expType === '경력' ? '기술등급' : '경험여부'}: ${rank || '선택안함'}]\n\n${message}`;
+
+        const roleId = window.currentApplyPostingId || '';
+        const postingId = roleId.startsWith('job_') ? roleId.replace('job_', '') : roleId;
+        const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(postingId);
+
+        const submitBtn = event.target.querySelector('.modal-apply-btn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerText = '제출 중...';
+        }
+
+        try {
+            if (!window.supabaseClientInstance) {
+                throw new Error("Supabase 클라이언트가 초기화되지 않았습니다.");
+            }
+
+            const { error } = await window.supabaseClientInstance
+                .from('applicants')
+                .insert({
+                    posting_id: isUuid ? postingId : null,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    portfolio_url: portfolioUrl,
+                    resume_url: fileName,
+                    cover_letter: coverLetter,
+                    status: '서류제출'
+                });
+            
+            if (error) {
+                console.error("Apply error details:", error);
+                alert('지원서 접수 중 오류가 발생했습니다: ' + error.message);
+            } else {
+                closeJobModal();
+                openSuccessModal();
+            }
+        } catch (err) {
+            console.error("Apply exception details:", err);
+            alert('지원서 접수 중 오류가 발생했습니다: ' + err.message);
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = '지원서 제출';
+            }
+        }
+      }
+
+      function openSuccessModal() {
+        const modal = document.getElementById('successModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      }
+
+      function closeSuccessModal() {
+        const modal = document.getElementById('successModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
       }
 
       function closeJobModal() {
@@ -1112,8 +1315,12 @@
       // Close on outside click
       window.onclick = function(event) {
         const modal = document.getElementById('jobModal');
+        const successModal = document.getElementById('successModal');
         if (event.target == modal) {
           closeJobModal();
+        }
+        if (event.target == successModal) {
+          closeSuccessModal();
         }
       };
 
@@ -1131,6 +1338,7 @@
         }
         
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        window.supabaseClientInstance = supabase;
         
         try {
           const { data, error } = await supabase
@@ -1138,13 +1346,15 @@
             .select('*')
             .eq('is_active', true);
             
-          if (!error && data && data.length > 0) {
+          if (error) throw error;
+          
+          const newJobData = {};
+          const openRolesHTML = [];
+          const projectRolesHTML = [];
+          const talentPoolHTML = [];
+          
+          if (data && data.length > 0) {
             console.log("Loaded dynamic job postings from Supabase:", data);
-            
-            const newJobData = {};
-            const openRolesHTML = [];
-            const projectRolesHTML = [];
-            const talentPoolHTML = [];
             
             data.forEach((job) => {
               const roleId = 'job_' + job.id;
@@ -1199,7 +1409,7 @@
                   </div>
                   <div class="ann-right">
                     <span class="ann-status" style="background: #e2e8f0; color: #475569;">${statusText}</span>
-                    <a href="mailto:recruit@daumis.co.kr" class="apply-btn" onclick="event.stopPropagation()">지원하기 <i data-lucide="arrow-right"></i></a>
+                    <a href="javascript:void(0)" class="apply-btn" onclick="event.stopPropagation(); showApplyForm('${roleId}')">지원하기 <i data-lucide="arrow-right"></i></a>
                   </div>
                 </div>
               `;
@@ -1215,27 +1425,53 @@
             
             // Replace the local jobData
             Object.assign(jobData, newJobData);
-            
-            // Update DOM
-            if (projectRolesHTML.length > 0) {
-              const projSection = document.getElementById('projectRolesSection');
-              if (projSection) projSection.style.display = 'block';
-              document.getElementById('projectRolesList').innerHTML = projectRolesHTML.join('');
-            }
-            if (openRolesHTML.length > 0) {
-              document.getElementById('openRolesList').innerHTML = openRolesHTML.join('');
-            }
-            if (talentPoolHTML.length > 0) {
-              document.getElementById('talentPoolList').innerHTML = talentPoolHTML.join('');
-            }
-            
-            // Re-render Lucide icons
-            if (window.lucide) {
-              lucide.createIcons();
-            }
+          }
+          
+          // Update DOM (including empty states)
+          const projSection = document.getElementById('projectRolesSection');
+          if (projectRolesHTML.length > 0) {
+            if (projSection) projSection.style.display = 'block';
+            document.getElementById('projectRolesList').innerHTML = projectRolesHTML.join('');
+          } else {
+            if (projSection) projSection.style.display = 'none';
+          }
+          
+          if (openRolesHTML.length > 0) {
+            document.getElementById('openRolesList').innerHTML = openRolesHTML.join('');
+          } else {
+            document.getElementById('openRolesList').innerHTML = `
+              <div style="text-align: center; padding: 4rem 2rem; background: #f8fafc; border-radius: 20px; border: 1px dashed #cbd5e1; color: #64748b; font-size: 1.1rem; font-weight: 500; grid-column: 1 / -1; width: 100%;">
+                현재 진행 중인 상시 채용 공고가 없습니다.
+              </div>
+            `;
+          }
+          
+          if (talentPoolHTML.length > 0) {
+            document.getElementById('talentPoolList').innerHTML = talentPoolHTML.join('');
+          } else {
+            document.getElementById('talentPoolList').innerHTML = `
+              <div style="text-align: center; padding: 4rem 2rem; background: #f8fafc; border-radius: 20px; border: 1px dashed #cbd5e1; color: #64748b; font-size: 1.1rem; font-weight: 500; grid-column: 1 / -1; width: 100%;">
+                현재 접수 중인 인재풀 공고가 없습니다.
+              </div>
+            `;
+          }
+          
+          // Re-render Lucide icons
+          if (window.lucide) {
+            lucide.createIcons();
           }
         } catch (e) {
           console.error("Error fetching dynamic job postings:", e);
+          document.getElementById('openRolesList').innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: #ef4444; font-weight: 500; grid-column: 1 / -1; width: 100%;">
+              채용 정보를 불러오는 도중 오류가 발생했습니다.
+            </div>
+          `;
+          document.getElementById('talentPoolList').innerHTML = `
+            <div style="text-align: center; padding: 3rem; color: #ef4444; font-weight: 500; grid-column: 1 / -1; width: 100%;">
+              인재풀 정보를 불러오는 도중 오류가 발생했습니다.
+            </div>
+          `;
         }
       })();
     </script>
