@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Chart.js CDN for beautiful interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/admin/scripts/supabase-client.js?v=2"></script>
 </head>
 <body>
@@ -45,7 +47,7 @@
                 <p>다음에이아이 쇼룸의 데이터를 통합 관리합니다.</p>
             </div>
             <div class="header-actions">
-                <button class="btn btn-primary">로그아웃</button>
+                <button class="btn btn-primary" onclick="handleLogout()">로그아웃</button>
             </div>
         </header>
 
@@ -53,61 +55,357 @@
         <section class="stats-grid">
             <div class="stat-card">
                 <span class="stat-label">새 문의 내역</span>
-                <div class="stat-value">12건</div>
+                <div class="stat-value" id="stat-inquiries">-</div>
             </div>
             <div class="stat-card">
                 <span class="stat-label">신규 지원자</span>
-                <div class="stat-value">5명</div>
+                <div class="stat-value" id="stat-applicants">-</div>
             </div>
             <div class="stat-card">
                 <span class="stat-label">등록된 프로젝트</span>
-                <div class="stat-value">148건</div>
+                <div class="stat-value" id="stat-projects">-</div>
             </div>
             <div class="stat-card">
                 <span class="stat-label">파트너십</span>
-                <div class="stat-value">32개사</div>
+                <div class="stat-value" id="stat-partners">-</div>
             </div>
         </section>
 
-        <!-- Recent Activity Table -->
-        <section class="data-card">
-            <div style="padding: 1.5rem; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="font-weight: 700;">최근 문의 접수 현황</h3>
-                <a href="/admin/inquiries.html" style="font-size: 0.85rem; color: var(--admin-accent); font-weight: 600;">전체보기</a>
+        <!-- Two Column Dashboard Grid -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 3rem; align-items: start;">
+            
+            <!-- Left Column (Wide) -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- ① 실시간/누적 방문자 추이 (라인 차트) -->
+                <div class="data-card" style="padding: 1.75rem; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                        <div>
+                            <h3 style="font-weight: 800; font-size: 1.25rem; color: #0f172a; margin-bottom: 0.25rem;">실시간 및 누적 방문자 추이</h3>
+                            <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin: 0;">최근 7일간의 방문 유입 분석 데이터입니다.</p>
+                        </div>
+                        <!-- 상단 미니 지표 -->
+                        <div style="text-align: right; background: #f8fafc; border: 1px solid var(--admin-border); padding: 0.5rem 0.85rem; border-radius: 10px;">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--admin-text-sub); display: block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">오늘 총 방문자</span>
+                            <span style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">1,240명 <span style="font-size: 0.8rem; color: #10b981; font-weight: 700; margin-left: 2px;">▲ 4.2%</span></span>
+                        </div>
+                    </div>
+                    <!-- Chart container -->
+                    <div style="height: 320px; position: relative;">
+                        <canvas id="visitorTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 최근 문의 접수 현황 (이동 및 동적 로드) -->
+                <div class="data-card">
+                    <div style="padding: 1.5rem; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a;">최근 문의 접수 현황</h3>
+                        <a href="/admin/inquiries.html" style="font-size: 0.85rem; color: #3b82f6; font-weight: 700; text-decoration: none;">전체보기</a>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>작성자</th>
+                                <th>회사명</th>
+                                <th>제목</th>
+                                <th>날짜</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentInquiriesBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>작성자</th>
-                        <th>회사명</th>
-                        <th>제목</th>
-                        <th>날짜</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>김철수</td>
-                        <td>한국은행</td>
-                        <td>퇴직연금 시스템 도입 문의</td>
-                        <td>2024.05.15</td>
-                        <td><span class="badge badge-pending">미확인</span></td>
-                    </tr>
-                    <tr>
-                        <td>이영희</td>
-                        <td>신한금융지주</td>
-                        <td>차세대 자산관리 솔루션 제안 요청</td>
-                        <td>2024.05.14</td>
-                        <td><span class="badge badge-complete">확인완료</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+
+            <!-- Right Column (Narrow) -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- ③ 유입 경로 파악 (도넛 차트) -->
+                <div class="data-card" style="padding: 1.75rem;">
+                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">유입 경로 분석</h3>
+                    <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">주요 채널별 트래픽 유입 분포입니다.</p>
+                    
+                    <!-- Donut chart container with central count -->
+                    <div style="position: relative; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <canvas id="trafficSourcesChart" style="max-height: 100%; max-width: 100%;"></canvas>
+                        <div style="position: absolute; text-align: center; pointer-events: none;">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--admin-text-sub); display: block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.1rem;">총 세션수</span>
+                            <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif;">8,452</span>
+                        </div>
+                    </div>
+
+                    <!-- Custom legend details for high visual density -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem; border-top: 1px solid var(--admin-border); padding-top: 1.25rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #0f172a; display: inline-block;"></span>
+                            <span style="font-weight: 600; color: var(--admin-text-main);">Organic: 45%</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #3b82f6; display: inline-block;"></span>
+                            <span style="font-weight: 600; color: var(--admin-text-main);">Direct: 30%</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #60a5fa; display: inline-block;"></span>
+                            <span style="font-weight: 600; color: var(--admin-text-main);">Referral: 15%</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #cbd5e1; display: inline-block;"></span>
+                            <span style="font-weight: 600; color: var(--admin-text-main);">SNS: 10%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ② 인기 페이지 순위 (미니 테이블) -->
+                <div class="data-card" style="padding: 1.75rem;">
+                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">인기 페이지 순위</h3>
+                    <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">가장 많은 조회수를 기록한 Top 5 페이지입니다.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                        <!-- Row 1 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #0f172a; color: #ffffff; font-size: 0.75rem; font-weight: 800; border-radius: 6px;">1</span>
+                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/ <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(메인 홈)</span></span>
+                            </div>
+                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">4,250 PV</span>
+                        </div>
+                        <!-- Row 2 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #3b82f6; color: #ffffff; font-size: 0.75rem; font-weight: 800; border-radius: 6px;">2</span>
+                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/solutions/d-fin <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(퇴직연금)</span></span>
+                            </div>
+                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">2,840 PV</span>
+                        </div>
+                        <!-- Row 3 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #60a5fa; color: #ffffff; font-size: 0.75rem; font-weight: 800; border-radius: 6px;">3</span>
+                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/careers-announcement <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(채용공고)</span></span>
+                            </div>
+                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">1,980 PV</span>
+                        </div>
+                        <!-- Row 4 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #f1f5f9; color: var(--admin-text-sub); font-size: 0.75rem; font-weight: 800; border-radius: 6px; border: 1px solid var(--admin-border);">4</span>
+                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/overview <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(기업개요)</span></span>
+                            </div>
+                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">1,420 PV</span>
+                        </div>
+                        <!-- Row 5 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #f1f5f9; color: var(--admin-text-sub); font-size: 0.75rem; font-weight: 800; border-radius: 6px; border: 1px solid var(--admin-border);">5</span>
+                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/project <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(구축실적)</span></span>
+                            </div>
+                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">950 PV</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </main>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // 1. 실시간 및 누적 방문자 추이 라인 차트 (Chart.js)
+        const ctxTrend = document.getElementById('visitorTrendChart').getContext('2d');
+        const gradientBlue = ctxTrend.createLinearGradient(0, 0, 0, 300);
+        gradientBlue.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
+        gradientBlue.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+        
+        new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                labels: ['5/13', '5/14', '5/15', '5/16', '5/17', '5/18', '5/19'],
+                datasets: [{
+                    label: '일별 방문자 (UV)',
+                    data: [820, 950, 1100, 920, 1050, 1200, 1240],
+                    borderColor: '#0f172a', 
+                    borderWidth: 3,
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    backgroundColor: gradientBlue,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: {
+                                family: 'Pretendard Variable',
+                                weight: '600'
+                            }
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: '#f1f5f9'
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: {
+                                family: 'Pretendard Variable',
+                                weight: '600'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. 유입 경로 분석 도넛 차트 (Chart.js)
+        const ctxTraffic = document.getElementById('trafficSourcesChart').getContext('2d');
+        new Chart(ctxTraffic, {
+            type: 'doughnut',
+            data: {
+                labels: ['Organic Search', 'Direct', 'Referral', 'SNS'],
+                datasets: [{
+                    data: [45, 30, 15, 10],
+                    backgroundColor: [
+                        '#0f172a',
+                        '#3b82f6',
+                        '#60a5fa',
+                        '#cbd5e1'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '75%',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        padding: 10,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // 3. Supabase 실시간 통계 및 최근 3건 문의 동적 바인딩
+        async function loadDashboardData() {
+            try {
+                // (1) 문의내역 카운트
+                const { count: inquiryCount, error: err1 } = await supabaseClient
+                    .from('inquiries')
+                    .select('*', { count: 'exact', head: true });
+                if (!err1 && inquiryCount !== null) {
+                    document.getElementById('stat-inquiries').innerText = inquiryCount + '건';
+                }
+
+                // (2) 신규 지원자 카운트
+                const { count: applicantCount, error: err2 } = await supabaseClient
+                    .from('applicants')
+                    .select('*', { count: 'exact', head: true });
+                if (!err2 && applicantCount !== null) {
+                    document.getElementById('stat-applicants').innerText = applicantCount + '명';
+                }
+
+                // (3) 프로젝트 카운트
+                const { count: projectCount, error: err3 } = await supabaseClient
+                    .from('projects')
+                    .select('*', { count: 'exact', head: true });
+                if (!err3 && projectCount !== null) {
+                    document.getElementById('stat-projects').innerText = projectCount + '건';
+                }
+
+                // (4) 파트너십 카운트
+                const { count: partnerCount, error: err4 } = await supabaseClient
+                    .from('partners')
+                    .select('*', { count: 'exact', head: true });
+                if (!err4 && partnerCount !== null) {
+                    document.getElementById('stat-partners').innerText = partnerCount + '개사';
+                }
+
+                // (5) 최근 3건 문의 동적 로드
+                const { data: recentInquiries, error: err5 } = await supabaseClient
+                    .from('inquiries')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(3);
+
+                if (!err5 && recentInquiries) {
+                    const tbody = document.getElementById('recentInquiriesBody');
+                    if (recentInquiries.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">최근 접수된 문의가 없습니다.</td></tr>`;
+                        return;
+                    }
+
+                    tbody.innerHTML = recentInquiries.map(item => {
+                        let badgeClass = 'badge-pending';
+                        let badgeStyle = '';
+                        if (item.status === '진행중') {
+                            badgeStyle = 'style="background: #e0f2fe; color: #0369a1;"';
+                            badgeClass = 'badge';
+                        } else if (item.status === '완료') {
+                            badgeClass = 'badge badge-complete';
+                        }
+
+                        const date = new Date(item.created_at);
+                        const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+
+                        return `
+                            <tr style="cursor: pointer;" onclick="window.location.href='/admin/inquiries.html?inquiryId=${item.id}'">
+                                <td style="font-weight: 600;">${item.name}</td>
+                                <td>${item.company || '-'}</td>
+                                <td style="font-weight: 500;">${item.subject || '-'}</td>
+                                <td>${formattedDate}</td>
+                                <td><span class="${badgeClass}" ${badgeStyle}>${item.status || '미확인'}</span></td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                console.error("Dashboard data load error:", err);
+            }
+        }
+
+        // Initialize statistics on load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboardData();
+        });
     </script>
 </body>
 </html>
