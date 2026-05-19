@@ -1235,7 +1235,7 @@
         const message = textarea.value || '';
         
         const fileInput = event.target.querySelector('input[type="file"]');
-        const fileName = (fileInput && fileInput.files && fileInput.files[0]) ? fileInput.files[0].name : '';
+        const file = (fileInput && fileInput.files && fileInput.files[0]) ? fileInput.files[0] : null;
         
         const expType = document.getElementById('formExpType').value;
         const rank = document.getElementById('formRank').value;
@@ -1258,6 +1258,27 @@
                 throw new Error("Supabase 클라이언트가 초기화되지 않았습니다.");
             }
 
+            let resumeUrl = '';
+            if (file) {
+                const filePath = `resumes/${Date.now()}_${file.name}`;
+                const { data: uploadData, error: uploadError } = await window.supabaseClientInstance.storage
+                    .from('project-assets')
+                    .upload(filePath, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+
+                if (uploadError) {
+                    throw new Error("이력서 파일 업로드 실패: " + uploadError.message);
+                }
+
+                const { data: publicUrlData } = window.supabaseClientInstance.storage
+                    .from('project-assets')
+                    .getPublicUrl(filePath);
+
+                resumeUrl = publicUrlData.publicUrl;
+            }
+
             const { error } = await window.supabaseClientInstance
                 .from('applicants')
                 .insert({
@@ -1266,7 +1287,7 @@
                     email: email,
                     phone: phone,
                     portfolio_url: portfolioUrl,
-                    resume_url: fileName,
+                    resume_url: resumeUrl || (file ? file.name : ''),
                     cover_letter: coverLetter,
                     status: '서류제출'
                 });

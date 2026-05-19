@@ -910,10 +910,34 @@
             document.getElementById('app-detail-date').innerText = app.date;
             document.getElementById('app-detail-title').innerText = app.title;
             document.getElementById('app-detail-cover').innerText = app.cover;
-            document.getElementById('app-detail-resume-name').innerText = app.file;
+            
+            // Set up real resume link
+            const resumeLink = document.getElementById('app-detail-resume-link');
+            const resumeName = document.getElementById('app-detail-resume-name');
+            
+            if (app.file && app.file !== '이력서.pdf' && app.file !== '') {
+                if (app.file.startsWith('http://') || app.file.startsWith('https://')) {
+                    resumeLink.href = app.file;
+                    resumeName.innerText = app.file.split('/').pop() || '이력서 다운로드';
+                } else {
+                    resumeLink.href = '#';
+                    resumeName.innerText = app.file;
+                }
+            } else {
+                resumeLink.href = '#';
+                resumeName.innerText = '이력서 없음';
+            }
+            
             document.getElementById('app-detail-status-select').value = app.status;
             
             openModal('applicantModal');
+        };
+
+        window.handleResumeDownload = function(e, element) {
+            if (element.getAttribute('href') === '#') {
+                e.preventDefault();
+                alert('해당 지원자는 파일이 실제로 업로드되지 않은 테스트 데이터이거나 파일 정보가 없습니다.');
+            }
         };
 
         window.saveApplicantStatus = function() {
@@ -1023,7 +1047,7 @@
                     <div style="display: grid; grid-template-columns: 90px 1fr; gap: 0.5rem; align-items: center;">
                         <span style="color: var(--admin-text-sub); font-weight: 600; font-size: 0.9rem;">제출 파일</span>
                         <div>
-                            <a href="#" id="app-detail-resume-link" style="display: inline-flex; align-items: center; gap: 6px; padding: 0.35rem 0.75rem; background: #fff; border: 1px solid var(--admin-border); border-radius: 6px; color: var(--admin-text-main); font-weight: 600; text-decoration: none; font-size: 0.85rem;" onclick="event.preventDefault(); alert('이력서 파일 다운로드를 시작합니다.');">
+                            <a href="#" id="app-detail-resume-link" target="_blank" download style="display: inline-flex; align-items: center; gap: 6px; padding: 0.35rem 0.75rem; background: #fff; border: 1px solid var(--admin-border); border-radius: 6px; color: var(--admin-text-main); font-weight: 600; text-decoration: none; font-size: 0.85rem;" onclick="handleResumeDownload(event, this)">
                                 <i data-lucide="download" style="width: 13px; height: 13px;"></i> <span id="app-detail-resume-name">이력서_김민준.pdf</span>
                             </a>
                         </div>
