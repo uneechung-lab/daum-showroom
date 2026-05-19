@@ -1012,6 +1012,11 @@
             if (applicantId) {
                 pendingApplicantIdToOpen = applicantId;
                 switchTab('applicants');
+            } else {
+                const tab = urlParams.get('tab');
+                if (tab === 'applicants') {
+                    switchTab('applicants');
+                }
             }
         }
         
