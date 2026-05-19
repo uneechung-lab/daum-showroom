@@ -1,5 +1,5 @@
-// 1. 로그인 상태 보안 체크 (미인증 사용자 차단 및 로그인 페이지로 리다이렉트 - 원래 가려던 페이지 저장)
-if (sessionStorage.getItem('isAdminLoggedIn') !== 'true' && !window.location.pathname.includes('login.html')) {
+// 1. 로그인 상태 보안 체크 (오직 어드민(/admin/) 경로인 경우에만 미인증 사용자 차단 및 로그인 페이지로 리다이렉트)
+if (window.location.pathname.includes('/admin/') && !window.location.pathname.includes('login.html') && sessionStorage.getItem('isAdminLoggedIn') !== 'true') {
     const returnTo = encodeURIComponent(window.location.pathname + window.location.search);
     window.location.replace(`/admin/login.html?returnTo=${returnTo}`);
 }
