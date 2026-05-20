@@ -135,44 +135,50 @@
                 </div>
             </div>
 
-            <!-- ② GA4 핵심 지표 카드 2종 (평균 체류 시간 & 이탈률 수직 스택) -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem; justify-content: space-between;">
-                <!-- 평균 체류 시간 Card -->
-                <div class="data-card" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <!-- ② GA4 핵심 지표 카드 3종 (실시간 활성 사용자 & 평균 체류 시간 & 이탈률 수직 스택) -->
+            <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: space-between; height: 100%;">
+                
+                <!-- 1. 실시간 활성 사용자 Card -->
+                <div class="data-card" style="padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #059669; padding: 0.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative;">
+                            <i data-lucide="users" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span style="position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite;"></span>
+                        </div>
                         <div>
-                            <h4 style="font-weight: 800; font-size: 1.1rem; color: #0f172a; margin: 0 0 0.15rem 0;">평균 체류 시간</h4>
-                            <p style="font-size: 0.8rem; color: var(--admin-text-sub); margin: 0;">쇼룸 평균 머문 시간</p>
-                        </div>
-                        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; padding: 0.45rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <h4 style="font-weight: 800; font-size: 0.95rem; color: #0f172a; margin: 0 0 0.15rem 0;">실시간 활성 사용자</h4>
+                            <p style="font-size: 0.75rem; color: var(--admin-text-sub); margin: 0;">현재 쇼룸 접속 중인 유저</p>
                         </div>
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <div class="stat-value" id="stat-avg-time" style="font-size: 2.1rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
-                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.35rem; font-size: 0.75rem; color: #16a34a; font-weight: 700;">
-                            <span>참여 세션 기준 산정</span>
-                        </div>
-                    </div>
+                    <div class="stat-value" id="realtime-users-count" style="font-size: 1.75rem; font-weight: 900; color: #059669; font-family: 'Outfit', sans-serif;">-</div>
                 </div>
 
-                <!-- 이탈률 Card -->
-                <div class="data-card" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <div>
-                            <h4 style="font-weight: 800; font-size: 1.1rem; color: #0f172a; margin: 0 0 0.15rem 0;">이탈률</h4>
-                            <p style="font-size: 0.8rem; color: var(--admin-text-sub); margin: 0;">참여 없이 바로 나간 비율</p>
+                <!-- 2. 평균 체류 시간 Card -->
+                <div class="data-card" style="padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; padding: 0.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
                         </div>
-                        <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 0.45rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <div>
+                            <h4 style="font-weight: 800; font-size: 0.95rem; color: #0f172a; margin: 0 0 0.15rem 0;">평균 체류 시간</h4>
+                            <p style="font-size: 0.75rem; color: var(--admin-text-sub); margin: 0;">쇼룸 평균 머문 시간</p>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="stat-avg-time" style="font-size: 1.75rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
+                </div>
+
+                <!-- 3. 이탈률 Card -->
+                <div class="data-card" style="padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 0.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                             <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
                         </div>
-                    </div>
-                    <div style="margin-top: 1rem;">
-                        <div class="stat-value" id="stat-bounce-rate" style="font-size: 2.1rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
-                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.35rem; font-size: 0.75rem; color: var(--admin-text-sub); font-weight: 600;">
-                            <span>목표 이탈률: 50% 이하</span>
+                        <div>
+                            <h4 style="font-weight: 800; font-size: 0.95rem; color: #0f172a; margin: 0 0 0.15rem 0;">이탈률</h4>
+                            <p style="font-size: 0.75rem; color: var(--admin-text-sub); margin: 0;">참여 없이 바로 나간 비율</p>
                         </div>
                     </div>
+                    <div class="stat-value" id="stat-bounce-rate" style="font-size: 1.75rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
                 </div>
             </div>
 
@@ -536,6 +542,11 @@
                     const realtimeIndicator = document.getElementById('realtime-indicator');
                     realtimeIndicator.style.display = 'inline-flex';
                     realtimeIndicator.querySelector('strong').innerText = `${data.realTimeVisitors || 1}명`;
+
+                    const realtimeUsersCard = document.getElementById('realtime-users-count');
+                    if (realtimeUsersCard) {
+                        realtimeUsersCard.innerText = `${data.realTimeVisitors || 1}명`;
+                    }
 
                     // (2) 오늘 총 방문자 및 등락폭 파싱
                     const todayVisitors = data.visitorTrend && data.visitorTrend.length > 0 
