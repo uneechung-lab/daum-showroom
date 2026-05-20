@@ -317,33 +317,6 @@
 
         </div>
 
-        <!-- Row 3: Recent Inquiries (Full Width) -->
-        <div style="margin-bottom: 3rem;">
-            <div class="data-card" style="display: flex; flex-direction: column; width: 100%;">
-                <div style="padding: 1.5rem; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a;">최근 문의 접수 현황</h3>
-                    <a href="/admin/inquiries.html" style="font-size: 0.85rem; color: #3b82f6; font-weight: 700; text-decoration: none;">전체보기</a>
-                </div>
-                <div style="padding: 1rem 0;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>작성자</th>
-                                <th>회사명</th>
-                                <th>제목</th>
-                                <th>날짜</th>
-                                <th>상태</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentInquiriesBody">
-                            <tr>
-                                <td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </main>
 
     <script>
@@ -561,34 +534,36 @@
 
                 if (!err5 && recentInquiries) {
                     const tbody = document.getElementById('recentInquiriesBody');
-                    if (recentInquiries.length === 0) {
-                        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">최근 접수된 문의가 없습니다.</td></tr>`;
-                        return;
-                    }
-
-                    tbody.innerHTML = recentInquiries.map(item => {
-                        let badgeClass = 'badge-pending';
-                        let badgeStyle = '';
-                        if (item.status === '진행중') {
-                            badgeStyle = 'style="background: #e0f2fe; color: #0369a1;"';
-                            badgeClass = 'badge';
-                        } else if (item.status === '완료') {
-                            badgeClass = 'badge badge-complete';
+                    if (tbody) {
+                        if (recentInquiries.length === 0) {
+                            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">최근 접수된 문의가 없습니다.</td></tr>`;
+                            return;
                         }
 
-                        const date = new Date(item.created_at);
-                        const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+                        tbody.innerHTML = recentInquiries.map(item => {
+                            let badgeClass = 'badge-pending';
+                            let badgeStyle = '';
+                            if (item.status === '진행중') {
+                                badgeStyle = 'style="background: #e0f2fe; color: #0369a1;"';
+                                badgeClass = 'badge';
+                            } else if (item.status === '완료') {
+                                badgeClass = 'badge badge-complete';
+                            }
 
-                        return `
-                            <tr style="cursor: pointer;" onclick="window.location.href='/admin/inquiries.html?inquiryId=${item.id}'">
-                                <td style="font-weight: 600;">${item.name}</td>
-                                <td>${item.company || '-'}</td>
-                                <td style="font-weight: 500;">${item.subject || '-'}</td>
-                                <td>${formattedDate}</td>
-                                <td><span class="${badgeClass}" ${badgeStyle}>${item.status || '미확인'}</span></td>
-                            </tr>
-                        `;
-                    }).join('');
+                            const date = new Date(item.created_at);
+                            const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+
+                            return `
+                                <tr style="cursor: pointer;" onclick="window.location.href='/admin/inquiries.html?inquiryId=${item.id}'">
+                                    <td style="font-weight: 600;">${item.name}</td>
+                                    <td>${item.company || '-'}</td>
+                                    <td style="font-weight: 500;">${item.subject || '-'}</td>
+                                    <td>${formattedDate}</td>
+                                    <td><span class="${badgeClass}" ${badgeStyle}>${item.status || '미확인'}</span></td>
+                                </tr>
+                            `;
+                        }).join('');
+                    }
                 }
             } catch (err) {
                 console.error("Dashboard data load error:", err);
