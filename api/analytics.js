@@ -27,8 +27,15 @@ export default async function handler(req, res) {
       },
     });
 
-    // Query report data and real-time data in parallel
-    const [visitorTrendResponse, trafficSourceResponse, popularPagesResponse] = await Promise.all([
+    // Query 6 reports in parallel to gather maximum premium insights
+    const [
+      visitorTrendResponse,
+      trafficSourceResponse,
+      popularPagesResponse,
+      engagementResponse,
+      deviceResponse,
+      cityResponse
+    ] = await Promise.all([
       // 1. Visitor Trend (last 7 days active users)
       analyticsDataClient.runReport({
         property: `properties/${propertyId}`,
@@ -52,6 +59,30 @@ export default async function handler(req, res) {
         metrics: [{ name: 'screenPageViews' }],
         limit: 5,
       }),
+      // 4. Engagement & Bounce Metrics (last 30 days)
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        metrics: [
+          { name: 'averageSessionDuration' },
+          { name: 'bounceRate' }
+        ],
+      }),
+      // 5. Device Category Ratio (last 30 days)
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'deviceCategory' }],
+        metrics: [{ name: 'activeUsers' }],
+      }),
+      // 6. City / Geographic breakdown (last 30 days)
+      analyticsDataClient.runReport({
+        property: `properties/${propertyId}`,
+        dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'city' }],
+        metrics: [{ name: 'activeUsers' }],
+        limit: 5,
+      })
     ]);
 
     // Parse Visitor Trend
@@ -76,6 +107,47 @@ export default async function handler(req, res) {
       views: parseInt(row.metricValues[0].value, 10),
     }));
 
+    // Parse Engagement & Bounce rate
+    const engagementRow = engagementResponse[0].rows && engagementResponse[0].rows[0];
+    const avgSessionSec = engagementRow ? parseFloat(engagementRow.metricValues[0].value) : 0;
+    const rawBounce = engagementRow ? parseFloat(engagementRow.metricValues[1].value) : 0;
+
+    // Format average session duration
+    const formatTime = (seconds) => {
+      if (!seconds || seconds <= 0) return '0초';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return mins > 0 ? `${mins}분 ${secs}초` : `${secs}초`;
+    };
+    const avgSessionTime = formatTime(avgSessionSec);
+
+    // Format bounce rate securely (supports decimal fraction or percentage string)
+    const bounceRate = rawBounce <= 1 
+      ? `${(rawBounce * 100).toFixed(1)}%` 
+      : `${rawBounce.toFixed(1)}%`;
+
+    // Parse Device Categories
+    const devices = (deviceResponse[0].rows || []).map(row => {
+      let category = row.dimensionValues[0].value;
+      if (category === 'desktop') category = 'PC';
+      else if (category === 'mobile') category = '모바일';
+      else if (category === 'tablet') category = '태블릿';
+      return {
+        category,
+        visitors: parseInt(row.metricValues[0].value, 10),
+      };
+    });
+
+    // Parse Cities
+    const cities = (cityResponse[0].rows || []).map(row => {
+      let cityName = row.dimensionValues[0].value;
+      if (cityName === '(not set)') cityName = '기타';
+      return {
+        city: cityName,
+        visitors: parseInt(row.metricValues[0].value, 10),
+      };
+    });
+
     // Parse Real-time active users (fallback to 1 if none online)
     let realTimeVisitors = 1;
     try {
@@ -96,6 +168,12 @@ export default async function handler(req, res) {
       visitorTrend,
       trafficSources,
       popularPages,
+      engagement: {
+        avgSessionTime,
+        bounceRate
+      },
+      devices,
+      cities
     });
   } catch (error) {
     console.error('GA4 API Error:', error);

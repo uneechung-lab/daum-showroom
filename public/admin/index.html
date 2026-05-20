@@ -94,7 +94,7 @@
         </header>
 
         <!-- Stats Grid -->
-        <section class="stats-grid">
+        <section class="stats-grid" style="grid-template-columns: repeat(6, 1fr);">
             <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/inquiries.html'">
                 <span class="stat-label">새 문의 내역</span>
                 <div class="stat-value" id="stat-inquiries">-</div>
@@ -110,6 +110,14 @@
             <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/partners.html'">
                 <span class="stat-label">파트너십</span>
                 <div class="stat-value" id="stat-partners">-</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">평균 체류 시간</span>
+                <div class="stat-value" id="stat-avg-time">-</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">이탈률</span>
+                <div class="stat-value" id="stat-bounce-rate">-</div>
             </div>
         </section>
 
@@ -162,6 +170,32 @@
                     </table>
                 </div>
 
+                <!-- 접속 기기 비율 및 도시별 방문 분포 (50/50 그리드) -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <!-- 접속 기기 비율 -->
+                    <div class="data-card" style="padding: 1.75rem;">
+                        <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">접속 기기 비율</h3>
+                        <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">데스크톱, 모바일, 태블릿 유입 분석</p>
+                        
+                        <div style="position: relative; height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+                            <canvas id="deviceRatioChart" style="max-height: 100%; max-width: 100%;"></canvas>
+                        </div>
+                        <div style="display: flex; justify-content: space-around; font-size: 0.85rem; border-top: 1px solid var(--admin-border); padding-top: 1rem;" id="device-legend-container">
+                            <div style="text-align: center; width: 100%; color: var(--admin-text-sub);">불러오는 중...</div>
+                        </div>
+                    </div>
+
+                    <!-- 도시별 방문 분포 -->
+                    <div class="data-card" style="padding: 1.75rem;">
+                        <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">도시별 방문 분포</h3>
+                        <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">주요 접속 도시 순위 Top 5</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;" id="city-ranking-container">
+                            <div style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Right Column (Narrow) -->
@@ -208,6 +242,7 @@
 
         let trendChart = null;
         let trafficChart = null;
+        let deviceChart = null;
 
         // 1. 실시간 및 누적 방문자 추이 라인 차트 초기화 (임시 뼈대 생성)
         const ctxTrend = document.getElementById('visitorTrendChart').getContext('2d');
@@ -302,7 +337,41 @@
             }
         });
 
-        // 3. Supabase 실시간 통계 및 최근 3건 문의 동적 바인딩
+        // 3. 기기 비율 도넛 차트 초기화 (임시 뼈대 생성)
+        const ctxDevice = document.getElementById('deviceRatioChart').getContext('2d');
+        deviceChart = new Chart(ctxDevice, {
+            type: 'doughnut',
+            data: {
+                labels: ['PC', '모바일', '태블릿'],
+                datasets: [{
+                    data: [0, 0, 0],
+                    backgroundColor: [
+                        '#0f172a',
+                        '#3b82f6',
+                        '#cbd5e1',
+                        '#94a3b8'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        padding: 10,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // 4. Supabase 실시간 통계 및 최근 3건 문의 동적 바인딩
         async function loadDashboardData() {
             try {
                 // (1) 문의내역 카운트
@@ -380,7 +449,7 @@
             }
         }
 
-        // 4. Google Analytics GA4 실시간 연동 데이터 바인딩
+        // 5. Google Analytics GA4 실시간 연동 데이터 바인딩
         async function loadAnalyticsData() {
             try {
                 const response = await fetch('/api/analytics');
@@ -481,16 +550,85 @@
                             <div style="text-align: center; padding: 1.5rem; color: var(--admin-text-sub);">수집된 데이터 없음</div>
                         `;
                     }
+
+                    // (6) 평균 체류 시간 및 이탈률 바인딩
+                    if (data.engagement) {
+                        document.getElementById('stat-avg-time').innerText = data.engagement.avgSessionTime || '-';
+                        document.getElementById('stat-bounce-rate').innerText = data.engagement.bounceRate || '-';
+                    }
+
+                    // (7) 접속 기기 비율 차트 및 레전드 바인딩
+                    if (data.devices && data.devices.length > 0) {
+                        const labels = data.devices.map(d => d.category);
+                        const chartData = data.devices.map(d => d.visitors);
+                        const totalDevices = data.devices.reduce((sum, d) => sum + d.visitors, 0);
+
+                        deviceChart.data.labels = labels;
+                        deviceChart.data.datasets[0].data = chartData;
+                        deviceChart.update();
+
+                        const deviceColors = ['#0f172a', '#3b82f6', '#cbd5e1', '#94a3b8'];
+                        const deviceLegend = document.getElementById('device-legend-container');
+                        deviceLegend.innerHTML = data.devices.map((d, index) => {
+                            const percentage = totalDevices > 0 ? Math.round((d.visitors / totalDevices) * 100) : 0;
+                            const color = deviceColors[index % deviceColors.length];
+                            return `
+                                <div style="display: flex; align-items: center; gap: 0.35rem;">
+                                    <span style="width: 8px; height: 8px; border-radius: 50%; background-color: ${color}; display: inline-block;"></span>
+                                    <span style="font-weight: 600; color: var(--admin-text-main); font-size: 0.8rem;">${d.category} ${percentage}%</span>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        document.getElementById('device-legend-container').innerHTML = `
+                            <div style="text-align: center; width: 100%; color: var(--admin-text-sub);">수집된 데이터 없음</div>
+                        `;
+                    }
+
+                    // (8) 도시별 방문 분포 테이블 바인딩
+                    if (data.cities && data.cities.length > 0) {
+                        const cityContainer = document.getElementById('city-ranking-container');
+                        const rankColors = ['#0f172a', '#3b82f6', '#60a5fa', '#cbd5e1', '#f1f5f9'];
+                        const textColors = ['#ffffff', '#ffffff', '#ffffff', 'var(--admin-text-sub)', 'var(--admin-text-sub)'];
+                        
+                        cityContainer.innerHTML = data.cities.map((d, index) => {
+                            const color = rankColors[index % rankColors.length];
+                            const textColor = textColors[index % textColors.length];
+                            const borderStyle = index >= 3 ? 'border: 1px solid var(--admin-border);' : '';
+                            
+                            return `
+                                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: ${index === data.cities.length - 1 ? 'none' : '1px solid #f1f5f9'}; padding-bottom: 0.5rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <span style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: ${color}; color: ${textColor}; font-size: 0.7rem; font-weight: 800; border-radius: 5px; ${borderStyle}">${index + 1}</span>
+                                        <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.9rem;">${d.city}</span>
+                                    </div>
+                                    <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem; color: #0f172a;">${d.visitors.toLocaleString()}명</span>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        document.getElementById('city-ranking-container').innerHTML = `
+                            <div style="text-align: center; padding: 1.5rem; color: var(--admin-text-sub);">수집된 데이터 없음</div>
+                        `;
+                    }
                 }
             } catch (e) {
                 console.error("GA4 data load error:", e);
                 // 에러 발생 시 UI 처리
                 document.getElementById('today-visitors-count').innerText = '오류';
                 document.getElementById('total-sessions-count').innerText = '오류';
+                document.getElementById('stat-avg-time').innerText = '오류';
+                document.getElementById('stat-bounce-rate').innerText = '오류';
                 document.getElementById('traffic-legend-container').innerHTML = `
                     <div style="text-align: center; grid-column: span 2; color: #ef4444;">API 연동 오류</div>
                 `;
                 document.getElementById('popular-pages-container').innerHTML = `
+                    <div style="text-align: center; padding: 1.5rem; color: #ef4444;">API 연동 오류</div>
+                `;
+                document.getElementById('device-legend-container').innerHTML = `
+                    <div style="text-align: center; width: 100%; color: #ef4444;">API 연동 오류</div>
+                `;
+                document.getElementById('city-ranking-container').innerHTML = `
                     <div style="text-align: center; padding: 1.5rem; color: #ef4444;">API 연동 오류</div>
                 `;
             }
