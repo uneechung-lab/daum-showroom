@@ -153,11 +153,10 @@
                         <div style="height: 90px; display: flex; align-items: center; gap: 0.75rem;">
                             <div style="color: #0f172a; display: flex; align-items: center; justify-content: center; position: relative;">
                                 <i data-lucide="users" style="width: 1.25rem; height: 1.25rem;"></i>
-                                <span style="position: absolute; top: -3px; right: -3px; width: 6px; height: 6px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite;"></span>
                             </div>
                             <div>
-                                <h5 style="font-weight: 800; font-size: 0.85rem; color: #0f172a; margin: 0 0 0.1rem 0;">실시간 활성 사용자</h5>
-                                <p style="font-size: 0.7rem; color: var(--admin-text-sub); margin: 0;">현재 접속 중인 유저</p>
+                                <h5 style="font-weight: 800; font-size: 0.85rem; color: #0f172a; margin: 0 0 0.1rem 0;">7일 누적 사용자</h5>
+                                <p style="font-size: 0.7rem; color: var(--admin-text-sub); margin: 0;">최근 7일간 방문 유저</p>
                             </div>
                         </div>
 
@@ -605,13 +604,19 @@
                     realtimeIndicator.style.display = 'inline-flex';
                     realtimeIndicator.querySelector('strong').innerText = `${data.realTimeVisitors || 1}명`;
 
+                    // 7일 누적 사용자 계산
+                    let total7DaysVisitors = 1;
+                    if (data.visitorTrend && data.visitorTrend.length > 0) {
+                        total7DaysVisitors = data.visitorTrend.reduce((sum, item) => sum + item.visitors, 0) || 1;
+                    }
+
                     const funnelEntered = document.getElementById('funnel-entered-val');
                     if (funnelEntered) {
-                        funnelEntered.innerText = `${data.realTimeVisitors || 1}명`;
+                        funnelEntered.innerText = `${total7DaysVisitors}명`;
                     }
                     const flow1 = document.getElementById('flow-arrow-1-val');
                     if (flow1) {
-                        flow1.innerText = `${data.realTimeVisitors || 1}명`;
+                        flow1.innerText = `${total7DaysVisitors}명`;
                     }
 
                     // (2) 오늘 총 방문자 및 등락폭 파싱
@@ -708,7 +713,12 @@
                     if (data.engagement) {
                         const avgTime = data.engagement.avgSessionTime || '1분 51초';
                         const bounceRate = data.engagement.bounceRate || '100.0%';
-                        const visitors = data.realTimeVisitors || 1;
+                        // 7일 누적 사용자 값 사용
+                        let total7DaysVisitors = 1;
+                        if (data.visitorTrend && data.visitorTrend.length > 0) {
+                            total7DaysVisitors = data.visitorTrend.reduce((sum, item) => sum + item.visitors, 0) || 1;
+                        }
+                        const visitors = total7DaysVisitors;
 
                         const funnelEngaged = document.getElementById('funnel-engaged-val');
                         if (funnelEngaged) funnelEngaged.innerText = avgTime;
@@ -734,9 +744,9 @@
                         const funnelCaption = document.getElementById('funnel-caption');
                         if (funnelCaption) {
                             if (numBounceRate >= 90) {
-                                funnelCaption.innerText = `유입된 ${visitors}명의 유저가 평균 ${avgTime} 체류 후, 참여 없이 모두 이탈하였습니다.`;
+                                funnelCaption.innerText = `최근 7일간 유입된 ${visitors}명의 유저가 평균 ${avgTime} 체류 후, 참여 없이 모두 이탈하였습니다.`;
                             } else {
-                                funnelCaption.innerText = `유입된 ${visitors}명의 유저가 평균 ${avgTime} 체류하였으며, 이 중 ${partCount}명이 참여에 도달하였습니다.`;
+                                funnelCaption.innerText = `최근 7일간 유입된 ${visitors}명의 유저가 평균 ${avgTime} 체류하였으며, 이 중 ${partCount}명이 참여에 도달하였습니다.`;
                             }
                         }
                     }
