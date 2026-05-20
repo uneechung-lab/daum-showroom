@@ -8,39 +8,210 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
+            background-color: #ffffff;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Absolutely center the entire group horizontally */
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Perfectly centered container block to keep left and right margins identical */
+        .login-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #0f172a;
-            height: 100vh;
-            margin: 0;
+            width: 100%;
+            max-width: 1400px; /* Clean centered bounding box expanded to fit larger character */
+            padding: 2rem;
+            margin: 0 auto;
         }
 
-        .login-card {
-            background: #ffffff;
+        /* Left Side: Character container */
+        .login-image-side {
+            flex: 1.2;
+            display: flex;
+            justify-content: flex-end; /* Align the image content right towards the form */
+            align-items: center;
+        }
+
+        /* Perfect, beautiful large size preserved (900px width / 95vh height max) */
+        /* Negative margin overlaps the transparent empty space on the right of the character with the form side, keeping them very close */
+        .login-image-side img {
+            width: 900px; /* Doubled character size */
+            height: auto;
+            max-height: 95vh; /* Proportional expansion fits screen */
+            object-fit: contain;
+            margin-right: -90px; /* Doubled visual gap overlap */
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: all 0.2s ease;
+        }
+
+        /* Right Side: Login Form container */
+        .login-form-side {
+            flex: 0.8;
+            display: flex;
+            justify-content: flex-start; /* Align form content left towards the character */
+            align-items: center;
+            z-index: 10;
+        }
+
+        .login-card-wrapper {
             width: 100%;
-            max-width: 420px;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            max-width: 380px;
         }
 
         .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
+            text-align: left;
+            margin-bottom: 3.5rem; /* Increased to create more spacious separation between header and form */
         }
 
-        .login-header img {
-            width: 160px;
-            margin-bottom: 1.5rem;
+        .brand-logo {
+            width: 180px;
+            display: block;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .brand-text-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #000000;
+            letter-spacing: -0.02em;
+            display: inline-block;
+            line-height: 1;
+            user-select: none;
+        }
+
+        .brand-text-logo .accent-text {
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            margin-left: 0.35rem;
+        }
+
+        /* Logo Selector Container */
+        .logo-selector-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.75rem; /* Space below the logo block */
+            transition: margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth shifting transition */
+        }
+
+        .logo-selector-container[data-brand="daumis"] {
+            margin-left: -23px; /* Shifted left to align the visual edge of the DAUMIS image */
+        }
+
+        .logo-selector-container[data-brand="zal"] {
+            margin-left: -8px; /* Offset to perfectly align ZAL text with no transparent padding */
+        }
+
+        .logo-selector-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+            user-select: none;
+            height: 48px; /* Locked height to prevent welcome text from shifting when toggling brands */
+        }
+
+        .logo-selector-trigger:hover {
+            background-color: #f1f5f9;
+        }
+
+        .chevron-icon {
+            color: #000000;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .logo-selector-container.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Menu */
+        .logo-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 5px;
+            margin-top: 0.5rem;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+            min-width: 200px;
+            z-index: 1000;
+            padding: 0.4rem;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .logo-dropdown.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .dropdown-item.active {
+            background-color: #0f172a;
+            color: #ffffff;
+        }
+
+        .dropdown-item .sub-label {
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            opacity: 0.8;
         }
 
         .login-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            color: #1e293b;
-            letter-spacing: -0.02em;
+            color: #0f172a;
+            letter-spacing: -0.03em;
+            margin: 0;
+        }
+        
+        .login-header p {
+            font-size: 1.45rem; /* Increased size further from 1.25rem for high readability */
+            color: #64748b;
+            margin-top: 0; /* Removed top margin to close the spacing gap */
+            margin-bottom: 0;
+            font-weight: 500;
         }
 
         .form-group {
@@ -51,7 +222,7 @@
             display: block;
             font-size: 0.875rem;
             font-weight: 600;
-            color: #64748b;
+            color: #94a3b8; /* Softened and lightened color */
             margin-bottom: 0.5rem;
         }
 
@@ -61,130 +232,410 @@
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             overflow: hidden;
-            transition: border-color 0.3s;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
         }
 
         .input-group:focus-within {
-            border-color: #fbbf24;
+            border-color: #000000;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
         }
 
         .form-control-custom {
             flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 0.8rem 1rem;
             border: none;
-            font-size: 1rem;
+            font-size: 1.18rem !important; /* Slightly reduced for a cleaner look */
             outline: none;
             width: 100%;
+            background: transparent;
+            color: #0f172a;
         }
 
         .input-group-suffix {
             background: #f8fafc;
-            padding: 0.75rem 1rem;
-            color: #94a3b8;
+            padding: 0.8rem 1rem;
+            color: #64748b;
             font-weight: 600;
             border-left: 1px solid #e2e8f0;
             user-select: none;
+            font-size: 1.1rem !important; /* Slightly reduced to match */
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.8rem 1rem;
             border-radius: 8px;
             border: 1px solid #e2e8f0;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            font-size: 1.18rem !important; /* Slightly reduced for a cleaner look */
+            transition: all 0.2s ease;
             outline: none;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #0f172a;
         }
 
         .form-control:focus {
-            border-color: #fbbf24;
+            border-color: #000000;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Placeholder styles to match the input font-size */
+        .form-control-custom::placeholder,
+        .form-control::placeholder {
+            font-size: 1.18rem !important;
+            opacity: 0.6;
+        }
+        .form-control-custom::-webkit-input-placeholder,
+        .form-control::-webkit-input-placeholder {
+            font-size: 1.18rem !important;
+        }
+        .form-control-custom::-moz-placeholder,
+        .form-control::-moz-placeholder {
+            font-size: 1.18rem !important;
+            opacity: 0.6;
+        }
+        .form-control-custom:-ms-input-placeholder,
+        .form-control:-ms-input-placeholder {
+            font-size: 1.18rem !important;
+        }
+
+        /* Autofill Styling to prevent Chrome from overriding font size and style on initial page load */
+        input.form-control-custom:-webkit-autofill,
+        input.form-control-custom:-webkit-autofill:hover, 
+        input.form-control-custom:-webkit-autofill:focus, 
+        input.form-control-custom:-webkit-autofill:active,
+        input.form-control:-webkit-autofill,
+        input.form-control:-webkit-autofill:hover, 
+        input.form-control:-webkit-autofill:focus, 
+        input.form-control:-webkit-autofill:active {
+            font-size: 1.18rem !important;
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+        }
+
+        /* Essential hack: Chrome's user agent stylesheet forces a smaller font on auto-filled text. */
+        /* Targeting the ::first-line pseudo-element of the autofilled input bypasses this restriction on initial load. */
+        input.form-control-custom:-webkit-autofill::first-line,
+        input.form-control:-webkit-autofill::first-line {
+            font-size: 1.18rem !important;
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
         }
 
         .login-btn {
             width: 100%;
-            padding: 0.875rem;
-            background-color: #fbbf24;
-            color: #000;
+            padding: 0.9rem;
+            background-color: #000000;
+            color: #ffffff;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
+            transition: all 0.2s ease;
+            margin-top: 0.75rem;
         }
 
         .login-btn:hover {
-            background-color: #f59e0b;
+            background-color: #1e293b;
+        }
+
+        .login-btn:active {
+            transform: scale(0.985);
+        }
+
+        /* Auto Login Checkbox Styles */
+        .form-options {
+            display: flex;
+            align-items: center;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            user-select: none;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            height: 18px;
+            width: 18px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: #0f172a;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #000000;
+            border-color: #000000;
+        }
+
+        .checkmark:after {
+            content: "";
+            display: none;
+            width: 5px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-bottom: 2px;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .label-text {
+            transition: color 0.2s ease;
+        }
+
+        .checkbox-container:hover .label-text {
+            color: #0f172a;
         }
 
         .error-msg {
             background-color: #fee2e2;
             color: #ef4444;
             padding: 0.75rem;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.875rem;
             margin-bottom: 1.5rem;
             display: none;
             text-align: center;
+            font-weight: 500;
+            border: 1px solid #fecaca;
         }
 
         .back-to-site {
             display: block;
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             font-size: 0.875rem;
-            color: #94a3b8;
+            color: #64748b;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.2s;
+            font-weight: 500;
         }
 
         .back-to-site:hover {
-            color: #64748b;
+            color: #0f172a;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .login-image-side {
+                display: none;
+            }
+            .login-container {
+                max-width: 450px;
+                justify-content: center;
+            }
+            .login-form-side {
+                flex: none;
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <div class="login-header">
-            <img src="/ci_03.png" alt="DAUMIS">
-            <h2>Admin Dashboard</h2>
+    <div class="login-container">
+        <!-- Left Side: Image Panel -->
+        <div class="login-image-side">
+            <img src="/login.png" alt="Login Character">
         </div>
-
-        <div id="errorBox" class="error-msg">정보가 올바르지 않습니다.</div>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">관리자 계정</label>
-                <div class="input-group">
-                    <input type="text" id="username" class="form-control-custom" placeholder="admin" required>
-                    <div class="input-group-suffix">@daumit.net</div>
+        
+        <div class="login-form-side">
+            <div class="login-card-wrapper">
+                <div class="login-header">
+                    <div class="logo-selector-container" id="logoSelectorContainer" data-brand="daumis">
+                        <div class="logo-selector-trigger" id="logoSelectorTrigger" data-brand="daumis">
+                            <img src="/ci_03.png" alt="DAUMIS" id="logoDaumis" class="brand-logo">
+                            <span id="logoZal" class="brand-text-logo" style="display: none;">ZAL<span class="accent-text">: 잘먹</span></span>
+                            <svg class="chevron-icon" id="chevronIcon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="logo-dropdown" id="logoDropdown">
+                            <div class="dropdown-item active" data-value="daumis">
+                                <span>DAUMIS</span>
+                            </div>
+                            <div class="dropdown-item" data-value="zal">
+                                <span>ZAL <span class="sub-label">: 잘먹</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>안녕하세요. 관리자님, 로그인해 주세요.</p>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
-            </div>
-            
-            <button type="submit" class="login-btn">로그인</button>
-        </form>
 
-        <a href="/" class="back-to-site">메인 홈페이지로 돌아가기</a>
+                <div id="errorBox" class="error-msg">정보가 올바르지 않습니다.</div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">ADMIN ID</label>
+                        <div class="input-group">
+                            <input type="text" id="username" class="form-control-custom" value="admin" required>
+                            <div class="input-group-suffix">@daumit.net</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="autoLogin" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">자동로그인</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">로그인</button>
+                </form>
+
+                <a href="/" target="_blank" rel="noopener noreferrer" class="back-to-site">메인 홈페이지로</a>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Force a layout reflow to solve Chrome's rendering bug where autofilled inputs and web-font text in inputs do not paint at the correct size until user interaction (click).
+        function forceReflow() {
+            const body = document.body;
+            body.style.display = 'none';
+            body.offsetHeight; // Trigger layout calculation
+            body.style.display = '';
+        }
+
+        // Trigger reflow once web fonts are ready and when the window completes loading
+        if (document.fonts) {
+            document.fonts.ready.then(forceReflow);
+        }
+        window.addEventListener('load', forceReflow);
+
+        // Logo Dropdown Selector Logic
+        const logoContainer = document.getElementById('logoSelectorContainer');
+        const logoTrigger = document.getElementById('logoSelectorTrigger');
+        const logoDropdown = document.getElementById('logoDropdown');
+        const logoDaumis = document.getElementById('logoDaumis');
+        const logoZal = document.getElementById('logoZal');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const emailSuffix = document.querySelector('.input-group-suffix');
+        const backToSiteLink = document.querySelector('.back-to-site');
+
+        // Toggle dropdown open/close
+        logoTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            logoContainer.classList.toggle('open');
+            logoDropdown.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking elsewhere
+        document.addEventListener('click', function() {
+            logoContainer.classList.remove('open');
+            logoDropdown.classList.remove('show');
+        });
+
+        // Handle dropdown item selection
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const selectedValue = this.getAttribute('data-value');
+
+                // Toggle active states
+                dropdownItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update selected brand value on trigger and container
+                logoTrigger.setAttribute('data-brand', selectedValue);
+                logoContainer.setAttribute('data-brand', selectedValue);
+
+                if (selectedValue === 'daumis') {
+                    // Show DAUMIS logo, hide ZAL logo
+                    logoDaumis.style.display = 'block';
+                    logoZal.style.display = 'none';
+
+                    // Revert input field behavior to DAUMIS settings
+                    usernameInput.value = 'admin';
+                    usernameInput.removeAttribute('placeholder');
+                    emailSuffix.style.display = 'block';
+
+                    // Revert bottom link to main homepage settings
+                    backToSiteLink.textContent = '메인 홈페이지로';
+                    backToSiteLink.setAttribute('href', '/');
+                } else if (selectedValue === 'zal') {
+                    // Show ZAL logo, hide DAUMIS logo
+                    logoDaumis.style.display = 'none';
+                    logoZal.style.display = 'inline-block';
+
+                    // Set input field behavior to ZAL settings
+                    usernameInput.value = '';
+                    usernameInput.setAttribute('placeholder', 'email ID');
+                    emailSuffix.style.display = 'block';
+
+                    // Set bottom link to ZAL settings
+                    backToSiteLink.textContent = '잘먹으로';
+                    backToSiteLink.setAttribute('href', 'https://daum-zal.vercel.app/employee.html');
+                }
+
+                // Close dropdown
+                logoContainer.classList.remove('open');
+                logoDropdown.classList.remove('show');
+                
+                // Force a reflow to render correctly
+                forceReflow();
+            });
+        });
+
         const loginForm = document.getElementById('loginForm');
         const errorBox = document.getElementById('errorBox');
 
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const fullEmail = username + '@daumit.net';
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            const currentBrand = logoTrigger.getAttribute('data-brand') || 'daumis';
 
-            // 수정된 계정 정보: admin@daumit.net / 1234
-            if(fullEmail === 'admin@daumit.net' && password === '1234') {
+            let loginSuccess = false;
+
+            if (currentBrand === 'daumis') {
+                const fullEmail = username + '@daumit.net';
+                if(fullEmail === 'admin@daumit.net' && password === '1234') {
+                    loginSuccess = true;
+                }
+            } else if (currentBrand === 'zal') {
+                // ZAL admin credential check
+                if((username === 'admin@zal.com' || username === 'admin') && password === '1234') {
+                    loginSuccess = true;
+                }
+            }
+
+            if(loginSuccess) {
                 sessionStorage.setItem('isAdminLoggedIn', 'true');
                 
                 // 로그인 완료 후 가려던 원본 페이지가 있으면 그곳으로, 없으면 메인으로 이동
