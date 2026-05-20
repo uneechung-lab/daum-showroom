@@ -135,51 +135,107 @@
                 </div>
             </div>
 
-            <!-- ② GA4 핵심 지표 카드 3종 (실시간 활성 사용자 & 평균 체류 시간 & 이탈률 수직 스택) -->
-            <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: space-between; height: 100%;">
+            <!-- ② GA4 핵심 지표 유저 여정 퍼널 (Funnel) 카드 -->
+            <div class="data-card" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                 
-                <!-- 1. 실시간 활성 사용자 Card -->
-                <div class="data-card" style="padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="color: #0f172a; display: flex; align-items: center; justify-content: center; position: relative;">
-                            <i data-lucide="users" style="width: 1.35rem; height: 1.35rem;"></i>
-                            <span style="position: absolute; top: -3px; right: -3px; width: 7px; height: 7px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite;"></span>
-                        </div>
-                        <div>
-                            <h4 style="font-weight: 800; font-size: 0.95rem; color: #0f172a; margin: 0 0 0.15rem 0;">실시간 활성 사용자</h4>
-                            <p style="font-size: 0.75rem; color: var(--admin-text-sub); margin: 0;">현재 접속 중인 유저</p>
-                        </div>
-                    </div>
-                    <div class="stat-value" id="realtime-users-count" style="font-size: 1.75rem; font-weight: 900; color: #059669; font-family: 'Outfit', sans-serif;">-</div>
+                <!-- Card Header -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                    <h3 style="font-weight: 800; font-size: 1.15rem; color: #0f172a; margin: 0;">유저 여정 분석 퍼널 (User Journey Funnel)</h3>
                 </div>
 
-                <!-- 2. 평균 체류 시간 Card -->
-                <div class="data-card" style="padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="color: #0f172a; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="clock" style="width: 1.35rem; height: 1.35rem;"></i>
+                <!-- Funnel Body -->
+                <div style="display: flex; flex-direction: column; gap: 4px; flex: 1; justify-content: space-between;">
+                    
+                    <!-- 1단계: 인입 (Entered) -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                        <!-- Left Metric Info -->
+                        <div style="display: flex; align-items: center; gap: 0.75rem; width: 140px; min-width: 140px;">
+                            <div style="color: #0f172a; display: flex; align-items: center; justify-content: center; position: relative;">
+                                <i data-lucide="users" style="width: 1.25rem; height: 1.25rem;"></i>
+                                <span style="position: absolute; top: -3px; right: -3px; width: 6px; height: 6px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite;"></span>
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 800; font-size: 0.85rem; color: #0f172a; margin: 0 0 0.1rem 0;">실시간 활성 사용자</h5>
+                                <p style="font-size: 0.7rem; color: var(--admin-text-sub); margin: 0;">현재 접속 중인 유저</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 style="font-weight: 800; font-size: 0.95rem; color: #0f172a; margin: 0 0 0.15rem 0;">평균 체류 시간</h4>
-                            <p style="font-size: 0.75rem; color: var(--admin-text-sub); margin: 0;">평균 머문 시간</p>
+                        
+                        <!-- Center Funnel Segment -->
+                        <div style="flex: 1; height: 75px; background: linear-gradient(180deg, #115e59, #0f766e); clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; margin: 0 0.5rem;">
+                            <span id="funnel-entered-val" style="font-size: 1.35rem; font-weight: 900; color: #86efac; text-shadow: 0 0 10px rgba(134, 239, 172, 0.4); font-family: 'Outfit', sans-serif;">1명</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">인입 (Entered)</span>
+                        </div>
+                        
+                        <!-- Right Flow Arrow -->
+                        <div style="width: 50px; min-width: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <span id="flow-arrow-1-val" style="font-size: 0.7rem; font-weight: 800; color: var(--admin-text-sub); margin-bottom: 0.15rem;">1명</span>
+                            <i data-lucide="arrow-down" style="width: 1rem; height: 1rem; color: #0f766e;"></i>
                         </div>
                     </div>
-                    <div class="stat-value" id="stat-avg-time" style="font-size: 1.75rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
+
+                    <!-- 2단계: 경험 (Engaged) -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                        <!-- Left Metric Info -->
+                        <div style="display: flex; align-items: center; gap: 0.75rem; width: 140px; min-width: 140px;">
+                            <div style="color: #0f172a; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 800; font-size: 0.85rem; color: #0f172a; margin: 0 0 0.1rem 0;">평균 체류 시간</h5>
+                                <p style="font-size: 0.7rem; color: var(--admin-text-sub); margin: 0;">평균 머문 시간</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Center Funnel Segment -->
+                        <div style="flex: 1; height: 75px; background: linear-gradient(180deg, #0f766e, #134e4a); clip-path: polygon(15% 0%, 85% 0%, 70% 100%, 30% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; margin: 0 0.5rem;">
+                            <span id="funnel-engaged-val" style="font-size: 1.35rem; font-weight: 900; color: #86efac; text-shadow: 0 0 10px rgba(134, 239, 172, 0.4); font-family: 'Outfit', sans-serif;">1분 51초</span>
+                            <span style="font-size: 0.75rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">경험 (Engaged)</span>
+                        </div>
+                        
+                        <!-- Right Flow Arrow -->
+                        <div style="width: 50px; min-width: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <span id="flow-arrow-2-val" style="font-size: 0.7rem; font-weight: 800; color: var(--admin-text-sub); margin-bottom: 0.15rem;">분 초</span>
+                            <i data-lucide="arrow-down" style="width: 1rem; height: 1rem; color: #134e4a;"></i>
+                        </div>
+                    </div>
+
+                    <!-- 3단계: 이탈률 (Bounce Rate) / 참여 -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                        <!-- Left Metric Info -->
+                        <div style="display: flex; align-items: center; gap: 0.75rem; width: 140px; min-width: 140px;">
+                            <div style="color: #0f172a; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 800; font-size: 0.85rem; color: #0f172a; margin: 0 0 0.1rem 0;">이탈률</h5>
+                                <p style="font-size: 0.7rem; color: var(--admin-text-sub); margin: 0;">참여 없이 바로 나간 비율</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Center Funnel Segment -->
+                        <div style="flex: 1; height: 75px; background: linear-gradient(180deg, #0e2a35, #0b1e26); clip-path: polygon(30% 0%, 70% 0%, 70% 100%, 30% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; margin: 0 0.5rem;">
+                            <span id="funnel-participated-val" style="font-size: 1.35rem; font-weight: 900; color: #f87171; text-shadow: 0 0 10px rgba(248, 113, 113, 0.4); font-family: 'Outfit', sans-serif;">100.0%</span>
+                            <span id="funnel-participated-sub" style="font-size: 0.75rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">참여 (Participated): 0명</span>
+                        </div>
+                        
+                        <!-- Right Flow Arrow (Red Churn/Bounce Indicator) -->
+                        <div style="width: 50px; min-width: 50px; display: flex; align-items: center; justify-content: center; position: relative;">
+                            <div style="position: absolute; display: flex; flex-direction: column; align-items: center; top: -15px;">
+                                <span id="flow-arrow-exit-val" style="font-size: 0.75rem; font-weight: 900; color: #ef4444; margin-bottom: 0.15rem;">100%</span>
+                                <i data-lucide="corner-down-right" style="width: 1.35rem; height: 1.35rem; color: #ef4444;"></i>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- 3. 이탈률 Card -->
-                <div class="data-card" style="padding: 1.15rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex: 1;">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="color: #0f172a; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="log-out" style="width: 1.35rem; height: 1.35rem;"></i>
-                        </div>
-                        <div>
-                            <h4 style="font-weight: 800; font-size: 0.95rem; color: #0f172a; margin: 0 0 0.15rem 0;">이탈률</h4>
-                            <p style="font-size: 0.75rem; color: var(--admin-text-sub); margin: 0;">참여 없이 바로 나간 비율</p>
-                        </div>
-                    </div>
-                    <div class="stat-value" id="stat-bounce-rate" style="font-size: 1.75rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
+                <!-- Funnel Dynamic Caption -->
+                <div style="margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px dashed var(--admin-border); text-align: center;">
+                    <p id="funnel-caption" style="font-size: 0.75rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.4;">
+                        유입된 1명의 유저가 평균 1분 51초 체류 후, 참여 없이 모두 이탈하였습니다.
+                    </p>
                 </div>
+
             </div>
 
         </div>
@@ -543,9 +599,13 @@
                     realtimeIndicator.style.display = 'inline-flex';
                     realtimeIndicator.querySelector('strong').innerText = `${data.realTimeVisitors || 1}명`;
 
-                    const realtimeUsersCard = document.getElementById('realtime-users-count');
-                    if (realtimeUsersCard) {
-                        realtimeUsersCard.innerText = `${data.realTimeVisitors || 1}명`;
+                    const funnelEntered = document.getElementById('funnel-entered-val');
+                    if (funnelEntered) {
+                        funnelEntered.innerText = `${data.realTimeVisitors || 1}명`;
+                    }
+                    const flow1 = document.getElementById('flow-arrow-1-val');
+                    if (flow1) {
+                        flow1.innerText = `${data.realTimeVisitors || 1}명`;
                     }
 
                     // (2) 오늘 총 방문자 및 등락폭 파싱
@@ -640,8 +700,39 @@
 
                     // (6) 평균 체류 시간 및 이탈률 바인딩
                     if (data.engagement) {
-                        document.getElementById('stat-avg-time').innerText = data.engagement.avgSessionTime || '-';
-                        document.getElementById('stat-bounce-rate').innerText = data.engagement.bounceRate || '-';
+                        const avgTime = data.engagement.avgSessionTime || '1분 51초';
+                        const bounceRate = data.engagement.bounceRate || '100.0%';
+                        const visitors = data.realTimeVisitors || 1;
+
+                        const funnelEngaged = document.getElementById('funnel-engaged-val');
+                        if (funnelEngaged) funnelEngaged.innerText = avgTime;
+
+                        const flow2 = document.getElementById('flow-arrow-2-val');
+                        if (flow2) flow2.innerText = avgTime.replace('평균 ', '');
+
+                        const funnelParticipated = document.getElementById('funnel-participated-val');
+                        if (funnelParticipated) funnelParticipated.innerText = bounceRate;
+
+                        const flowExit = document.getElementById('flow-arrow-exit-val');
+                        if (flowExit) flowExit.innerText = bounceRate;
+
+                        // 참여자 수 계산
+                        const numBounceRate = parseFloat(bounceRate) || 100;
+                        const partCount = Math.max(0, Math.round(visitors * (1 - (numBounceRate / 100))));
+                        
+                        const funnelPartSub = document.getElementById('funnel-participated-sub');
+                        if (funnelPartSub) {
+                            funnelPartSub.innerText = `참여 (Participated): ${partCount}명`;
+                        }
+
+                        const funnelCaption = document.getElementById('funnel-caption');
+                        if (funnelCaption) {
+                            if (numBounceRate >= 90) {
+                                funnelCaption.innerText = `유입된 ${visitors}명의 유저가 평균 ${avgTime} 체류 후, 참여 없이 모두 이탈하였습니다.`;
+                            } else {
+                                funnelCaption.innerText = `유입된 ${visitors}명의 유저가 평균 ${avgTime} 체류하였으며, 이 중 ${partCount}명이 참여에 도달하였습니다.`;
+                            }
+                        }
                     }
 
                     // (7) 접속 기기 비율 차트 및 레전드 바인딩
