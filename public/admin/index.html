@@ -186,24 +186,24 @@
                     </div>
 
                     <!-- Column 2: Center Funnel Segment Stack (Tightly stacked!) -->
-                    <div style="display: flex; flex-direction: column; gap: 1px; flex: 1;">
+                    <div style="display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 150px;">
                         
                         <!-- Segment 1: Entered -->
-                        <div style="height: 90px; background: linear-gradient(180deg, #115e59, #0f766e); clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;">
-                            <span id="funnel-entered-val" style="font-size: 1.35rem; font-weight: 900; color: #86efac; text-shadow: 0 0 10px rgba(134, 239, 172, 0.4); font-family: 'Outfit', sans-serif;">1명</span>
-                            <span style="font-size: 0.75rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">인입 (Entered)</span>
+                        <div style="height: 90px; background: linear-gradient(180deg, #115e59, #0f766e); clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 12% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;">
+                            <span id="funnel-entered-val" style="font-size: 1.25rem; font-weight: 900; color: #86efac; text-shadow: 0 0 10px rgba(134, 239, 172, 0.4); font-family: 'Outfit', sans-serif;">1명</span>
+                            <span style="font-size: 0.7rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">인입 (Entered)</span>
                         </div>
 
                         <!-- Segment 2: Engaged -->
-                        <div style="height: 90px; background: linear-gradient(180deg, #0f766e, #134e4a); clip-path: polygon(15% 0%, 85% 0%, 70% 100%, 30% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;">
-                            <span id="funnel-engaged-val" style="font-size: 1.35rem; font-weight: 900; color: #86efac; text-shadow: 0 0 10px rgba(134, 239, 172, 0.4); font-family: 'Outfit', sans-serif;">1분 51초</span>
-                            <span style="font-size: 0.75rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">경험 (Engaged)</span>
+                        <div style="height: 90px; background: linear-gradient(180deg, #0f766e, #134e4a); clip-path: polygon(12% 0%, 88% 0%, 76% 100%, 24% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;">
+                            <span id="funnel-engaged-val" style="font-size: 1.25rem; font-weight: 900; color: #86efac; text-shadow: 0 0 10px rgba(134, 239, 172, 0.4); font-family: 'Outfit', sans-serif;">1분 51초</span>
+                            <span style="font-size: 0.7rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">경험 (Engaged)</span>
                         </div>
 
                         <!-- Segment 3: Participated -->
-                        <div style="height: 90px; background: linear-gradient(180deg, #0e2a35, #0b1e26); clip-path: polygon(30% 0%, 70% 0%, 70% 100%, 30% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;">
-                            <span id="funnel-participated-val" style="font-size: 1.35rem; font-weight: 900; color: #f87171; text-shadow: 0 0 10px rgba(248, 113, 113, 0.4); font-family: 'Outfit', sans-serif;">100.0%</span>
-                            <span id="funnel-participated-sub" style="font-size: 0.75rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">참여 (Participated): 0명</span>
+                        <div style="height: 90px; background: linear-gradient(180deg, #0e2a35, #0b1e26); clip-path: polygon(24% 0%, 76% 0%, 76% 100%, 24% 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white;">
+                            <span id="funnel-participated-val" style="font-size: 1.25rem; font-weight: 900; color: #f87171; text-shadow: 0 0 10px rgba(248, 113, 113, 0.4); font-family: 'Outfit', sans-serif;">100.0%</span>
+                            <span id="funnel-participated-sub" style="font-size: 0.7rem; font-weight: 700; opacity: 0.9; margin-top: 0.15rem;">참여 (Active): 0명</span>
                         </div>
 
                     </div>
@@ -728,7 +728,7 @@
                         
                         const funnelPartSub = document.getElementById('funnel-participated-sub');
                         if (funnelPartSub) {
-                            funnelPartSub.innerText = `참여 (Participated): ${partCount}명`;
+                            funnelPartSub.innerText = `참여 (Active): ${partCount}명`;
                         }
 
                         const funnelCaption = document.getElementById('funnel-caption');
