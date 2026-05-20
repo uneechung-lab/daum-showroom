@@ -94,7 +94,7 @@
         </header>
 
         <!-- Stats Grid -->
-        <section class="stats-grid" style="grid-template-columns: repeat(6, 1fr);">
+        <section class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
             <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/inquiries.html'">
                 <span class="stat-label">새 문의 내역</span>
                 <div class="stat-value" id="stat-inquiries">-</div>
@@ -111,18 +111,10 @@
                 <span class="stat-label">파트너십</span>
                 <div class="stat-value" id="stat-partners">-</div>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">평균 체류 시간</span>
-                <div class="stat-value" id="stat-avg-time">-</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">이탈률</span>
-                <div class="stat-value" id="stat-bounce-rate">-</div>
-            </div>
         </section>
 
-        <!-- Row 1: Trend Chart & Recent Inquiries -->
-        <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; margin-bottom: 2rem; align-items: stretch;">
+        <!-- Row 1: Trend Chart & GA4 Key Metrics -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem; align-items: stretch;">
             
             <!-- ① 실시간/누적 방문자 추이 (라인 차트) -->
             <div class="data-card" style="padding: 1.75rem; position: relative; display: flex; flex-direction: column; justify-content: space-between;">
@@ -143,36 +135,51 @@
                 </div>
             </div>
 
-            <!-- ② 최근 문의 접수 현황 (이동 및 동적 로드) -->
-            <div class="data-card" style="display: flex; flex-direction: column;">
-                <div style="padding: 1.5rem; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a;">최근 문의 접수 현황</h3>
-                    <a href="/admin/inquiries.html" style="font-size: 0.85rem; color: #3b82f6; font-weight: 700; text-decoration: none;">전체보기</a>
+            <!-- ② GA4 핵심 지표 카드 2종 (평균 체류 시간 & 이탈률 수직 스택) -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; justify-content: space-between;">
+                <!-- 평균 체류 시간 Card -->
+                <div class="data-card" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h4 style="font-weight: 800; font-size: 1.1rem; color: #0f172a; margin: 0 0 0.15rem 0;">평균 체류 시간</h4>
+                            <p style="font-size: 0.8rem; color: var(--admin-text-sub); margin: 0;">쇼룸 평균 머문 시간</p>
+                        </div>
+                        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; padding: 0.45rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <div class="stat-value" id="stat-avg-time" style="font-size: 2.1rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.35rem; font-size: 0.75rem; color: #16a34a; font-weight: 700;">
+                            <span>참여 세션 기준 산정</span>
+                        </div>
+                    </div>
                 </div>
-                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>작성자</th>
-                                <th>회사명</th>
-                                <th>제목</th>
-                                <th>날짜</th>
-                                <th>상태</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentInquiriesBody">
-                            <tr>
-                                <td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <!-- 이탈률 Card -->
+                <div class="data-card" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h4 style="font-weight: 800; font-size: 1.1rem; color: #0f172a; margin: 0 0 0.15rem 0;">이탈률</h4>
+                            <p style="font-size: 0.8rem; color: var(--admin-text-sub); margin: 0;">참여 없이 바로 나간 비율</p>
+                        </div>
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 0.45rem; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <div class="stat-value" id="stat-bounce-rate" style="font-size: 2.1rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif;">-</div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; margin-top: 0.35rem; font-size: 0.75rem; color: var(--admin-text-sub); font-weight: 600;">
+                            <span>목표 이탈률: 50% 이하</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- Row 2: 4 Analytics Panels in 1 Row -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; align-items: stretch;">
+        <!-- Row 2: 3 Donut Charts in 1 Row -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; align-items: stretch;">
             
             <!-- 1. 유입 경로 분석 (도넛) -->
             <div class="data-card" style="padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;">
@@ -226,7 +233,38 @@
                 </div>
             </div>
 
-            <!-- 4. 인기 페이지 순위 (목록) -->
+        </div>
+
+        <!-- Row 3: Recent Inquiries & Popular Pages -->
+        <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; margin-bottom: 3rem; align-items: stretch;">
+            
+            <!-- ① 최근 문의 접수 현황 -->
+            <div class="data-card" style="display: flex; flex-direction: column;">
+                <div style="padding: 1.5rem; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a;">최근 문의 접수 현황</h3>
+                    <a href="/admin/inquiries.html" style="font-size: 0.85rem; color: #3b82f6; font-weight: 700; text-decoration: none;">전체보기</a>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>작성자</th>
+                                <th>회사명</th>
+                                <th>제목</th>
+                                <th>날짜</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentInquiriesBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ② 인기 페이지 순위 (목록) -->
             <div class="data-card" style="padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">인기 페이지 순위</h3>
