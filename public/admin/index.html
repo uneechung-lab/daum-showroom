@@ -178,8 +178,8 @@
 
         </div>
 
-        <!-- Row 2: 3 Donut Charts in 1 Row -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; align-items: stretch;">
+        <!-- Row 2: 4 Analytics Panels in 1 Row -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; align-items: stretch;">
             
             <!-- 1. 유입 경로 분석 (도넛) -->
             <div class="data-card" style="padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;">
@@ -233,18 +233,28 @@
                 </div>
             </div>
 
+            <!-- 4. 인기 페이지 순위 (목록) -->
+            <div class="data-card" style="padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">인기 페이지 순위</h3>
+                    <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">가장 많은 조회수를 기록한 Top 5</p>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 0.65rem;" id="popular-pages-container">
+                    <div style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Row 3: Recent Inquiries & Popular Pages -->
-        <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; margin-bottom: 3rem; align-items: stretch;">
-            
-            <!-- ① 최근 문의 접수 현황 -->
-            <div class="data-card" style="display: flex; flex-direction: column;">
+        <!-- Row 3: Recent Inquiries (Full Width) -->
+        <div style="margin-bottom: 3rem;">
+            <div class="data-card" style="display: flex; flex-direction: column; width: 100%;">
                 <div style="padding: 1.5rem; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center;">
                     <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a;">최근 문의 접수 현황</h3>
                     <a href="/admin/inquiries.html" style="font-size: 0.85rem; color: #3b82f6; font-weight: 700; text-decoration: none;">전체보기</a>
                 </div>
-                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div style="padding: 1rem 0;">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -263,19 +273,6 @@
                     </table>
                 </div>
             </div>
-
-            <!-- ② 인기 페이지 순위 (목록) -->
-            <div class="data-card" style="padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">인기 페이지 순위</h3>
-                    <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">가장 많은 조회수를 기록한 Top 5</p>
-                </div>
-                
-                <div style="display: flex; flex-direction: column; gap: 0.65rem;" id="popular-pages-container">
-                    <div style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</div>
-                </div>
-            </div>
-
         </div>
     </main>
 
