@@ -12,6 +12,44 @@
     <!-- Chart.js CDN for beautiful interactive charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/admin/scripts/supabase-client.js?v=2"></script>
+    <style>
+        .pulse-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #065f46;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-ring 1.6s infinite;
+        }
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -42,9 +80,13 @@
     <!-- Main Content -->
     <main class="main-content">
         <header class="content-header">
-            <div class="page-title">
+            <div class="page-title" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
                 <h1>관리 대시보드</h1>
-                <p>다음에이아이 쇼룸의 데이터를 통합 관리합니다.</p>
+                <div class="pulse-container" id="realtime-indicator" style="display: none;">
+                    <span class="pulse-dot"></span>
+                    실시간 활성 사용자: <strong style="margin-left: 2px;">1명</strong>
+                </div>
+                <p style="width: 100%; margin-top: 0.25rem;">다음에이아이 쇼룸의 데이터를 통합 관리합니다.</p>
             </div>
             <div class="header-actions">
                 <button class="btn btn-primary" onclick="handleLogout()">로그아웃</button>
@@ -87,7 +129,7 @@
                         <!-- 상단 미니 지표 -->
                         <div style="text-align: right; background: #f8fafc; border: 1px solid var(--admin-border); padding: 0.5rem 0.85rem; border-radius: 10px;">
                             <span style="font-size: 0.75rem; font-weight: 700; color: var(--admin-text-sub); display: block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">오늘 총 방문자</span>
-                            <span style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">1,240명 <span style="font-size: 0.8rem; color: #10b981; font-weight: 700; margin-left: 2px;">▲ 4.2%</span></span>
+                            <span style="font-size: 1.1rem; font-weight: 800; color: #0f172a;" id="today-visitors-count">불러오는 중...</span>
                         </div>
                     </div>
                     <!-- Chart container -->
@@ -135,28 +177,13 @@
                         <canvas id="trafficSourcesChart" style="max-height: 100%; max-width: 100%;"></canvas>
                         <div style="position: absolute; text-align: center; pointer-events: none;">
                             <span style="font-size: 0.75rem; font-weight: 700; color: var(--admin-text-sub); display: block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.1rem;">총 세션수</span>
-                            <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif;">8,452</span>
+                            <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif;" id="total-sessions-count">불러오는 중...</span>
                         </div>
                     </div>
 
                     <!-- Custom legend details for high visual density -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem; border-top: 1px solid var(--admin-border); padding-top: 1.25rem;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #0f172a; display: inline-block;"></span>
-                            <span style="font-weight: 600; color: var(--admin-text-main);">Organic: 45%</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #3b82f6; display: inline-block;"></span>
-                            <span style="font-weight: 600; color: var(--admin-text-main);">Direct: 30%</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #60a5fa; display: inline-block;"></span>
-                            <span style="font-weight: 600; color: var(--admin-text-main);">Referral: 15%</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: #cbd5e1; display: inline-block;"></span>
-                            <span style="font-weight: 600; color: var(--admin-text-main);">SNS: 10%</span>
-                        </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem; border-top: 1px solid var(--admin-border); padding-top: 1.25rem;" id="traffic-legend-container">
+                        <div style="text-align: center; grid-column: span 2; color: var(--admin-text-sub);">불러오는 중...</div>
                     </div>
                 </div>
 
@@ -165,47 +192,8 @@
                     <h3 style="font-weight: 800; font-size: 1.2rem; color: #0f172a; margin-bottom: 0.25rem;">인기 페이지 순위</h3>
                     <p style="font-size: 0.85rem; color: var(--admin-text-sub); margin-bottom: 1.5rem;">가장 많은 조회수를 기록한 Top 5 페이지입니다.</p>
                     
-                    <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-                        <!-- Row 1 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
-                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #0f172a; color: #ffffff; font-size: 0.75rem; font-weight: 800; border-radius: 6px;">1</span>
-                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/ <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(메인 홈)</span></span>
-                            </div>
-                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">4,250 PV</span>
-                        </div>
-                        <!-- Row 2 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
-                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #3b82f6; color: #ffffff; font-size: 0.75rem; font-weight: 800; border-radius: 6px;">2</span>
-                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/solutions/d-fin <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(퇴직연금)</span></span>
-                            </div>
-                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">2,840 PV</span>
-                        </div>
-                        <!-- Row 3 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
-                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #60a5fa; color: #ffffff; font-size: 0.75rem; font-weight: 800; border-radius: 6px;">3</span>
-                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/careers-announcement <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(채용공고)</span></span>
-                            </div>
-                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">1,980 PV</span>
-                        </div>
-                        <!-- Row 4 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
-                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #f1f5f9; color: var(--admin-text-sub); font-size: 0.75rem; font-weight: 800; border-radius: 6px; border: 1px solid var(--admin-border);">4</span>
-                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/overview <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(기업개요)</span></span>
-                            </div>
-                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">1,420 PV</span>
-                        </div>
-                        <!-- Row 5 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.25rem;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
-                                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: #f1f5f9; color: var(--admin-text-sub); font-size: 0.75rem; font-weight: 800; border-radius: 6px; border: 1px solid var(--admin-border);">5</span>
-                                <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">/project <span style="font-weight: 500; color: var(--admin-text-sub); font-size: 0.8rem; margin-left: 4px;">(구축실적)</span></span>
-                            </div>
-                            <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">950 PV</span>
-                        </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.85rem;" id="popular-pages-container">
+                        <div style="text-align: center; padding: 2rem; color: var(--admin-text-sub);">불러오는 중...</div>
                     </div>
                 </div>
 
@@ -218,19 +206,22 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // 1. 실시간 및 누적 방문자 추이 라인 차트 (Chart.js)
+        let trendChart = null;
+        let trafficChart = null;
+
+        // 1. 실시간 및 누적 방문자 추이 라인 차트 초기화 (임시 뼈대 생성)
         const ctxTrend = document.getElementById('visitorTrendChart').getContext('2d');
         const gradientBlue = ctxTrend.createLinearGradient(0, 0, 0, 300);
         gradientBlue.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
         gradientBlue.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
         
-        new Chart(ctxTrend, {
+        trendChart = new Chart(ctxTrend, {
             type: 'line',
             data: {
-                labels: ['5/13', '5/14', '5/15', '5/16', '5/17', '5/18', '5/19'],
+                labels: ['-', '-', '-', '-', '-', '-', '-'],
                 datasets: [{
                     label: '일별 방문자 (UV)',
-                    data: [820, 950, 1100, 920, 1050, 1200, 1240],
+                    data: [0, 0, 0, 0, 0, 0, 0],
                     borderColor: '#0f172a', 
                     borderWidth: 3,
                     pointBackgroundColor: '#3b82f6',
@@ -247,9 +238,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
                         backgroundColor: '#0f172a',
                         titleColor: '#ffffff',
@@ -261,46 +250,37 @@
                 },
                 scales: {
                     x: {
-                        grid: {
-                            display: false
-                        },
+                        grid: { display: false },
                         ticks: {
                             color: '#64748b',
-                            font: {
-                                family: 'Pretendard Variable',
-                                weight: '600'
-                            }
+                            font: { family: 'Pretendard Variable', weight: '600' }
                         }
                     },
                     y: {
-                        grid: {
-                            color: '#f1f5f9'
-                        },
+                        grid: { color: '#f1f5f9' },
                         ticks: {
                             color: '#64748b',
-                            font: {
-                                family: 'Pretendard Variable',
-                                weight: '600'
-                            }
+                            font: { family: 'Pretendard Variable', weight: '600' }
                         }
                     }
                 }
             }
         });
 
-        // 2. 유입 경로 분석 도넛 차트 (Chart.js)
+        // 2. 유입 경로 분석 도넛 차트 초기화 (임시 뼈대 생성)
         const ctxTraffic = document.getElementById('trafficSourcesChart').getContext('2d');
-        new Chart(ctxTraffic, {
+        trafficChart = new Chart(ctxTraffic, {
             type: 'doughnut',
             data: {
-                labels: ['Organic Search', 'Direct', 'Referral', 'SNS'],
+                labels: ['Direct', 'Referral', 'Organic'],
                 datasets: [{
-                    data: [45, 30, 15, 10],
+                    data: [0, 0, 0],
                     backgroundColor: [
                         '#0f172a',
                         '#3b82f6',
                         '#60a5fa',
-                        '#cbd5e1'
+                        '#cbd5e1',
+                        '#94a3b8'
                     ],
                     borderWidth: 2,
                     borderColor: '#ffffff',
@@ -312,9 +292,7 @@
                 maintainAspectRatio: false,
                 cutout: '75%',
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
                         backgroundColor: '#0f172a',
                         padding: 10,
@@ -402,9 +380,126 @@
             }
         }
 
+        // 4. Google Analytics GA4 실시간 연동 데이터 바인딩
+        async function loadAnalyticsData() {
+            try {
+                const response = await fetch('/api/analytics');
+                const data = await response.json();
+                
+                if (data.success) {
+                    // (1) 실시간 활성 사용자 뱃지 활성화 및 값 바인딩
+                    const realtimeIndicator = document.getElementById('realtime-indicator');
+                    realtimeIndicator.style.display = 'inline-flex';
+                    realtimeIndicator.querySelector('strong').innerText = `${data.realTimeVisitors || 1}명`;
+
+                    // (2) 오늘 총 방문자 및 등락폭 파싱
+                    const todayVisitors = data.visitorTrend && data.visitorTrend.length > 0 
+                        ? data.visitorTrend[data.visitorTrend.length - 1].visitors 
+                        : 0;
+                    
+                    let changeHtml = '';
+                    if (data.visitorTrend && data.visitorTrend.length > 1) {
+                        const yesterday = data.visitorTrend[data.visitorTrend.length - 2].visitors;
+                        if (yesterday > 0) {
+                            const pct = ((todayVisitors - yesterday) / yesterday * 100).toFixed(1);
+                            if (pct >= 0) {
+                                changeHtml = `<span style="font-size: 0.8rem; color: #10b981; font-weight: 700; margin-left: 2px;">▲ ${pct}%</span>`;
+                            } else {
+                                changeHtml = `<span style="font-size: 0.8rem; color: #ef4444; font-weight: 700; margin-left: 2px;">▼ ${Math.abs(pct)}%</span>`;
+                            }
+                        }
+                    }
+                    document.getElementById('today-visitors-count').innerHTML = `${todayVisitors}명 ${changeHtml}`;
+
+                    // (3) 방문자 추이 라인 차트 동적 업데이트
+                    if (data.visitorTrend && data.visitorTrend.length > 0) {
+                        const labels = data.visitorTrend.map(d => d.date);
+                        const chartData = data.visitorTrend.map(d => d.visitors);
+                        
+                        trendChart.data.labels = labels;
+                        trendChart.data.datasets[0].data = chartData;
+                        trendChart.update();
+                    } else {
+                        document.getElementById('today-visitors-count').innerHTML = '0명';
+                    }
+
+                    // (4) 유입 경로 도넛 차트 및 레전드 동적 업데이트
+                    if (data.trafficSources && data.trafficSources.length > 0) {
+                        const totalSessions = data.trafficSources.reduce((sum, d) => sum + d.visitors, 0);
+                        document.getElementById('total-sessions-count').innerText = totalSessions.toLocaleString();
+
+                        const labels = data.trafficSources.map(d => d.source);
+                        const chartData = data.trafficSources.map(d => d.visitors);
+                        
+                        trafficChart.data.labels = labels;
+                        trafficChart.data.datasets[0].data = chartData;
+                        trafficChart.update();
+
+                        // 커스텀 레전드 색상 목록 지정
+                        const legendColors = ['#0f172a', '#3b82f6', '#60a5fa', '#cbd5e1', '#94a3b8'];
+                        const legendContainer = document.getElementById('traffic-legend-container');
+                        legendContainer.innerHTML = data.trafficSources.map((d, index) => {
+                            const percentage = totalSessions > 0 ? Math.round((d.visitors / totalSessions) * 100) : 0;
+                            const color = legendColors[index % legendColors.length];
+                            return `
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="width: 10px; height: 10px; border-radius: 50%; background-color: ${color}; display: inline-block;"></span>
+                                    <span style="font-weight: 600; color: var(--admin-text-main);">${d.source}: ${percentage}%</span>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        document.getElementById('total-sessions-count').innerText = '0';
+                        document.getElementById('traffic-legend-container').innerHTML = `
+                            <div style="text-align: center; grid-column: span 2; color: var(--admin-text-sub);">수집된 데이터 없음</div>
+                        `;
+                    }
+
+                    // (5) 인기 페이지 순위 동적 바인딩
+                    if (data.popularPages && data.popularPages.length > 0) {
+                        const colors = ['#0f172a', '#3b82f6', '#60a5fa', '#cbd5e1', '#f1f5f9'];
+                        const textColors = ['#ffffff', '#ffffff', '#ffffff', 'var(--admin-text-sub)', 'var(--admin-text-sub)'];
+                        const popularPagesContainer = document.getElementById('popular-pages-container');
+                        
+                        popularPagesContainer.innerHTML = data.popularPages.map((d, index) => {
+                            const rankColor = colors[index % colors.length];
+                            const rankTextColor = textColors[index % textColors.length];
+                            const borderStyle = index >= 3 ? 'border: 1px solid var(--admin-border);' : '';
+                            
+                            return `
+                                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: ${index === data.popularPages.length - 1 ? 'none' : '1px solid #f1f5f9'}; padding-bottom: 0.75rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%;">
+                                        <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: ${rankColor}; color: ${rankTextColor}; font-size: 0.75rem; font-weight: 800; border-radius: 6px; ${borderStyle}">${index + 1}</span>
+                                        <span style="font-weight: 700; color: var(--admin-text-main); font-size: 0.95rem;">${d.title}</span>
+                                    </div>
+                                    <span style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; color: #0f172a;">${d.views} PV</span>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        document.getElementById('popular-pages-container').innerHTML = `
+                            <div style="text-align: center; padding: 1.5rem; color: var(--admin-text-sub);">수집된 데이터 없음</div>
+                        `;
+                    }
+                }
+            } catch (e) {
+                console.error("GA4 data load error:", e);
+                // 에러 발생 시 UI 처리
+                document.getElementById('today-visitors-count').innerText = '오류';
+                document.getElementById('total-sessions-count').innerText = '오류';
+                document.getElementById('traffic-legend-container').innerHTML = `
+                    <div style="text-align: center; grid-column: span 2; color: #ef4444;">API 연동 오류</div>
+                `;
+                document.getElementById('popular-pages-container').innerHTML = `
+                    <div style="text-align: center; padding: 1.5rem; color: #ef4444;">API 연동 오류</div>
+                `;
+            }
+        }
+
         // Initialize statistics on load
         document.addEventListener('DOMContentLoaded', () => {
             loadDashboardData();
+            loadAnalyticsData();
         });
     </script>
 </body>
