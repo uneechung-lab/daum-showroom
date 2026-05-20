@@ -94,7 +94,7 @@
         </header>
 
         <!-- Stats Grid -->
-        <section class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <section class="stats-grid" style="grid-template-columns: repeat(5, 1fr);">
             <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/inquiries.html'">
                 <span class="stat-label">새 문의 내역</span>
                 <div class="stat-value" id="stat-inquiries">-</div>
@@ -103,12 +103,16 @@
                 <span class="stat-label">신규 지원자</span>
                 <div class="stat-value" id="stat-applicants">-</div>
             </div>
+            <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/careers.html'">
+                <span class="stat-label">등록된 채용공고</span>
+                <div class="stat-value" id="stat-careers">-</div>
+            </div>
             <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/projects.html'">
                 <span class="stat-label">등록된 프로젝트</span>
                 <div class="stat-value" id="stat-projects">-</div>
             </div>
             <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='/admin/partners.html'">
-                <span class="stat-label">파트너십</span>
+                <span class="stat-label">고객사 & 파트너</span>
                 <div class="stat-value" id="stat-partners">-</div>
             </div>
         </section>
@@ -507,6 +511,15 @@
                     .select('*', { count: 'exact', head: true });
                 if (!err2 && applicantCount !== null) {
                     document.getElementById('stat-applicants').innerText = applicantCount + '명';
+                }
+
+                // (2-2) 등록된 채용공고 카운트
+                const { count: jobCount, error: errJobs } = await supabaseClient
+                    .from('job_postings')
+                    .select('*', { count: 'exact', head: true });
+                if (!errJobs && jobCount !== null) {
+                    const el = document.getElementById('stat-careers');
+                    if (el) el.innerText = jobCount + '건';
                 }
 
                 // (3) 프로젝트 카운트
