@@ -72,7 +72,7 @@
         .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.3; }
         .blob-1 { background: #FFB800; top: -10%; left: 5%; }
         .blob-2 { background: #4ADE80; bottom: -10%; right: 5%; }
-        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 2.8rem; z-index: 10; color: #020617; }
+        .intro-text { position: absolute; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; text-align: center; opacity: 0; visibility: hidden; white-space: nowrap; font-size: 2.8rem; z-index: 10; color: #020617; }
         .icon-particle { position: absolute; width: 70px; height: 70px; opacity: 0; z-index: 15; }
         
         .zal-image-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 20; padding: 0; background: #ffffff; border-radius: 32px; overflow: hidden; }
@@ -293,19 +293,19 @@
                             <div class="blob blob-2"></div>
                         </div>
                         
-                        <h2 class="intro-text text-1">혁신은 <span style="color: #FFB800;">발견</span>하는 것</h2>
+                        <h2 class="intro-text text-1">혁신은 발견하는 것</h2>
                         
                         <div class="step-2-wrapper intro-text text-2 flex flex-col items-center">
-                            <h2 style="font-size: 2rem; font-weight: 900; margin-bottom: 2rem;">일상의 도구를 재설계합니다</h2>
+                            <h2 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 2rem; letter-spacing: -0.01em;">일상의 도구를 재설계합니다</h2>
                             <div class="flex gap-6">
-                                <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="smartphone" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
-                                <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="coffee" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
-                                <div class="icon-particle" style="background: white; border-radius: 16px; display: flex; items-center; justify-center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><i data-lucide="credit-card" style="width: 32px; height: 32px; color: #0f172a; margin: auto;"></i></div>
+                                <div class="icon-particle" style="display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; margin-left: -40px; margin-top: -40px;"><img src="/icn_01.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                                <div class="icon-particle" style="display: flex; align-items: center; justify-content: center; width: 120px; height: 120px; margin-left: -60px; margin-top: -60px;"><img src="/icn_02.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
+                                <div class="icon-particle" style="display: flex; align-items: center; justify-content: center; width: 116px; height: 116px; margin-left: -58px; margin-top: -58px;"><img src="/icn_03.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
                             </div>
                         </div>
 
                         <div class="final-logo intro-text flex flex-col items-center">
-                            <div style="width: 100px; height: 100px; background: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.1);"><span style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin: auto;">AX</span></div>
+                            <div style="width: 100px; height: 100px; background: white; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.1);"><span style="font-size: 2.5rem; font-weight: 900; color: #FFB800; margin: auto;">AX</span></div>
                             <h1 style="font-size: 2rem; font-weight: 800;">AX Innovation Lab</h1>
                         </div>
 
@@ -608,7 +608,7 @@
 
             tl.set(".step-2-wrapper", { visibility: 'visible' })
               .fromTo(".text-2", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 })
-              .fromTo(".icon-particle", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, x: (i) => [-180, 220, -120, 180][i], y: (i) => [-120, -60, 160, 90][i], duration: 0.8, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.3")
+              .fromTo(".icon-particle", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, x: (i) => [-300, 300, 0][i], y: (i) => [-140, -140, 110][i], duration: 0.8, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.3")
               .to(".step-2-wrapper", { opacity: 0, y: -20, duration: 0.6 }, "+=0.5");
 
             tl.set(".final-logo", { visibility: 'visible' })
