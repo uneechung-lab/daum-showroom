@@ -731,7 +731,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   font-weight: 500; 
   white-space: nowrap; 
   transition: color 0.2s ease;
-  cursor: default;
+  cursor: pointer;
 }
 
 .nav-links a:hover,

@@ -510,6 +510,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeMenu = null;
   let closeTimer = null;
 
+  function restoreCurrentPage() {
+    const currentPath = window.location.pathname;
+    if (currentPath === '/' || currentPath === '/index.html') return;
+    document.querySelectorAll('.mega-right li a').forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+        const parentNavItem = link.closest('.nav-item');
+        if (parentNavItem) parentNavItem.classList.add('active');
+      }
+    });
+  }
+
   // Measure container text-start edge for pixel-perfect mega-left alignment
   function updateMegaLeftOffset() {
     const container = document.querySelector('header .container');
@@ -566,6 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
     activeMenu = null;
     if (header) header.classList.remove('menu-open');
+    restoreCurrentPage();
   }
 
   function scheduleHide() {
@@ -598,6 +611,8 @@ document.addEventListener('DOMContentLoaded', () => {
       scheduleHide();
     });
   });
+
+  restoreCurrentPage();
 
   // --- Inquiry Drawer Logic ---
   const initInquiryDrawer = () => {
