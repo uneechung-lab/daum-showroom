@@ -880,10 +880,15 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     padding: 0 0 1.5rem 0 !important;
     height: auto !important;
     border: none !important;
+    pointer-events: auto !important;
   }
 
   .nav-item.mobile-open .gnb-mega-menu {
     display: block !important;
+  }
+
+  .mega-container {
+    padding: 0 !important;
   }
 
   .mega-left {
@@ -893,6 +898,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .mega-right {
     width: 100% !important;
     padding: 0 !important;
+    margin-left: 0 !important;
   }
 
   .mega-right ul {
