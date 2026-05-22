@@ -47,8 +47,15 @@ html {
     --font-body: 1rem;
     --font-body-sm: 0.85rem;
   }
-  html {
+  html, body {
     scroll-snap-type: none;
+    overflow-x: hidden;
+  }
+  
+  /* Force all inline grids to stack vertically on mobile */
+  [style*="display: grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
   }
 }
 
