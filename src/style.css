@@ -929,9 +929,10 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .logo-text { font-size: 1.2rem; }
   
   .nav-right .cta-button {
-    position: fixed;
+    position: sticky;
     bottom: 2rem;
-    right: 2rem;
+    align-self: flex-end;
+    margin-top: auto;
     z-index: 10001;
     box-shadow: 0 10px 25px rgba(255, 184, 0, 0.3);
   }
