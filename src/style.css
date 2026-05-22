@@ -846,7 +846,8 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     font-size: 1.25rem;
     font-weight: 700;
     cursor: pointer;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.5); /* Dim when closed */
+    transition: color 0.3s ease;
   }
 
   .nav-item > span::after {
@@ -862,7 +863,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   }
 
   .nav-item.mobile-open > span {
-    color: var(--daumis-yellow);
+    color: #ffffff; /* White when open */
   }
 
   .nav-item.mobile-open > span::after {
