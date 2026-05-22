@@ -1219,7 +1219,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .bento-card .card-desc {
     font-size: var(--font-body-lg);
     margin-top: 0.05rem !important;
-    line-height: 1.2 !important;
+    line-height: 1.6 !important;
   }
   .section-label {
     font-size: var(--font-caption);
