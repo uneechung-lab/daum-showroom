@@ -216,8 +216,8 @@ body.sub-page .detail-hero {
   height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-top: 160px; /* Slightly more than 100px to push below center */
+  justify-content: flex-start;
+  padding-top: 28vh;
   box-sizing: border-box;
   overflow: hidden;
   z-index: 1;
