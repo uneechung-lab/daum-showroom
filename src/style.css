@@ -905,6 +905,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     display: flex !important;
     flex-direction: column !important;
     gap: 1rem !important;
+    padding-left: 1rem !important;
   }
 
   .mega-right ul li a {
