@@ -838,7 +838,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .nav-item > span {
+  #header .nav-item > span {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -846,11 +846,11 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     font-size: 1.25rem;
     font-weight: 700;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5); /* Dim when closed */
+    color: rgba(255, 255, 255, 0.5) !important; /* Dim when closed */
     transition: color 0.3s ease;
   }
 
-  .nav-item > span::after {
+  #header .nav-item > span::after {
     content: "";
     display: inline-block;
     width: 10px;
@@ -862,11 +862,11 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     margin-right: 8px;
   }
 
-  .nav-item.mobile-open > span {
-    color: #ffffff; /* White when open */
+  #header .nav-item.mobile-open > span {
+    color: #ffffff !important; /* White when open */
   }
 
-  .nav-item.mobile-open > span::after {
+  #header .nav-item.mobile-open > span::after {
     transform: rotate(-135deg) translate(-2px, -2px);
   }
 
