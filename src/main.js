@@ -587,7 +587,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Show on nav-item hover — close is handled at header/panel level, not per-item
   navItems.forEach(item => {
-    item.addEventListener('mouseenter', () => showMenu(item));
+    item.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 768) showMenu(item);
+    });
+    
+    // Mobile accordion logic
+    const span = item.querySelector('span');
+    if (span) {
+      span.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          // Close other open menus
+          document.querySelectorAll('.nav-item.mobile-open').forEach(openItem => {
+            if (openItem !== item) openItem.classList.remove('mobile-open');
+          });
+          item.classList.toggle('mobile-open');
+        }
+      });
+    }
   });
 
   // Header boundary: close only when leaving the header entirely (not just between menu items)
