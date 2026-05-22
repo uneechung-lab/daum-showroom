@@ -1090,9 +1090,9 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .solution-item {
     position: relative;
     background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Match other bento cards */
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
+    padding: 1.25rem; /* Match other bento cards */
     min-height: 200px;
     display: block !important;
     text-align: left;
