@@ -49,7 +49,6 @@ html {
   }
   html, body {
     scroll-snap-type: none;
-    overflow-x: hidden;
   }
   
   /* Force all inline grids to stack vertically on mobile */
