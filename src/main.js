@@ -154,27 +154,27 @@ const updateDiagram = (step, targetId) => {
 
   if (step === 1) {
     content = `<svg viewBox="0 0 400 300" style="width:100%; height:190px;">
-      <circle cx="200" cy="150" r="75" fill="none" stroke="${colors[1]}" stroke-width="2" stroke-dasharray="10,5">
+      <circle cx="200" cy="150" r="75" fill="none" stroke="${colors[1]}" stroke-width="4" stroke-dasharray="10,5">
         <animateTransform attributeName="transform" type="rotate" from="0 200 150" to="360 200 150" dur="15s" repeatCount="indefinite" />
       </circle>
-      <path d="M150,150 L250,150 M200,100 L200,200" stroke="${colors[1]}" stroke-width="3" stroke-linecap="round" />
+      <path d="M150,150 L250,150 M200,100 L200,200" stroke="${colors[1]}" stroke-width="6" stroke-linecap="round" />
       <circle cx="200" cy="150" r="40" fill="${colors[1]}" opacity="0.1" />
     </svg>`;
   } else if (step === 2) {
     content = `<svg viewBox="0 0 400 300" style="width:100%; height:190px;">
-      <rect x="120" y="100" width="160" height="100" rx="10" fill="none" stroke="${colors[2]}" stroke-width="2" />
-      <path d="M140,135 L260,135 M140,150 L260,150 M140,165 L260,165" stroke="${colors[2]}" stroke-width="2" opacity="0.4" />
+      <rect x="120" y="100" width="160" height="100" rx="10" fill="none" stroke="${colors[2]}" stroke-width="4" />
+      <path d="M140,135 L260,135 M140,150 L260,150 M140,165 L260,165" stroke="${colors[2]}" stroke-width="4" opacity="0.4" />
       <circle cx="200" cy="150" r="30" fill="${colors[2]}" opacity="0.6">
         <animate attributeName="r" values="30;35;30" dur="1.5s" repeatCount="indefinite" />
       </circle>
     </svg>`;
   } else {
     content = `<svg viewBox="0 0 400 300" style="width:100%; height:190px;">
-      <path d="M110,200 L200,90 L290,200 Z" fill="none" stroke="${colors[3]}" stroke-width="2" />
-      <circle cx="200" cy="148" r="45" fill="none" stroke="${colors[3]}" stroke-width="2">
+      <path d="M110,200 L200,90 L290,200 Z" fill="none" stroke="${colors[3]}" stroke-width="4" />
+      <circle cx="200" cy="148" r="45" fill="none" stroke="${colors[3]}" stroke-width="4">
         <animate attributeName="stroke-dasharray" values="0,283;283,0" dur="2s" repeatCount="indefinite" />
       </circle>
-      <path d="M185,153 L195,163 L220,138" stroke="${colors[3]}" stroke-width="4" fill="none" stroke-linecap="round" />
+      <path d="M185,153 L195,163 L220,138" stroke="${colors[3]}" stroke-width="8" fill="none" stroke-linecap="round" />
     </svg>`;
   }
   
