@@ -325,15 +325,19 @@ body.sub-page .detail-hero .highlight {
   }
 
   body.sub-page .detail-hero .section-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Reduced further to guarantee fit on 320px screens */
     margin-bottom: 1rem;
     word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: normal;
   }
 
   body.sub-page .hero-sub {
-    font-size: 1.25rem;
+    font-size: 1.15rem; /* Reduced further */
     line-height: 1.5;
     word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: normal;
   }
 }
 
