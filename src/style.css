@@ -776,7 +776,7 @@ body.sub-page:not(.force-dark) #header.menu-open,
 body.sub-page:not(.force-dark) #header:has(.nav-item:hover),
 body.sub-page:not(.force-dark) #header.scrolled {
   background: #ffffff !important;
-  border-bottom: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
   box-shadow: none !important;
 }
 
