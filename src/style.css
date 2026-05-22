@@ -1280,6 +1280,9 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     color: var(--text-primary);
     word-break: keep-all;
   }
+  .solution-item .solution-text p br {
+    display: none;
+  }
   .solution-item .diagram-host {
     position: absolute !important;
     bottom: 0.5rem;
