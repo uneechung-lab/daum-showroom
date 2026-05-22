@@ -1116,6 +1116,13 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   transition: opacity 0.8s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s, background 0.4s;
 }
 
+.bento-card .card-title {
+  font-size: var(--font-h3);
+}
+.bento-card .card-desc {
+  font-size: var(--font-body);
+}
+
 .bento-card:hover {
   border-color: var(--daumis-yellow);
   transform: translateY(-10px) !important;
