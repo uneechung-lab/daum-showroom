@@ -6,7 +6,7 @@
   
   /* Text Colors (Dark Theme - Default) */
   --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
+  --text-secondary: #cbd5e1;
   --text-muted: rgba(255, 255, 255, 0.5);
   
   /* Text Colors (Light Theme / Inverse) */
@@ -1277,7 +1277,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   }
   .solution-item .solution-text p {
     font-size: var(--font-body-lg);
-    color: var(--text-primary);
+    color: var(--text-secondary);
     word-break: keep-all;
   }
   .solution-item .solution-text p br {
@@ -1418,8 +1418,8 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 }
 
 .solution-text p {
-  font-size: 1.35rem;
-  color: var(--text-primary);
+  font-size: var(--font-body-lg);
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 
