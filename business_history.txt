@@ -1,0 +1,1727 @@
+﻿commit a9a9a6968258d7a47da1e438f6f75a67e04e411d
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Fri May 22 13:13:12 2026 +0900
+
+    Chore: Replace all instances of '?꾩엯臾몄쓽' with '臾몄쓽?섍린'
+
+diff --git a/business.html b/business.html
+index 577509b..3534173 100644
+--- a/business.html
++++ b/business.html
+@@ -129,7 +129,7 @@
+                 </div>
+               </li>
+             </ul>
+-            <a href="/inquiry.html" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
++            <a href="/inquiry.html" class="cta-button">臾몄쓽?섍린 <i data-lucide="arrow-right"></i></a>
+           </div>
+         </nav>
+       </div>
+@@ -416,9 +416,9 @@
+       <section class="bottom-cta-section cta-button">
+         <div class="cta-bg-circle"></div>
+         <div class="container">
+-          <span class="cta-label">?꾩엯 臾몄쓽</span>
++          <span class="cta-label">臾몄쓽?섍린</span>
+           <h2 class="cta-text">
+-            ?덉젙?곸씤 ?곌툑 ?댁쁺怨?寃利앸맂 湲덉쑖 湲곗닠濡?br>李⑥꽭? ?댁쭅?곌툑 ?쒖뒪??援ъ텞???꾩슂?섎떎硫?吏湲??꾩엯臾몄쓽 ?섏꽭??
++            ?덉젙?곸씤 ?곌툑 ?댁쁺怨?寃利앸맂 湲덉쑖 湲곗닠濡?br>李⑥꽭? ?댁쭅?곌툑 ?쒖뒪??援ъ텞???꾩슂?섎떎硫?吏湲?臾몄쓽?섍린 ?섏꽭??
+           </h2>
+           <div class="cta-arrow-btn">
+             <i data-lucide="arrow-right" style="width: 32px; height: 32px;"></i>
+
+commit d030967ef2278c7fb74cb0259d7ecd4156c232cf
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Thu May 21 14:46:26 2026 +0900
+
+    Update UI and content based on user feedback
+
+diff --git a/business.html b/business.html
+index d611eaf..577509b 100644
+--- a/business.html
++++ b/business.html
+@@ -11,7 +11,7 @@
+       gtag('config', 'G-5QS4QDR9RQ', { 'debug_mode': true });
+     </script>
+     <meta charset="UTF-8" />
+-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
++    <link rel="icon" type="image/png" href="/favicon.png" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>鍮꾩쫰?덉뒪 - ?댁쭅?곌툑?쒖뒪??| ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+@@ -271,7 +271,7 @@
+             <div class="feature-item">
+               <div class="feature-content">
+                 <h3>?좎뿰???쒖? ?꾪궎?띿쿂</h3>
+-                <p>鍮꾩쫰?덉뒪??理쒖쟻?붾맂 留욎땄???쒖뒪?쒖쓣 援ъ텞?⑸땲??</p>
++                <p>蹂?뷀븯???섍꼍?????媛?ν븳 留욎땄???쒖뒪???꾪궎?띿쿂瑜?援ъ텞?⑸땲??</p>
+                 <ul class="sub-details">
+                   <li>
+                     <div class="icon-wrapper"><i data-lucide="layers"></i></div>
+@@ -308,21 +308,21 @@
+                     <div class="icon-wrapper"><i data-lucide="database"></i></div>
+                     <div class="text-wrapper">
+                       <strong>?볦? ?곹뭹 ?쇱씤??/strong>
+-                      ?덇툑遺???댁쭅?곌툑源뚯? 紐⑤뱺 湲덉쑖 ?곹뭹 ?섏슜
++                      ?ㅼ뼇??湲덉쑖?곹뭹 ?섏슜<br>(?덇툑/???梨꾧텒/ETF/由ъ툩/ELS/????
+                     </div>
+                   </li>
+                   <li>
+                     <div class="icon-wrapper"><i data-lucide="trending-up"></i></div>
+                     <div class="text-wrapper">
+                       <strong>吏?ν삎 ?댁슜 ?쒕퉬??/strong>
+-                      ?먮룞 ?щ같遺?Rebalancing) 諛??꾨왂 留ㅻℓ ?쒖뒪??+                      濡쒕낫?대뱶諛붿씠?(RA)/?곷┰?앸ℓ???깆쓽 ?꾨왂 留ㅻℓ ?쒖뒪??                     </div>
+                   </li>
+                   <li>
+                     <div class="icon-wrapper"><i data-lucide="layout-grid"></i></div>
+                     <div class="text-wrapper">
+                       <strong>?듯빀 愿由?泥닿퀎</strong>
+-                      怨좉컼怨??곹뭹 ?뺣낫瑜??섎굹濡??뉖뒗 ?⑥쑉?곸씤 愿由?+                      怨좉컼/怨꾩쥖/?곹뭹 ?깆쓽 ?먯옣?뺣낫瑜??섎굹濡??뉖뒗 ?⑥쑉??愿由?                     </div>
+                   </li>
+                 </ul>
+@@ -346,7 +346,7 @@
+                     <div class="icon-wrapper"><i data-lucide="pie-chart"></i></div>
+                     <div class="text-wrapper">
+                       <strong>?ㅻ쭏???쒕??덉씠??/strong>
+-                      ???諛??곌툑 留욎땄 ?ㅺ퀎瑜??듯븳 ?섏궗寃곗젙 吏??+                      ?듯빀?곌툑 ?쒕??덉씠?섏쓣 ?듯븳 ??댁꽕怨?吏??                     </div>
+                   </li>
+                   <li>
+
+commit 9b325f6fce36ec811cb61d18d04aa7334c508c3a
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed May 20 08:48:14 2026 +0900
+
+    fix: correct mismatched GA4 Measurement ID to G-5QS4QDR9RQ
+
+diff --git a/business.html b/business.html
+index 843b245..d611eaf 100644
+--- a/business.html
++++ b/business.html
+@@ -2,13 +2,13 @@
+ <html lang="ko">
+   <head>
+     <!-- Google tag (gtag.js) -->
+-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9DS4ERFRRQ"></script>
++    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5QS4QDR9RQ"></script>
+     <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+ 
+-      gtag('config', 'G-9DS4ERFRRQ', { 'debug_mode': true });
++      gtag('config', 'G-5QS4QDR9RQ', { 'debug_mode': true });
+     </script>
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+commit b1d19eb2870999686bc6d0421edf11b47b08a468
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Tue May 19 17:37:24 2026 +0900
+
+    feat: enable GA4 debug_mode on all public HTML pages
+
+diff --git a/business.html b/business.html
+index a60533f..843b245 100644
+--- a/business.html
++++ b/business.html
+@@ -8,7 +8,7 @@
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+ 
+-      gtag('config', 'G-9DS4ERFRRQ');
++      gtag('config', 'G-9DS4ERFRRQ', { 'debug_mode': true });
+     </script>
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+commit fc2646fcb6af8165f94e5df1927e93a463bdd4af
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Tue May 19 17:06:30 2026 +0900
+
+    feat: inject GA4 tracking script (G-9DS4ERFRRQ) into all public HTML pages
+
+diff --git a/business.html b/business.html
+index f93e04d..a60533f 100644
+--- a/business.html
++++ b/business.html
+@@ -1,6 +1,15 @@
+ <!DOCTYPE html>
+ <html lang="ko">
+   <head>
++    <!-- Google tag (gtag.js) -->
++    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9DS4ERFRRQ"></script>
++    <script>
++      window.dataLayer = window.dataLayer || [];
++      function gtag(){dataLayer.push(arguments);}
++      gtag('js', new Date());
++
++      gtag('config', 'G-9DS4ERFRRQ');
++    </script>
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+commit 4177e30d1482c3a42180586b460e7594a4e71600
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed May 13 17:33:32 2026 +0900
+
+    feat: standardize recruitment process UI and sync global design system
+
+diff --git a/business.html b/business.html
+index c9527fd..f93e04d 100644
+--- a/business.html
++++ b/business.html
+@@ -110,10 +110,10 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/careers.html#jobs">吏곷Т?뚭컻</a></li>
+-                        <li><a href="/careers.html#process">梨꾩슜?덉감</a></li>
+-                        <li><a href="/careers.html#welfare">蹂듭??쒕룄</a></li>
+-                        <li><a href="/careers.html#announcement">梨꾩슜怨듦퀬</a></li>
++                        <li><a href="/careers-jobs.html">吏곷Т?뚭컻</a></li>
++                        <li><a href="/careers-process.html">梨꾩슜?덉감</a></li>
++                        <li><a href="/careers-welfare.html">蹂듭??쒕룄</a></li>
++                        <li><a href="/careers-announcement.html">梨꾩슜怨듦퀬</a></li>
+                       </ul>
+                     </div>
+                   </div>
+
+commit c0c1d23bad28c53a5b6962701da90aee49a5f076
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Mon May 11 14:33:01 2026 +0900
+
+    design: overhaul company overview UI with hero-scale stats and personalized expert lead portfolio
+
+diff --git a/business.html b/business.html
+index f61f1d9..c9527fd 100644
+--- a/business.html
++++ b/business.html
+@@ -90,8 +90,8 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/ceo.html">CEO ?몄궗留?/a></li>
+                         <li><a href="/overview.html">湲곗뾽 媛쒖슂</a></li>
++                        <li><a href="/ceo.html">CEO ?몄궗留?/a></li>
+                         <li><a href="/vision.html">鍮꾩쟾</a></li>
+                         <li><a href="/history.html">?고쁺</a></li>
+                         <li><a href="/contact.html">?ㅼ떆??湲?/a></li>
+
+commit 6839cf4c0920f1d2356cde3c793e1022460ce7d0
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Thu May 7 18:15:33 2026 +0900
+
+    Refine history page: premium timeline UI, interactive scroll, and typography synchronization with CEO page
+
+diff --git a/business.html b/business.html
+index cc24eab..f61f1d9 100644
+--- a/business.html
++++ b/business.html
+@@ -90,11 +90,11 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/company.html#intro">?뚭컻</a></li>
+-                        <li><a href="/company.html#ceo">CEO</a></li>
+-                        <li><a href="/company.html#vision">鍮꾩쟾</a></li>
+-                        <li><a href="/company.html#history">?고쁺</a></li>
+-                        <li><a href="/company.html#contact">Contact</a></li>
++                        <li><a href="/ceo.html">CEO ?몄궗留?/a></li>
++                        <li><a href="/overview.html">湲곗뾽 媛쒖슂</a></li>
++                        <li><a href="/vision.html">鍮꾩쟾</a></li>
++                        <li><a href="/history.html">?고쁺</a></li>
++                        <li><a href="/contact.html">?ㅼ떆??湲?/a></li>
+                       </ul>
+                     </div>
+                   </div>
+
+commit bcbd6c15d72c418dc9fcc6d4fed2ea20bf4ecd84
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Thu May 7 11:03:59 2026 +0900
+
+    feat: standardize inquiry drawer and add bottom CTA sections across all pages
+
+diff --git a/business.html b/business.html
+index 52ff783..cc24eab 100644
+--- a/business.html
++++ b/business.html
+@@ -1,4 +1,4 @@
+-癤?!DOCTYPE html>
++<!DOCTYPE html>
+ <html lang="ko">
+   <head>
+     <meta charset="UTF-8" />
+@@ -120,7 +120,7 @@
+                 </div>
+               </li>
+             </ul>
+-            <a href="/#inquiry" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
++            <a href="/inquiry.html" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
+           </div>
+         </nav>
+       </div>
+@@ -403,6 +403,20 @@
+         </div>
+       </section>
+ 
++      <!-- Bottom CTA Section -->
++      <section class="bottom-cta-section cta-button">
++        <div class="cta-bg-circle"></div>
++        <div class="container">
++          <span class="cta-label">?꾩엯 臾몄쓽</span>
++          <h2 class="cta-text">
++            ?덉젙?곸씤 ?곌툑 ?댁쁺怨?寃利앸맂 湲덉쑖 湲곗닠濡?br>李⑥꽭? ?댁쭅?곌툑 ?쒖뒪??援ъ텞???꾩슂?섎떎硫?吏湲??꾩엯臾몄쓽 ?섏꽭??
++          </h2>
++          <div class="cta-arrow-btn">
++            <i data-lucide="arrow-right" style="width: 32px; height: 32px;"></i>
++          </div>
++        </div>
++      </section>
++
+       <footer id="footer">
+         <div class="container">
+           <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+
+commit c629c676cf03c127b8d03c1b9dc5fbc9e968fad4
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed May 6 18:21:12 2026 +0900
+
+    Standardize branding assets, optimize UI dimensions, and fix logo alignment across all pages
+
+diff --git a/business.html b/business.html
+index 5004554..52ff783 100644
+--- a/business.html
++++ b/business.html
+@@ -1,4 +1,4 @@
+-<!DOCTYPE html>
++癤?!DOCTYPE html>
+ <html lang="ko">
+   <head>
+     <meta charset="UTF-8" />
+@@ -16,7 +16,7 @@
+     <header id="header">
+       <div class="container">
+         <nav>
+-          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS" class="logo-light"><img src="/ci_02.png" alt="DAUMIS" class="logo-dark"></a>
++          <a href="/" class="logo"><img src="/ci_04.png" alt="DAUMIS" class="logo-light"><img src="/ci_03.png" alt="DAUMIS" class="logo-dark"><span class="logo-text">?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</span></a>
+           
+           <button class="mobile-toggle" aria-label="硫붾돱 ?닿린">
+             <span></span>
+@@ -408,9 +408,9 @@
+           <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+             <!-- Branding Section -->
+             <div style="margin-left: -16px; padding: 0;">
+-              <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+-                <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
+-                <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">?쒕떎?뚯젙蹂댁떆?ㅽ뀥利?/span>
++              <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
++                <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
++                <span style="font-size: 1.2rem; font-weight: 400; color: #FFB800; opacity: 1;">?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</span>
+               </div>
+               <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">湲덉쑖??誘몃옒, 洹??ㅼ쓬??媛移섎? 留뚮뱾??媛묐땲??</p>
+               <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyright??2019 by DAUM IS. All right reserved.</p>
+@@ -454,3 +454,7 @@
+     <script>lucide.createIcons();</script>
+   </body>
+ </html>
++
++
++
++
+
+commit 41e6f4c6b132d4f7b86dc239a9b65d03497625f0
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed Apr 29 18:21:44 2026 +0900
+
+    Refine Lab pages design, fix footer visibility, and optimize header hover logic
+
+diff --git a/business.html b/business.html
+index 1e63a9d..5004554 100644
+--- a/business.html
++++ b/business.html
+@@ -73,9 +73,8 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/solution.html#data">?곗씠???섏쭛 ?붾（??/a></li>
+-                        <li><a href="/solution.html#process">?ㅼ떆媛?遺꾩궛 泥섎━</a></li>
+-                        <li><a href="/solution.html#engine">湲덉쑖 理쒖쟻???붿쭊</a></li>
++                        <li><a href="/ai-lab.html">AI 由ъ꽌移???/a></li>
++                        <li><a href="/ax-lab.html">AX ?대끂踰좎씠????/a></li>
+                       </ul>
+                     </div>
+                   </div>
+
+commit 4de586d6d0582011ebaaf737693ca60dbc610aa8
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed Apr 29 15:01:50 2026 +0900
+
+    Refine clients page: infinite slider, unified card styles, logo grid optimization, and terminology update to '怨좉컼??& ?뚰듃?덉떗'
+
+diff --git a/business.html b/business.html
+index 0df4f74..1e63a9d 100644
+--- a/business.html
++++ b/business.html
+@@ -56,8 +56,8 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/project.html#performance">?꾨줈?앺듃 ?ㅼ쟻</a></li>
+-                        <li><a href="/project.html#clients">怨좉컼???뚰듃?덉떗</a></li>
++                        <li><a href="/project.html">?꾨줈?앺듃 ?ㅼ쟻</a></li>
++                        <li><a href="/clients.html">怨좉컼??& ?뚰듃?덉떗</a></li>
+                       </ul>
+                     </div>
+                   </div>
+
+commit 188396b9b90021b008cc8645111977b15bb81ecb
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed Apr 29 10:42:46 2026 +0900
+
+    Feat: Standardize consulting projects and refine header scroll/hover behavior in project page
+
+diff --git a/business.html b/business.html
+index 10f517d..0df4f74 100644
+--- a/business.html
++++ b/business.html
+@@ -56,7 +56,7 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/project.html#performance">二쇱슂 ?꾨줈?앺듃 ?ㅼ쟻</a></li>
++                        <li><a href="/project.html#performance">?꾨줈?앺듃 ?ㅼ쟻</a></li>
+                         <li><a href="/project.html#clients">怨좉컼???뚰듃?덉떗</a></li>
+                       </ul>
+                     </div>
+@@ -262,7 +262,7 @@
+             <!-- Item 1: Architecture -->
+             <div class="feature-item">
+               <div class="feature-content">
+-                <h3>1. ?좎뿰???쒖? ?꾪궎?띿쿂</h3>
++                <h3>?좎뿰???쒖? ?꾪궎?띿쿂</h3>
+                 <p>鍮꾩쫰?덉뒪??理쒖쟻?붾맂 留욎땄???쒖뒪?쒖쓣 援ъ텞?⑸땲??</p>
+                 <ul class="sub-details">
+                   <li>
+@@ -293,7 +293,7 @@
+             <!-- Item 2: Asset Management -->
+             <div class="feature-item">
+               <div class="feature-content">
+-                <h3>2. 理쒖쟻???먯궛 ?댁슜 ??웾</h3>
++                <h3>理쒖쟻???먯궛 ?댁슜 ??웾</h3>
+                 <p>李⑤퀎?붾맂 ?ъ옄 ?곹뭹 吏?먭낵 怨좊룄?붾맂 ?댁슜 ?쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
+                 <ul class="sub-details">
+                   <li>
+@@ -324,7 +324,7 @@
+             <!-- Item 3: Customer Service -->
+             <div class="feature-item">
+               <div class="feature-content">
+-                <h3>3. 怨좉컼 留욎땄???쒕퉬??吏??/h3>
++                <h3>怨좉컼 留욎땄???쒕퉬??吏??/h3>
+                 <p>?ъ슜???몄쓽瑜?洹밸??뷀븯怨?鍮덊땲?녿뒗 ?ы썑 愿由щ? ?ㅽ쁽?⑸땲??</p>
+                 <ul class="sub-details">
+                   <li>
+
+commit 333496eb83d2b2024a7f8452ec4963ab0116a840
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Tue Apr 28 18:21:23 2026 +0900
+
+    Fix: Restore Korean encoding and apply latest hero copy and project features
+
+diff --git a/business.html b/business.html
+index b4aa896..10f517d 100644
+--- a/business.html
++++ b/business.html
+@@ -56,7 +56,7 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/project.html#performance">?꾨줈?앺듃 ?ㅼ쟻</a></li>
++                        <li><a href="/project.html#performance">二쇱슂 ?꾨줈?앺듃 ?ㅼ쟻</a></li>
+                         <li><a href="/project.html#clients">怨좉컼???뚰듃?덉떗</a></li>
+                       </ul>
+                     </div>
+
+commit 888160cc3b094305b212b31e6cd2c0207bc31f24
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Tue Apr 28 17:30:41 2026 +0900
+
+    Refine Project Showroom: ongoing carousel, dynamic titles, hero animation, and nomenclature standardization
+
+diff --git a/business.html b/business.html
+index 10f517d..b4aa896 100644
+--- a/business.html
++++ b/business.html
+@@ -56,7 +56,7 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/project.html#performance">二쇱슂 ?꾨줈?앺듃 ?ㅼ쟻</a></li>
++                        <li><a href="/project.html#performance">?꾨줈?앺듃 ?ㅼ쟻</a></li>
+                         <li><a href="/project.html#clients">怨좉컼???뚰듃?덉떗</a></li>
+                       </ul>
+                     </div>
+
+commit a303477de086f2ba2a677b56dfc4aaa847e57952
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Tue Apr 28 09:28:36 2026 +0900
+
+    Update system pages hero copy and remove headline emphasis
+
+diff --git a/business.html b/business.html
+index 132cc67..10f517d 100644
+--- a/business.html
++++ b/business.html
+@@ -134,7 +134,7 @@
+         <div class="container">
+           <span class="section-label">Business / Solution</span>
+           <h1 class="section-title">?댁쭅?곌툑?쒖뒪??<span class="highlight">D-RPS</span></h1>
+-          <p class="hero-sub">湲덉쑖??寃쎄퀎瑜??섏뼱, ??댁옄??愿由ъ쓽 ?덈줈??湲곗????쒖떆?⑸땲??<br>利앷텒쨌??됯텒 理쒖쟻??紐⑤뜽怨??낅낫?곸씤 ?꾨찓???명븯?곕? 寃고빀?섏뿬 鍮꾩쫰?덉뒪 寃쎌웳?μ쓣 洹밸??뷀븯???듯빀 ?댁쭅?곌툑 ?명봽?쇰? ?ㅽ쁽?⑸땲??</p>
++          <p class="hero-sub">??댁옄??愿由ъ쓽 ?덈줈??湲곗????쒖떆?섎뒗 李⑥꽭? ?댁쭅?곌툑 ?뚮옯??br>利앷텒쨌??됯텒??理쒖쟻?붾맂 ?섏씠?붾뱶 紐⑤뜽怨??낅낫?곸씤 ?꾨찓???명븯?곕? 寃고빀?섏뿬 鍮꾩쫰?덉뒪 寃쎌웳?μ쓣 洹밸??뷀빀?덈떎. 寃ш퀬???듯빀 ?명봽?쇰? ?듯빐 湲됰??섎뒗 ?쒖옣???좎뿰?섍쾶 ??묓븯硫??덉젙?곸씤 ?먯궛 ?댁슜 ?섍꼍???ㅽ쁽?⑸땲??</p>
+         </div>
+       </section>
+ 
+
+commit 60371c13ff1e714ba44fea68885110af0089d5b0
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Mon Apr 27 18:02:05 2026 +0900
+
+    UI: Refine D-WMS hero aesthetics, menu layer layout, and navigation links
+
+diff --git a/business.html b/business.html
+index 8da6a38..132cc67 100644
+--- a/business.html
++++ b/business.html
+@@ -40,7 +40,7 @@
+                         <li><a href="/investment.html">吏묓빀?ъ옄利앷텒</a></li>
+                         <li><a href="/mutual.html">怨듭젣?낅Т?쒖뒪??/a></li>
+                         <li><a href="/sales.html">?곸뾽吏?먯떆?ㅽ뀥</a></li>
+-                        <li><a href="/business.html#asset">?먯궛愿由ъ떆?ㅽ뀥</a></li>
++                        <li><a href="/asset.html">?먯궛愿由ъ떆?ㅽ뀥</a></li>
+                       </ul>
+                     </div>
+                   </div>
+
+commit 4e54f102a6a7cd257071200e6e3bcc29ef38b148
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Mon Apr 27 15:38:05 2026 +0900
+
+    Add Sales Support System (D-CRM) page with Violet/Cyan diamond hero and comparison table
+
+diff --git a/business.html b/business.html
+index 8d9922b..8da6a38 100644
+--- a/business.html
++++ b/business.html
+@@ -39,7 +39,7 @@
+                         <li><a href="/business.html" class="active">?댁쭅?곌툑?쒖뒪??/a></li>
+                         <li><a href="/investment.html">吏묓빀?ъ옄利앷텒</a></li>
+                         <li><a href="/mutual.html">怨듭젣?낅Т?쒖뒪??/a></li>
+-                        <li><a href="/business.html#sales">?곸뾽吏?먯떆?ㅽ뀥</a></li>
++                        <li><a href="/sales.html">?곸뾽吏?먯떆?ㅽ뀥</a></li>
+                         <li><a href="/business.html#asset">?먯궛愿由ъ떆?ㅽ뀥</a></li>
+                       </ul>
+                     </div>
+
+commit f4dfed4f0029e511902e7bbe941b6cc120877fd2
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Mon Apr 27 14:59:56 2026 +0900
+
+    Add and update Mutual Aid Association (D-MAA) page
+
+diff --git a/business.html b/business.html
+index db8bfaf..8d9922b 100644
+--- a/business.html
++++ b/business.html
+@@ -38,7 +38,7 @@
+                       <ul>
+                         <li><a href="/business.html" class="active">?댁쭅?곌툑?쒖뒪??/a></li>
+                         <li><a href="/investment.html">吏묓빀?ъ옄利앷텒</a></li>
+-                        <li><a href="/business.html#mutual">怨듭젣?낅Т?쒖뒪??/a></li>
++                        <li><a href="/mutual.html">怨듭젣?낅Т?쒖뒪??/a></li>
+                         <li><a href="/business.html#sales">?곸뾽吏?먯떆?ㅽ뀥</a></li>
+                         <li><a href="/business.html#asset">?먯궛愿由ъ떆?ㅽ뀥</a></li>
+                       </ul>
+
+commit 3848386f17cb9b611dd81d4fa9b5e0b685185ff2
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Mon Apr 27 12:48:35 2026 +0900
+
+    Update service intro SVGs in investment.html and business.html
+
+diff --git a/business.html b/business.html
+index 11fb22e..db8bfaf 100644
+--- a/business.html
++++ b/business.html
+@@ -36,8 +36,8 @@
+                     </div>
+                     <div class="mega-right">
+                       <ul>
+-                        <li><a href="/business.html#pension" class="active">?댁쭅?곌툑?쒖뒪??/a></li>
+-                        <li><a href="/business.html#investment">吏묓빀?ъ옄利앷텒</a></li>
++                        <li><a href="/business.html" class="active">?댁쭅?곌툑?쒖뒪??/a></li>
++                        <li><a href="/investment.html">吏묓빀?ъ옄利앷텒</a></li>
+                         <li><a href="/business.html#mutual">怨듭젣?낅Т?쒖뒪??/a></li>
+                         <li><a href="/business.html#sales">?곸뾽吏?먯떆?ㅽ뀥</a></li>
+                         <li><a href="/business.html#asset">?먯궛愿由ъ떆?ㅽ뀥</a></li>
+@@ -148,8 +148,30 @@
+             </div>
+             <div class="intro-visual-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-top: 2rem;">
+                 <div class="intro-visual-item" style="text-align: center;">
+-                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; background: #f8fafc; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+-                        <img src="/assets/img_01.png" alt="Process Integration" style="width: 100%; height: 100%; object-fit: cover;">
++                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
++                        <svg width="180" height="180" viewBox="0 0 160 160" fill="none">
++                          <style>
++                            @keyframes spin-cw { to { transform: rotate(360deg); } }
++                            @keyframes spin-ccw { to { transform: rotate(-360deg); } }
++                            @keyframes dash-flow { to { stroke-dashoffset: -40; } }
++                            @keyframes pulse-core { 0%,100%{transform: scale(0.9);} 50%{transform: scale(1.1);} }
++                            .b1-outer { transform-origin: center; animation: spin-cw 20s linear infinite; }
++                            .b1-inner { transform-origin: center; animation: spin-ccw 15s linear infinite; }
++                            .b1-line { animation: dash-flow 2s linear infinite; stroke-dasharray: 6 6; }
++                            .b1-core { transform-origin: center; animation: pulse-core 3s ease-in-out infinite; }
++                          </style>
++                          <g class="b1-outer">
++                            <circle cx="80" cy="80" r="50" stroke="#0f172a" stroke-width="2.5" class="b1-line" fill="none"/>
++                            <circle cx="80" cy="30" r="6" fill="#EAB308"/>
++                            <circle cx="80" cy="130" r="6" fill="#EAB308"/>
++                          </g>
++                          <g class="b1-inner">
++                            <rect x="55" y="55" width="50" height="50" stroke="#64748B" stroke-width="3.5" fill="rgba(100, 116, 139, 0.1)" transform="rotate(45 80 80)"/>
++                            <circle cx="115" cy="80" r="4" fill="#64748B"/>
++                            <circle cx="45" cy="80" r="4" fill="#64748B"/>
++                          </g>
++                          <circle class="b1-core" cx="80" cy="80" r="10" fill="#0f172a"/>
++                        </svg>
+                     </div>
+                     <strong style="display: block; font-size: 1.4rem; color: #0f172a; margin-bottom: 1.2rem; font-weight: 800; word-break: keep-all;">?댁쭅?곌툑 ???앹븷二쇨린瑜??꾩슦瑜대뒗<br>?듯빀 ?꾨줈?몄뒪 吏??/strong>
+                     <p style="font-size: 1.1rem; line-height: 1.7; color: #475569; word-break: keep-all;">
+@@ -157,8 +179,32 @@
+                     </p>
+                 </div>
+                 <div class="intro-visual-item" style="text-align: center;">
+-                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; background: #f8fafc; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+-                        <img src="/assets/img_02.png" alt="Industry Customization" style="width: 100%; height: 100%; object-fit: cover;">
++                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
++                        <svg width="180" height="180" viewBox="0 0 160 160" fill="none">
++                          <style>
++                            @keyframes float-up { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-8px);} }
++                            @keyframes float-down { 0%,100%{transform: translateY(0);} 50%{transform: translateY(8px);} }
++                            @keyframes dash-flow { to { stroke-dashoffset: -40; } }
++                            .b2-b1 { animation: float-up 4s ease-in-out infinite; }
++                            .b2-b2 { animation: float-down 4s ease-in-out infinite 0.5s; }
++                            .b2-b3 { animation: float-up 4s ease-in-out infinite 1s; }
++                            .b2-line { animation: dash-flow 2s linear infinite; stroke-dasharray: 6 6; }
++                          </style>
++                          <line class="b2-line" x1="40" y1="120" x2="120" y2="40" stroke="#0f172a" stroke-width="2.5"/>
++                          <line class="b2-line" x1="40" y1="40" x2="120" y2="120" stroke="#0f172a" stroke-width="2.5"/>
++                          <g class="b2-b1">
++                            <rect x="65" y="30" width="30" height="40" rx="4" stroke="#64748B" stroke-width="3.5" fill="rgba(100, 116, 139, 0.1)"/>
++                            <circle cx="80" cy="50" r="4" fill="#EAB308"/>
++                          </g>
++                          <g class="b2-b2">
++                            <rect x="30" y="70" width="40" height="30" rx="4" stroke="#0f172a" stroke-width="3.5" fill="none"/>
++                            <line x1="40" y1="85" x2="60" y2="85" stroke="#EAB308" stroke-width="2.5"/>
++                          </g>
++                          <g class="b2-b3">
++                            <rect x="90" y="70" width="40" height="30" rx="4" stroke="#64748B" stroke-width="3.5" fill="rgba(100, 116, 139, 0.1)"/>
++                            <rect x="105" y="80" width="10" height="10" fill="#EAB308"/>
++                          </g>
++                        </svg>
+                     </div>
+                     <strong style="display: block; font-size: 1.4rem; color: #0f172a; margin-bottom: 1.2rem; font-weight: 800; word-break: keep-all;">?띾????덊띁?곗뒪 湲곕컲??br>?낃텒蹂?留욎땄???섍꼍 援ъ텞</strong>
+                     <p style="font-size: 1.1rem; line-height: 1.7; color: #475569; word-break: keep-all;">
+@@ -166,8 +212,32 @@
+                     </p>
+                 </div>
+                 <div class="intro-visual-item" style="text-align: center;">
+-                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; background: #f8fafc; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+-                        <img src="/assets/img_03.png" alt="Scalable Architecture" style="width: 100%; height: 100%; object-fit: cover;">
++                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
++                        <svg width="180" height="180" viewBox="0 0 160 160" fill="none">
++                          <style>
++                            @keyframes branch-extend { 0%,100%{stroke-dashoffset: 60;} 50%{stroke-dashoffset: 0;} }
++                            @keyframes pop { 0%,100%{transform: scale(0.8);} 50%{transform: scale(1.2);} }
++                            @keyframes whole-rotate { to { transform: rotate(360deg); } }
++                            @keyframes dash-flow { to { stroke-dashoffset: -40; } }
++                            .b3-group { transform-origin: center; animation: whole-rotate 30s linear infinite; }
++                            .b3-path { stroke-dasharray: 60; animation: branch-extend 4s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
++                            .b3-line { animation: dash-flow 2s linear infinite; stroke-dasharray: 6 6; }
++                            .b3-pop1 { transform-origin: 80px 30px; animation: pop 3s ease-in-out infinite; }
++                            .b3-pop2 { transform-origin: 30px 110px; animation: pop 3s ease-in-out infinite 1s; }
++                            .b3-pop3 { transform-origin: 130px 110px; animation: pop 3s ease-in-out infinite 2s; }
++                          </style>
++                          <g class="b3-group">
++                            <path class="b3-path" d="M80 80 L80 30" stroke="#64748B" stroke-width="3.5" stroke-linecap="round"/>
++                            <path class="b3-path" d="M80 80 L30 110" stroke="#64748B" stroke-width="3.5" stroke-linecap="round"/>
++                            <path class="b3-path" d="M80 80 L130 110" stroke="#64748B" stroke-width="3.5" stroke-linecap="round"/>
++                            <circle cx="80" cy="80" r="35" stroke="#0f172a" stroke-width="2.5" class="b3-line" fill="none"/>
++                            <g class="b3-pop1"><circle cx="80" cy="30" r="8" fill="#EAB308"/></g>
++                            <g class="b3-pop2"><rect x="22" y="102" width="16" height="16" fill="#0f172a"/></g>
++                            <g class="b3-pop3"><circle cx="130" cy="110" r="8" stroke="#64748B" stroke-width="3.5" fill="rgba(100, 116, 139, 0.1)"/></g>
++                            <circle cx="80" cy="80" r="12" fill="#0f172a"/>
++                            <circle cx="80" cy="80" r="4" fill="#EAB308"/>
++                          </g>
++                        </svg>
+                     </div>
+                     <strong style="display: block; font-size: 1.4rem; color: #0f172a; margin-bottom: 1.2rem; font-weight: 800; word-break: keep-all;">蹂?붿뿉 誘쇱꺽???좎뿰?섍퀬<br>?뺤옣???덈뒗 ?꾪궎?띿쿂</strong>
+                     <p style="font-size: 1.1rem; line-height: 1.7; color: #475569; word-break: keep-all;">
+
+commit 3904bddea93e1304fb25901dbbe99fbeb2b88a9a
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Fri Apr 24 17:51:54 2026 +0900
+
+    feat: enhance business page UI, home page navigation, and intro sequence
+
+diff --git a/business.html b/business.html
+index a54f8ac..11fb22e 100644
+--- a/business.html
++++ b/business.html
+@@ -134,29 +134,45 @@
+         <div class="container">
+           <span class="section-label">Business / Solution</span>
+           <h1 class="section-title">?댁쭅?곌툑?쒖뒪??<span class="highlight">D-RPS</span></h1>
+-          <p class="hero-sub">?댁쭅?곌툑 ?댁슜愿由ш린愿???낅Т?쒖뒪?쒖쑝濡?利앷텒/??됱뿉 理쒖쟻?붾맂 李몄“紐⑤뜽怨?<br>?명븯?곕? ?쒖슜?섏뿬 理쒖긽??留덉???泥닿퀎 諛?怨좉컼 ?쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
++          <p class="hero-sub">湲덉쑖??寃쎄퀎瑜??섏뼱, ??댁옄??愿由ъ쓽 ?덈줈??湲곗????쒖떆?⑸땲??<br>利앷텒쨌??됯텒 理쒖쟻??紐⑤뜽怨??낅낫?곸씤 ?꾨찓???명븯?곕? 寃고빀?섏뿬 鍮꾩쫰?덉뒪 寃쎌웳?μ쓣 洹밸??뷀븯???듯빀 ?댁쭅?곌툑 ?명봽?쇰? ?ㅽ쁽?⑸땲??</p>
+         </div>
+       </section>
+ 
+       <!-- Content Sections (White) -->
++      <div class="content-wrapper">
+       <section class="service-intro">
+         <div class="container">
+-          <div class="intro-grid">
+-            <div class="intro-text">
+-                <h2>湲덉쑖 ?섍꼍??理쒖쟻?붾맂<br>?쒕퉬???쒓났</h2>
+-                <div style="width: 60px; height: 3px; background: var(--daumis-yellow); margin-bottom: 2rem;"></div>
+-                <p>
+-                    ?곌툑?쒕룄???ㅺ퀎?먯꽌遺??遺?닿툑???⑹엯, ?곷┰湲덉쓽 ?댁슜 諛?湲됱뿬??吏湲됯퉴吏 ?댁쭅?곌툑 ?ъ뾽?먯쓽 ?댁슜愿由?諛??먯궛愿由??낅Т瑜?吏?먰븯???쒖뒪?쒖쑝濡?利앷텒, ??? 蹂댄뿕 ?깆쓽 ?ㅼ뼇??援ъ텞 寃쏀뿕??諛뷀깢?쇰줈 怨좉컼?ъ쓽 湲덉쑖?섍꼍??理쒖쟻?붾맂 ?쒕퉬?ㅻ? ?쒓났?⑸땲??
+-                </p>
+-                <p style="margin-top: 1.5rem;">
+-                    ??댁옄???쒖옣???깆옣???곕Ⅸ 媛쒖씤 怨좉컼???ㅼ뼇?섍퀬 媛쒕퀎?곸씤 ?먯궛愿由??붽뎄媛 利앸??⑥뿉 ?곕씪 ?섏떆濡?媛쒖젙?섎뒗 ?쒕룄蹂?붿뿉 ?좎냽?섍퀬 ?쇨??깆엳寃??泥섑븷 ???덈룄濡??좎뿰?섍퀬 ?뺤옣?깆엳???낅Т ?뚮옯?쇱쑝濡??ㅺ퀎?섏뼱 ?덉뒿?덈떎.
+-                </p>
++          <div class="intro-content">
++            <div class="intro-header" style="margin-bottom: 5rem;">
++                <h2 style="font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a;">湲덉쑖??愿?듯븯???붾뱶?ъ뿏??br>?댁쭅?곌툑 ?듯빀 ?붾（??/h2>
+             </div>
+-            <div class="intro-visual">
+-                <div class="visual-card">
+-                    <div class="card-icon"><i data-lucide="zap" size="48"></i></div>
+-                    <h4>Fast & Flexible</h4>
+-                    <p>媛쒖씤 怨좉컼??媛쒕퀎?곸씤 ?붽뎄?ы빆??異⑹”?섎ŉ 李⑤퀎?붾맂 ?곌툑 ?먯궛 愿由??쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
++            <div class="intro-visual-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-top: 2rem;">
++                <div class="intro-visual-item" style="text-align: center;">
++                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; background: #f8fafc; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
++                        <img src="/assets/img_01.png" alt="Process Integration" style="width: 100%; height: 100%; object-fit: cover;">
++                    </div>
++                    <strong style="display: block; font-size: 1.4rem; color: #0f172a; margin-bottom: 1.2rem; font-weight: 800; word-break: keep-all;">?댁쭅?곌툑 ???앹븷二쇨린瑜??꾩슦瑜대뒗<br>?듯빀 ?꾨줈?몄뒪 吏??/strong>
++                    <p style="font-size: 1.1rem; line-height: 1.7; color: #475569; word-break: keep-all;">
++                        ?댁쭅?곌툑???⑥쑉?곸씤 ?쒕룄 ?ㅺ퀎遺???ы썑 湲됱뿬 吏湲됯퉴吏, ?댁슜 諛??먯궛愿由???怨쇱젙???좉린?곸씠怨??듯빀??泥닿퀎濡??곌껐?⑸땲??
++                    </p>
++                </div>
++                <div class="intro-visual-item" style="text-align: center;">
++                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; background: #f8fafc; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
++                        <img src="/assets/img_02.png" alt="Industry Customization" style="width: 100%; height: 100%; object-fit: cover;">
++                    </div>
++                    <strong style="display: block; font-size: 1.4rem; color: #0f172a; margin-bottom: 1.2rem; font-weight: 800; word-break: keep-all;">?띾????덊띁?곗뒪 湲곕컲??br>?낃텒蹂?留욎땄???섍꼍 援ъ텞</strong>
++                    <p style="font-size: 1.1rem; line-height: 1.7; color: #475569; word-break: keep-all;">
++                        利앷텒, ??? 蹂댄뿕 ??湲덉쑖 ?꾨갑?꾩뿉 嫄몄튇 援ъ텞 ?명븯?곕? ?ъ쁺?섏뿬 怨좉컼?ъ쓽 鍮꾩쫰?덉뒪 ?섍꼍??理쒖쟻?붾맂 怨좊룄???붾（?섏쓣 ?쒓났?⑸땲??
++                    </p>
++                </div>
++                <div class="intro-visual-item" style="text-align: center;">
++                    <div class="visual-img" style="margin: 0 auto 2rem; width: 100%; max-width: 280px; aspect-ratio: 4/3; background: #f8fafc; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
++                        <img src="/assets/img_03.png" alt="Scalable Architecture" style="width: 100%; height: 100%; object-fit: cover;">
++                    </div>
++                    <strong style="display: block; font-size: 1.4rem; color: #0f172a; margin-bottom: 1.2rem; font-weight: 800; word-break: keep-all;">蹂?붿뿉 誘쇱꺽???좎뿰?섍퀬<br>?뺤옣???덈뒗 ?꾪궎?띿쿂</strong>
++                    <p style="font-size: 1.1rem; line-height: 1.7; color: #475569; word-break: keep-all;">
++                        媛쒖씤?붾맂 ?먯궛愿由??섏슂? 鍮덈쾲???쒕룄 媛쒗렪??利됯컖 ??묓븯硫? ?뺤옣???뚮옯?쇱쓣 ?듯빐 吏??媛?ν븳 ?댁쁺 ?섍꼍??蹂댁옣?⑸땲??
++                    </p>
+                 </div>
+             </div>
+           </div>
+@@ -165,29 +181,112 @@
+ 
+       <section id="features" class="service-block">
+         <div class="container">
+-          <div class="align-center">
+-            <h2 class="section-title">?쒖뒪??二쇱슂 ?뱀쭠</h2>
++          <div class="feature-header" style="margin-bottom: 0.5rem;">
++
++
++            <h2 style="font-size: 2.8rem; line-height: 1.3; font-weight: 700; color: #0f172a;">?ㅼ쓬?뺣낫?쒖뒪?쒖쫰媛 ?쒓났?섎뒗<br>?쒖뒪??二쇱슂 ?뱀쭠</h2>
++
+           </div>
+-          <div class="feature-grid">
+-            <div class="feature-card bento-card">
+-              <span class="card-num">01</span>
+-              <h3 class="card-title">留욎땄???댁쭅?곌툑 ?쒖뒪??/h3>
+-              <p class="card-desc">利앷텒/???蹂댄뿕 ???낃텒蹂?理쒖쟻?붾맂 李몄“紐⑤뜽???곸슜?섎ŉ, ?덊긽寃곗젣???쒖??꾨Ц???듯븳 ??몄뿰怨?諛????I/F瑜??듯븳 吏곸젒 ?곌퀎媛 媛?ν빀?덈떎.</p>
+-            </div>
+-            <div class="feature-card bento-card">
+-                <span class="card-num">02</span>
+-                <h3 class="card-title">媛뺣젰???쒕퉬??湲곕뒫</h3>
+-                <p class="card-desc">?댁슜媛?μ긽???덇툑, ELB, RP, ETF ?? ?뺣???臾쇰줎 DCA, ?먮룞?щ같遺? 留뚭린?덉빟留ㅻℓ ??李⑤퀎?붾맂 ?먯궛?댁슜 ?쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
++          
++          <div class="feature-list">
++            <!-- Item 1: Architecture -->
++            <div class="feature-item">
++              <div class="feature-content">
++                <h3>1. ?좎뿰???쒖? ?꾪궎?띿쿂</h3>
++                <p>鍮꾩쫰?덉뒪??理쒖쟻?붾맂 留욎땄???쒖뒪?쒖쓣 援ъ텞?⑸땲??</p>
++                <ul class="sub-details">
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="layers"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?낃텒蹂?理쒖쟻??/strong>
++                      湲덉쑖 沅뚯뿭蹂??뱀꽦??留욎텣 ?뺣????ㅺ퀎
++                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="share-2"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?쒖??붾맂 ?명꽣?섏씠??/strong>
++                      ??댁쇅 ?쒖뒪??媛꾩쓽 鍮좊Ⅴ怨??덉젙?곸씤 ?곕룞
++                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="shield-check"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?낅┰???뺣낫</strong>
++                      ?뱀젙 ?⑦궎吏??醫낆냽?섏? ?딅뒗 ?먯쑀濡쒖슫 ?쒖뒪??援ъ꽦
++                    </div>
++                  </li>
++                </ul>
++              </div>
+             </div>
+-            <div class="feature-card bento-card">
+-                <span class="card-num">03</span>
+-                <h3 class="card-title">鍮꾨?硫?梨꾨꼸 媛뺥솕</h3>
+-                <p class="card-desc">WTS, MTS, HTS ??怨좉컼 ?쒕퉬?ㅻ? ?꾪븳 鍮꾨?硫?梨꾨꼸??媛뺥솕?섏뿬 ?몄젣 ?대뵒?쒕굹 ?몃━???곌툑 ?먯궛 愿由ш? 媛?ν빀?덈떎.</p>
++
++            <!-- Item 2: Asset Management -->
++            <div class="feature-item">
++              <div class="feature-content">
++                <h3>2. 理쒖쟻???먯궛 ?댁슜 ??웾</h3>
++                <p>李⑤퀎?붾맂 ?ъ옄 ?곹뭹 吏?먭낵 怨좊룄?붾맂 ?댁슜 ?쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
++                <ul class="sub-details">
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="database"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?볦? ?곹뭹 ?쇱씤??/strong>
++                      ?덇툑遺???댁쭅?곌툑源뚯? 紐⑤뱺 湲덉쑖 ?곹뭹 ?섏슜
++                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="trending-up"></i></div>
++                    <div class="text-wrapper">
++                      <strong>吏?ν삎 ?댁슜 ?쒕퉬??/strong>
++                      ?먮룞 ?щ같遺?Rebalancing) 諛??꾨왂 留ㅻℓ ?쒖뒪??+                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="layout-grid"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?듯빀 愿由?泥닿퀎</strong>
++                      怨좉컼怨??곹뭹 ?뺣낫瑜??섎굹濡??뉖뒗 ?⑥쑉?곸씤 愿由?+                    </div>
++                  </li>
++                </ul>
++              </div>
+             </div>
+-            <div class="feature-card bento-card">
+-                <span class="card-num">04</span>
+-                <h3 class="card-title">湲곗닠 湲곕컲 ?낅┰??/h3>
+-                <p class="card-desc">?낅┰???⑦궎吏 諛⑹떇 諛?肄붿뼱?쒖뒪??湲곗닠湲곕컲 ?곸슜 寃쏀뿕??諛뷀깢?쇰줈 ?꾨꼍??湲곗닠 ?먮┰怨?怨좉컼 留욎땄??理쒖쟻?붾? 蹂댁옣?⑸땲??</p>
++
++            <!-- Item 3: Customer Service -->
++            <div class="feature-item">
++              <div class="feature-content">
++                <h3>3. 怨좉컼 留욎땄???쒕퉬??吏??/h3>
++                <p>?ъ슜???몄쓽瑜?洹밸??뷀븯怨?鍮덊땲?녿뒗 ?ы썑 愿由щ? ?ㅽ쁽?⑸땲??</p>
++                <ul class="sub-details">
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="smartphone"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?대땲梨꾨꼸 吏??/strong>
++                      ?몄젣 ?대뵒?쒕굹 ?묒냽 媛?ν븳 鍮꾨?硫?梨꾨꼸 媛뺥솕
++                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="pie-chart"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?ㅻ쭏???쒕??덉씠??/strong>
++                      ???諛??곌툑 留욎땄 ?ㅺ퀎瑜??듯븳 ?섏궗寃곗젙 吏??+                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="user-check"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?⑥쑉?곸씤 ?낅Т ?섍꼍</strong>
++                      ?꾩옣 以묒떖???붾㈃ 援ъ꽦?쇰줈 吏곸썝 ?앹궛???μ긽
++                    </div>
++                  </li>
++                  <li>
++                    <div class="icon-wrapper"><i data-lucide="heart-handshake"></i></div>
++                    <div class="text-wrapper">
++                      <strong>?ы썑愿由?媛뺥솕</strong>
++                      泥닿퀎?곸씤 吏??湲곕뒫???듯븳 怨꾩빟 ?좎? ?덉쭏 媛쒖꽑
++                    </div>
++                  </li>
++                </ul>
++              </div>
+             </div>
+           </div>
+         </div>
+@@ -195,108 +294,93 @@
+ 
+       <section class="module-section darker">
+         <div class="container">
+-          <div class="align-center">
+-            <h2 class="section-title">?쒖뒪??援ъ꽦</h2>
++          <div class="feature-header" style="margin-bottom: 0.5rem;">
++
++            <h2 style="font-size: 2.8rem; line-height: 1.3; font-weight: 700; color: #0f172a;">?댁쭅?곌툑 ?쒖뒪?쒖쓣 援ъ꽦?섎뒗<br>6媛吏 紐⑤뱢</h2>
++
+           </div>
+           <div class="module-grid">
+             <div class="module-item">
++              <div class="module-icon"><i data-lucide="database"></i></div>
+               <h4>湲곕낯?뺣낫愿由?/h4>
+-              <ul>
+-                <li>怨좉컼愿由?/ ?곹뭹愿由?/li>
+-                <li>?섏닔猷뚯젙蹂?/ 湲곌?愿由?/li>
+-                <li>?댁쑉 諛?湲곗?媛 愿由?/li>
+-              </ul>
++              <p>怨좉컼, ?곹뭹, ?섏닔猷?諛?湲곌? ?뺣낫 ???쒖뒪???꾨컲???꾩슂??湲곗? ?뺣낫瑜?泥닿퀎?곸쑝濡?愿由ы빀?덈떎.</p>
+             </div>
+             <div class="module-item">
++              <div class="module-icon"><i data-lucide="file-text"></i></div>
+               <h4>怨꾩빟愿由?/h4>
+-              <ul>
+-                <li>媛?낆옄 諛?怨꾩빟 愿由?/li>
+-                <li>怨쇱꽭?댁뿰 / 怨꾩빟?댁쟾</li>
+-                <li>?먯궛怨꾩빟 ?쒕퉬??/li>
+-              </ul>
++              <p>媛?낆옄 ?깅줉遺??怨꾩빟 泥닿껐, 怨쇱꽭 ?댁뿰 諛??먯궛 怨꾩빟 ?쒕퉬?ㅺ퉴吏 怨꾩빟????怨쇱젙??吏?먰빀?덈떎.</p>
+             </div>
+             <div class="module-item">
+-                <h4>??吏湲?愿由?/h4>
+-                <ul>
+-                  <li>遺?닿툑 諛?吏湲?愿由?/li>
+-                  <li>?댁?/?댁쟾 諛??곌툑吏湲?/li>
+-                  <li>?멸툑/?대낫/?뺣쪟 愿由?/li>
+-                </ul>
++              <div class="module-icon"><i data-lucide="credit-card"></i></div>
++              <h4>??吏湲?愿由?/h4>
++              <p>遺?닿툑 ?⑹엯, ?댁?/?댁쟾 諛??곌툑 吏湲????먭툑???먮쫫???щ챸?섍퀬 ?뺥솗?섍쾶 泥섎━?⑸땲??</p>
+             </div>
+             <div class="module-item">
+-                <h4>?곷┰湲?愿由?/h4>
+-                <ul>
+-                  <li>?댁슜吏??/ 嫄곕옒?댁뿭</li>
+-                  <li>而댄뵆?쇱씠?몄뒪 / ?섏씡瑜?/li>
+-                  <li>?붽퀬愿由?諛??됯?</li>
+-                </ul>
++              <div class="module-icon"><i data-lucide="trending-up"></i></div>
++              <h4>?곷┰湲?愿由?/h4>
++              <p>?댁슜吏?? 而댄뵆?쇱씠?몄뒪 泥댄겕, ?붽퀬 愿由?諛??섏씡瑜??됯? ???듭떖 ?먯궛 ?댁슜 湲곕뒫???쒓났?⑸땲??</p>
+             </div>
+             <div class="module-item">
+-                <h4>?명꽣?섏씠??/h4>
+-                <ul>
+-                  <li>?쒖??꾨Ц ?≪닔??/li>
+-                  <li>梨꾨꼸 ?명꽣?섏씠??/li>
+-                  <li>????쒕퉬???곌퀎</li>
+-                </ul>
++              <div class="module-icon"><i data-lucide="share-2"></i></div>
++              <h4>?명꽣?섏씠??/h4>
++              <p>???湲곌? ?쒖? ?꾨Ц ?≪닔??諛????梨꾨꼸 ?쒕퉬?ㅼ????좉린?곸씤 ?곕룞 ?쒖뒪?쒖쓣 援ъ텞?⑸땲??</p>
+             </div>
+             <div class="module-item">
+-                <h4>?낅Т吏??諛??곸뾽</h4>
+-                <ul>
+-                  <li>?곸뾽 諛?援먯쑁 愿由?/li>
+-                  <li>蹂닿퀬??諛??쇱젙 愿由?/li>
+-                  <li>留덇컧 諛??깃낵 愿由?/li>
+-                </ul>
++              <div class="module-icon"><i data-lucide="user-cog"></i></div>
++              <h4>?낅Т吏??諛??곸뾽</h4>
++              <p>?곸뾽 吏?? 援먯쑁 愿由? 媛곸쥌 蹂닿퀬???앹꽦 諛?留덇컧 愿由щ? ?듯빐 ?꾩옣???⑥쑉?깆쓣 洹밸??뷀빀?덈떎.</p>
+             </div>
+           </div>
+         </div>
+       </section>
+-    </main>
+ 
+-    <footer id="footer">
+-      <div class="container">
+-        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+-          <!-- Branding Section -->
+-          <div style="margin-left: -16px; padding: 0;">
+-            <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
+-              <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
+-              <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">?쒕떎?뚯젙蹂댁떆?ㅽ뀥利?/span>
++      <footer id="footer">
++        <div class="container">
++          <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
++            <!-- Branding Section -->
++            <div style="margin-left: -16px; padding: 0;">
++              <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
++                <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
++                <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">?쒕떎?뚯젙蹂댁떆?ㅽ뀥利?/span>
++              </div>
++              <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">湲덉쑖??誘몃옒, 洹??ㅼ쓬??媛移섎? 留뚮뱾??媛묐땲??</p>
++              <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyright??2019 by DAUM IS. All right reserved.</p>
+             </div>
+-            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">湲덉쑖??誘몃옒, 洹??ㅼ쓬??媛移섎? 留뚮뱾??媛묐땲??</p>
+-            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyright??2019 by DAUM IS. All right reserved.</p>
+-          </div>
+ 
+-          <!-- Contact & Office Info Section -->
+-          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+-            <div>
+-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
+-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+-                <li style="white-space: nowrap;">T. 02-6247-8413</li>
+-                <li style="white-space: nowrap;">F. 070-4713-9499</li>
+-              </ul>
+-            </div>
+-            <div>
+-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">?ъ쓽?꾩꽱??/h4>
+-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+-                <li style="white-space: nowrap;">(07332) ?쒖슱???곷벑?ш뎄</li>
+-                <li style="white-space: nowrap;">援?젣湲덉쑖濡?湲?27-9,</li>
+-                <li style="white-space: nowrap;">?숇턿鍮뚮뵫 603??/li>
+-              </ul>
+-            </div>
+-            <div>
+-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">蹂몄궗</h4>
+-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+-                <li style="white-space: nowrap;">(08791) ?쒖슱??愿?낃뎄</li>
+-                <li style="white-space: nowrap;">愿?낅줈120</li>
+-                <li style="white-space: nowrap;">?곗＜鍮뚮뵫 3痢?/li>
+-              </ul>
++            <!-- Contact & Office Info Section -->
++            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
++              <div>
++                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
++                <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
++                  <li style="white-space: nowrap;">T. 02-6247-8413</li>
++                  <li style="white-space: nowrap;">F. 070-4713-9499</li>
++                </ul>
++              </div>
++              <div>
++                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">?ъ쓽?꾩꽱??/h4>
++                <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
++                  <li style="white-space: nowrap;">(07332) ?쒖슱???곷벑?ш뎄</li>
++                  <li style="white-space: nowrap;">援?젣湲덉쑖濡?湲?27-9,</li>
++                  <li style="white-space: nowrap;">?숇턿鍮뚮뵫 603??/li>
++                </ul>
++              </div>
++              <div>
++                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">蹂몄궗</h4>
++                <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
++                  <li style="white-space: nowrap;">(08791) ?쒖슱??愿?낃뎄</li>
++                  <li style="white-space: nowrap;">愿?낅줈120</li>
++                  <li style="white-space: nowrap;">?곗＜鍮뚮뵫 3痢?/li>
++                </ul>
++              </div>
+             </div>
+           </div>
++          <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
++            <p style="font-size: 0.85rem; opacity: 0.4;">DAUMIS Digital Showroom</p>
++          </div>
+         </div>
+-        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
+-          <p style="font-size: 0.85rem; opacity: 0.4;">DAUMIS Digital Showroom</p>
+-        </div>
++      </footer>
+       </div>
+-    </footer>
++    </main>
+     <script type="module" src="/src/main.js"></script>
+     <script>lucide.createIcons();</script>
+   </body>
+
+commit 2b5eef18b42230d32ab8cf946a5b9260f302a3f5
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Fri Apr 24 11:15:39 2026 +0900
+
+    feat: footer design finalization and scroll snap fix
+
+diff --git a/business.html b/business.html
+index c85b27c..a54f8ac 100644
+--- a/business.html
++++ b/business.html
+@@ -1,4 +1,4 @@
+-癤?!DOCTYPE html>
++<!DOCTYPE html>
+ <html lang="ko">
+   <head>
+     <meta charset="UTF-8" />
+@@ -254,32 +254,46 @@
+ 
+     <footer id="footer">
+       <div class="container">
+-        <div class="footer-grid">
+-          <div class="footer-brand">
+-            <img src="/ci_01.png" alt="DAUMIS" class="footer-logo">
+-            <p>湲덉쑖??誘몃옒, 洹??ㅼ쓬??媛移?</p>
+-          </div>
+-          <div class="footer-contacts">
+-            <div class="contact-item">
+-              <strong>?ъ쓽?꾩꽱??/strong>
+-              <p>?쒖슱???곷벑?ш뎄 援?젣湲덉쑖濡?湲?27-9, ?숇턿鍮뚮뵫 603??/p>
++        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
++          <!-- Branding Section -->
++          <div style="margin-left: -16px; padding: 0;">
++            <div style="margin-bottom: 0.5rem; display: flex; align-items: center;">
++              <span style="font-size: 2.2rem; font-weight: 800; color: var(--daumis-yellow); letter-spacing: -1px; line-height: 1;">DAUMIS</span>
++              <span style="font-size: 1.2rem; font-weight: 700; color: var(--daumis-yellow); margin-left: 12px;">?쒕떎?뚯젙蹂댁떆?ㅽ뀥利?/span>
+             </div>
+-            <div class="contact-item">
+-              <strong>蹂몄궗</strong>
+-              <p>?쒖슱??愿?낃뎄 愿?낅줈120 ?곗＜鍮뚮뵫 3痢?/p>
++            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">湲덉쑖??誘몃옒, 洹??ㅼ쓬??媛移섎? 留뚮뱾??媛묐땲??</p>
++            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyright??2019 by DAUM IS. All right reserved.</p>
++          </div>
++
++          <!-- Contact & Office Info Section -->
++          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
++            <div>
++              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
++              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
++                <li style="white-space: nowrap;">T. 02-6247-8413</li>
++                <li style="white-space: nowrap;">F. 070-4713-9499</li>
++              </ul>
+             </div>
+-            <div class="contact-item">
+-              <strong>??쒖쟾??/strong>
+-              <p>02-6247-8413</p>
++            <div>
++              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">?ъ쓽?꾩꽱??/h4>
++              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
++                <li style="white-space: nowrap;">(07332) ?쒖슱???곷벑?ш뎄</li>
++                <li style="white-space: nowrap;">援?젣湲덉쑖濡?湲?27-9,</li>
++                <li style="white-space: nowrap;">?숇턿鍮뚮뵫 603??/li>
++              </ul>
+             </div>
+-            <div class="contact-item">
+-                <strong>FAX</strong>
+-                <p>070-4713-9499</p>
++            <div>
++              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">蹂몄궗</h4>
++              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
++                <li style="white-space: nowrap;">(08791) ?쒖슱??愿?낃뎄</li>
++                <li style="white-space: nowrap;">愿?낅줈120</li>
++                <li style="white-space: nowrap;">?곗＜鍮뚮뵫 3痢?/li>
++              </ul>
+             </div>
+           </div>
+         </div>
+-        <div class="footer-bottom">
+-          <p>Copyright 짤 2019 by DAUM IS. All right reserved.</p>
++        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
++          <p style="font-size: 0.85rem; opacity: 0.4;">DAUMIS Digital Showroom</p>
+         </div>
+       </div>
+     </footer>
+
+commit 59e999400bcf9d49bedcc89f50ed3eba7758a0a2
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Thu Apr 23 17:46:22 2026 +0900
+
+    Refine Business page UI, fix CI logo scaling, and implement Master architectural grid
+
+diff --git a/business.html b/business.html
+index 58d6aa6..c85b27c 100644
+--- a/business.html
++++ b/business.html
+@@ -1,104 +1,251 @@
+-<!DOCTYPE html>
++癤?!DOCTYPE html>
+ <html lang="ko">
+   <head>
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>Business | ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</title>
++    <title>鍮꾩쫰?덉뒪 - ?댁쭅?곌툑?쒖뒪??| ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</title>
++    <link rel="preconnect" href="https://fonts.googleapis.com">
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="/src/style.css">
+-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+     <script src="https://unpkg.com/lucide@latest"></script>
++    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+   </head>
+-  <body class="theme-light sub-page"><div class="menu-backdrop"></div>
++  <body class="sub-page">
+     <header id="header">
+       <div class="container">
+         <nav>
+-          <a href="/" class="logo"><img src="/ci_02.png" alt="DAUMIS"></a>
++          <a href="/" class="logo"><img src="/ci_01.png" alt="DAUMIS" class="logo-light"><img src="/ci_02.png" alt="DAUMIS" class="logo-dark"></a>
++          
++          <button class="mobile-toggle" aria-label="硫붾돱 ?닿린">
++            <span></span>
++            <span></span>
++            <span></span>
++          </button>
++
+           <div class="nav-right">
+             <ul class="nav-links">
+-              <li><a href="javascript:void(0)" class="gnb-trigger" data-menu="business">Business</a></li>
+-              <li><a href="/solution.html">Solution</a></li>
+-              <li><a href="/project.html">Project</a></li>
+-              <li><a href="/careers.html">Careers</a></li>
+-              <li><a href="/company.html">Company</a></li>
++              <li class="nav-item">
++                <span>鍮꾩??덉뒪</span>
++                <div class="gnb-mega-menu">
++                  <div class="mega-container">
++                    <div class="mega-left">
++                      <h3>鍮꾩쫰?덉뒪</h3>
++                      <p>??쒕?援?1湲덉쑖沅뚯씠 ?좏깮???듭떖 ?붾（?섏쓣 ?듯빐 李⑥꽭? 湲덉쑖 ?명봽?쇰? 援ъ텞?⑸땲??</p>
++                    </div>
++                    <div class="mega-right">
++                      <ul>
++                        <li><a href="/business.html#pension" class="active">?댁쭅?곌툑?쒖뒪??/a></li>
++                        <li><a href="/business.html#investment">吏묓빀?ъ옄利앷텒</a></li>
++                        <li><a href="/business.html#mutual">怨듭젣?낅Т?쒖뒪??/a></li>
++                        <li><a href="/business.html#sales">?곸뾽吏?먯떆?ㅽ뀥</a></li>
++                        <li><a href="/business.html#asset">?먯궛愿由ъ떆?ㅽ뀥</a></li>
++                      </ul>
++                    </div>
++                  </div>
++                </div>
++              </li>
++              <li class="nav-item">
++                <span>?꾨줈?앺듃</span>
++                <div class="gnb-mega-menu">
++                  <div class="mega-container">
++                    <div class="mega-left">
++                      <h3>?꾨줈?앺듃</h3>
++                      <p>?レ옄濡?利앸챸?섎뒗 ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰???뺣룄?곸씤 湲덉쑖 ?꾨줈?앺듃 ?깃낵?낅땲??</p>
++                    </div>
++                    <div class="mega-right">
++                      <ul>
++                        <li><a href="/project.html#performance">二쇱슂 ?꾨줈?앺듃 ?ㅼ쟻</a></li>
++                        <li><a href="/project.html#clients">怨좉컼???뚰듃?덉떗</a></li>
++                      </ul>
++                    </div>
++                  </div>
++                </div>
++              </li>
++              <li class="nav-item">
++                <span>NEXT ??/span>
++                <div class="gnb-mega-menu">
++                  <div class="mega-container">
++                    <div class="mega-left">
++                      <h3>NEXT ??/h3>
++                      <p>紐낆풄???꾪궎?띿쿂? 遺꾩궛 泥섎━ ?붿쭊?쇰줈 蹂듭옟??湲덉쑖 濡쒖쭅???덉젙?곸쑝濡?泥섎━?⑸땲??</p>
++                    </div>
++                    <div class="mega-right">
++                      <ul>
++                        <li><a href="/solution.html#data">?곗씠???섏쭛 ?붾（??/a></li>
++                        <li><a href="/solution.html#process">?ㅼ떆媛?遺꾩궛 泥섎━</a></li>
++                        <li><a href="/solution.html#engine">湲덉쑖 理쒖쟻???붿쭊</a></li>
++                      </ul>
++                    </div>
++                  </div>
++                </div>
++              </li>
++              <li class="nav-item">
++                <span>?뚯궗?뚭컻</span>
++                <div class="gnb-mega-menu">
++                  <div class="mega-container">
++                    <div class="mega-left">
++                      <h3>?뚯궗?뚭컻</h3>
++                      <p>?좊ː? ?꾨꼍?⑥쓣 異붽뎄?섎뒗 ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰??鍮꾩쟾怨?泥좏븰?낅땲??</p>
++                    </div>
++                    <div class="mega-right">
++                      <ul>
++                        <li><a href="/company.html#intro">?뚭컻</a></li>
++                        <li><a href="/company.html#ceo">CEO</a></li>
++                        <li><a href="/company.html#vision">鍮꾩쟾</a></li>
++                        <li><a href="/company.html#history">?고쁺</a></li>
++                        <li><a href="/company.html#contact">Contact</a></li>
++                      </ul>
++                    </div>
++                  </div>
++                </div>
++              </li>
++              <li class="nav-item">
++                <span>?몄옱梨꾩슜</span>
++                <div class="gnb-mega-menu">
++                  <div class="mega-container">
++                    <div class="mega-left">
++                      <h3>?몄옱梨꾩슜</h3>
++                      <p>湲덉쑖 湲곗닠??誘몃옒瑜??④퍡 留뚮뱾?닿컝 ?꾨Ц媛瑜?湲곕떎由쎈땲??</p>
++                    </div>
++                    <div class="mega-right">
++                      <ul>
++                        <li><a href="/careers.html#jobs">吏곷Т?뚭컻</a></li>
++                        <li><a href="/careers.html#process">梨꾩슜?덉감</a></li>
++                        <li><a href="/careers.html#welfare">蹂듭??쒕룄</a></li>
++                        <li><a href="/careers.html#announcement">梨꾩슜怨듦퀬</a></li>
++                      </ul>
++                    </div>
++                  </div>
++                </div>
++              </li>
+             </ul>
+-            <a href="/#inquiry" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
++            <a href="/#inquiry" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
+           </div>
+         </nav>
+       </div>
+     </header>
+-    <!-- Mega Menu Overlay -->
+-    <div id="mega-overlay" class="mega-overlay">
+-      <div class="overlay-bg"></div>
+-      <div class="container overlay-content">
+-        <div class="overlay-header">
+-          <div class="logo"><img src="/ci_01.png" alt="DAUMIS"></div>
+-          <button class="overlay-close"><i data-lucide="x"></i></button>
++
++    <main>
++      <!-- Hero Section (Dark) -->
++      <section class="detail-hero hero-anim">
++        <div class="glow-bg"></div><div class="hero-shapes"><div class="shape sq-1"></div><div class="shape hex-1"></div><div class="shape sq-2"></div><div class="shape hex-2"></div><div class="shape sq-3"></div><div class="shape hex-3"></div><div class="shape sq-4"></div><div class="shape hex-4"></div></div>
++        <div class="container">
++          <span class="section-label">Business / Solution</span>
++          <h1 class="section-title">?댁쭅?곌툑?쒖뒪??<span class="highlight">D-RPS</span></h1>
++          <p class="hero-sub">?댁쭅?곌툑 ?댁슜愿由ш린愿???낅Т?쒖뒪?쒖쑝濡?利앷텒/??됱뿉 理쒖쟻?붾맂 李몄“紐⑤뜽怨?<br>?명븯?곕? ?쒖슜?섏뿬 理쒖긽??留덉???泥닿퀎 諛?怨좉컼 ?쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
+         </div>
+-        <div class="mega-grid">
+-          <div class="mega-column">
+-            <h3 class="mega-title">Business</h3>
+-            <ul>
+-              <li><a href="/business.html">퇴직연금시스템</a></li>
+-              <li><a href="/business.html">집합투자증권</a></li>
+-              <li><a href="/business.html">자산관리시스템</a></li>
+-              <li><a href="/business.html">공제업무시스템</a></li>
+-            </ul>
+-          </div>
+-          <div class="mega-column">
+-            <h3 class="mega-title">Solution</h3>
+-            <ul>
+-              <li><a href="/solution.html">Core Engine</a></li>
+-              <li><a href="/solution.html">Security Logic</a></li>
+-              <li><a href="/solution.html">Visual Logic</a></li>
+-            </ul>
+-          </div>
+-          <div class="mega-column">
+-            <h3 class="mega-title">Case Studies</h3>
+-            <ul>
+-              <li><a href="/project.html">프로젝트 실적</a></li>
+-              <li><a href="/project.html">고객사 현황</a></li>
+-              <li><a href="/project.html">마켓 리더십</a></li>
+-            </ul>
+-          </div>
+-          <div class="mega-column">
+-            <h3 class="mega-title">Company</h3>
+-            <ul>
+-              <li><a href="/company.html">CEO 인사말</a></li>
+-              <li><a href="/company.html">기업 비전</a></li>
+-              <li><a href="/company.html">연혁</a></li>
+-            </ul>
++      </section>
++
++      <!-- Content Sections (White) -->
++      <section class="service-intro">
++        <div class="container">
++          <div class="intro-grid">
++            <div class="intro-text">
++                <h2>湲덉쑖 ?섍꼍??理쒖쟻?붾맂<br>?쒕퉬???쒓났</h2>
++                <div style="width: 60px; height: 3px; background: var(--daumis-yellow); margin-bottom: 2rem;"></div>
++                <p>
++                    ?곌툑?쒕룄???ㅺ퀎?먯꽌遺??遺?닿툑???⑹엯, ?곷┰湲덉쓽 ?댁슜 諛?湲됱뿬??吏湲됯퉴吏 ?댁쭅?곌툑 ?ъ뾽?먯쓽 ?댁슜愿由?諛??먯궛愿由??낅Т瑜?吏?먰븯???쒖뒪?쒖쑝濡?利앷텒, ??? 蹂댄뿕 ?깆쓽 ?ㅼ뼇??援ъ텞 寃쏀뿕??諛뷀깢?쇰줈 怨좉컼?ъ쓽 湲덉쑖?섍꼍??理쒖쟻?붾맂 ?쒕퉬?ㅻ? ?쒓났?⑸땲??
++                </p>
++                <p style="margin-top: 1.5rem;">
++                    ??댁옄???쒖옣???깆옣???곕Ⅸ 媛쒖씤 怨좉컼???ㅼ뼇?섍퀬 媛쒕퀎?곸씤 ?먯궛愿由??붽뎄媛 利앸??⑥뿉 ?곕씪 ?섏떆濡?媛쒖젙?섎뒗 ?쒕룄蹂?붿뿉 ?좎냽?섍퀬 ?쇨??깆엳寃??泥섑븷 ???덈룄濡??좎뿰?섍퀬 ?뺤옣?깆엳???낅Т ?뚮옯?쇱쑝濡??ㅺ퀎?섏뼱 ?덉뒿?덈떎.
++                </p>
++            </div>
++            <div class="intro-visual">
++                <div class="visual-card">
++                    <div class="card-icon"><i data-lucide="zap" size="48"></i></div>
++                    <h4>Fast & Flexible</h4>
++                    <p>媛쒖씤 怨좉컼??媛쒕퀎?곸씤 ?붽뎄?ы빆??異⑹”?섎ŉ 李⑤퀎?붾맂 ?곌툑 ?먯궛 愿由??쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
++                </div>
++            </div>
+           </div>
+         </div>
+-      </div>
+-    </div>
++      </section>
+ 
+-    <main>
+-      <section class="detail-hero">
++      <section id="features" class="service-block">
+         <div class="container">
+-          <h1 class="section-title">二쇱슂 ?ъ뾽 ?곸뿭</h1>
++          <div class="align-center">
++            <h2 class="section-title">?쒖뒪??二쇱슂 ?뱀쭠</h2>
++          </div>
++          <div class="feature-grid">
++            <div class="feature-card bento-card">
++              <span class="card-num">01</span>
++              <h3 class="card-title">留욎땄???댁쭅?곌툑 ?쒖뒪??/h3>
++              <p class="card-desc">利앷텒/???蹂댄뿕 ???낃텒蹂?理쒖쟻?붾맂 李몄“紐⑤뜽???곸슜?섎ŉ, ?덊긽寃곗젣???쒖??꾨Ц???듯븳 ??몄뿰怨?諛????I/F瑜??듯븳 吏곸젒 ?곌퀎媛 媛?ν빀?덈떎.</p>
++            </div>
++            <div class="feature-card bento-card">
++                <span class="card-num">02</span>
++                <h3 class="card-title">媛뺣젰???쒕퉬??湲곕뒫</h3>
++                <p class="card-desc">?댁슜媛?μ긽???덇툑, ELB, RP, ETF ?? ?뺣???臾쇰줎 DCA, ?먮룞?щ같遺? 留뚭린?덉빟留ㅻℓ ??李⑤퀎?붾맂 ?먯궛?댁슜 ?쒕퉬?ㅻ? ?쒓났?⑸땲??</p>
++            </div>
++            <div class="feature-card bento-card">
++                <span class="card-num">03</span>
++                <h3 class="card-title">鍮꾨?硫?梨꾨꼸 媛뺥솕</h3>
++                <p class="card-desc">WTS, MTS, HTS ??怨좉컼 ?쒕퉬?ㅻ? ?꾪븳 鍮꾨?硫?梨꾨꼸??媛뺥솕?섏뿬 ?몄젣 ?대뵒?쒕굹 ?몃━???곌툑 ?먯궛 愿由ш? 媛?ν빀?덈떎.</p>
++            </div>
++            <div class="feature-card bento-card">
++                <span class="card-num">04</span>
++                <h3 class="card-title">湲곗닠 湲곕컲 ?낅┰??/h3>
++                <p class="card-desc">?낅┰???⑦궎吏 諛⑹떇 諛?肄붿뼱?쒖뒪??湲곗닠湲곕컲 ?곸슜 寃쏀뿕??諛뷀깢?쇰줈 ?꾨꼍??湲곗닠 ?먮┰怨?怨좉컼 留욎땄??理쒖쟻?붾? 蹂댁옣?⑸땲??</p>
++            </div>
++          </div>
+         </div>
+       </section>
+-      <section class="detail-content">
++
++      <section class="module-section darker">
+         <div class="container">
+-          <div class="content-list">
+-            <div class="list-item">
+-              <div class="list-image"><img src="/assets/pension.png" alt="?댁쭅?곌툑"></div>
+-              <div class="list-text">
+-                <span class="list-label">Retirement Pension</span>
+-                <h2 class="list-title">?댁쭅?곌툑 ?먯궛愿由??듯빀 ?붾（??/h2>
+-                <p class="list-desc">?낃퀎 理쒓퀬 ?섏????꾨Ц ?쇱씠?좎뒪瑜?諛뷀깢?쇰줈 ?덉젙?곸씤 ?먯궛 ?댁슜 ?섍꼍???쒓났?⑸땲??</p>
+-                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
+-              </div>
+-            </div>
+-            <div class="list-item">
+-              <div class="list-image"><img src="/assets/investment.png" alt="吏묓빀?ъ옄"></div>
+-              <div class="list-text">
+-                <span class="list-label">Investment Fund</span>
+-                <h2 class="list-title">吏묓빀?ъ옄利앷텒 ?꾨Ц ?댁슜 ?쒖뒪??/h2>
+-                <p class="list-desc">湲덉쑖 ?꾨Ц媛?ㅼ쓽 ?붽뎄?ы빆??諛섏쁺??怨좎꽦??????댁슜 ?붿쭊???묒옱?섍퀬 ?덉뒿?덈떎.</p>
+-                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
+-              </div>
++          <div class="align-center">
++            <h2 class="section-title">?쒖뒪??援ъ꽦</h2>
++          </div>
++          <div class="module-grid">
++            <div class="module-item">
++              <h4>湲곕낯?뺣낫愿由?/h4>
++              <ul>
++                <li>怨좉컼愿由?/ ?곹뭹愿由?/li>
++                <li>?섏닔猷뚯젙蹂?/ 湲곌?愿由?/li>
++                <li>?댁쑉 諛?湲곗?媛 愿由?/li>
++              </ul>
++            </div>
++            <div class="module-item">
++              <h4>怨꾩빟愿由?/h4>
++              <ul>
++                <li>媛?낆옄 諛?怨꾩빟 愿由?/li>
++                <li>怨쇱꽭?댁뿰 / 怨꾩빟?댁쟾</li>
++                <li>?먯궛怨꾩빟 ?쒕퉬??/li>
++              </ul>
++            </div>
++            <div class="module-item">
++                <h4>??吏湲?愿由?/h4>
++                <ul>
++                  <li>遺?닿툑 諛?吏湲?愿由?/li>
++                  <li>?댁?/?댁쟾 諛??곌툑吏湲?/li>
++                  <li>?멸툑/?대낫/?뺣쪟 愿由?/li>
++                </ul>
++            </div>
++            <div class="module-item">
++                <h4>?곷┰湲?愿由?/h4>
++                <ul>
++                  <li>?댁슜吏??/ 嫄곕옒?댁뿭</li>
++                  <li>而댄뵆?쇱씠?몄뒪 / ?섏씡瑜?/li>
++                  <li>?붽퀬愿由?諛??됯?</li>
++                </ul>
++            </div>
++            <div class="module-item">
++                <h4>?명꽣?섏씠??/h4>
++                <ul>
++                  <li>?쒖??꾨Ц ?≪닔??/li>
++                  <li>梨꾨꼸 ?명꽣?섏씠??/li>
++                  <li>????쒕퉬???곌퀎</li>
++                </ul>
++            </div>
++            <div class="module-item">
++                <h4>?낅Т吏??諛??곸뾽</h4>
++                <ul>
++                  <li>?곸뾽 諛?援먯쑁 愿由?/li>
++                  <li>蹂닿퀬??諛??쇱젙 愿由?/li>
++                  <li>留덇컧 諛??깃낵 愿由?/li>
++                </ul>
+             </div>
+           </div>
+         </div>
+@@ -106,7 +253,35 @@
+     </main>
+ 
+     <footer id="footer">
+-      <div class="container"><div style="padding: 4rem 0;"><p>DAUMIS 짤 2024</p></div></div>
++      <div class="container">
++        <div class="footer-grid">
++          <div class="footer-brand">
++            <img src="/ci_01.png" alt="DAUMIS" class="footer-logo">
++            <p>湲덉쑖??誘몃옒, 洹??ㅼ쓬??媛移?</p>
++          </div>
++          <div class="footer-contacts">
++            <div class="contact-item">
++              <strong>?ъ쓽?꾩꽱??/strong>
++              <p>?쒖슱???곷벑?ш뎄 援?젣湲덉쑖濡?湲?27-9, ?숇턿鍮뚮뵫 603??/p>
++            </div>
++            <div class="contact-item">
++              <strong>蹂몄궗</strong>
++              <p>?쒖슱??愿?낃뎄 愿?낅줈120 ?곗＜鍮뚮뵫 3痢?/p>
++            </div>
++            <div class="contact-item">
++              <strong>??쒖쟾??/strong>
++              <p>02-6247-8413</p>
++            </div>
++            <div class="contact-item">
++                <strong>FAX</strong>
++                <p>070-4713-9499</p>
++            </div>
++          </div>
++        </div>
++        <div class="footer-bottom">
++          <p>Copyright 짤 2019 by DAUM IS. All right reserved.</p>
++        </div>
++      </div>
+     </footer>
+     <script type="module" src="/src/main.js"></script>
+     <script>lucide.createIcons();</script>
+
+commit 106b872ade821cd7564861f0cb3132550ecb4b57
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Thu Apr 23 15:30:10 2026 +0900
+
+    feat: GNB mega menu - JS controlled dropdown, dim effect, CI alignment
+
+diff --git a/business.html b/business.html
+index c36520e..58d6aa6 100644
+--- a/business.html
++++ b/business.html
+@@ -4,55 +4,100 @@
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>Business | ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</title>
++    <title>Business | ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</title>
+     <link rel="stylesheet" href="/src/style.css">
+     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+     <script src="https://unpkg.com/lucide@latest"></script>
+   </head>
+-  <body class="theme-light">
++  <body class="theme-light sub-page"><div class="menu-backdrop"></div>
+     <header id="header">
+       <div class="container">
+         <nav>
+           <a href="/" class="logo"><img src="/ci_02.png" alt="DAUMIS"></a>
+           <div class="nav-right">
+             <ul class="nav-links">
+-              <li><a href="/business.html" class="active">Business</a></li>
++              <li><a href="javascript:void(0)" class="gnb-trigger" data-menu="business">Business</a></li>
+               <li><a href="/solution.html">Solution</a></li>
+               <li><a href="/project.html">Project</a></li>
+               <li><a href="/careers.html">Careers</a></li>
+               <li><a href="/company.html">Company</a></li>
+             </ul>
+-            <a href="/#inquiry" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
++            <a href="/#inquiry" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
+           </div>
+         </nav>
+       </div>
+     </header>
++    <!-- Mega Menu Overlay -->
++    <div id="mega-overlay" class="mega-overlay">
++      <div class="overlay-bg"></div>
++      <div class="container overlay-content">
++        <div class="overlay-header">
++          <div class="logo"><img src="/ci_01.png" alt="DAUMIS"></div>
++          <button class="overlay-close"><i data-lucide="x"></i></button>
++        </div>
++        <div class="mega-grid">
++          <div class="mega-column">
++            <h3 class="mega-title">Business</h3>
++            <ul>
++              <li><a href="/business.html">퇴직연금시스템</a></li>
++              <li><a href="/business.html">집합투자증권</a></li>
++              <li><a href="/business.html">자산관리시스템</a></li>
++              <li><a href="/business.html">공제업무시스템</a></li>
++            </ul>
++          </div>
++          <div class="mega-column">
++            <h3 class="mega-title">Solution</h3>
++            <ul>
++              <li><a href="/solution.html">Core Engine</a></li>
++              <li><a href="/solution.html">Security Logic</a></li>
++              <li><a href="/solution.html">Visual Logic</a></li>
++            </ul>
++          </div>
++          <div class="mega-column">
++            <h3 class="mega-title">Case Studies</h3>
++            <ul>
++              <li><a href="/project.html">프로젝트 실적</a></li>
++              <li><a href="/project.html">고객사 현황</a></li>
++              <li><a href="/project.html">마켓 리더십</a></li>
++            </ul>
++          </div>
++          <div class="mega-column">
++            <h3 class="mega-title">Company</h3>
++            <ul>
++              <li><a href="/company.html">CEO 인사말</a></li>
++              <li><a href="/company.html">기업 비전</a></li>
++              <li><a href="/company.html">연혁</a></li>
++            </ul>
++          </div>
++        </div>
++      </div>
++    </div>
+ 
+     <main>
+       <section class="detail-hero">
+         <div class="container">
+-          <h1 class="section-title">二쇱슂 ?ъ뾽 ?곸뿭</h1>
++          <h1 class="section-title">二쇱슂 ?ъ뾽 ?곸뿭</h1>
+         </div>
+       </section>
+       <section class="detail-content">
+         <div class="container">
+           <div class="content-list">
+             <div class="list-item">
+-              <div class="list-image"><img src="/assets/pension.png" alt="?댁쭅?곌툑"></div>
++              <div class="list-image"><img src="/assets/pension.png" alt="?댁쭅?곌툑"></div>
+               <div class="list-text">
+                 <span class="list-label">Retirement Pension</span>
+-                <h2 class="list-title">?댁쭅?곌툑 ?먯궛愿由??듯빀 ?붾（??/h2>
+-                <p class="list-desc">?낃퀎 理쒓퀬 ?섏????꾨Ц ?쇱씠?좎뒪瑜?諛뷀깢?쇰줈 ?덉젙?곸씤 ?먯궛 ?댁슜 ?섍꼍???쒓났?⑸땲??</p>
+-                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
++                <h2 class="list-title">?댁쭅?곌툑 ?먯궛愿由??듯빀 ?붾（??/h2>
++                <p class="list-desc">?낃퀎 理쒓퀬 ?섏????꾨Ц ?쇱씠?좎뒪瑜?諛뷀깢?쇰줈 ?덉젙?곸씤 ?먯궛 ?댁슜 ?섍꼍???쒓났?⑸땲??</p>
++                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
+               </div>
+             </div>
+             <div class="list-item">
+-              <div class="list-image"><img src="/assets/investment.png" alt="吏묓빀?ъ옄"></div>
++              <div class="list-image"><img src="/assets/investment.png" alt="吏묓빀?ъ옄"></div>
+               <div class="list-text">
+                 <span class="list-label">Investment Fund</span>
+-                <h2 class="list-title">吏묓빀?ъ옄利앷텒 ?꾨Ц ?댁슜 ?쒖뒪??/h2>
+-                <p class="list-desc">湲덉쑖 ?꾨Ц媛?ㅼ쓽 ?붽뎄?ы빆??諛섏쁺??怨좎꽦??????댁슜 ?붿쭊???묒옱?섍퀬 ?덉뒿?덈떎.</p>
+-                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
++                <h2 class="list-title">吏묓빀?ъ옄利앷텒 ?꾨Ц ?댁슜 ?쒖뒪??/h2>
++                <p class="list-desc">湲덉쑖 ?꾨Ц媛?ㅼ쓽 ?붽뎄?ы빆??諛섏쁺??怨좎꽦??????댁슜 ?붿쭊???묒옱?섍퀬 ?덉뒿?덈떎.</p>
++                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
+               </div>
+             </div>
+           </div>
+
+commit 1f33dfbb62ba3b3c453c1e9a7b15538df072d5a2
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed Apr 22 13:59:44 2026 +0900
+
+    style: Increase logo size to 48px and unify scale across all pages
+
+diff --git a/business.html b/business.html
+index 4dd8a0d..c36520e 100644
+--- a/business.html
++++ b/business.html
+@@ -13,7 +13,7 @@
+     <header id="header">
+       <div class="container">
+         <nav>
+-          <a href="/" class="logo" style="text-decoration:none;">DAUMIS</a>
++          <a href="/" class="logo"><img src="/ci_02.png" alt="DAUMIS"></a>
+           <div class="nav-right">
+             <ul class="nav-links">
+               <li><a href="/business.html" class="active">Business</a></li>
+
+commit d20a93598a2938d84356b42bc4e9a56eefee2c37
+Author: uneechung-lab <unee.chung@gmail.com>
+Date:   Wed Apr 22 13:31:16 2026 +0900
+
+    feat: Implement Digital Showroom multi-page structure with premium dark/light themes and robust animations
+
+diff --git a/business.html b/business.html
+new file mode 100644
+index 0000000..4dd8a0d
+--- /dev/null
++++ b/business.html
+@@ -0,0 +1,69 @@
++<!DOCTYPE html>
++<html lang="ko">
++  <head>
++    <meta charset="UTF-8" />
++    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>Business | ?ㅼ쓬?뺣낫?쒖뒪?쒖쫰</title>
++    <link rel="stylesheet" href="/src/style.css">
++    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
++    <script src="https://unpkg.com/lucide@latest"></script>
++  </head>
++  <body class="theme-light">
++    <header id="header">
++      <div class="container">
++        <nav>
++          <a href="/" class="logo" style="text-decoration:none;">DAUMIS</a>
++          <div class="nav-right">
++            <ul class="nav-links">
++              <li><a href="/business.html" class="active">Business</a></li>
++              <li><a href="/solution.html">Solution</a></li>
++              <li><a href="/project.html">Project</a></li>
++              <li><a href="/careers.html">Careers</a></li>
++              <li><a href="/company.html">Company</a></li>
++            </ul>
++            <a href="/#inquiry" class="cta-button">?꾩엯 臾몄쓽 <i data-lucide="arrow-right"></i></a>
++          </div>
++        </nav>
++      </div>
++    </header>
++
++    <main>
++      <section class="detail-hero">
++        <div class="container">
++          <h1 class="section-title">二쇱슂 ?ъ뾽 ?곸뿭</h1>
++        </div>
++      </section>
++      <section class="detail-content">
++        <div class="container">
++          <div class="content-list">
++            <div class="list-item">
++              <div class="list-image"><img src="/assets/pension.png" alt="?댁쭅?곌툑"></div>
++              <div class="list-text">
++                <span class="list-label">Retirement Pension</span>
++                <h2 class="list-title">?댁쭅?곌툑 ?먯궛愿由??듯빀 ?붾（??/h2>
++                <p class="list-desc">?낃퀎 理쒓퀬 ?섏????꾨Ц ?쇱씠?좎뒪瑜?諛뷀깢?쇰줈 ?덉젙?곸씤 ?먯궛 ?댁슜 ?섍꼍???쒓났?⑸땲??</p>
++                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
++              </div>
++            </div>
++            <div class="list-item">
++              <div class="list-image"><img src="/assets/investment.png" alt="吏묓빀?ъ옄"></div>
++              <div class="list-text">
++                <span class="list-label">Investment Fund</span>
++                <h2 class="list-title">吏묓빀?ъ옄利앷텒 ?꾨Ц ?댁슜 ?쒖뒪??/h2>
++                <p class="list-desc">湲덉쑖 ?꾨Ц媛?ㅼ쓽 ?붽뎄?ы빆??諛섏쁺??怨좎꽦??????댁슜 ?붿쭊???묒옱?섍퀬 ?덉뒿?덈떎.</p>
++                <a href="#" class="cta-button" style="background:#0F172A; color:white;">???뚯븘蹂닿린</a>
++              </div>
++            </div>
++          </div>
++        </div>
++      </section>
++    </main>
++
++    <footer id="footer">
++      <div class="container"><div style="padding: 4rem 0;"><p>DAUMIS 짤 2024</p></div></div>
++    </footer>
++    <script type="module" src="/src/main.js"></script>
++    <script>lucide.createIcons();</script>
++  </body>
++</html>
