@@ -271,6 +271,15 @@ body.sub-page .detail-hero {
     animation: floatConvergence 20s infinite alternate ease-in-out -12s;
 }
 
+@media (max-width: 768px) {
+  .hero-shapes {
+    opacity: 0.4;
+  }
+  .sq-1, .hex-1, .hex-4 { width: 150px; height: 150px; }
+  .sq-2, .hex-2 { width: 250px; height: 250px; }
+  .sq-3, .hex-3, .sq-4 { width: 120px; height: 120px; }
+}
+
 @keyframes floatConvergence {
   0% { transform: translate(0, 0) rotate(0deg) scale(1); }
   50% { transform: translate(120px, 80px) rotate(30deg) scale(1.1); opacity: 0.35; } /* Overlap point */
