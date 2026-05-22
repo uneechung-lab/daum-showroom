@@ -1211,11 +1211,11 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     transform-origin: bottom right;
   }
   .bento-card .card-title {
-    font-size: var(--font-body-lg);
+    font-size: var(--font-h3);
     white-space: nowrap;
   }
   .bento-card .card-desc {
-    font-size: var(--font-caption);
+    font-size: var(--font-body-sm);
     margin-top: 0.05rem !important;
     line-height: 1.2 !important;
   }
