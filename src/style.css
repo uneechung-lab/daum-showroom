@@ -1258,7 +1258,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.2); /* Match other bento cards */
     border-radius: var(--radius-lg);
-    padding: 1.25rem; /* Match other bento cards */
+    padding: 1.25rem 1.25rem 110px 1.25rem; /* Extra bottom padding for diagram */
     min-height: 200px;
     display: block !important;
     text-align: left;
@@ -1283,8 +1283,8 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     position: absolute !important;
     bottom: 0.5rem;
     right: 0.5rem;
-    width: 140px !important;
-    height: 140px !important;
+    width: 90px !important;
+    height: 90px !important;
     background: transparent !important;
     border: none !important;
     backdrop-filter: none !important;
