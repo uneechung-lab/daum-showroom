@@ -1854,7 +1854,7 @@ body.sub-page .module-section {
 }
 
 .drawer-header {
-  padding: 3rem 4rem;
+  padding: 2.5rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1890,7 +1890,7 @@ body.sub-page .module-section {
 .drawer-content {
   flex: 1;
   overflow-y: auto;
-  padding: 4rem;
+  padding: 2.5rem 3rem 3rem 3rem;
 }
 
 .drawer-content::-webkit-scrollbar {
@@ -2015,6 +2015,12 @@ body.sub-page .module-section {
   }
   .inquiry-drawer.active {
     transform: translateX(-100%);
+  }
+  .drawer-header {
+    padding: 1.5rem;
+  }
+  .drawer-content {
+    padding: 1.5rem;
   }
 }
 
