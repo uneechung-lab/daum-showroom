@@ -1275,7 +1275,8 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     margin-bottom: 0.5rem;
   }
   .solution-item .solution-text p {
-    font-size: var(--font-body-sm);
+    font-size: var(--font-body-lg);
+    color: var(--text-primary);
     word-break: keep-all;
   }
   .solution-item .diagram-host {
@@ -1413,8 +1414,8 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 }
 
 .solution-text p {
-  font-size: var(--font-body-lg);
-  color: var(--text-secondary);
+  font-size: 1.35rem;
+  color: var(--text-primary);
   line-height: 1.7;
 }
 
