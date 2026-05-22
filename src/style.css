@@ -195,11 +195,13 @@ body.sub-page section > .container {
 }
 
 body.sub-page .hero-sub {
-    font-size: var(--font-h2); /* Substantially larger as requested */
-    font-weight: 300;
-    line-height: 1.4;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.6;
     color: var(--text-secondary);
-    max-width: 1100px; /* Wider to accommodate larger text */
+    opacity: 0.85;
+    max-width: 800px;
+    word-break: keep-all;
 }
 
 body.sub-page header {
