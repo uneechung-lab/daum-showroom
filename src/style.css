@@ -3,8 +3,17 @@
   --daumis-yellow: #FFB800;
   --bg-dark: #020617;
   --card-bg: rgba(2, 6, 23, 0.3); 
+  
+  /* Text Colors (Dark Theme - Default) */
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
+  --text-muted: rgba(255, 255, 255, 0.5);
+  
+  /* Text Colors (Light Theme / Inverse) */
+  --text-inverse-primary: #0f172a;
+  --text-inverse-secondary: #475569;
+  --text-inverse-muted: #94a3b8;
+
   --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --radius-lg: 24px;
   --font-main: 'Outfit', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
@@ -308,7 +317,7 @@ body.sub-page .service-intro,
 body.sub-page .service-block,
 body.sub-page .module-section {
     background: transparent;
-    color: #0f172a;
+    color: var(--text-inverse-primary);
 }
 
 body.sub-page .service-intro {
@@ -320,7 +329,7 @@ body.sub-page .module-section.darker {
 }
 
 body.sub-page .section-title {
-    color: #0f172a;
+    color: var(--text-inverse-primary);
 }
 
 body.sub-page .detail-hero .section-title {
@@ -524,7 +533,7 @@ body.sub-page .gnb-mega-menu.active {
 }
 
 body.sub-page .mega-left h3 {
-    color: #0f172a;
+    color: var(--text-inverse-primary);
 }
 
 .mega-left p {
@@ -537,7 +546,7 @@ body.sub-page .mega-left h3 {
 }
 
 body.sub-page .mega-left p {
-    color: #475569;
+    color: var(--text-inverse-secondary);
 }
 
 .mega-right {
@@ -577,7 +586,7 @@ body.sub-page .mega-right li::before {
 }
 
 body.sub-page .mega-right li a {
-    color: #475569;
+    color: var(--text-inverse-secondary);
 }
 
 .mega-right li a:hover,
@@ -658,7 +667,7 @@ body.sub-page header:has(.nav-item:hover) {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 2rem;
   text-align: center;
-  color: #475569;
+  color: var(--text-inverse-secondary);
   font-size: var(--font-body-sm);
 }
 
@@ -699,13 +708,13 @@ body.sub-page header.menu-open .logo {
 /* Global GNB 1-depth Color - White by default for dark backgrounds */
 #header .nav-links a, 
 #header .nav-item > span {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-muted);
 }
 
 /* Handle light theme pages (like AI Lab) */
 body.theme-light #header .nav-links a,
 body.theme-light #header .nav-item > span {
-    color: #1e293b;
+    color: var(--text-inverse-primary);
 }
 
 /* Revert to dark color on light backgrounds (scrolled, hovered, or menu open) ONLY for sub-pages (excluding force-dark) */
@@ -715,7 +724,7 @@ body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .nav-links a,
 body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .nav-links span,
 body.sub-page:not(.force-dark) #header.menu-open .nav-links a,
 body.sub-page:not(.force-dark) #header.menu-open .nav-item > span {
-    color: #1e293b !important;
+    color: var(--text-inverse-primary);
 }
 
 /* Logo Text Style & Color Logic */
@@ -733,7 +742,7 @@ body.sub-page.theme-light:not(.force-dark) .logo-text,
 body.sub-page:not(.force-dark) #header.menu-open .logo-text,
 body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .logo-text,
 body.sub-page:not(.force-dark) #header.scrolled .logo-text {
-  color: #0f172a !important;
+  color: var(--text-inverse-primary);
 }
 
 body.sub-page:not(.force-dark) #header.menu-open,
@@ -897,7 +906,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     font-size: var(--font-h3);
     font-weight: 700;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5) !important; /* Dim when closed */
+    color: var(--text-muted); /* Dim when closed */
     transition: color 0.3s ease;
   }
 
@@ -962,7 +971,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 
   .mega-right ul li a {
     font-size: var(--font-body);
-    color: #cbd5e1 !important;
+    color: var(--text-inverse-muted);
     padding: 0.25rem 0 !important;
     display: block;
     text-align: left;
@@ -1570,14 +1579,14 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 .feature-content h3 {
   font-size: var(--font-h3);
   font-weight: 800;
-  color: #1e293b;
+  color: var(--text-inverse-primary);
   margin-bottom: 1rem;
   line-height: 1.3;
 }
 
 .feature-content p {
   font-size: var(--font-h3);
-  color: #475569;
+  color: var(--text-inverse-secondary);
   line-height: 1.8;
   word-break: keep-all;
   margin-bottom: 1.8rem;
@@ -1597,14 +1606,14 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   gap: 1.25rem;
   align-items: flex-start;
   font-size: var(--font-body-lg);
-  color: #64748b;
+  color: var(--text-inverse-muted);
   line-height: 1.6;
 }
 
 .sub-details .icon-wrapper {
   width: 32px;
   height: 32px;
-  color: #1e293b;
+  color: var(--text-inverse-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1618,7 +1627,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 }
 
 .sub-details strong {
-  color: #1e293b;
+  color: var(--text-inverse-primary);
   font-weight: 700;
   font-size: var(--font-body-lg);
   margin-bottom: 0.2rem;
@@ -1641,7 +1650,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 body.sub-page .service-intro .intro-text p,
 body.sub-page .service-block .card-desc,
 body.sub-page .module-item ul li {
-    color: #475569;
+    color: var(--text-inverse-secondary);
 }
 
 body.sub-page .feature-card {
@@ -1651,11 +1660,11 @@ body.sub-page .feature-card {
 }
 
 body.sub-page .feature-card .card-title {
-    color: #0f172a;
+    color: var(--text-inverse-primary);
 }body.sub-page .intro-text h2,
 body.sub-page .visual-card h4,
 body.sub-page .module-item h4 {
-    color: #0f172a;
+    color: var(--text-inverse-primary);
 }
 
 body.sub-page .module-item {
@@ -1733,7 +1742,7 @@ body.sub-page .module-section {
 .module-item .module-icon {
   width: 40px;
   height: 40px;
-  color: #1e293b;
+  color: var(--text-inverse-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -1741,11 +1750,11 @@ body.sub-page .module-section {
   font-size: var(--font-h3);
   font-weight: 800;
   margin-bottom: 0.2rem;
-  color: #0f172a;
+  color: var(--text-inverse-primary);
 }
 
 .module-item p {
-  color: #64748b;
+  color: var(--text-inverse-muted);
   font-size: var(--font-body);
   line-height: 1.6;
   margin: 0;
@@ -1760,7 +1769,7 @@ body.sub-page .module-section {
   gap: 0.5rem;
   font-weight: 700;
   font-size: var(--font-body-sm);
-  color: #0f172a;
+  color: var(--text-inverse-primary);
   text-decoration: none;
   transition: gap 0.3s ease;
 }
@@ -1802,7 +1811,7 @@ body.sub-page .module-section {
   box-shadow: -20px 0 50px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
-  color: #0f172a;
+  color: var(--text-inverse-primary);
 }
 
 .inquiry-drawer.active {
@@ -1887,7 +1896,7 @@ body.sub-page .module-section {
 .drawer-form label {
   font-size: var(--font-body);
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-inverse-primary);
 }
 
 .drawer-form input, 
@@ -1898,7 +1907,7 @@ body.sub-page .module-section {
   border-radius: 12px;
   padding: 1.2rem;
   font-size: var(--font-body-lg);
-  color: #0f172a;
+  color: var(--text-inverse-primary);
   transition: all 0.2s ease;
   width: 100%;
   font-family: var(--font-main);
@@ -1926,7 +1935,7 @@ body.sub-page .module-section {
 .drawer-form select:focus, 
 .drawer-form textarea:focus {
   outline: none;
-  border-color: #0f172a;
+  border-color: var(--text-inverse-primary);
   background: #ffffff;
   box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05);
 }
@@ -1941,7 +1950,7 @@ body.sub-page .module-section {
   padding: 1.5rem;
   border-radius: 12px;
   font-size: var(--font-body-sm);
-  color: #64748b;
+  color: var(--text-inverse-muted);
   line-height: 1.6;
   margin-bottom: 2rem;
 }
@@ -2022,7 +2031,7 @@ body.sub-page .module-section {
 .cta-text {
   font-size: var(--font-h2);
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-inverse-primary);
   line-height: 1.2;
   margin-bottom: 2.5rem;
   word-break: keep-all;
@@ -2044,7 +2053,7 @@ body.sub-page .module-section {
   border-radius: 50%;
   border: 1px solid #e2e8f0;
   background: #ffffff;
-  color: #0f172a;
+  color: var(--text-inverse-primary);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
