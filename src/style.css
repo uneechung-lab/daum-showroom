@@ -1096,6 +1096,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     min-height: 200px;
     display: block !important;
     text-align: left;
+    backdrop-filter: blur(10px);
   }
   .solution-item .solution-text {
     position: relative;
