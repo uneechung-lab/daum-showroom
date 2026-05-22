@@ -393,21 +393,21 @@ body.sub-page .detail-hero .highlight {
   body.sub-page .detail-hero .section-title {
     font-size: var(--font-h2);
     margin-bottom: 1rem;
-    word-break: break-all;
+    word-break: keep-all;
     overflow-wrap: break-word;
     white-space: normal;
     text-align: left !important;
-    width: 100%;
+    width: 95%;
   }
 
   body.sub-page .hero-sub {
     font-size: var(--font-body-lg);
-    line-height: 1.5;
-    word-break: break-all;
+    line-height: 1.6;
+    word-break: keep-all;
     overflow-wrap: break-word;
     white-space: normal;
     text-align: left !important;
-    width: 100%;
+    width: 90%;
   }
 }
 
