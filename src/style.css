@@ -1630,7 +1630,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 .feature-content p {
   font-size: 1.25rem;
   color: var(--text-inverse-secondary);
-  line-height: 1.8;
+  line-height: 1.5;
   word-break: keep-all;
   margin-bottom: 1.8rem;
 }
