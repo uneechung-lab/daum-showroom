@@ -1122,6 +1122,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 .bento-card .card-desc {
   font-size: var(--font-body-lg);
   color: var(--text-secondary);
+  line-height: 1.6 !important;
 }
 
 .bento-card:hover {
@@ -1279,6 +1280,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .solution-item .solution-text p {
     font-size: var(--font-body-lg);
     color: var(--text-secondary);
+    line-height: 1.6 !important;
     word-break: keep-all;
   }
   .solution-item .solution-text p br {
@@ -1421,7 +1423,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 .solution-text p {
   font-size: var(--font-body-lg);
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6 !important;
 }
 
 /* --- Stats & Misc --- */
