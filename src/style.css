@@ -323,6 +323,18 @@ body.sub-page .detail-hero .highlight {
     scroll-snap-align: none;
     padding: 6rem 0 4rem 0;
   }
+
+  body.sub-page .detail-hero .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    word-break: keep-all;
+  }
+
+  body.sub-page .hero-sub {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    word-break: keep-all;
+  }
 }
 
 /* --- Themes & Overlays --- */
