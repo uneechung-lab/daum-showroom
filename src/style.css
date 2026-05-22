@@ -1120,7 +1120,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   font-size: var(--font-h3);
 }
 .bento-card .card-desc {
-  font-size: var(--font-body);
+  font-size: var(--font-body-lg);
 }
 
 .bento-card:hover {
@@ -1215,7 +1215,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     white-space: nowrap;
   }
   .bento-card .card-desc {
-    font-size: var(--font-body-sm);
+    font-size: var(--font-body-lg);
     margin-top: 0.05rem !important;
     line-height: 1.2 !important;
   }
