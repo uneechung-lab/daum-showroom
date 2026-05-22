@@ -2130,10 +2130,10 @@ body.sub-page .module-section {
 /* Character in bottom CTA */
 .cta-character {
   position: absolute;
-  right: calc(10% + 80px);
-  bottom: -330px; /* Adjust to hide lower body for larger scale */
-  width: 750px; /* 3x larger */
-  z-index: 1;
+  right: 5%; /* Moved slightly right to avoid text */
+  bottom: -230px; /* Adjusted for new size */
+  width: 550px; /* Reduced from 750px to fit better */
+  z-index: 0; /* Keep it strictly behind the text (.container is z-index: 2) */
   pointer-events: none;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
