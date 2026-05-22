@@ -2064,7 +2064,7 @@ body.sub-page .module-section {
   position: relative;
   z-index: 2;
   border-top: 1px solid #f1f5f9;
-  padding: 3.5rem 0;
+  padding: 3.5rem 2rem;
 }
 
 .cta-label {
