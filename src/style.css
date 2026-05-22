@@ -758,7 +758,7 @@ body.sub-page:not(.force-dark) #header.menu-open .nav-item > span {
 .logo-text {
   font-size: var(--font-body-lg);
   font-weight: 400;
-  color: var(--daumis-yellow) !important;
+  color: var(--daumis-yellow);
   opacity: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
