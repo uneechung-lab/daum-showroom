@@ -19,7 +19,7 @@
   --font-main: 'Outfit', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
 
   /* Typography Scale (Desktop) */
-  --font-h1: clamp(3rem, 5vw + 1rem, 4.5rem); /* Hero Titles */
+  --font-h1: clamp(2.8rem, 4vw + 1rem, 3.8rem); /* Hero Titles */
   --font-h2: 2.8rem;  /* Section Titles */
   --font-h3: 1.5rem;  /* Card Titles, Subtitles */
   --font-body-lg: 1.15rem; /* Mega menu, Highlighted Body */
