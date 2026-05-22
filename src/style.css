@@ -1118,6 +1118,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 
 .bento-card .card-title {
   font-size: var(--font-h3);
+  margin-bottom: 0;
 }
 .bento-card .card-desc {
   font-size: var(--font-body-lg);
