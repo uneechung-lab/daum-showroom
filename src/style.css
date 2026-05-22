@@ -1798,7 +1798,7 @@ body.sub-page .module-section {
 
 .module-item p {
   color: var(--text-inverse-muted);
-  font-size: var(--font-body);
+  font-size: var(--font-body-lg);
   line-height: 1.6;
   margin: 0;
   word-break: keep-all;
