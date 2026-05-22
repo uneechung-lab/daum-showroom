@@ -57,6 +57,20 @@ html {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
   }
+  
+  /* Fix giant inline fonts and margins inside content sections */
+  .content-wrapper h2 {
+    font-size: 1.8rem !important;
+    line-height: 1.3 !important;
+    word-break: keep-all;
+  }
+  .content-wrapper strong {
+    font-size: 1.2rem !important;
+  }
+  .intro-header, 
+  [style*="margin-bottom: 5rem"] {
+    margin-bottom: 2rem !important;
+  }
 }
 
 body.sub-page, body.sub-page html {
