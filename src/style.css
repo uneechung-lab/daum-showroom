@@ -324,20 +324,28 @@ body.sub-page .detail-hero .highlight {
     padding: 6rem 0 4rem 0;
   }
 
+  body.sub-page .detail-hero .container {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
   body.sub-page .detail-hero .section-title {
-    font-size: 2.2rem; /* Reduced further to guarantee fit on 320px screens */
+    font-size: 2.2rem;
     margin-bottom: 1rem;
-    word-break: keep-all;
+    word-break: break-all; /* Force wrap */
     overflow-wrap: break-word;
     white-space: normal;
+    width: 100%;
   }
 
   body.sub-page .hero-sub {
-    font-size: 1.15rem; /* Reduced further */
+    font-size: 1.15rem;
     line-height: 1.5;
-    word-break: keep-all;
+    word-break: break-all; /* Force wrap even mid-word to prevent bleeding */
     overflow-wrap: break-word;
     white-space: normal;
+    width: 100%;
   }
 }
 
