@@ -1512,6 +1512,19 @@
             </div>
           `;
         }
+
+        // URL 쿼리 파라미터에서 role 값을 확인하여 즉시 해당 지원하기 모달 열기
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const role = urlParams.get('role');
+          if (role && jobData[role]) {
+            setTimeout(() => {
+              showApplyForm(role);
+            }, 100);
+          }
+        } catch (err) {
+          console.error("Failed to auto-open apply form:", err);
+        }
       })();
     </script>
   </body>
