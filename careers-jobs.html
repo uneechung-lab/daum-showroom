@@ -254,6 +254,29 @@
           font-size: 0.8rem !important;
         }
       }
+
+      /* Toast Style */
+      #apply-toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: rgba(15, 23, 42, 0.9);
+        color: #ffffff;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        z-index: 9999;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        pointer-events: none;
+      }
+      #apply-toast.toast-show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
     </style>
   </head>
   <body class="sub-page">
@@ -494,6 +517,46 @@
     <script type="module" src="/src/main.js"></script>
     <script>
       lucide.createIcons();
+
+      // 지원하기 버튼 클릭 시 클립보드 복사 및 안내 토스트 기능 추가
+      document.querySelectorAll('.apply-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const mailtoUrl = btn.getAttribute('href');
+          if (mailtoUrl && mailtoUrl.startsWith('mailto:')) {
+            const email = mailtoUrl.replace('mailto:', '');
+            
+            // 클립보드 복사 시도
+            navigator.clipboard.writeText(email).then(() => {
+              showToast('지원 메일 주소(recruit@daumis.co.kr)가 복사되었습니다!');
+            }).catch(() => {
+              // fallback
+              const textArea = document.createElement('textarea');
+              textArea.value = email;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textArea);
+              showToast('지원 메일 주소(recruit@daumis.co.kr)가 복사되었습니다!');
+            });
+          }
+        });
+      });
+
+      // 토스트 알림 생성 함수
+      function showToast(message) {
+        let toast = document.getElementById('apply-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'apply-toast';
+          document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.className = 'toast-show';
+        
+        setTimeout(() => {
+          toast.className = '';
+        }, 2500);
+      }
     </script>
   </body>
 </html>
