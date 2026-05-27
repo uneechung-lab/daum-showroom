@@ -168,6 +168,92 @@
         .job-grid { grid-template-columns: 1fr 1fr; }
         .hero-section { padding-top: 140px; }
       }
+
+      /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
+      body.sub-page:not(.force-dark) #header .mobile-toggle:not(.active) span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle:not(.active) span { 
+          background: #0f172a !important; 
+      }
+      body.sub-page:not(.force-dark) #header .mobile-toggle.active span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle.active span { 
+          background: #ffffff !important; 
+      }
+      body.sub-page #header .nav-right.active,
+      body.sub-page #header .nav-right.active * {
+          --text-primary: #ffffff !important;
+          --text-muted: rgba(255, 255, 255, 0.8) !important;
+          --text-inverse-primary: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active span,
+      body.sub-page #header .nav-right.active a {
+          color: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a {
+          color: rgba(255, 255, 255, 0.8) !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a.active {
+          color: #ffffff !important;
+      }
+
+      /* Natural Transitions (Smooth like Business Pages) */
+      #header {
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      #header .nav-links a, 
+      #header .nav-item > span, 
+      #header .logo-text,
+      #header .cta-button,
+      #header .logo img {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      @media (max-width: 768px) {
+        main { padding-top: 0px !important; }
+        body.sub-page .hero-section {
+          padding-top: 90px !important;
+          padding-bottom: 2rem !important;
+        }
+        .hero-section .container {
+          padding-left: 1.5rem !important;
+          padding-right: 1.5rem !important;
+        }
+        .lab-title {
+          font-size: 1.85rem !important;
+          line-height: 1.35 !important;
+          margin-bottom: 1.5rem !important;
+        }
+        .lab-sub {
+          font-size: 1.05rem !important;
+          line-height: 1.6 !important;
+        }
+        .section-container {
+          padding: 0 0 4rem !important;
+        }
+        .section-container .container {
+          padding-left: 1.5rem !important;
+          padding-right: 1.5rem !important;
+        }
+        .job-grid {
+          grid-template-columns: 1fr !important;
+          gap: 1.5rem !important;
+        }
+        .job-card {
+          padding: 2rem 1.5rem !important;
+          border-radius: 20px !important;
+        }
+        .job-card h4 {
+          font-size: 1.25rem !important;
+        }
+        .job-card p {
+          font-size: 0.95rem !important;
+          line-height: 1.5 !important;
+        }
+        .job-card p span {
+          font-size: 0.8rem !important;
+        }
+      }
     </style>
   </head>
   <body class="sub-page">
@@ -179,6 +265,13 @@
             <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
             <span class="logo-text">다음정보시스템즈</span>
           </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">
