@@ -162,9 +162,9 @@
             section[style*="padding-top: 180px"] { padding-top: 90px !important; padding-bottom: 2rem !important; }
             
             /* Typography */
-            .lab-title, .section-title { font-size: 1.6rem !important; margin-bottom: 1.2rem !important; word-break: keep-all; }
-            .lab-title br { display: none; }
-            .lab-sub { font-size: 1.1rem !important; margin-bottom: 1.5rem !important; }
+            .lab-title, .section-title { font-size: 1.75rem !important; margin-bottom: 1.5rem !important; word-break: keep-all; }
+            .lab-sub { font-size: 1.15rem !important; margin-bottom: 1.5rem !important; }
+            .info-desc br, .info-item p br { display: none; }
             
             /* Showcase Box & Info Section */
             #hero-showcase-wrapper { height: auto !important; min-height: auto !important; margin-top: 2rem !important; margin-bottom: 2rem !important; display: flex !important; flex-direction: column !important; }
@@ -222,11 +222,12 @@
                 border-radius: 0 !important;
             }
             
-            /* D-FIN SUITE / ZAL EAT Logo */
+            /* ZAL Title & Logo */
+            .info-title { font-size: 1.8rem !important; }
             #hero-showcase-info img[src="/bi_zaleat.png"] {
-                height: 32px !important;
-                margin-left: -4px !important;
-                margin-bottom: 0.5rem !important;
+                height: 2.5rem !important;
+                margin: -0.3rem 0.2rem 0 0 !important;
+                vertical-align: middle !important;
             }
             
             /* Key Insight Section */
@@ -374,7 +375,7 @@
     </header>
 
     <main>
-        <section class="py-32" style="padding-top: 180px !important; padding-bottom: 4rem;">
+        <section class="py-32" style="padding-top: 180px; padding-bottom: 4rem;">
             <div class="container">
                 <div style="text-align: left;">
                     <h1 class="lab-title">혁신은 가장 평범한<br>일상에서 시작됩니다.</h1>
@@ -425,7 +426,7 @@
                             <img src="/bi_zaleat.png" style="height: 3.6rem; vertical-align: middle; margin-right: 0.3rem; margin-top: -0.7rem;">
                             ZAL : <span style="font-size: 0.92em;">잘먹</span>
                         </h3>
-                        <p class="info-desc">실물 영수증 없는 식대 정산부터 AI 자동 검증을 통한<br>스마트한 관리까지, 한 번에 가능한 기업용 식대 자동화 서비스입니다.</p>
+                        <p class="info-desc">실물 영수증 없는 식대 정산부터 AI 자동 검증을 통한 <br>스마트한 관리까지, 한 번에 가능한 기업용 식대 자동화 서비스입니다.</p>
                         
                         <div class="info-grid">
                             <div class="info-item">
@@ -457,7 +458,7 @@
                                 <!-- 항목 1 -->
                                 <div class="info-item" style="flex-direction: column; align-items: flex-start; gap: 0.8rem;">
                                     <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">Zero Hassle</h4>
-                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">영수증 보관 및 제출의<br>번거로움이 사라집니다.</p>
+                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">영수증 보관 및 제출의 <br>번거로움이 사라집니다.</p>
                                 </div>
                                 
                                 <!-- 플러스 커넥터 (완벽 중앙) -->
@@ -466,7 +467,7 @@
                                 <!-- 항목 2 -->
                                 <div class="info-item" style="flex-direction: column; align-items: flex-start; gap: 0.8rem;">
                                     <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">AI Powered</h4>
-                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">Anthropic API 기반으로<br>데이터 정합성을 보장합니다.</p>
+                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">Anthropic API 기반으로 <br>데이터 정합성을 보장합니다.</p>
                                 </div>
 
                                 <!-- 플러스 커넥터 (완벽 중앙) -->
@@ -475,7 +476,7 @@
                                 <!-- 항목 3 -->
                                 <div class="info-item" style="flex-direction: column; align-items: flex-start; gap: 0.8rem;">
                                     <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">Digital Ledger</h4>
-                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">모든 내역을 디지털화하여<br>투명하게 관리합니다.</p>
+                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0;">모든 내역을 디지털화하여 <br>투명하게 관리합니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -507,7 +508,7 @@
                 <div class="mb-16">
                     <span class="section-label">Core Principles</span>
                     <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">AX의 핵심 원칙</h2>
-                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 5rem !important;">기술의 화려함보다 사용자의 본질적인 필요에 집중합니다.<br>다음정보시스템즈가 지향하는 AX의 3가지 핵심 가치입니다.</p>
+                    <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 5rem !important;">기술의 화려함보다 사용자의 본질적인 필요에 집중합니다.<br>다음정보시스템즈가 지향하는 AX의 3가지 핵심 가치입니다.</p>
                 </div>
                 <div class="grid md-grid-cols-3 gap-8">
                     <div class="phi-card">
@@ -539,7 +540,7 @@
             <div class="container">
                 <span class="section-label">AX Process</span>
                 <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">현실적인 해결책을 만드는 4단계</h2>
-                <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1rem !important;">체계적인 리서치와 반복적인 검증을 통해<br>현장의 문제를 실질적으로 해결하는 최적화된 프로세스를 제공합니다.</p>
+                <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1rem !important;">체계적인 리서치와 반복적인 검증을 통해<br>현장의 문제를 실질적으로 해결하는 최적화된 프로세스를 제공합니다.</p>
                 <div class="process-flow">
                     <div class="process-step">
                         <span class="step-num-label">STEP 01</span>
@@ -578,7 +579,7 @@
                 <div class="mb-12">
                     <span class="section-label">Deliverables</span>
                     <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">팀이 즉시 실행할 수 있는 설계 자산</h2>
-                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">
+                    <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">
                         우리는 단순한 아이디어에 머물지 않습니다. 바로 개발에 착수할 수 있도록<br>정교한 가이드라인과 AX(AI Experience) 요소를 자연스럽게 녹여내어 서비스의 완성도를 높입니다.
                     </p>
                 </div>

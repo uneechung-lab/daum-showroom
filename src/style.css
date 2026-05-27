@@ -1222,12 +1222,24 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   }
   #footer {
     padding-top: 3rem !important;
-    text-align: center;
+    text-align: center !important;
   }
-  #footer .footer-top-grid > div:first-child > div:first-child {
-    justify-content: center;
+  #footer .container > div[style*="display: grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
   }
-  #footer .footer-top-grid img {
+  #footer .container > div[style*="display: grid"] > div {
+    margin-left: 0 !important;
+  }
+  #footer .container > div[style*="display: grid"] > div[style*="display: grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+  #footer .container div[style*="display: flex"] {
+    justify-content: center !important;
+    margin-left: 0 !important;
+  }
+  #footer .container img {
     margin-left: 0 !important;
   }
 
