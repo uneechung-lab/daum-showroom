@@ -27,26 +27,52 @@
       }
 
       /* Initial State (White Theme for Company Pages) */
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) {
         background: #ffffff !important;
         border-bottom: none;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-item > span {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo-text {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-light { 
         display: none !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-dark { 
         display: block !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .cta-button {
         background: #0f172a !important;
         color: #ffffff !important;
+      }
+
+      /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
+      body.sub-page:not(.force-dark) #header .mobile-toggle:not(.active) span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle:not(.active) span { 
+          background: #0f172a !important; 
+      }
+      body.sub-page:not(.force-dark) #header .mobile-toggle.active span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle.active span { 
+          background: #ffffff !important; 
+      }
+      body.sub-page #header .nav-right.active,
+      body.sub-page #header .nav-right.active * {
+          --text-primary: #ffffff !important;
+          --text-muted: rgba(255, 255, 255, 0.8) !important;
+          --text-inverse-primary: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active span,
+      body.sub-page #header .nav-right.active a {
+          color: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a {
+          color: rgba(255, 255, 255, 0.8) !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a.active {
+          color: #FFB800 !important;
       }
 
       /* Natural Transitions (Smooth like Business Pages) */
@@ -65,39 +91,9 @@
 
 
       #header .logo-text {
-        color: var(--daumis-yellow) !important;
-      }
-
-      /* White Theme on Hover/Open */
-      body.sub-page #header:has(.nav-item:hover),
-      body.sub-page #header.menu-open {
-        background: #ffffff !important;
-        border-bottom: 1px solid rgba(0,0,0,0.05) !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
-      }
-      body.sub-page #header:has(.nav-item:hover) .nav-links a,
-      body.sub-page #header:has(.nav-item:hover) .nav-item > span,
-      body.sub-page #header.menu-open .nav-links a,
-      body.sub-page #header.menu-open .nav-item > span {
-        color: #1e293b !important;
-      }
-      body.sub-page #header:has(.nav-item:hover) .logo .logo-light,
-      body.sub-page #header.menu-open .logo .logo-light { 
-        display: none !important; 
-      }
-      body.sub-page #header:has(.nav-item:hover) .logo .logo-dark,
-      body.sub-page #header.menu-open .logo .logo-dark { 
-        display: block !important; 
-      }
-      body.sub-page #header:has(.nav-item:hover) .logo-text,
-      body.sub-page #header.menu-open .logo-text {
         color: #0f172a !important;
       }
-      body.sub-page #header:has(.nav-item:hover) .cta-button,
-      body.sub-page #header.menu-open .cta-button {
-        background: #000000 !important;
-        color: #ffffff !important;
-      }
+
 
       /* Sidebar & Content Layout */
       .history-container {
@@ -423,6 +419,7 @@
         .history-sidebar {
           position: static;
           margin-bottom: 4rem;
+          height: auto !important;
         }
         .era-nav {
           display: flex;
@@ -441,6 +438,121 @@
         .bg-year { font-size: 8rem; top: -20px; }
         .event-desc { font-size: 1.1rem; }
       }
+
+      @media (max-width: 768px) {
+        main {
+          padding-top: 90px !important;
+        }
+        .history-container {
+          padding: 0 1.5rem !important;
+          gap: 0px !important;
+        }
+        .history-sidebar {
+          display: contents !important;
+        }
+        .sidebar-title-box {
+          margin-bottom: 0px !important;
+        }
+        .history-title {
+          font-size: 1.75rem !important;
+          margin-bottom: 0.8rem !important;
+        }
+        .era-nav {
+          display: flex !important;
+          flex-direction: row !important;
+          gap: 0.4rem !important;
+          overflow-x: auto !important;
+          padding: 0.4rem !important;
+          background: rgba(241, 245, 249, 0.9) !important;
+          backdrop-filter: blur(8px) !important;
+          -webkit-backdrop-filter: blur(8px) !important;
+          border: 1px solid rgba(255, 255, 255, 0.5) !important;
+          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+          border-radius: 20px !important;
+          margin-top: 0.5rem !important;
+          margin-bottom: 0.5rem !important;
+          width: 100% !important;
+          box-sizing: border-box !important;
+          justify-content: space-between !important;
+          scrollbar-width: none;
+          position: sticky !important;
+          top: 106px !important;
+          z-index: 99 !important;
+        }
+        .era-nav::-webkit-scrollbar {
+          display: none;
+        }
+        .era-item {
+          flex: 1 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          padding: 0.6rem 0.4rem !important;
+          border-radius: 16px !important;
+          border-bottom: none !important;
+          background: transparent !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          cursor: pointer !important;
+          gap: 0.3rem !important;
+        }
+        .era-item.active {
+          background: #ffffff !important;
+          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+        }
+        .era-icon {
+          width: 1rem !important;
+          height: 1rem !important;
+          margin-right: 0 !important;
+          color: #94a3b8 !important;
+          transition: all 0.3s ease !important;
+        }
+        .era-item.active .era-icon {
+          color: #0f172a !important;
+        }
+        .era-content-box {
+          display: block !important;
+        }
+        .era-step-box {
+          display: flex !important;
+        }
+        .era-step {
+          font-size: 0.85rem !important;
+          font-weight: 700 !important;
+          color: #475569 !important;
+        }
+        .era-range {
+          display: none !important;
+        }
+        .era-title {
+          display: none !important;
+        }
+        .era-item.active .era-step {
+          color: #0f172a !important;
+        }
+        .history-content {
+          padding-left: 2rem !important;
+        }
+        .history-content::before {
+          left: 2rem !important;
+        }
+        .timeline-progress-line {
+          left: 2rem !important;
+        }
+        .event-item {
+          grid-template-columns: 70px 1fr !important;
+          gap: 1rem !important;
+          padding-left: 2rem !important;
+          margin-bottom: 2rem !important;
+        }
+        .event-date {
+          font-size: 0.95rem !important;
+          white-space: nowrap !important;
+        }
+        .event-desc {
+          font-size: 1rem !important;
+        }
+      }
     </style>
   </head>
   <body class="sub-page">
@@ -452,6 +564,13 @@
             <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
             <span class="logo-text">다음정보시스템즈</span>
           </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">
