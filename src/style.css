@@ -1023,6 +1023,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     box-shadow: none;
   }
   
+  .nav-links {
     padding-bottom: 4rem; /* Add space so last item isn't hidden behind floating button */
   }
 
