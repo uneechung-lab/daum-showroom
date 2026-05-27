@@ -2132,8 +2132,8 @@ body.sub-page .module-section {
 .cta-character {
   position: absolute;
   right: -250px;
-  bottom: -330px; /* Adjust to hide lower body for larger scale */
-  width: 750px; /* 3x larger */
+  bottom: -330px;
+  width: 750px;
   z-index: 1;
   pointer-events: none;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
