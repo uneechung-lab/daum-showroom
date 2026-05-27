@@ -1058,7 +1058,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   html body.sub-page #header.menu-open .nav-links a.active,
   html body.sub-page #header.menu-open .nav-item > span.active,
   html body.sub-page #header.menu-open .mega-right ul li a.active {
-    color: var(--daumis-yellow) !important;
+    color: #ffffff !important;
   }
   
   html body.sub-page #header.menu-open .mega-right ul li a {
