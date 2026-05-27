@@ -26,24 +26,24 @@
         background: white;
       }
       /* Initial State (White Theme for Company Pages) */
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) {
         background: #ffffff !important;
         border-bottom: none;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-item > span {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo-text {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-light { 
         display: none !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-dark { 
         display: block !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .cta-button {
         background: #0f172a !important;
         color: #ffffff !important;
       }
@@ -733,9 +733,35 @@
         .stat-item .unit { font-size: 0.75rem !important; margin-top: 0.5rem !important; }
         .stat-item .stat-icon { margin-bottom: 1rem !important; }
         .stat-item .stat-icon i { width: 24px !important; height: 24px !important; }
+        .stat-item:nth-child(3)::before, .stat-item:nth-child(3)::after, .stat-item:nth-child(3) .beam-core,
+        .stat-item:nth-child(4)::before, .stat-item:nth-child(4)::after, .stat-item:nth-child(4) .beam-core { display: none !important; }
         .statement-title { font-size: 1.8rem !important; }
         .statement-desc { font-size: 1.15rem !important; }
         .statement-title br, .statement-desc br { display: none; }
+      }
+      
+      /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
+      body.sub-page:not(.force-dark) #header .mobile-toggle:not(.active) span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle:not(.active) span { 
+          background: #0f172a !important; 
+      }
+      
+      body.sub-page:not(.force-dark) #header .mobile-toggle.active span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle.active span { 
+          background: #ffffff !important; 
+      }
+      
+      body.sub-page #header .nav-right.active,
+      body.sub-page #header .nav-right.active * {
+          --text-primary: #ffffff !important;
+          --text-muted: rgba(255, 255, 255, 0.8) !important;
+          --text-inverse-primary: #ffffff !important;
+      }
+      
+      /* Additional hard override just in case */
+      body.sub-page #header .nav-right.active span,
+      body.sub-page #header .nav-right.active a {
+          color: #ffffff !important;
       }
     </style>
   </head>
@@ -748,6 +774,12 @@
             <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
             <span class="logo-text">다음정보시스템즈</span>
           </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">

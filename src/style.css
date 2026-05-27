@@ -2191,7 +2191,10 @@ body.sub-page .module-section {
   
   body.theme-light #header .nav-right.active .mega-left h3,
   body.theme-light #header .nav-right.active .mega-left p,
-  body.theme-light #header .nav-right.active .mega-right a {
+  body.theme-light #header .nav-right.active .mega-right a,
+  body.sub-page #header .nav-right.active .mega-left h3,
+  body.sub-page #header .nav-right.active .mega-left p,
+  body.sub-page #header .nav-right.active .mega-right a {
     color: rgba(255, 255, 255, 0.8) !important;
   }
   
