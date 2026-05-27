@@ -1,0 +1,3 @@
+        @media (max-width: 768px) {
+            /* Layout & Padding */
+            .py-32 { padding-top: 5rem !important; padding-bottom: 5rem !important; }

@@ -45,30 +45,27 @@
         display: none !important; 
       }
 
+      @media (min-width: 769px) {
       /* White Theme when menu is open OR hovered interactive areas */
-      body.sub-page header.menu-open,
       body.sub-page header:has(.nav-links:hover),
       body.sub-page header:has(.gnb-mega-menu:hover) {
         background: #ffffff !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
       }
-      body.sub-page header.menu-open .nav-links a,
-      body.sub-page header.menu-open .nav-item > span,
       body.sub-page header:has(.nav-links:hover) .nav-links a,
       body.sub-page header:has(.nav-links:hover) .nav-item > span,
       body.sub-page header:has(.gnb-mega-menu:hover) .nav-links a,
       body.sub-page header:has(.gnb-mega-menu:hover) .nav-item > span {
         color: #1e293b !important;
       }
-      body.sub-page header.menu-open .logo .logo-light,
       body.sub-page header:has(.nav-links:hover) .logo .logo-light,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-light { 
         display: none !important; 
       }
-      body.sub-page header.menu-open .logo .logo-dark,
       body.sub-page header:has(.nav-links:hover) .logo .logo-dark,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-dark { 
         display: block !important; 
+      }
       }
 
       /* Logo Text Color Logic */
@@ -76,7 +73,6 @@
         color: var(--daumis-yellow) !important;
       }
       body.sub-page.theme-light .logo-text,
-      body.sub-page header.menu-open .logo-text,
       body.sub-page header:has(.nav-links:hover) .logo-text,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo-text {
         color: #0f172a !important;
@@ -147,6 +143,27 @@
         transform: scale(1.08);
       }
 
+      .project-heading, .project-heading span {
+        font-size: var(--font-h2) !important;
+      }
+
+      .project-heading, .project-heading span {
+        font-size: var(--font-h2) !important;
+      }
+
+      @media (max-width: 768px) {
+        body.sub-page .slim-hero .section-title {
+          font-size: var(--font-h2) !important;
+        }
+        body.sub-page .slim-hero .hero-sub {
+          font-size: 1.25rem !important;
+          word-break: keep-all !important;
+        }
+        body.sub-page .slim-hero .hero-sub br {
+          display: none;
+        }
+      }
+
       @media (max-width: 1200px) {
         .client-grid { grid-template-columns: repeat(3, 1fr); }
       }
@@ -154,6 +171,13 @@
         .client-grid { grid-template-columns: repeat(2, 1fr); }
         .client-item { padding: 3rem 2rem; }
         .client-item img { max-width: 120px; }
+        
+        #clients-intro h2,
+        #clients-intro h2 span {
+          font-size: var(--font-h2, 1.8rem) !important;
+          line-height: 1.35 !important;
+          word-break: keep-all;
+        }
       }
 
       /* Infinite Slider Styles */
@@ -382,8 +406,8 @@
         <canvas id="heroStreamCanvas" class="hero-canvas"></canvas>
         <div class="container" style="position: relative; z-index: 2;">
           <span class="section-label" style="display: block; color: #ffb800; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Partnership</span>
-          <h1 class="section-title" style="font-size: 3.5rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 1rem;">고객사 &amp; 파트너십</h1>
-          <p class="hero-sub" style="font-size: 1.3rem; color: rgba(255,255,255,0.7); max-width: 800px; line-height: 1.6;">변치 않는 신뢰로 연결된 강력한 비즈니스 네트워크<br>대한민국 금융 리더들과 다음정보시스템즈가 함께 그려온 협력의 가치입니다.</p>
+          <h1 class="section-title" style="font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 1rem;">고객사 &amp; 파트너십</h1>
+          <p class="hero-sub" style="color: rgba(255,255,255,0.7); max-width: 800px; line-height: 1.6;">변치 않는 신뢰로 연결된 강력한 비즈니스 네트워크 <br>대한민국 금융 리더들과 다음정보시스템즈가 함께 그려온 협력의 가치입니다.</p>
         </div>
       </section>
 
@@ -391,8 +415,8 @@
       <section class="clients-section" style="padding-top: 8rem; padding-bottom: 160px;">
         <div class="container">
           <div id="clients-intro" style="margin-top: 0; margin-bottom: 4rem;">
-            <h2 style="margin-top: 0; font-size: 2.8rem; line-height: 1.2; font-weight: 700; color: #0f172a; margin-bottom: 0; letter-spacing: -0.02em;">
-              초일류 금융사부터<br><span style="font-size: 2.8rem; opacity: 1;">공공 비즈니스까지, <span style="font-size: 2.8rem; color: #0f172a; font-weight: 400;">금융의 미래를 구축하고 있습니다.</span></span>
+            <h2 class="project-heading" style="margin-top: 0; line-height: 1.2; font-weight: 700; color: #0f172a; margin-bottom: 0; letter-spacing: -0.02em;">
+              초일류 금융사부터 <br><span style="opacity: 1;">공공 비즈니스까지, <span style="color: #0f172a; font-weight: 400;">금융의 미래를 구축하고 있습니다.</span></span>
             </h2>
           </div>
 
@@ -405,63 +429,63 @@
                 <div class="case-card">
                   <div class="quote-header">
                     <div class="client-logo-box"><img src="/ci_kw.png" alt="Kiwoom"></div>
-                    <div class="quote-text">혁신적인 퇴직연금 시스템을<br>성공적으로 구축했습니다.</div>
+                    <div class="quote-text">혁신적인 퇴직연금 시스템을 <br>성공적으로 구축했습니다.</div>
                   </div>
-                  <p class="stats-text">다음의 기술력 덕분에 복잡한 연금 구조를<br>효율적으로 자동화하여 운영 효율을 60% 높였습니다.</p>
+                  <p class="stats-text">다음의 기술력 덕분에 복잡한 연금 구조를 <br>효율적으로 자동화하여 운영 효율을 60% 높였습니다.</p>
                 </div>
 
                 <!-- Card 2: Toss -->
                 <div class="case-card">
                   <div class="quote-header">
                     <div class="client-logo-box"><img src="/ci_toss.png" alt="Toss"></div>
-                    <div class="quote-text">복잡한 금융 인가 절차를<br>단 3개월 만에 마쳤습니다.</div>
+                    <div class="quote-text">복잡한 금융 인가 절차를 <br>단 3개월 만에 마쳤습니다.</div>
                   </div>
-                  <p class="stats-text">전문적인 컨설팅과 솔루션 덕분에<br>신규 비즈니스 런칭 일정을 2개월 앞당겼습니다.</p>
+                  <p class="stats-text">전문적인 컨설팅과 솔루션 덕분에 <br>신규 비즈니스 런칭 일정을 2개월 앞당겼습니다.</p>
                 </div>
 
                 <!-- Card 3: Samsung -->
                 <div class="case-card">
                   <div class="quote-header">
                     <div class="client-logo-box"><img src="/ci_ss.png" alt="Samsung"></div>
-                    <div class="quote-text">고객 중심의 자산관리 플랫폼으로<br>디지털 전환에 성공했습니다.</div>
+                    <div class="quote-text">고객 중심의 자산관리 플랫폼으로 <br>디지털 전환에 성공했습니다.</div>
                   </div>
-                  <p class="stats-text">클라우드 네이티브 아키텍처 도입으로<br>시스템 안정성을 확보하고 서비스 유연성을 극대화했습니다.</p>
+                  <p class="stats-text">클라우드 네이티브 아키텍처 도입으로 <br>시스템 안정성을 확보하고 서비스 유연성을 극대화했습니다.</p>
                 </div>
 
                 <!-- Card 4: KB -->
                 <div class="case-card">
                   <div class="quote-header">
                     <div class="client-logo-box"><img src="/assets/client_04.gif" alt="KB"></div>
-                    <div class="quote-text">차세대 뱅킹 시스템 구축을 위한<br>최적의 기술 파트너입니다.</div>
+                    <div class="quote-text">차세대 뱅킹 시스템 구축을 위한 <br>최적의 기술 파트너입니다.</div>
                   </div>
-                  <p class="stats-text">금융 도메인에 대한 깊은 이해도를 바탕으로<br>리스크 없이 안정적인 대규모 인프라 전환을 수행했습니다.</p>
+                  <p class="stats-text">금융 도메인에 대한 깊은 이해도를 바탕으로 <br>리스크 없이 안정적인 대규모 인프라 전환을 수행했습니다.</p>
                 </div>
 
                 <!-- Card 5: Hana -->
                 <div class="case-card">
                   <div class="quote-header">
                     <div class="client-logo-box"><img src="/assets/client_05.jpg" alt="Hana"></div>
-                    <div class="quote-text">글로벌 금융 시장 확대를 위한<br>시스템 고도화를 실현했습니다.</div>
+                    <div class="quote-text">글로벌 금융 시장 확대를 위한 <br>시스템 고도화를 실현했습니다.</div>
                   </div>
-                  <p class="stats-text">다양한 국가의 금융 규제를 준수하는<br>유연한 아키텍처 설계로 글로벌 경쟁력을 강화했습니다.</p>
+                  <p class="stats-text">다양한 국가의 금융 규제를 준수하는 <br>유연한 아키텍처 설계로 글로벌 경쟁력을 강화했습니다.</p>
                 </div>
 
                 <!-- Card 6: Shinhan -->
                 <div class="case-card">
                   <div class="quote-header">
                     <div class="client-logo-box"><img src="/assets/client_06.png" alt="Shinhan"></div>
-                    <div class="quote-text">AI 기반 이상거래 탐지 시스템으로<br>보안 수준을 한 단계 높였습니다.</div>
+                    <div class="quote-text">AI 기반 이상거래 탐지 시스템으로 <br>보안 수준을 한 단계 높였습니다.</div>
                   </div>
-                  <p class="stats-text">고도화된 알고리즘을 통해 탐지 정확도를<br>획기적으로 개선하고 실시간 모니터링 체계를 구축했습니다.</p>
+                  <p class="stats-text">고도화된 알고리즘을 통해 탐지 정확도를 <br>획기적으로 개선하고 실시간 모니터링 체계를 구축했습니다.</p>
                 </div>
 
                 <!-- Duplicate for Loop (Syncing paths) -->
-                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_kw.png"></div><div class="quote-text">혁신적인 퇴직연금 시스템을<br>성공적으로 구축했습니다.</div></div><p class="stats-text">성공적인 자동화로 운영 효율을 60% 높였습니다.</p></div>
-                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_toss.png"></div><div class="quote-text">복잡한 금융 인가 절차를<br>단 3개월 만에 마쳤습니다.</div></div><p class="stats-text">신규 비즈니스 런칭 일정을 2개월 앞당겼습니다.</p></div>
-                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_ss.png"></div><div class="quote-text">고객 중심의 자산관리 플랫폼으로<br>디지털 전환에 성공했습니다.</div></div><p class="stats-text">시스템 안정성을 확보하고 서비스 유연성을 극대화했습니다.</p></div>
-                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_04.gif"></div><div class="quote-text">차세대 뱅킹 시스템 구축을 위한<br>최적의 기술 파트너입니다.</div></div><p class="stats-text">안정적인 대규모 인프라 전환을 수행했습니다.</p></div>
-                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_05.jpg"></div><div class="quote-text">글로벌 금융 시장 확대를 위한<br>시스템 고도화를 실현했습니다.</div></div><p class="stats-text">글로벌 경쟁력을 강화했습니다.</p></div>
-                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_06.png"></div><div class="quote-text">AI 기반 이상거래 탐지 시스템으로<br>보안 수준을 높였습니다.</div></div><p class="stats-text">탐지 정확도를 개선하고 모니터링 체계를 구축했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_kw.png"></div><div class="quote-text">혁신적인 퇴직연금 시스템을 <br>성공적으로 구축했습니다.</div></div><p class="stats-text">성공적인 자동화로 운영 효율을 60% 높였습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_toss.png"></div><div class="quote-text">복잡한 금융 인가 절차를 <br>단 3개월 만에 마쳤습니다.</div></div><p class="stats-text">신규 비즈니스 런칭 일정을 2개월 앞당겼습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/ci_ss.png"></div><div class="quote-text">고객 중심의 자산관리 플랫폼으로 <br>디지털 전환에 성공했습니다.</div></div><p class="stats-text">시스템 안정성을 확보하고 서비스 유연성을 극대화했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_04.gif"></div><div class="quote-text">차세대 뱅킹 시스템 구축을 위한 <br>최적의 기술 파트너입니다.</div></div><p class="stats-text">안정적인 대규모 인프라 전환을 수행했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_05.jpg"></div><div class="quote-text">글로벌 금융 시장 확대를 위한 <br>시스템 고도화를 실현했습니다.</div></div><p class="stats-text">글로벌 경쟁력을 강화했습니다.</p></div>
+                <div class="case-card"><div class="quote-header"><div class="client-logo-box"><img src="/assets/client_06.png"></div><div class="quote-text">AI 기반 이상거래 탐지 시스템으로 <br>보안 수준을 높였습니다.</div></div><p class="stats-text">탐지 정확도를 개선하고 모니터링 체계를 구축했습니다.</p></div>
 
 
               </div>
@@ -515,10 +539,10 @@
       <!-- Bottom CTA Section -->
       <section class="bottom-cta-section cta-button">
         <div class="cta-bg-circle"></div>
-        <div class="cta-character"><img src="/login.png" alt="Contact Character"></div>
         <div class="container">
+          <div class="cta-character"><img src="/login.png" alt="Contact Character"></div>
           <span class="cta-label">문의하기</span>
-          <h2 class="cta-text">신뢰 기반의 금융 IT 파트너십과 성공적인 협업이 필요하다면<br>지금 문의하세요.
+          <h2 class="cta-text">신뢰 기반의 금융 IT 파트너십과 성공적인 협업이 필요하다면 <br>지금 문의하세요.
           </h2>
           <div class="cta-arrow-btn">
             <i data-lucide="arrow-right" style="width: 32px; height: 32px;"></i>
@@ -528,45 +552,50 @@
     </main>
 
     <footer id="footer">
-      <div class="container">
-        <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
-          <div style="margin-left: -16px; padding: 0;">
-            <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
-              <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
-              <span style="font-size: 1.2rem; font-weight: 400; color: #FFB800; opacity: 1;">다음정보시스템즈</span>
+        <div class="container">
+          <div class="footer-top-grid">
+            <!-- Branding Section -->
+            <div style="margin-left: -16px; padding: 0;">
+              <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
+                <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
+                <span style="font-size: 1.2rem; font-weight: 400; color: #FFB800; opacity: 1;">다음정보시스템즈</span>
+              </div>
+              <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
             </div>
-            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 0.3rem; line-height: 1.4; font-weight: 500; padding: 0;">금융의 미래, 그 다음의 가치를 만들어 갑니다.</p>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; opacity: 0.6; padding: 0; margin: 0;">Copyrightⓒ 2019 by DAUM IS. All right reserved.</p>
-          </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
-            <div>
-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">T. 02-6247-8413</li>
-                <li style="white-space: nowrap;">F. 070-4713-9499</li>
-              </ul>
+            <!-- Contact & Office Info Section -->
+            <div class="footer-contact-grid">
+              <div>
+                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">Contact</h4>
+                <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 2; padding: 0; margin: 0;">
+                  <li style="white-space: nowrap;">T. 02-6247-8413</li>
+                  <li style="white-space: nowrap;">F. 070-4713-9499</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
+                <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                  <li style="white-space: nowrap;">(07332) 서울시 영등포구</li>
+                  <li style="white-space: nowrap;">국제금융로8길 27-9,</li>
+                  <li style="white-space: nowrap;">동북빌딩 603호</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
+                <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
+                  <li style="white-space: nowrap;">(08791) 서울시 관악구</li>
+                  <li style="white-space: nowrap;">관악로120</li>
+                  <li style="white-space: nowrap;">우주빌딩 3층</li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">여의도센터</h4>
-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">(07332) 서울시 영등포구</li>
-                <li style="white-space: nowrap;">국제금융로8길 27-9,</li>
-                <li style="white-space: nowrap;">동북빌딩 603호</li>
-              </ul>
-            </div>
-            <div>
-              <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; color: var(--text-primary);">본사</h4>
-              <ul style="list-style: none; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding: 0; margin: 0;">
-                <li style="white-space: nowrap;">(08791) 서울시 관악구</li>
-                <li style="white-space: nowrap;">관악로120</li>
-                <li style="white-space: nowrap;">우주빌딩 3층</li>
-              </ul>
-            </div>
+          </div>
+          <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.03); padding-top: 2rem; margin-top: 2rem;">
+            
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
 
     <script type="module" src="/src/main.js"></script>
     <script>
@@ -689,8 +718,21 @@
             
             // Render Headline
             if (config.headline) {
-              const headlineHTML = config.headline.trim().replace(/\n/g, '<br>');
-              document.querySelector('#clients-intro h2').innerHTML = headlineHTML;
+              const linesSplit = config.headline.trim().split('\n');
+              if (linesSplit.length > 1) {
+                  let secondLine = linesSplit[1];
+                  let commaIndex = secondLine.indexOf(', ');
+                  if (commaIndex !== -1) {
+                      const boldPart = secondLine.substring(0, commaIndex + 2);
+                      const normalPart = secondLine.substring(commaIndex + 2);
+                      secondLine = `<span style="opacity: 1;">${boldPart}<span style="color: #0f172a; font-weight: 400;">${normalPart}</span></span>`;
+                  } else {
+                      secondLine = `<span style="opacity: 1;"><span style="color: #0f172a; font-weight: 400;">${secondLine}</span></span>`;
+                  }
+                  document.querySelector('#clients-intro h2').innerHTML = linesSplit[0] + '<br>' + secondLine;
+              } else {
+                  document.querySelector('#clients-intro h2').innerHTML = linesSplit[0];
+              }
             }
             
             // Render Success Stories Carousel

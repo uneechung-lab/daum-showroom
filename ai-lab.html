@@ -174,6 +174,97 @@
         }
 
         #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    
+        @media (max-width: 768px) {
+            /* Layout & Padding */
+            .py-32 { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+            section[style*="padding-top: 180px"] { padding-top: 90px !important; padding-bottom: 2rem !important; }
+            
+            /* Typography */
+            .lab-title, .section-title { font-size: 1.75rem !important; margin-bottom: 1.5rem !important; }
+            .lab-sub { font-size: 1.15rem !important; margin-bottom: 1.5rem !important; }
+            
+            /* Showcase Box & Info Section */
+            #hero-showcase-wrapper { height: auto !important; min-height: auto !important; margin-top: 2rem !important; margin-bottom: 2rem !important; display: flex !important; flex-direction: column !important; }
+            #hero-showcase-box { position: relative !important; width: 100% !important; height: 350px !important; border-radius: 24px !important; }
+            .intro-text { font-size: 1.8rem !important; white-space: normal !important; word-break: keep-all; padding: 0 1.5rem; width: 100%; box-sizing: border-box; }
+            .step-2-wrapper h2 { font-size: 1.4rem !important; }
+            #hero-showcase-info {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                margin-top: 2.5rem !important;
+                width: 100% !important;
+                padding: 0 !important;
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            /* Cards Container */
+            #hero-showcase-info > div:nth-of-type(1) { flex-wrap: wrap !important; justify-content: flex-start !important; gap: 0.5rem !important; }
+            #hero-showcase-info > div:nth-of-type(1) > div { width: calc(50% - 0.5rem) !important; height: 120px !important; }
+            
+            /* Feature List Container (Intelligence Inside, etc.) */
+            #hero-showcase-info > div:nth-of-type(2) > div { 
+                flex-direction: column !important; 
+                gap: 1.5rem !important; 
+                align-items: flex-start !important; 
+            }
+            #hero-showcase-info > div:nth-of-type(2) > div > div { 
+                width: 100% !important; 
+                flex: none !important; 
+            }
+            /* Hide the plus signs on mobile */
+            #hero-showcase-info > div:nth-of-type(2) > div > div:nth-child(even) { 
+                display: none !important; 
+            }
+            
+            /* D-FIN SUITE Logo */
+            #hero-showcase-info img[src="/bi_dfin.png"] {
+                height: 32px !important;
+                margin-left: -4px !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            /* Key Insight Section */
+            section[style*="background: #f8fafc"] h2 span {
+                font-size: 1.35rem !important;
+                line-height: 1.6 !important;
+                word-break: keep-all;
+            }
+            section[style*="background: #f8fafc"] h2 span br {
+                display: none !important;
+            }
+
+            /* Section Subtitles */
+            .section-title + p {
+                font-size: 1.15rem !important;
+                word-break: keep-all;
+                line-height: 1.5 !important;
+            }
+            .section-title + p br {
+                display: none !important;
+            }
+            
+            /* Code Terminal */
+            .code-showcase-container { padding: 1rem !important; border-radius: 24px !important; }
+            .code-stream { padding: 1rem !important; font-size: 0.65rem !important; }
+            .code-content-wrapper { top: 1rem !important; left: 1rem !important; right: 1rem !important; }
+            .code-line { white-space: pre-wrap !important; word-break: break-all !important; margin-bottom: 0.8rem !important; line-height: 1.4 !important; }
+            
+            /* Grid & Items */
+            .gap-6 { gap: 1rem !important; }
+            .gap-8 { gap: 1.5rem !important; }
+            .phi-card { padding: 1.8rem 1.5rem !important; }
+            
+            /* Research Outputs Grid */
+            section.py-32 > .container > div[style*="grid-template-columns: repeat(4"] {
+                grid-template-columns: 1fr !important;
+                gap: 2.5rem !important;
+            }
+            .section-label + h2 + p { font-size: 1.1rem !important; margin-bottom: 3rem !important; }
+        }
+
     </style>
 </head>
 <body class="sub-page theme-light">
@@ -293,10 +384,10 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="py-32" style="padding-top: 180px !important; padding-bottom: 4rem;">
+        <section class="py-32" style="padding-top: 180px; padding-bottom: 4rem;">
             <div class="container">
                 <div style="text-align: left;">
-                    <h1 class="lab-title">AI가 설계하고<br>사람이 완성하는 개발의 미래</h1>
+                    <h1 class="lab-title">AI가 설계하고 <br>사람이 완성하는 개발의 미래</h1>
                     <p class="lab-sub">
                         AI Research Lab은 AI 기반 차세대 개발 환경과 독자적인 SI 방법론을 연구합니다.<br>인공지능 기술을 활용하여 소프트웨어 개발 생산성과 품질을 혁신하는 새로운 패러다임을 준비합니다.
                         <span id="reset-showcase" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: #f1f5f9; border-radius: 50%; margin-left: 10px; vertical-align: middle; transition: all 0.3s ease; border: 1px solid #e2e8f0;">
@@ -412,7 +503,7 @@
                     <span class="section-label" style="display: block; margin-bottom: 2.5rem; opacity: 0.7;">DAUMIS' AI Research Lab</span>
                     <h2 style="color: #0f172a; word-break: keep-all; letter-spacing: -0.04em; margin-bottom: 0 !important; line-height: 1.6;">
                         <span style="font-size: 2.1rem; font-weight: 400; color: #475569; display: block; margin-bottom: 0;">
-                            AI는 우리의 역할을 대체하는 것이 아니라,<br>더 본질적인 문제에 집중할 수 있도록 돕는 파트너입니다.
+                            AI는 우리의 역할을 대체하는 것이 아니라, <br>더 본질적인 문제에 집중할 수 있도록 돕는 파트너입니다.
                         </span>
                         <span style="font-size: 2.1rem; font-weight: 400; color: #000000; display: block;">
                             우리는 AI와 사람이 함께 만드는 차세대 개발 방법론을 설계합니다.
@@ -428,7 +519,7 @@
                 <div class="mb-16">
                     <span class="section-label">Major Research Fields</span>
                     <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">주요 리서치 분야</h2>
-                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">SI 현장의 생산성과 품질을 혁신하는 3가지 핵심 연구 분야입니다.</p>
+                    <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">SI 현장의 생산성과 품질을 혁신하는 3가지 핵심 연구 분야입니다.</p>
                 </div>
                 <div class="grid md-grid-cols-3 gap-8" style="align-items: stretch;">
                     <!-- Area 1 -->
@@ -493,7 +584,7 @@
             <div class="container">
                 <span class="section-label">AI SI Process</span>
                 <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">AI 기반 SI 수행 프로세스</h2>
-                <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1rem !important;">AI 도구와 자동화 기술을 결합하여<br>기존보다 빠르고 품질 높은 시스템을 구축하는 4단계 방법론입니다.</p>
+                <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1rem !important;">AI 도구와 자동화 기술을 결합하여 <br>기존보다 빠르고 품질 높은 시스템을 구축하는 4단계 방법론입니다.</p>
                 <div class="process-flow">
                     <div class="process-step">
                         <span class="step-num-label">STEP 01</span>
@@ -532,7 +623,7 @@
                 <div class="mb-16">
                     <span class="section-label">Technology Stack</span>
                     <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">리서치 핵심 도구</h2>
-                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">AI 연구실이 매일 사용하는 최신 개발 환경과 AI 도구 스택입니다.</p>
+                    <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">AI 연구실이 매일 사용하는 최신 개발 환경과 AI 도구 스택입니다.</p>
                 </div>
                 <div class="grid md-grid-cols-3 gap-6">
                     <div class="phi-card" style="padding: 2rem; transition: all 0.3s ease; cursor: default;">
@@ -578,7 +669,7 @@
                 <div class="mb-12">
                     <span class="section-label">Research Outputs</span>
                     <h2 class="section-title" style="margin-bottom: 0 !important; line-height: 1.1;">AI 리서치의 핵심 산출물</h2>
-                    <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">
+                    <p style="font-size: 1.5rem; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; word-break: keep-all; max-width: 1100px; margin-bottom: 5rem !important;">
                         연구 결과는 실제 개발 현장에 즉시 적용 가능한 형태로 제공합니다.<br>AI 기반 개발 방법론을 내재화하여 경쟁력을 높이는 4가지 핵심 산출물입니다.
                     </p>
                 </div>
@@ -586,7 +677,7 @@
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
                             <i data-lucide="file-code" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
-                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">AI 코딩 가이드라인<br><span style="font-size: 0.85em; opacity: 0.6;">(Coding Standards)</span></h3>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">AI 코딩 가이드라인 <br><span style="font-size: 0.85em; opacity: 0.6;">(Coding Standards)</span></h3>
                         </div>
                         <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
                         <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
@@ -596,7 +687,7 @@
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
                             <i data-lucide="bot" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
-                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">바이브 코딩 플레이북<br><span style="font-size: 0.85em; opacity: 0.6;">(Vibe Coding)</span></h3>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">바이브 코딩 플레이북 <br><span style="font-size: 0.85em; opacity: 0.6;">(Vibe Coding)</span></h3>
                         </div>
                         <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
                         <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
@@ -606,7 +697,7 @@
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
                             <i data-lucide="test-tube" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
-                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">자동화 QA 프레임워크<br><span style="font-size: 0.85em; opacity: 0.6;">(Auto QA)</span></h3>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">자동화 QA 프레임워크 <br><span style="font-size: 0.85em; opacity: 0.6;">(Auto QA)</span></h3>
                         </div>
                         <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
                         <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
@@ -616,7 +707,7 @@
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="width: 100%; max-width: 260px; background: white; padding: 1.2rem 0.8rem; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; min-height: 135px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #f1f5f9;">
                             <i data-lucide="brain-circuit" style="width: 28px; height: 28px; color: #0f172a; margin-bottom: 0.8rem;"></i>
-                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">솔루션 AI 고도화 로드맵<br><span style="font-size: 0.85em; opacity: 0.6;">(AI Roadmap)</span></h3>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.3; word-break: keep-all;">솔루션 AI 고도화 로드맵 <br><span style="font-size: 0.85em; opacity: 0.6;">(AI Roadmap)</span></h3>
                         </div>
                         <div style="height: 35px; width: 0; border-left: 1.5px dashed rgba(139, 92, 246, 0.65); position: relative; margin: 0 auto;"></div>
                         <div style="width: 100%; max-width: 260px; border: 1.5px solid #eef2ff; padding: 1rem 0.8rem; border-radius: 12px; text-align: center; min-height: 110px; display: flex; align-items: center;">
@@ -630,10 +721,10 @@
         <!-- Bottom CTA Section -->
         <section class="bottom-cta-section cta-button">
           <div class="cta-bg-circle"></div>
-        <div class="cta-character"><img src="/login.png" alt="Contact Character"></div>
-          <div class="container">
+        <div class="container">
+          <div class="cta-character"><img src="/login.png" alt="Contact Character"></div>
             <span class="cta-label">문의하기</span>
-            <h2 class="cta-text">금융 산업에 최적화된 AI 기술과 데이터 혁신이 필요하다면<br>지금 문의하세요.
+            <h2 class="cta-text">금융 산업에 최적화된 AI 기술과 데이터 혁신이 필요하다면 <br>지금 문의하세요.
             </h2>
             <div class="cta-arrow-btn">
               <i data-lucide="arrow-right" style="width: 32px; height: 32px;"></i>
@@ -644,7 +735,7 @@
 
     <footer id="footer" style="background: #020617; color: white; padding: 6rem 0;">
         <div class="container">
-          <div style="display: grid; grid-template-columns: 1.8fr 3fr; gap: 8rem;">
+          <div class="footer-top-grid">
             <div style="margin-left: -16px;">
               <div style="margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;">
                 <img src="/ci_04.png" alt="DAUMIS" style="height: 36px; width: auto; margin-left: -12px;">
@@ -653,7 +744,7 @@
               <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
               <p style="color: #64748b; font-size: 0.85rem; opacity: 0.8;">Copyright© 2019 by DAUM IS. All right reserved.</p>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4rem;">
+            <div class="footer-contact-grid">
               <div>
                 <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">Contact</h4>
                 <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 2; padding: 0;">

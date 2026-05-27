@@ -155,6 +155,107 @@
         }
 
         #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+    @media (max-width: 768px) {
+            /* Layout & Padding */
+            .py-32 { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+            section[style*="padding-top: 180px"] { padding-top: 90px !important; padding-bottom: 2rem !important; }
+            
+            /* Typography */
+            .lab-title, .section-title { font-size: 1.6rem !important; margin-bottom: 1.2rem !important; word-break: keep-all; }
+            .lab-title br { display: none; }
+            .lab-sub { font-size: 1.1rem !important; margin-bottom: 1.5rem !important; }
+            
+            /* Showcase Box & Info Section */
+            #hero-showcase-wrapper { height: auto !important; min-height: auto !important; margin-top: 2rem !important; margin-bottom: 2rem !important; display: flex !important; flex-direction: column !important; }
+            
+            #hero-showcase-box { 
+                position: relative !important; 
+                width: 100%;
+                height: 350px; 
+                border-radius: 24px !important; 
+                transform: none !important; 
+                margin-left: 0 !important;
+                margin-right: auto !important;
+            }
+            .intro-text { font-size: 1.8rem !important; white-space: normal !important; word-break: keep-all; padding: 0 1.5rem; width: 100%; box-sizing: border-box; }
+            
+            #hero-showcase-info {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                margin-top: 2.5rem !important;
+                width: 100% !important;
+                padding: 0 !important;
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important; 
+            }
+
+            /* Fix zal-card-container — 오른쪽에 배치 */
+            .zal-card-container {
+                position: absolute !important;
+                right: -15px !important;
+                left: auto !important;
+                top: 300px !important;
+                bottom: auto !important;
+                width: 200px !important;
+                max-width: none !important;
+                margin: 0 !important;
+                transform: none !important; 
+                display: block !important; 
+                z-index: 100 !important;
+            }
+
+            /* Mobile: clip app image at character feet — full width, cut height only */
+            .zal-image-container {
+                overflow: hidden !important;
+                align-items: flex-start !important;
+            }
+
+            .zal-image-container img {
+                width: 100% !important;
+                height: auto !important;
+                object-fit: fill !important;
+                transform: scale(1) !important;
+                border-radius: 0 !important;
+            }
+            
+            /* D-FIN SUITE / ZAL EAT Logo */
+            #hero-showcase-info img[src="/bi_zaleat.png"] {
+                height: 32px !important;
+                margin-left: -4px !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            /* Key Insight Section */
+            section[style*="background: #f8fafc"] h2 span { font-size: 1.35rem !important; line-height: 1.6 !important; word-break: keep-all; }
+            section[style*="background: #f8fafc"] h2 span br { display: none !important; }
+
+            /* Section Subtitles */
+            .section-title + p { font-size: 1.15rem !important; word-break: keep-all; line-height: 1.5 !important; }
+            .section-title + p br { display: none !important; }
+            
+            /* Remove margins from info grids on mobile */
+            .info-grid { margin-top: 2rem !important; }
+            #hero-showcase-info > div[style*="padding-left: 4.2rem"] { padding-left: 0 !important; margin-top: 2rem !important; padding-top: 2rem !important; }
+            #hero-showcase-info > div > div[style*="gap: 2.5rem"] { flex-direction: column !important; gap: 1.5rem !important; align-items: flex-start !important; }
+            #hero-showcase-info > div > div[style*="gap: 2.5rem"] > div[style*="width: 20px"] { display: none !important; }
+            
+            /* Icon size & Text z-index */
+            .icon-particle img { transform: scale(0.6); }
+            .step-2-wrapper h2 { font-size: 1.8rem !important; position: relative; z-index: 20; }
+            
+            /* Grid & Items */
+            .gap-6 { gap: 1rem !important; }
+            .gap-8 { gap: 1.5rem !important; }
+            .phi-card { padding: 1.8rem 1.5rem !important; }
+            
+            /* Research Outputs Grid */
+            section.py-32 > .container > div[style*="grid-template-columns: repeat(4"] { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+            .section-label + h2 + p { font-size: 1.1rem !important; margin-bottom: 3rem !important; }
+        }
     </style>
 </head>
 <body class="sub-page theme-light">
@@ -314,7 +415,7 @@
                     </div>
 
                     <!-- 박스 바깥 좌측에 배치 (초기 opacity: 0) -->
-                    <div class="zal-card-container" style="position: absolute; left: -80px; top: 500px; width: 340px; z-index: 100; pointer-events: none; opacity: 0;">
+                    <div class="zal-card-container" style="position: absolute; left: -80px; right: auto; top: 500px; width: 340px; z-index: 100; pointer-events: none; opacity: 0;">
                         <img src="/zaleat_cc.png" alt="ZAL Card" style="width: 100%; height: auto;">
                     </div>
 
@@ -605,7 +706,7 @@
 
             tl.set(".step-2-wrapper", { visibility: 'visible' })
               .fromTo(".text-2", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 })
-              .fromTo(".icon-particle", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, x: (i) => [-300, 300, 0][i], y: (i) => [-140, -140, 110][i], duration: 0.8, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.3")
+              .fromTo(".icon-particle", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, x: (i) => window.innerWidth <= 768 ? [-120, 120, 0][i] : [-360, 360, 0][i], y: (i) => window.innerWidth <= 768 ? [-90, -90, 55][i] : [-120, -120, 140][i], duration: 0.8, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.3")
               .to(".step-2-wrapper", { opacity: 0, y: -20, duration: 0.6 }, "+=0.5");
 
             tl.set(".final-logo", { visibility: 'visible' })
@@ -614,10 +715,10 @@
               .to("#hero-showcase-wrapper", { minHeight: "921px", duration: 1.2, ease: "expo.inOut" }, "<")
               .to(".bg-blobs", { opacity: 0, duration: 0.8 }, "<")
               .to("#hero-showcase-box", { 
-                  width: "360px", 
-                  height: "821px", 
-                  x: 170,
-                  borderRadius: "32px", 
+                  width: window.innerWidth <= 768 ? "75%" : "360px", 
+                  height: window.innerWidth <= 768 ? "560px" : "821px", 
+                  x: window.innerWidth <= 768 ? 0 : 170,
+                  borderRadius: window.innerWidth <= 768 ? "24px" : "32px", 
                   backgroundColor: "transparent",
                   borderColor: "#ffffff",
                   borderWidth: "6px",
@@ -633,7 +734,31 @@
               }, "<")
               .to(".zal-image-container", { opacity: 1, duration: 1 }, "+=0.3")
               .to("#hero-showcase-info", { opacity: 1, x: 150, duration: 0.8, ease: "power2.out" }, "-=0.6")
-              .to(".zal-card-container", { opacity: 1, x: 0, duration: 1, ease: "expo.out" }, "-=0.2");
+              .to(".zal-card-container", { opacity: 1, x: 0, duration: 1, ease: "expo.out" }, "-=0.2")
+              .call(() => {
+                  // Mobile: 캐릭터 발끝에 맞춰 이미지 & 박스 높이 클립
+                  if (window.innerWidth <= 768) {
+                      setTimeout(() => {
+                          const cardContainer = document.querySelector('.zal-card-container');
+                          const imgContainer  = document.querySelector('.zal-image-container');
+                          const showcaseBox   = document.getElementById('hero-showcase-box');
+                          if (!cardContainer || !imgContainer || !showcaseBox) return;
+
+                          const cardImg    = cardContainer.querySelector('img');
+                          const feetY      = cardImg
+                              ? cardImg.getBoundingClientRect().bottom
+                              : cardContainer.getBoundingClientRect().bottom;
+                          const boxTop     = showcaseBox.getBoundingClientRect().top;
+
+                          // 발끝까지의 높이
+                          const feetHeight = Math.max(0, feetY - boxTop);
+
+                          // 이미지 & 박스 모두 발끝 높이로 클립 (아래 흰 영역 제거)
+                          imgContainer.style.maxHeight = feetHeight + 'px';
+                          gsap.to(showcaseBox, { height: feetHeight, duration: 0.4, ease: 'power2.out' });
+                      }, 200);
+                  }
+              });
         }
 
         // 아이콘 클릭 리스너 및 효과
@@ -652,7 +777,11 @@
                             borderColor: "transparent", borderWidth: 0, boxShadow: "none" 
                         });
                         gsap.set(".bg-blobs", { opacity: 1 });
-                        document.querySelector('.zal-image-container').classList.remove('show-shadow');
+                        const imgCont = document.querySelector('.zal-image-container');
+                        imgCont.classList.remove('show-shadow');
+                        imgCont.style.maxHeight = '';
+                        imgCont.style.clipPath = '';
+                        imgCont.style.webkitClipPath = '';
                         
                         mainTimeline.restart();
                     }
