@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Filter projects
         filteredProjects = category === 'all' 
             ? allProjects 
-            : allProjects.filter(p => p.category === category);
+            : sortProjectsOngoingFirst(allProjects.filter(p => p.category === category));
 
         renderGrid(filteredProjects, 1, false);
     }
@@ -263,6 +263,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 5000);
     }
 
+    // Helper: Sort projects so ongoing ones appear first, then by start_date descending
+    function sortProjectsOngoingFirst(projects) {
+        return [...projects].sort((a, b) => {
+            const aOngoing = getProjectStatusAndDate(a).isOngoing;
+            const bOngoing = getProjectStatusAndDate(b).isOngoing;
+            if (aOngoing && !bOngoing) return -1;
+            if (!aOngoing && bOngoing) return 1;
+            // Within same group, keep start_date descending
+            if (a.start_date && b.start_date) {
+                return b.start_date.localeCompare(a.start_date);
+            }
+            return 0;
+        });
+    }
+
     // 7. Event Listeners
     loadMoreBtn?.addEventListener('click', () => {
         currentPage++;
@@ -275,6 +290,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 8. Bootstrap
     allProjects = await fetchProjects();
+    allProjects = sortProjectsOngoingFirst(allProjects);
     filteredProjects = allProjects;
     
     updateTabCounts(allProjects);
