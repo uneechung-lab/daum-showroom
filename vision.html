@@ -26,26 +26,46 @@
         background: white;
       }
       /* Initial State (White Theme for Company Pages) */
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) {
         background: #ffffff !important;
         border-bottom: none;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-item > span {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo-text {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-light { 
         display: none !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-dark { 
         display: block !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .cta-button {
         background: #0f172a !important;
         color: #ffffff !important;
+      }
+
+      /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
+      body.sub-page:not(.force-dark) #header .mobile-toggle:not(.active) span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle:not(.active) span { 
+          background: #0f172a !important; 
+      }
+      body.sub-page:not(.force-dark) #header .mobile-toggle.active span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle.active span { 
+          background: #ffffff !important; 
+      }
+      body.sub-page #header .nav-right.active,
+      body.sub-page #header .nav-right.active * {
+          --text-primary: #ffffff !important;
+          --text-muted: rgba(255, 255, 255, 0.8) !important;
+          --text-inverse-primary: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active span,
+      body.sub-page #header .nav-right.active a {
+          color: #ffffff !important;
       }
 
       /* Natural Transitions */
@@ -60,10 +80,31 @@
         min-height: 80vh;
       }
 
+      .section-title {
+        font-size: 2.8rem !important;
+        font-weight: 700 !important;
+        line-height: 1.1 !important;
+        letter-spacing: -0.02em !important;
+        color: #0f172a !important;
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-bottom: 0 !important;
+      }
+      .section-sub {
+        font-size: 1.5rem !important;
+        color: #64748b !important;
+        font-weight: 300 !important;
+        margin-top: 1.2rem !important;
+        line-height: 1.5 !important;
+        letter-spacing: -0.02em !important;
+        margin-bottom: 0 !important;
+      }
+
       .hero-section {
         position: relative;
-        padding: 180px 0 120px;
+        padding: 180px 0 80px !important;
         color: #020617;
+        background: #ffffff !important;
       }
       .lab-title {
         font-size: 2.8rem !important;
@@ -440,6 +481,99 @@
         .mission-section { grid-template-columns: 1fr; gap: 4rem; }
         .mission-visual { height: 400px; }
       }
+
+      @media (max-width: 768px) {
+        .hero-section {
+          padding-top: 90px !important;
+          padding-bottom: 2rem !important;
+        }
+        .hero-section .container {
+          padding-left: 1.5rem !important;
+          padding-right: 1.5rem !important;
+        }
+        .lab-title, .section-title {
+          font-size: 1.75rem !important;
+          margin-bottom: 1.5rem !important;
+          word-break: keep-all;
+        }
+        .lab-sub {
+          font-size: 1.15rem !important;
+          margin-bottom: 1.5rem !important;
+        }
+        .evolution-timeline {
+          margin: 3rem 0;
+          padding: 0;
+        }
+        .timeline-track {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        .timeline-line {
+          top: 45px;
+          left: 35px;
+          bottom: 110px;
+          right: auto;
+          width: 4px;
+          height: auto;
+        }
+        .timeline-line::after {
+          display: none;
+        }
+        .timeline-progress {
+          width: 100%;
+          height: 100%;
+        }
+        .timeline-node {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 1.5rem;
+          text-align: left;
+        }
+        .node-dot {
+          width: 70px;
+          height: 70px;
+          margin-bottom: 0;
+          flex-shrink: 0;
+          transform: translateY(10px);
+        }
+        .node-content {
+          max-width: none;
+        }
+        .node-content h4 {
+          font-size: 1.25rem;
+          margin-bottom: 0.4rem;
+          white-space: normal;
+        }
+        .node-content p {
+          font-size: 0.95rem;
+          line-height: 1.4;
+        }
+        
+        .value-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        .value-card {
+          padding: 2rem 1.5rem;
+        }
+        
+        #mission-section {
+          padding: 4rem 0 !important;
+        }
+        #mission-section h2 span {
+          font-size: 1.4rem !important;
+        }
+        
+        .section-title {
+          font-size: 1.75rem !important;
+          margin-bottom: 1.5rem !important;
+          word-break: keep-all;
+        }
+        .section-sub {
+          font-size: 1.15rem !important;
+          margin-bottom: 1.5rem !important;
+        }
+      }
     </style>
   </head>
   <body class="sub-page">
@@ -451,6 +585,13 @@
             <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
             <span class="logo-text">다음정보시스템즈</span>
           </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">
@@ -555,7 +696,7 @@
 
     <main>
       <!-- Hero Section -->
-      <section class="hero-section" style="padding-top: 180px !important; padding-bottom: 80px !important; background: #ffffff !important;">
+      <section class="hero-section">
         <div class="container" style="padding-left: 2rem !important;">
           <div style="text-align: left;">
             <h1 class="lab-title">
@@ -628,8 +769,8 @@
       <div class="container">
         <div style="margin-bottom: 4rem; text-align: left;">
           <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Core Values / How</span>
-          <h2 class="section-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">비전 달성을 위한 핵심가치</h2>
-          <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important;">변화하는 금융 환경 속에서도 변하지 않는 다음정보시스템즈의 기술 철학이자 성장의 근간입니다.</p>
+          <h2 class="section-title">비전 달성을 위한 핵심가치</h2>
+          <p class="section-sub">변화하는 금융 환경 속에서도 변하지 않는 다음정보시스템즈의 기술 철학이자 성장의 근간입니다.</p>
         </div>
         <div class="value-grid">
           <div class="value-card">
@@ -663,8 +804,8 @@
           <div class="strategy-section">
             <div class="strategy-header" style="margin-bottom: 4rem; text-align: left;">
               <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Strategy / What</span>
-              <h2 style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-bottom: 0;">비전 달성을 위한 실행 로드맵</h2>
-              <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 0 !important;">구체적인 실행 전략과 단계별 로드맵을 통해 금융 IT의 지능형 미래를 현실로 만들어갑니다.</p>
+              <h2 class="section-title">비전 달성을 위한 실행 로드맵</h2>
+              <p class="section-sub">구체적인 실행 전략과 단계별 로드맵을 통해 금융 IT의 지능형 미래를 현실로 만들어갑니다.</p>
             </div>
             <div class="strategy-grid">
               <div class="strategy-card">
