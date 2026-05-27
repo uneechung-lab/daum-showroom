@@ -712,7 +712,8 @@
 
       }
       @media (max-width: 768px) {
-        .stats-grid, .business-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; padding: 0 0.5rem; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; padding: 0 0.5rem; }
+        .business-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0; }
         .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 0; }
         .cert-bar { height: auto !important; padding: 2rem 0; margin-top: 2rem; }
         .cert-item { padding: 0 1rem; }
@@ -720,7 +721,9 @@
         .hero-section .container { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
         section[style*="background: #f8fafc"] h2 span { font-size: 1.35rem !important; line-height: 1.6 !important; word-break: keep-all; }
         section[style*="background: #f8fafc"] h2 span br { display: none !important; }
-        .lab-title { font-size: 1.8rem !important; margin-bottom: 1.5rem !important; line-height: 1.4 !important; }
+        .lab-title, .section-title, .org-title { font-size: 1.8rem !important; margin-bottom: 1.5rem !important; line-height: 1.4 !important; }
+        .section-title + p, .org-title + p { font-size: 1.15rem !important; word-break: keep-all; line-height: 1.5 !important; }
+        .org-container { overflow-x: auto; padding-bottom: 2rem; -webkit-overflow-scrolling: touch; }
         .lab-sub { font-size: 1.15rem !important; line-height: 1.6 !important; }
         .lab-title br, .lab-sub br { display: none; }
         .stats-bar { height: auto !important; border-radius: 16px; margin-top: 2rem; padding: 1.5rem 0; }
@@ -962,8 +965,8 @@
         <div class="container">
           <div style="margin-bottom: 1.5rem; text-align: left;">
             <span class="section-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Service Portfolio</span>
-            <h2 class="section-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">주요 사업 영역</h2>
-            <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">독보적인 금융 도메인 지식과 최신 AI 기술을 결합하여 금융 인프라의 새로운 표준을 제시합니다.</p>
+            <h2 class="section-title" style="font-size: 2.8rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a; text-align: left; margin-left: 0; margin-bottom: 0;">주요 사업 영역</h2>
+            <p style="font-size: 1.5rem; color: #64748b; font-weight: 300; margin-top: 1.2rem; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem;">독보적인 금융 도메인 지식과 최신 AI 기술을 결합하여 금융 인프라의 새로운 표준을 제시합니다.</p>
           </div>
           <div class="business-grid" style="margin-top: 1.5rem;">
             <!-- Business 1: Financial SI -->
@@ -1037,13 +1040,13 @@
       <!-- Organization Chart Section -->
       <section class="org-section" style="padding: 7rem 0 10rem 0 !important;">
         <div class="container" style="padding-left: 2rem !important;">
-          <div class="org-header" style="margin-bottom: 1.5rem; text-align: left; margin-left: -1rem !important;">
+          <div class="org-header" style="margin-bottom: 1.5rem; text-align: left;">
             <span class="org-label" style="font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem;">Organization</span>
-            <h2 class="org-title" style="font-size: 2.8rem !important; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a !important; text-align: left; margin-left: 0; margin-bottom: 0;">조직구성</h2>
-            <p style="font-size: 1.5rem !important; color: #64748b !important; font-weight: 300 !important; margin-top: 1.2rem !important; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem !important;">금융 전문가와 기술 혁신가가 하나의 팀으로 융합되어 최상의 비즈니스 가치를 창출합니다.</p>
+            <h2 class="org-title" style="font-size: 2.8rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a; text-align: left; margin-left: 0; margin-bottom: 0;">조직구성</h2>
+            <p style="font-size: 1.5rem; color: #64748b; font-weight: 300; margin-top: 1.2rem; line-height: 1.5; letter-spacing: -0.02em; margin-bottom: 1.5rem;">금융 전문가와 기술 혁신가가 하나의 팀으로 융합되어 최상의 비즈니스 가치를 창출합니다.</p>
           </div>
           
-          <div class="org-container" style="position: relative; margin-top: 1.5rem; margin-left: -1rem !important;">
+          <div class="org-container" style="position: relative; margin-top: 1.5rem;">
             <!-- Lines Overlay (Behind boxes) -->
             <div class="org-overlay-lines" style="z-index: 1;">
               <!-- Pillar CEO-CFO-Mgmt (Deep overlap) -->
