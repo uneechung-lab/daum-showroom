@@ -26,33 +26,67 @@
         background: white;
       }
       /* Initial State (White Theme for Company Pages) */
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) {
         background: #ffffff !important;
         border-bottom: none;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-links a,
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .nav-item > span,
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .mega-right ul li a {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-links a,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .nav-item > span,
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .mega-right ul li a {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo-text {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo-text {
         color: #0f172a !important;
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-light { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-light { 
         display: none !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .logo .logo-dark { 
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .logo .logo-dark { 
         display: block !important; 
       }
-      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)) .cta-button {
+      #header:not(.scrolled):not(.menu-open):not(:has(.nav-item:hover)):not(:has(.nav-right.active)) .cta-button {
         background: #0f172a !important;
         color: #ffffff !important;
       }
 
+      /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
+      body.sub-page:not(.force-dark) #header .mobile-toggle:not(.active) span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle:not(.active) span { 
+          background: #0f172a !important; 
+      }
+      body.sub-page:not(.force-dark) #header .mobile-toggle.active span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle.active span { 
+          background: #ffffff !important; 
+      }
+      body.sub-page #header .nav-right.active,
+      body.sub-page #header .nav-right.active * {
+          --text-primary: #ffffff !important;
+          --text-muted: rgba(255, 255, 255, 0.8) !important;
+          --text-inverse-primary: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active span,
+      body.sub-page #header .nav-right.active a {
+          color: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a {
+          color: rgba(255, 255, 255, 0.8) !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a.active {
+          color: #ffffff !important;
+      }
+
+      /* Natural Transitions (Smooth like Business Pages) */
       #header {
         transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      #header .nav-links a, 
+      #header .nav-item > span, 
+      #header .logo-text,
+      #header .cta-button,
+      #header .logo img {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
 
       main {
@@ -311,6 +345,93 @@
         border-color: #cbd5e1;
         transform: translateY(-2px);
       }
+
+      @media (max-width: 768px) {
+        main { padding-top: 0px !important; }
+        body.sub-page .hero-section {
+          padding-top: 90px !important;
+          padding-bottom: 2rem !important;
+        }
+        .hero-section .container {
+          padding-left: 1.5rem !important;
+          padding-right: 1.5rem !important;
+        }
+        .lab-title {
+          font-size: 1.85rem !important;
+          line-height: 1.35 !important;
+          margin-bottom: 1.5rem !important;
+        }
+        .lab-sub {
+          font-size: 1.05rem !important;
+          line-height: 1.6 !important;
+          margin-bottom: 2rem !important;
+        }
+        .evolution-timeline {
+          margin: 2rem 0 !important;
+        }
+        .timeline-track {
+          gap: 2rem !important;
+        }
+        .node-dot {
+          width: 56px !important;
+          height: 56px !important;
+          margin-bottom: 1rem !important;
+        }
+        .node-dot svg {
+          width: 24px !important;
+          height: 24px !important;
+        }
+        .node-content h4 {
+          font-size: 1.2rem !important;
+          margin-bottom: 0.4rem !important;
+        }
+        .node-content p {
+          font-size: 0.95rem !important;
+        }
+        .process-detail-section {
+          padding: 4rem 0 !important;
+        }
+        .process-detail-section .container {
+          padding-left: 1.5rem !important;
+          padding-right: 1.5rem !important;
+        }
+        .detail-container {
+          gap: 2.5rem !important;
+        }
+        .detail-side h2 {
+          font-size: 1.85rem !important;
+          line-height: 1.3 !important;
+        }
+        .detail-side p {
+          font-size: 1.05rem !important;
+          margin-top: 0.8rem !important;
+        }
+        .detail-list {
+          gap: 1rem !important;
+        }
+        .detail-item {
+          padding: 1.5rem !important;
+          border-radius: 20px !important;
+          gap: 1rem !important;
+        }
+        .detail-step {
+          width: 40px !important;
+          height: 40px !important;
+          border-radius: 10px !important;
+          font-size: 0.95rem !important;
+        }
+        .detail-content h3 {
+          font-size: 1.25rem !important;
+        }
+        .detail-content p {
+          font-size: 0.95rem !important;
+          line-height: 1.5 !important;
+        }
+        .download-btn {
+          font-size: 0.8rem !important;
+          padding: 0.4rem 0.8rem !important;
+        }
+      }
     </style>
   </head>
   <body class="sub-page">
@@ -322,6 +443,11 @@
             <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
             <span class="logo-text">다음정보시스템즈</span>
           </a>
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">
