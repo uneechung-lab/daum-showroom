@@ -366,6 +366,28 @@
           line-height: 1.6 !important;
           margin-bottom: 2rem !important;
         }
+        
+        /* Hide all PC hardcoded line breaks on mobile */
+        .hero-section br,
+        .lab-title br,
+        .lab-sub br,
+        .section-header-title br,
+        .section-header-desc br,
+        h1 br,
+        h2 br,
+        h3 br,
+        p br {
+          display: none !important;
+        }
+        
+        /* Enforce natural word break on all texts */
+        .lab-title,
+        .lab-sub,
+        .section-header-title,
+        .section-header-desc,
+        h1, h2, h3, h4, h5, p, span {
+          word-break: keep-all !important;
+        }
         .evolution-timeline {
           margin: 2rem 0 !important;
         }

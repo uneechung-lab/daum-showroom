@@ -213,7 +213,7 @@
         main { padding-top: 0px !important; }
         body.sub-page .hero-section {
           padding-top: 90px !important;
-          padding-bottom: 2rem !important;
+          padding-bottom: 60px !important;
         }
         .hero-section .container {
           padding-left: 1.5rem !important;
@@ -227,6 +227,28 @@
         .lab-sub {
           font-size: 1.05rem !important;
           line-height: 1.6 !important;
+        }
+        
+        /* Hide all PC hardcoded line breaks on mobile */
+        .hero-section br,
+        .lab-title br,
+        .lab-sub br,
+        .section-header-title br,
+        .section-header-desc br,
+        h1 br,
+        h2 br,
+        h3 br,
+        p br {
+          display: none !important;
+        }
+        
+        /* Enforce natural word break on all texts */
+        .lab-title,
+        .lab-sub,
+        .section-header-title,
+        .section-header-desc,
+        h1, h2, h3, h4, h5, p, span {
+          word-break: keep-all !important;
         }
         .section-container {
           padding: 0 0 4rem !important;

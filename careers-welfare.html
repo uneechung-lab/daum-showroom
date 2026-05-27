@@ -365,6 +365,29 @@
           line-height: 1.6 !important;
         }
         
+        /* Hide all PC hardcoded line breaks on mobile */
+        .hero-section br,
+        .lab-title br,
+        .lab-sub br,
+        .section-header-title br,
+        .section-header-desc br,
+        h1 br,
+        h2 br,
+        h3 br,
+        p br {
+          display: none !important;
+        }
+        
+        /* Enforce natural word break on all texts */
+        .lab-title,
+        .lab-sub,
+        .section-header-title,
+        .section-header-desc,
+        main section[style*="padding: 6rem"] h2 span,
+        h1, h2, h3, h4, h5, p, span {
+          word-break: keep-all !important;
+        }
+        
         main section[style*="padding: 6rem"] {
           padding: 4rem 0 !important;
         }
@@ -372,15 +395,10 @@
           font-size: 1.25rem !important;
           line-height: 1.6 !important;
           margin-bottom: 0.8rem !important;
-          word-break: keep-all !important;
         }
         main section[style*="padding: 6rem"] h2 span[style*="color: #000000"] {
           font-size: 1.3rem !important;
           font-weight: 700 !important;
-          word-break: keep-all !important;
-        }
-        main section[style*="padding: 6rem"] h2 br {
-          display: none !important;
         }
 
         .section-container {
