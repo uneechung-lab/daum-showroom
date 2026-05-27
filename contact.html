@@ -48,6 +48,32 @@
         color: #ffffff !important;
       }
 
+      /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
+      body.sub-page:not(.force-dark) #header .mobile-toggle:not(.active) span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle:not(.active) span { 
+          background: #0f172a !important; 
+      }
+      body.sub-page:not(.force-dark) #header .mobile-toggle.active span,
+      body.sub-page:not(.force-dark) #header.scrolled .mobile-toggle.active span { 
+          background: #ffffff !important; 
+      }
+      body.sub-page #header .nav-right.active,
+      body.sub-page #header .nav-right.active * {
+          --text-primary: #ffffff !important;
+          --text-muted: rgba(255, 255, 255, 0.8) !important;
+          --text-inverse-primary: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active span,
+      body.sub-page #header .nav-right.active a {
+          color: #ffffff !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a {
+          color: rgba(255, 255, 255, 0.8) !important;
+      }
+      body.sub-page #header .nav-right.active .mega-right a.active {
+          color: #ffffff !important;
+      }
+
       /* Natural Transitions (Smooth like Business Pages) */
       #header {
         transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -195,6 +221,13 @@
             <img src="/ci_03.png" alt="DAUMIS" class="logo-dark">
             <span class="logo-text">다음정보시스템즈</span>
           </a>
+          
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
           <div class="nav-right">
             <ul class="nav-links">
               <li class="nav-item">
