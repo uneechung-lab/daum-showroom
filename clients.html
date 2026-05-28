@@ -47,21 +47,26 @@
 
       @media (min-width: 769px) {
       /* White Theme when menu is open OR hovered interactive areas */
+      body.sub-page header.menu-open,
       body.sub-page header:has(.nav-item:hover),
       body.sub-page header:has(.gnb-mega-menu:hover) {
         background: #ffffff !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
       }
+      html body.sub-page header.menu-open .nav-links a,
+      html body.sub-page header.menu-open .nav-item > span,
       html body.sub-page header:has(.nav-item:hover) .nav-links a,
       html body.sub-page header:has(.nav-item:hover) .nav-item > span,
       html body.sub-page header:has(.gnb-mega-menu:hover) .nav-links a,
       html body.sub-page header:has(.gnb-mega-menu:hover) .nav-item > span {
         color: #1e293b !important;
       }
+      body.sub-page header.menu-open .logo .logo-light,
       body.sub-page header:has(.nav-item:hover) .logo .logo-light,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-light { 
         display: none !important; 
       }
+      body.sub-page header.menu-open .logo .logo-dark,
       body.sub-page header:has(.nav-item:hover) .logo .logo-dark,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-dark { 
         display: block !important; 
@@ -73,6 +78,7 @@
         color: var(--daumis-yellow) !important;
       }
       html body.sub-page.theme-light .logo-text,
+      html body.sub-page header.menu-open .logo-text,
       html body.sub-page header:has(.nav-item:hover) .logo-text,
       html body.sub-page header:has(.gnb-mega-menu:hover) .logo-text {
         color: #0f172a !important;
