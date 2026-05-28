@@ -47,22 +47,22 @@
 
       @media (min-width: 769px) {
       /* White Theme when menu is open OR hovered interactive areas */
-      body.sub-page header:has(.nav-links:hover),
+      body.sub-page header:has(.nav-item:hover),
       body.sub-page header:has(.gnb-mega-menu:hover) {
         background: #ffffff !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
       }
-      html body.sub-page header:has(.nav-links:hover) .nav-links a,
-      html body.sub-page header:has(.nav-links:hover) .nav-item > span,
+      html body.sub-page header:has(.nav-item:hover) .nav-links a,
+      html body.sub-page header:has(.nav-item:hover) .nav-item > span,
       html body.sub-page header:has(.gnb-mega-menu:hover) .nav-links a,
       html body.sub-page header:has(.gnb-mega-menu:hover) .nav-item > span {
         color: #1e293b !important;
       }
-      body.sub-page header:has(.nav-links:hover) .logo .logo-light,
+      body.sub-page header:has(.nav-item:hover) .logo .logo-light,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-light { 
         display: none !important; 
       }
-      body.sub-page header:has(.nav-links:hover) .logo .logo-dark,
+      body.sub-page header:has(.nav-item:hover) .logo .logo-dark,
       body.sub-page header:has(.gnb-mega-menu:hover) .logo .logo-dark { 
         display: block !important; 
       }
@@ -73,7 +73,7 @@
         color: var(--daumis-yellow) !important;
       }
       html body.sub-page.theme-light .logo-text,
-      html body.sub-page header:has(.nav-links:hover) .logo-text,
+      html body.sub-page header:has(.nav-item:hover) .logo-text,
       html body.sub-page header:has(.gnb-mega-menu:hover) .logo-text {
         color: #0f172a !important;
       }
@@ -283,6 +283,22 @@
         height: 100%;
         z-index: 1;
         opacity: 0.4;
+      }
+
+      /* Slim Hero Style overrides to match careers-process.html */
+      body.sub-page .slim-hero .section-title {
+        font-size: 3.5rem !important;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: var(--text-primary) !important;
+        letter-spacing: -0.03em;
+      }
+      body.sub-page .slim-hero .hero-sub {
+        font-size: 1.4rem !important;
+        color: var(--text-secondary);
+        max-width: 800px;
+        line-height: 1.6;
+        opacity: 0.8;
       }
     </style>
   </head>
