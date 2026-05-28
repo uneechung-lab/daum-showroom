@@ -647,7 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="drawer-overlay" id="inquiryOverlay"></div>
       <div class="inquiry-drawer" id="inquiryDrawer">
         <div class="drawer-header">
-          <h2>도입 문의</h2>
+          <h2>문의하기</h2>
           <button class="drawer-close" id="closeInquiry"><i data-lucide="x"></i></button>
         </div>
         <div class="drawer-content">
