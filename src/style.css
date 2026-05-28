@@ -825,6 +825,15 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   list-style: none; 
   margin: 0; 
   padding: 0; 
+  align-items: center;
+}
+
+@media (min-width: 769px) {
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Confines vertical hover hitbox to a comfortable height centered around the GNB text, keeping empty top/bottom header spaces neutral */
+  }
 }
 
 .nav-links a,
