@@ -1028,29 +1028,29 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   }
 
   /* --- Premium Active Mobile Menu Override --- */
-  html body.sub-page #header.menu-open,
-  html body.sub-page #header:has(.nav-right.active) {
+  html body.sub-page:not(.force-dark) #header.menu-open,
+  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) {
     background: #ffffff !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
   }
   
-  html body.sub-page #header.menu-open .logo .logo-light,
-  html body.sub-page #header:has(.nav-right.active) .logo .logo-light {
+  html body.sub-page:not(.force-dark) #header.menu-open .logo .logo-light,
+  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .logo .logo-light {
     display: none !important;
   }
   
-  html body.sub-page #header.menu-open .logo .logo-dark,
-  html body.sub-page #header:has(.nav-right.active) .logo .logo-dark {
+  html body.sub-page:not(.force-dark) #header.menu-open .logo .logo-dark,
+  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .logo .logo-dark {
     display: flex !important;
   }
   
-  html body.sub-page #header.menu-open .logo-text,
-  html body.sub-page #header:has(.nav-right.active) .logo-text {
+  html body.sub-page:not(.force-dark) #header.menu-open .logo-text,
+  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .logo-text {
     color: #0f172a !important;
   }
   
-  html body.sub-page #header.menu-open .mobile-toggle span,
-  html body.sub-page #header:has(.nav-right.active) .mobile-toggle span {
+  html body.sub-page:not(.force-dark) #header.menu-open .mobile-toggle span,
+  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .mobile-toggle span {
     background: #0f172a !important;
   }
   
