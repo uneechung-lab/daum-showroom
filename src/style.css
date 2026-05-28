@@ -1028,59 +1028,74 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   }
 
   /* --- Premium Active Mobile Menu Override --- */
-  html body.sub-page:not(.force-dark) #header.menu-open,
-  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) {
-    background: #ffffff !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  html body #header.menu-open,
+  html body #header:has(.nav-right.active) {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
   }
   
-  html body.sub-page:not(.force-dark) #header.menu-open .logo .logo-light,
-  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .logo .logo-light {
-    display: none !important;
+  html body #header.menu-open .logo,
+  html body #header:has(.nav-right.active) .logo {
+    position: relative !important;
+    z-index: 100001 !important;
   }
   
-  html body.sub-page:not(.force-dark) #header.menu-open .logo .logo-dark,
-  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .logo .logo-dark {
+  html body #header.menu-open .logo .logo-light,
+  html body #header:has(.nav-right.active) .logo .logo-light {
     display: flex !important;
   }
   
-  html body.sub-page:not(.force-dark) #header.menu-open .logo-text,
-  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .logo-text {
-    color: #0f172a !important;
+  html body #header.menu-open .logo .logo-dark,
+  html body #header:has(.nav-right.active) .logo .logo-dark {
+    display: none !important;
   }
   
-  html body.sub-page:not(.force-dark) #header.menu-open .mobile-toggle span,
-  html body.sub-page:not(.force-dark) #header:has(.nav-right.active) .mobile-toggle span {
-    background: #0f172a !important;
+  html body #header.menu-open .logo-text,
+  html body #header:has(.nav-right.active) .logo-text {
+    color: var(--daumis-yellow) !important;
   }
   
-  html body.sub-page #header.menu-open .nav-links a,
-  html body.sub-page #header.menu-open .nav-item > span,
-  html body.sub-page #header:has(.nav-right.active) .nav-links a,
-  html body.sub-page #header:has(.nav-right.active) .nav-item > span {
+  html body #header.menu-open .mobile-toggle span,
+  html body #header:has(.nav-right.active) .mobile-toggle span {
+    background: #ffffff !important;
+  }
+  
+  html body #header.menu-open .nav-links a,
+  html body #header.menu-open .nav-item > span,
+  html body #header:has(.nav-right.active) .nav-links a,
+  html body #header:has(.nav-right.active) .nav-item > span {
     color: rgba(255, 255, 255, 0.8) !important;
   }
   
-  html body.sub-page #header.menu-open .nav-item.mobile-open > span,
-  html body.sub-page #header.menu-open .nav-links a.active,
-  html body.sub-page #header.menu-open .nav-item > span.active,
-  html body.sub-page #header.menu-open .mega-right ul li a.active,
-  html body.sub-page #header:has(.nav-right.active) .nav-item.mobile-open > span,
-  html body.sub-page #header:has(.nav-right.active) .nav-links a.active,
-  html body.sub-page #header:has(.nav-right.active) .nav-item > span.active,
-  html body.sub-page #header:has(.nav-right.active) .mega-right ul li a.active {
+  html body #header.menu-open .nav-item.mobile-open > span,
+  html body #header.menu-open .nav-links a.active,
+  html body #header.menu-open .nav-item > span.active,
+  html body #header.menu-open .mega-right ul li a.active,
+  html body #header:has(.nav-right.active) .nav-item.mobile-open > span,
+  html body #header:has(.nav-right.active) .nav-links a.active,
+  html body #header:has(.nav-right.active) .nav-item > span.active,
+  html body #header:has(.nav-right.active) .mega-right ul li a.active {
     color: #ffffff !important;
   }
   
-  html body.sub-page #header.menu-open .mega-right ul li a {
+  html body #header.menu-open .mega-right ul li a {
     color: rgba(255, 255, 255, 0.8) !important;
   }
-  html body.sub-page #header.menu-open .mega-right ul li a:hover {
+  html body #header.menu-open .mega-right ul li a:hover {
     color: #ffffff !important;
   }
   
-  html body.sub-page #header.menu-open .nav-right .cta-button {
-    background: var(--daumis-yellow) !important;
+  html body #header.menu-open .nav-right .cta-button,
+  html body #header:has(.nav-right.active) .nav-right .cta-button {
+    background: #ffffff !important;
+    color: #020617 !important;
+    border: none !important;
+  }
+  
+  html body #header.menu-open .nav-right .cta-button:hover,
+  html body #header:has(.nav-right.active) .nav-right .cta-button:hover {
+    background: #f1f5f9 !important;
     color: #020617 !important;
   }
 }
