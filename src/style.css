@@ -844,6 +844,10 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   color: var(--daumis-yellow);
 }
 
+.mobile-home-btn {
+  display: none;
+}
+
 .mobile-toggle {
   display: none;
   flex-direction: column;
