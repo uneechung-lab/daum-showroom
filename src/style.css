@@ -798,7 +798,7 @@ body.sub-page:not(.force-dark) header.scrolled .mobile-toggle span { background:
 body.sub-page:not(.force-dark) header:has(.nav-item:hover) .mobile-toggle span { background: #1e293b; }
 body.sub-page:not(.force-dark) header.menu-open .mobile-toggle span { background: #1e293b; }
 
-.logo img.logo-light { height: 42px; width: auto; }
+.logo img.logo-light { height: 52px; width: auto; }
 .logo img.logo-dark { height: 52px; width: auto; }
 
 /* Handle dual logo swap only on sub-page scrolling or hover-open */
@@ -897,7 +897,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .nav-right { gap: 1.5rem; }
   .nav-links { gap: 1.5rem; }
   .logo { height: 36px; }
-  .logo img.logo-light { height: 28px; }
+  .logo img.logo-light { height: 32px; }
   .logo img.logo-dark { height: 32px; }
   .logo-text { font-size: var(--font-body); }
 }
