@@ -748,6 +748,8 @@ body.theme-light #header .nav-item > span {
 /* Revert to dark color on light backgrounds (scrolled, hovered, or menu open) ONLY for sub-pages (excluding force-dark) */
 body.sub-page:not(.force-dark) #header.scrolled .nav-links a,
 body.sub-page:not(.force-dark) #header.scrolled .nav-links span,
+body.sub-page:not(.force-dark) #header.menu-open .nav-links a,
+body.sub-page:not(.force-dark) #header.menu-open .nav-links span,
 body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .nav-links a,
 body.sub-page:not(.force-dark) #header:has(.nav-item:hover) .nav-links span {
     color: var(--text-inverse-primary);
