@@ -1096,15 +1096,15 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   
   html body #header.menu-open .nav-right .cta-button,
   html body #header:has(.nav-right.active) .nav-right .cta-button {
-    background: #ffffff !important;
-    color: #020617 !important;
+    background: transparent !important;
+    color: #ffffff !important;
     border: none !important;
   }
   
   html body #header.menu-open .nav-right .cta-button:hover,
   html body #header:has(.nav-right.active) .nav-right .cta-button:hover {
-    background: #f1f5f9 !important;
-    color: #020617 !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.8) !important;
   }
 }
 
