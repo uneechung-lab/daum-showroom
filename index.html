@@ -54,6 +54,13 @@
       var W = canvas.width, H = canvas.height;
       var cx = W / 2, cy = H / 2;
 
+      var nextFontSize = 160;
+      ctx.font = '900 160px "Outfit","Pretendard Variable",sans-serif';
+      var nextWidth = ctx.measureText('NEXT').width;
+      if (nextWidth > W - 30) {
+        nextFontSize = 160 * ((W - 30) / nextWidth);
+      }
+
       var YELLOW = '#FFB800';
       var particles = [], particlesSpawned = false;
 
@@ -169,13 +176,13 @@
         } else if (pn === 'next-appear') {
           var p2 = Math.min(t / 0.65, 1);
           drawWord('NEXT', lerp(0,1,easeOut(p2)), lerp(35,0,easeOut(p2)),
-                   lerp(0.3,1,easeOut(p2)), lerp(0.3,1,easeOut(p2)), 160, YELLOW);
+                   lerp(0.3,1,easeOut(p2)), lerp(0.3,1,easeOut(p2)), nextFontSize, YELLOW);
 
         } else if (pn === 'next-zoom') {
           if (!particlesSpawned) { spawnParticles(); particlesSpawned = true; }
           var zoom = lerp(1, 45, easeIn(t));
           var alpZ = t < 0.55 ? 1 : lerp(1, 0, (t - 0.55) / 0.45);
-          drawWord('NEXT', alpZ, lerp(0,80,easeIn(t)), zoom, zoom, 160, YELLOW);
+          drawWord('NEXT', alpZ, lerp(0,80,easeIn(t)), zoom, zoom, nextFontSize, YELLOW);
           drawParticles(dt);
 
         } else if (pn === 'fadeout') {

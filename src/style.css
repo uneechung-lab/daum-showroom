@@ -798,7 +798,7 @@ body.sub-page:not(.force-dark) header.scrolled .mobile-toggle span { background:
 body.sub-page:not(.force-dark) header:has(.nav-item:hover) .mobile-toggle span { background: #1e293b; }
 body.sub-page:not(.force-dark) header.menu-open .mobile-toggle span { background: #1e293b; }
 
-.logo img.logo-light { height: 52px; width: auto; }
+.logo img.logo-light { height: 76px; width: auto; }
 .logo img.logo-dark { height: 52px; width: auto; }
 
 /* Handle dual logo swap only on sub-page scrolling or hover-open */
@@ -897,7 +897,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .nav-right { gap: 1.5rem; }
   .nav-links { gap: 1.5rem; }
   .logo { height: 36px; }
-  .logo img.logo-light { height: 32px; }
+  .logo img.logo-light { height: 47px; }
   .logo img.logo-dark { height: 32px; }
   .logo-text { font-size: var(--font-body); }
 }
@@ -1025,7 +1025,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
   
   .logo { height: 48px; gap: 6px; }
-  .logo img.logo-light { height: 44px; }
+  .logo img.logo-light { height: 65px; }
   .logo img.logo-dark { height: 44px; }
   .logo-text { font-size: 1.2rem; }
   
@@ -1126,7 +1126,7 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
 
 @media (max-width: 480px) {
   .logo { height: 44px; }
-  .logo img.logo-light { height: 40px; }
+  .logo img.logo-light { height: 59px; }
   .logo img.logo-dark { height: 40px; }
   .logo-text { font-size: var(--font-body-lg); }
   .section-title { font-size: var(--font-h3); margin-bottom: 1.2rem; }
