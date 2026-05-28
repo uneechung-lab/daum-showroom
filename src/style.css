@@ -1028,36 +1028,47 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   }
 
   /* --- Premium Active Mobile Menu Override --- */
-  html body.sub-page #header.menu-open {
-    background: rgba(2, 6, 23, 0.98) !important;
-    border-bottom: none !important;
+  html body.sub-page #header.menu-open,
+  html body.sub-page #header:has(.nav-right.active) {
+    background: #ffffff !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
   }
   
-  html body.sub-page #header.menu-open .logo .logo-light {
-    display: block !important;
-  }
-  
-  html body.sub-page #header.menu-open .logo .logo-dark {
+  html body.sub-page #header.menu-open .logo .logo-light,
+  html body.sub-page #header:has(.nav-right.active) .logo .logo-light {
     display: none !important;
   }
   
-  html body.sub-page #header.menu-open .logo-text {
-    color: #ffffff !important;
+  html body.sub-page #header.menu-open .logo .logo-dark,
+  html body.sub-page #header:has(.nav-right.active) .logo .logo-dark {
+    display: flex !important;
   }
   
-  html body.sub-page #header.menu-open .mobile-toggle span {
-    background: #ffffff !important;
+  html body.sub-page #header.menu-open .logo-text,
+  html body.sub-page #header:has(.nav-right.active) .logo-text {
+    color: #0f172a !important;
+  }
+  
+  html body.sub-page #header.menu-open .mobile-toggle span,
+  html body.sub-page #header:has(.nav-right.active) .mobile-toggle span {
+    background: #0f172a !important;
   }
   
   html body.sub-page #header.menu-open .nav-links a,
-  html body.sub-page #header.menu-open .nav-item > span {
+  html body.sub-page #header.menu-open .nav-item > span,
+  html body.sub-page #header:has(.nav-right.active) .nav-links a,
+  html body.sub-page #header:has(.nav-right.active) .nav-item > span {
     color: rgba(255, 255, 255, 0.8) !important;
   }
   
   html body.sub-page #header.menu-open .nav-item.mobile-open > span,
   html body.sub-page #header.menu-open .nav-links a.active,
   html body.sub-page #header.menu-open .nav-item > span.active,
-  html body.sub-page #header.menu-open .mega-right ul li a.active {
+  html body.sub-page #header.menu-open .mega-right ul li a.active,
+  html body.sub-page #header:has(.nav-right.active) .nav-item.mobile-open > span,
+  html body.sub-page #header:has(.nav-right.active) .nav-links a.active,
+  html body.sub-page #header:has(.nav-right.active) .nav-item > span.active,
+  html body.sub-page #header:has(.nav-right.active) .mega-right ul li a.active {
     color: #ffffff !important;
   }
   

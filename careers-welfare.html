@@ -285,6 +285,17 @@
           gap: 2.5rem !important;
           align-items: flex-start !important;
           margin-top: 2rem !important;
+          position: relative !important;
+        }
+        .welfare-network-container::before {
+          content: "" !important;
+          position: absolute !important;
+          left: 32px !important;
+          top: 79px !important;
+          bottom: 79px !important;
+          width: 4px !important;
+          background: #0f172a !important;
+          z-index: 0 !important;
         }
         .network-node {
           position: static !important;
@@ -297,10 +308,11 @@
           align-items: center !important;
         }
         .node-hub { 
-          position: static !important;
-          transform: none !important;
+          position: relative !important;
+          transform: translateY(15px) !important;
           margin-bottom: 0 !important; 
           flex-shrink: 0 !important; 
+          z-index: 2 !important;
         }
         .node-info { 
           position: static !important;
@@ -316,7 +328,7 @@
         .node-info p {
           font-size: 0.95rem !important;
         }
-        .node-small, .network-svg { display: none !important; }
+        .node-small, .network-svg, .sub-1, .sub-2, .sub-3, .sub-4 { display: none !important; }
       }
 
       /* Global overrides for Mobile Menu on Sub-pages (White Background Fixes) */
@@ -676,17 +688,17 @@
             <div class="welfare-card">
               <i data-lucide="party-popper"></i>
               <h5>생일축하 상품권</h5>
-              <p>생일인 직원에게 10만원권 상품권 제공</p>
+              <p>생일을 맞이한 임직원 대상 축하 상품권 지급</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="credit-card"></i>
               <h5>복지카드 제공</h5>
-              <p>차년도 근무 직원 대상 최소 30여만원 상당 카드 제공 (근속/실적 차등)</p>
+              <p>근속 및 성과 기준에 따른 차등형 복지 포인트 카드 지급</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="utensils"></i>
               <h5>점심 식대 지원</h5>
-              <p>년 240만원 상당의 '현금 결제형' 중식 지원</p>
+              <p>매 영업일 점심식사 비용 지원 (현금 결제형)</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="home"></i>
@@ -701,7 +713,7 @@
             <div class="welfare-card">
               <i data-lucide="users"></i>
               <h5>동호회 지원</h5>
-              <p>취미 활동 및 소통을 위한 월 5만원 동호회비 지원</p>
+              <p>사내 동호회 활성화를 위한 취미 활동 및 소통 비용 지원</p>
             </div>
           </div>
         </div>
@@ -760,27 +772,27 @@
             <div class="welfare-card">
               <i data-lucide="banknote"></i>
               <h5>생활안정대부금 지원</h5>
-              <p>한도 500만원, 18개월 균등 분할 상환</p>
+              <p>임직원 생활 안정을 위한 대부 제도 운영 및 균등 분할 상환 지원</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="heart-pulse"></i>
               <h5>가족 건강검진 지원</h5>
-              <p>기혼: 배우자 무상지원(KMI 20만원 상당)<br>미혼: 직계존비속 1명 무상지원</p>
+              <p>임직원 가족(배우자 또는 직계존비속 중 1인) 대상 종합 무상 건강검진 지원</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="palmtree"></i>
               <h5>장기근속자 포상</h5>
-              <p>5년(100만)/10년(200만)/20년(300만) 포상금 및 5일 유급휴가 제공</p>
+              <p>근속 연수별(5년/10년/20년) 특별 포상금 지급 및 리프레시 유급 휴가 부여</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="user-plus"></i>
               <h5>인력 추천 인센티브</h5>
-              <p>채용 시 10만원, 6개월 이상 근무 시 50만원 추가 지급</p>
+              <p>사내 인재 추천 인센티브 지급 (채용 시, 6개월 이상 근무 시 총 2회)</p>
             </div>
             <div class="welfare-card">
               <i data-lucide="award"></i>
               <h5>직무 수당제</h5>
-              <p>PM: 15억↑ 50만원, ↓ 40만원 지급 <br>PL: 30만원 지급</p>
+              <p>담당 프로젝트 규모 및 역할(PM/PL 등)에 따른 직무 수당 차등 지급</p>
             </div>
           </div>
         </div>
