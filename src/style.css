@@ -1027,6 +1027,22 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
     padding-bottom: 4rem; /* Add space so last item isn't hidden behind floating button */
   }
 
+  .mobile-home-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff !important;
+    width: 40px;
+    height: 40px;
+    z-index: 100002 !important;
+    position: relative !important;
+    margin-left: -8px;
+  }
+  .mobile-home-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
   /* --- Premium Active Mobile Menu Override --- */
   html body #header.menu-open,
   html body #header:has(.nav-right.active) {
@@ -1037,27 +1053,19 @@ body.sub-page:not(.force-dark) header.menu-open .logo .logo-dark { display: flex
   
   html body #header.menu-open .logo,
   html body #header:has(.nav-right.active) .logo {
-    position: relative !important;
-    z-index: 100001 !important;
-  }
-  
-  html body #header.menu-open .logo .logo-light,
-  html body #header:has(.nav-right.active) .logo .logo-light {
-    display: flex !important;
-  }
-  
-  html body #header.menu-open .logo .logo-dark,
-  html body #header:has(.nav-right.active) .logo .logo-dark {
     display: none !important;
   }
   
-  html body #header.menu-open .logo-text,
-  html body #header:has(.nav-right.active) .logo-text {
-    color: var(--daumis-yellow) !important;
+  html body #header.menu-open .mobile-home-btn,
+  html body #header:has(.nav-right.active) .mobile-home-btn {
+    display: flex !important;
   }
   
+  html body #header .mobile-toggle.active span,
   html body #header.menu-open .mobile-toggle span,
-  html body #header:has(.nav-right.active) .mobile-toggle span {
+  html body #header:has(.nav-right.active) .mobile-toggle span,
+  html body #header.menu-open .mobile-toggle.active span,
+  html body #header:has(.nav-right.active) .mobile-toggle.active span {
     background: #ffffff !important;
   }
   
