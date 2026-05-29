@@ -520,7 +520,13 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // ZAL Supabase Client Initialization
+        const ZAL_SUPABASE_URL = 'https://jbteuyoazgrjzxhlbmml.supabase.co';
+        const ZAL_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpidGV1eW9hemdyanp4aGxibW1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NjAwMzgsImV4cCI6MjA5MTAzNjAzOH0.9OSDG4y4cFii5Ry-VLmDClbJJLqYxFFPwwfHILe2Nmg';
+        const zalSupabase = window.supabase ? window.supabase.createClient(ZAL_SUPABASE_URL, ZAL_SUPABASE_KEY) : null;
+
         // Force a layout reflow to solve Chrome's rendering bug where autofilled inputs and web-font text in inputs do not paint at the correct size until user interaction (click).
         function forceReflow() {
             const body = document.body;
@@ -559,62 +565,76 @@
             logoDropdown.classList.remove('show');
         });
 
+        // Reusable function to select brand
+        function selectBrand(selectedValue) {
+            // Toggle active states
+            dropdownItems.forEach(i => i.classList.remove('active'));
+            const activeItem = Array.from(dropdownItems).find(i => i.getAttribute('data-value') === selectedValue);
+            if (activeItem) activeItem.classList.add('active');
+
+            // Update selected brand value on trigger and container
+            logoTrigger.setAttribute('data-brand', selectedValue);
+            logoContainer.setAttribute('data-brand', selectedValue);
+
+            if (selectedValue === 'daumis') {
+                // Show DAUMIS logo, hide ZAL logo
+                logoDaumis.style.display = 'block';
+                logoZal.style.display = 'none';
+
+                // Revert input field behavior to DAUMIS settings
+                usernameInput.value = 'admin';
+                usernameInput.removeAttribute('placeholder');
+                emailSuffix.style.display = 'block';
+
+                // Revert bottom link to main homepage settings
+                backToSiteLink.textContent = '메인 홈페이지로';
+                backToSiteLink.setAttribute('href', '/');
+            } else if (selectedValue === 'zal') {
+                // Show ZAL logo, hide DAUMIS logo
+                logoDaumis.style.display = 'none';
+                logoZal.style.display = 'inline-block';
+
+                // Set input field behavior to ZAL settings
+                usernameInput.value = '';
+                usernameInput.setAttribute('placeholder', 'email ID');
+                emailSuffix.style.display = 'block';
+
+                // Set bottom link to ZAL settings
+                backToSiteLink.textContent = '잘먹으로';
+                backToSiteLink.setAttribute('href', 'https://daum-zal.vercel.app/employee.html');
+            }
+
+            // Close dropdown
+            logoContainer.classList.remove('open');
+            logoDropdown.classList.remove('show');
+            
+            // Force a reflow to render correctly
+            forceReflow();
+        }
+
         // Handle dropdown item selection
         const dropdownItems = document.querySelectorAll('.dropdown-item');
         dropdownItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const selectedValue = this.getAttribute('data-value');
-
-                // Toggle active states
-                dropdownItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-
-                // Update selected brand value on trigger and container
-                logoTrigger.setAttribute('data-brand', selectedValue);
-                logoContainer.setAttribute('data-brand', selectedValue);
-
-                if (selectedValue === 'daumis') {
-                    // Show DAUMIS logo, hide ZAL logo
-                    logoDaumis.style.display = 'block';
-                    logoZal.style.display = 'none';
-
-                    // Revert input field behavior to DAUMIS settings
-                    usernameInput.value = 'admin';
-                    usernameInput.removeAttribute('placeholder');
-                    emailSuffix.style.display = 'block';
-
-                    // Revert bottom link to main homepage settings
-                    backToSiteLink.textContent = '메인 홈페이지로';
-                    backToSiteLink.setAttribute('href', '/');
-                } else if (selectedValue === 'zal') {
-                    // Show ZAL logo, hide DAUMIS logo
-                    logoDaumis.style.display = 'none';
-                    logoZal.style.display = 'inline-block';
-
-                    // Set input field behavior to ZAL settings
-                    usernameInput.value = '';
-                    usernameInput.setAttribute('placeholder', 'email ID');
-                    emailSuffix.style.display = 'block';
-
-                    // Set bottom link to ZAL settings
-                    backToSiteLink.textContent = '잘먹으로';
-                    backToSiteLink.setAttribute('href', 'https://daum-zal.vercel.app/employee.html');
-                }
-
-                // Close dropdown
-                logoContainer.classList.remove('open');
-                logoDropdown.classList.remove('show');
-                
-                // Force a reflow to render correctly
-                forceReflow();
+                selectBrand(selectedValue);
             });
         });
+
+        // URL 쿼리 파라미터 감지하여 기본 선택 브랜드 변경 (?brand=zal 등)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlBrand = urlParams.get('brand') || urlParams.get('defaultBrand');
+        if (urlBrand === 'zal') {
+            selectBrand('zal');
+        } else {
+            selectBrand('daumis');
+        }
 
         const loginForm = document.getElementById('loginForm');
         const errorBox = document.getElementById('errorBox');
 
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = usernameInput.value;
@@ -622,6 +642,7 @@
             const currentBrand = logoTrigger.getAttribute('data-brand') || 'daumis';
 
             let loginSuccess = false;
+            errorBox.style.display = 'none';
 
             if (currentBrand === 'daumis') {
                 const fullEmail = username + '@daumit.net';
@@ -629,22 +650,52 @@
                     loginSuccess = true;
                 }
             } else if (currentBrand === 'zal') {
-                // ZAL admin credential check
-                if((username === 'admin@zal.com' || username === 'admin') && password === '1234') {
-                    loginSuccess = true;
+                if (zalSupabase) {
+                    try {
+                        let loginEmail = username;
+                        // 만약 아이디에 골뱅이(@)가 포함되지 않은 경우 자동 완성 처리
+                        if (!loginEmail.includes('@')) {
+                            loginEmail = username + '@daumit.net';
+                        }
+                        
+                        // Supabase Auth 로그인 요청
+                        const { data, error } = await zalSupabase.auth.signInWithPassword({
+                            email: loginEmail,
+                            password: password
+                        });
+
+                        if (error) {
+                            console.error('ZAL Login Error:', error.message);
+                            errorBox.textContent = '이메일 또는 비밀번호가 올바르지 않습니다.';
+                            loginSuccess = false;
+                        } else if (data && data.user) {
+                            loginSuccess = true;
+                        }
+                    } catch (err) {
+                        console.error('Supabase connection error:', err);
+                        errorBox.textContent = '서버 연결에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+                        loginSuccess = false;
+                    }
+                } else {
+                    errorBox.textContent = 'Supabase 라이브러리를 로드하지 못했습니다.';
                 }
             }
 
             if(loginSuccess) {
                 sessionStorage.setItem('isAdminLoggedIn', 'true');
                 
-                // 로그인 완료 후 가려던 원본 페이지가 있으면 그곳으로, 없으면 메인으로 이동
-                const urlParams = new URLSearchParams(window.location.search);
-                const returnTo = urlParams.get('returnTo');
-                if (returnTo) {
-                    window.location.href = decodeURIComponent(returnTo);
+                if (currentBrand === 'zal') {
+                    window.open('https://daum-zal.vercel.app/admin.html', '_blank');
+                    window.location.href = '/';
                 } else {
-                    window.location.href = '/admin/index.html';
+                    // 로그인 완료 후 가려던 원본 페이지가 있으면 그곳으로, 없으면 메인으로 이동
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const returnTo = urlParams.get('returnTo');
+                    if (returnTo) {
+                        window.location.href = decodeURIComponent(returnTo);
+                    } else {
+                        window.location.href = '/admin/index.html';
+                    }
                 }
             } else {
                 errorBox.style.display = 'block';
