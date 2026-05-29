@@ -685,8 +685,13 @@
                 sessionStorage.setItem('isAdminLoggedIn', 'true');
                 
                 if (currentBrand === 'zal') {
-                    window.open('https://daum-zal.vercel.app/admin.html', '_blank');
-                    window.location.href = '/';
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const returnTo = urlParams.get('returnTo');
+                    if (returnTo) {
+                        window.location.href = decodeURIComponent(returnTo);
+                    } else {
+                        window.location.href = 'https://daum-zal.vercel.app/admin.html';
+                    }
                 } else {
                     // 로그인 완료 후 가려던 원본 페이지가 있으면 그곳으로, 없으면 메인으로 이동
                     const urlParams = new URLSearchParams(window.location.search);
