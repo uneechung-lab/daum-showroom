@@ -687,7 +687,7 @@
                 if (currentBrand === 'zal') {
                     const urlParams = new URLSearchParams(window.location.search);
                     const returnTo = urlParams.get('returnTo');
-                    if (returnTo) {
+                    if (returnTo && (returnTo.includes('daum-zal.vercel.app') || returnTo.includes('localhost') || returnTo.includes('127.0.0.1'))) {
                         window.location.href = decodeURIComponent(returnTo);
                     } else {
                         window.location.href = 'https://daum-zal.vercel.app/admin.html';
