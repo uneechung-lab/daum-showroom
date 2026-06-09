@@ -2256,6 +2256,12 @@ body.sub-page .module-section {
   transform: translateY(-20px);
 }
 
+@media (max-width: 1300px) {
+  .cta-character {
+    display: none !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .cta-text { font-size: 2.5rem; }
   .cta-character { right: -200px; width: 660px; bottom: -280px; }

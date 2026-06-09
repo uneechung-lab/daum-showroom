@@ -153,7 +153,8 @@
         .vision-grid { display: flex; flex-direction: column; gap: 0; }
         .vision-text { display: contents; }
         .vision-text h1 { order: 1; font-size: 2.2rem; margin-bottom: 2rem; }
-        .vision-img { order: 2; height: 400px; margin-top: 0; margin-bottom: 2rem; border-radius: 24px; width: 100%; }
+        .vision-img { order: 2; height: auto; margin-top: 0; margin-bottom: 2rem; border-radius: 24px; width: 100%; }
+        .vision-img img { height: auto !important; object-fit: contain !important; }
         .vision-text p { order: 3; font-size: 1.05rem; }
         .ceo-sign { order: 4; margin-top: 2rem; }
         .hero-section { padding: 120px 0 60px !important; }
@@ -161,7 +162,7 @@
         .ceo-sign p .name { font-size: 1.8rem; }
       }
       @media (max-width: 768px) {
-        .vision-img { height: 300px; }
+        .vision-img { height: auto; }
         .hero-section { padding: 100px 0 40px !important; }
         .vision-text h1 { font-size: 1.8rem; }
       }
