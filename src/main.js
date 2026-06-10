@@ -726,7 +726,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.addEventListener('click', closeDrawer);
 
     // Intercept CTA buttons
-    document.querySelectorAll('a[href="/inquiry.html"], .cta-button').forEach(btn => {
+    document.querySelectorAll('a[href="/inquiry.html"]').forEach(btn => {
       btn.addEventListener('click', openDrawer);
     });
 
