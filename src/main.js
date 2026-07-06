@@ -693,6 +693,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <input type="checkbox" required>
               <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
             </label>
+            <!-- Honeypot field to block automated bots -->
+            <div style="display: none !important; visibility: hidden !important; width: 0; height: 0; overflow: hidden;">
+              <input type="text" name="bot_honeypot" tabindex="-1" autocomplete="off">
+            </div>
             <button type="submit" class="drawer-submit">
               문의하기 <i data-lucide="send"></i>
             </button>
@@ -709,8 +713,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('closeInquiry');
     const form = document.getElementById('drawerForm');
 
+    let drawerOpenTime = 0;
+
     const openDrawer = (e) => {
       if (e) e.preventDefault();
+      drawerOpenTime = Date.now();
       drawer.classList.add('active');
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -732,6 +739,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Honeypot check
+      const honeypot = form.querySelector('input[name="bot_honeypot"]').value;
+      if (honeypot) {
+        console.warn('Spam submission detected (honeypot).');
+        alert('문의가 성공적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        closeDrawer();
+        form.reset();
+        return;
+      }
+
+      // Speed check (bots submit instantly)
+      const submitDuration = Date.now() - drawerOpenTime;
+      if (submitDuration < 2000) {
+        console.warn('Spam submission detected (speed limit).');
+        alert('문의가 성공적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        closeDrawer();
+        form.reset();
+        return;
+      }
+
       const submitBtn = form.querySelector('.drawer-submit');
       if (submitBtn) {
         submitBtn.disabled = true;

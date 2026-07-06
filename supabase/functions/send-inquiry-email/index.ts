@@ -23,6 +23,53 @@ serve(async (req) => {
 
     const { name, company, email, phone, subject, content } = newRecord;
 
+    // --- Anti-Spam Bot Filter ---
+    const isSpam = () => {
+      if (!name || !company || !email) return true;
+
+      // 1. Pure gibberish English (no space, mix of uppercase/lowercase, 8+ characters)
+      const gibberishRegex = /^[A-Za-z]{8,}$/;
+      const hasMix = (str: string) => /[a-z]/.test(str) && /[A-Z]/.test(str);
+
+      if ((gibberishRegex.test(name) && hasMix(name)) || 
+          (gibberishRegex.test(company) && hasMix(company)) ||
+          (content && gibberishRegex.test(content) && hasMix(content))) {
+        return true;
+      }
+
+      // 2. Suspicious phone formats (non-Korean, e.g. 10-digit number not starting with 0, 1, or 82)
+      const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
+      if (cleanPhone.length >= 10 && 
+          !cleanPhone.startsWith('0') && 
+          !cleanPhone.startsWith('1') && 
+          !cleanPhone.startsWith('82')) {
+        return true;
+      }
+
+      // 3. Gmail dot trick (abuse technique: 4+ dots in Gmail username)
+      const emailParts = email.split('@');
+      if (emailParts.length === 2 && emailParts[1].toLowerCase() === 'gmail.com') {
+        const username = emailParts[0];
+        const dotCount = (username.match(/\./g) || []).length;
+        if (dotCount >= 4) {
+          return true;
+        }
+      }
+
+      return false;
+    };
+
+    if (isSpam()) {
+      console.warn(`Spam inquiry blocked. Name: ${name}, Company: ${company}, Email: ${email}, Phone: ${phone}`);
+      return new Response(JSON.stringify({ success: true, spam: true, message: "Spam inquiry filtered. Email not sent." }), {
+        headers: { 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+        status: 200,
+      });
+    }
+
     // Fetch environmental keys
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') || "re_your_api_key";
     
