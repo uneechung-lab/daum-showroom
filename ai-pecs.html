@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>에이펙스 (AI-PECS) | 다음정보시스템즈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+        body { font-family: 'Pretendard Variable', sans-serif; background-color: #ffffff; color: #020617; margin: 0; }
+        .grid { display: grid; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .flex-col { flex-direction: column; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        @media (min-width: 768px) {
+            .md-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+
+        /* Header Style for White Theme (ai-lab.html 과 동일) */
+        #header { position: fixed; top: 0; left: 0; width: 100%; background: #ffffff !important; border-bottom: none !important; z-index: 100001 !important; transition: none; }
+        #header .nav-links a, #header .nav-item > span { color: #1e293b !important; }
+        #header .logo .logo-light { display: none !important; }
+        #header .logo .logo-dark { display: block !important; }
+        #header .cta-button { background: #020617 !important; color: #ffffff !important; }
+
+        .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; }
+        .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1200px; margin-bottom: 2rem; }
+        .section-label { font-family: 'Outfit', sans-serif; font-size: 0.8rem !important; font-weight: 800 !important; color: #475569 !important; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1.2rem; }
+
+        .phi-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2.2rem 2.5rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); text-align: left; }
+        .phi-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); border-color: #cbd5e1; }
+
+        #footer { background: #020617; padding: 6rem 0; color: white; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+        /* =====================================================================
+           Solution detail page — AI-PECS (v2)
+           지면은 라이트, 제품 화면은 다크 그대로(창 크롬 프레임 없음 · 라운드+그림자만).
+           색은 사이트 팔레트(#0f172a · #475569 · #64748b · #94a3b8 · #e2e8f0 · #f1f5f9 · #f8fafc)
+           + 사이트 액센트(--daumis-yellow #ffb800)는 AI 연결 경로 강조 한 곳에만.
+           ===================================================================== */
+        .sub-page section.sol-hero { padding-top: 180px; padding-bottom: 0; }
+        /* Solution Top Bar (Back button + Tabs) */
+        .sol-top-bar {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2.2rem;
+            flex-wrap: wrap;
+        }
+        .sol-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            text-decoration: none;
+            margin-bottom: 0 !important;
+            transition: color .2s ease;
+        }
+        .sol-back:hover { color: #0f172a; }
+        .sol-back i { width: 16px; height: 16px; }
+
+        .sol-tab-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            max-width: 100%;
+        }
+        .sol-tab-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.2rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #64748b;
+            text-decoration: none;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .sol-tab-item:hover:not(.active) {
+            color: #0f172a;
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        .sol-tab-item.active {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+        }
+        .sol-tab-item i, .sol-tab-item svg {
+            width: 16px;
+            height: 16px;
+        }
+        @media (max-width: 768px) {
+            .sol-top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .sol-tab-nav {
+                width: 100%;
+                overflow-x: visible;
+            }
+            .sol-tab-item {
+                padding: 0.45rem 0.85rem;
+                font-size: 0.85rem;
+            }
+            .sol-tab-item .tab-en {
+                display: none;
+            }
+            .sol-tab-back {
+                padding: 0.45rem 0.75rem !important;
+            }
+        }
+        .sol-tab-back {
+            padding: 0.55rem 0.85rem !important;
+            justify-content: center;
+        }
+        .sol-tab-back i, .sol-tab-back svg {
+            width: 16px;
+            height: 16px;
+            color: #64748b;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .sol-tab-back:hover i, .sol-tab-back:hover svg {
+            color: #0f172a;
+            transform: translateX(-2px);
+        }
+
+        .sol-hero-head { max-width: 100%; }
+        .sol-hero .lab-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem !important; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; max-width: 1000px; }
+        .sol-hero .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1200px; margin-bottom: 2.5rem; word-break: keep-all; }
+        .sol-hero .lab-sub strong { color: inherit; font-weight: 600; }
+
+        .sol-badges { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 1.8rem; margin-bottom: 0; }
+        .sol-badge { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.95rem; border-radius: 999px; background: #f8fafc; border: 1px solid #e2e8f0; color: #334155; font-size: 0.88rem; font-weight: 600; word-break: keep-all; }
+        .sol-badge i, .sol-badge svg { width: 15px; height: 15px; color: #0f172a; }
+
+        .sol-btn-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid #0f172a;
+            color: #0f172a;
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+        }
+        .sol-btn-inline:hover {
+            background: #0f172a;
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+        }
+        .sol-btn-inline:hover i, .sol-btn-inline:hover svg {
+            color: #ffffff;
+        }
+        .sol-btn-inline i, .sol-btn-inline svg {
+            width: 14px;
+            height: 14px;
+            color: #0f172a;
+            transition: color 0.2s ease;
+        }
+
+        /* Hero stage — ai-lab 의 showcase box 문법(라이트 무대 + 블롭) 안에 다크 제품 화면 */
+        .sol-stage { position: relative; margin-top: 3.5rem; background: #f8fafc; border: 1px solid rgba(0,0,0,0.04); border-radius: 40px; padding: 3.5rem 3.5rem 0; overflow: hidden; box-shadow: inset 0 0 50px rgba(0,0,0,0.02); }
+        .sol-stage .bg-blobs { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+        .sol-stage .blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.22; }
+        .sol-stage .blob-1 { background: #0ea5e9; top: -25%; left: -5%; }
+        .sol-stage .blob-2 { background: #10b981; bottom: -35%; right: -5%; }
+        .sol-shot-frame { position: relative; z-index: 2; border-radius: 22px 22px 0 0; overflow: hidden; border: 1px solid rgba(15, 23, 42, 0.10); border-bottom: none; box-shadow: 0 40px 80px -30px rgba(2, 6, 23, 0.45), 0 12px 28px -12px rgba(2, 6, 23, 0.25); background: #1e1e1e; aspect-ratio: 16 / 8.2; }
+        .sol-shot-frame img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+        .sol-stage-caption { position: absolute; z-index: 3; left: 3.5rem; bottom: 1.6rem; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 999px; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(15,23,42,0.08); font-size: 0.8rem; color: #475569; font-weight: 600; letter-spacing: -0.01em; }
+        .sol-stage-caption i { width: 14px; height: 14px; color: #0f172a; }
+
+        /* Hero live scene — 프레임 안에 HTML 로 그린 다크 앱 화면(1440×738 캔버스)을 프레임 폭에 맞춰 scale 하고,
+           스크립트 타임라인(주기 t 로부터 상태를 멱등 적용)으로 "분석이 조립되는" 장면을 반복한다.
+           정적 PNG 는 폴백(감속 모션 선호·스크립트 부재). 실앱 다크 테마 문법(VS Code 다크 + 앰버 액센트)을 본뜬다. */
+        .sol-shot-frame .hero-poster { position: absolute; inset: 0; }
+        .sol-shot-frame.is-live .hero-poster { visibility: hidden; }
+        .hero-app { display: none; position: absolute; inset: 0; overflow: hidden; }
+        .sol-shot-frame.is-live .hero-app { display: block; }
+        .ha-canvas { --bg: #1e1e1e; --bg2: #262626; --bg-hover: #2a2d2e; --bg-active: #37373d; --fg: #d4d4d4; --fg-dim: #8b8b8b; --fg-faint: #5c5c5c; --border: #3a3a3a; --line: #2c2c2c; --accent: #e3990e; --accent-fg: #1e1e1e; --ok: #4ec9b0;
+                     position: absolute; left: 0; top: 0; width: 1440px; height: 738px; transform-origin: 0 0; background: var(--bg); color: var(--fg);
+                     font-family: 'Pretendard Variable', 'Segoe UI', sans-serif; font-size: 12.5px; line-height: 1.4; letter-spacing: 0; display: flex; flex-direction: column; user-select: none; text-align: left; }
+        .ha-canvas * { box-sizing: border-box; }
+        .ha-canvas .lucide { width: 14px; height: 14px; flex: 0 0 auto; }
+        .ha-mono { font-family: 'JetBrains Mono', 'Cascadia Mono', Consolas, monospace; }
+        .ha-title { height: 34px; display: flex; align-items: center; padding: 0 14px 0 12px; gap: 6px; border-bottom: 1px solid var(--border); flex: 0 0 auto; position: relative; }
+        .ha-logo { width: 16px; height: 16px; margin-right: 8px; color: var(--fg); }
+        .ha-menu { display: flex; gap: 2px; }
+        .ha-menu span { padding: 3px 8px; border-radius: 4px; font-size: 12.5px; }
+        .ha-wtitle { position: absolute; left: 50%; transform: translateX(-50%); color: var(--fg-dim); font-size: 12px; }
+        .ha-tr { margin-left: auto; display: flex; align-items: center; gap: 14px; color: var(--fg-dim); }
+        .ha-tr .amber { color: var(--accent); }
+        .ha-win { display: flex; gap: 18px; margin-left: 10px; color: var(--fg); }
+        .ha-body { flex: 1 1 auto; display: flex; min-height: 0; }
+        .ha-side { width: 244px; flex: 0 0 244px; border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 8px 8px 0; min-width: 0; }
+        .ha-tabs { display: flex; gap: 2px; }
+        .ha-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0 5px; width: 42px; font-size: 10px; color: var(--fg-dim); border-radius: 4px; position: relative; }
+        .ha-tab svg { width: 15px; height: 15px; }
+        .ha-tab.on { color: var(--fg); background: var(--bg-active); font-weight: 600; }
+        .ha-tab.on::after { content: ""; position: absolute; left: 6px; right: 6px; bottom: -1px; height: 2px; background: var(--accent); border-radius: 1px; }
+        .ha-seg { display: flex; margin: 10px 0 8px; }
+        .ha-seg span { flex: 1; text-align: center; padding: 5px 0; font-size: 12px; color: var(--fg-dim); border-radius: 4px; }
+        .ha-seg span.on { background: var(--bg-active); color: var(--fg); font-weight: 600; }
+        .ha-meta { list-style: none; margin: 0; padding: 0; }
+        .ha-meta li { padding: 5px 10px; border-radius: 4px; font-size: 12.5px; color: var(--fg); }
+        .ha-meta li.on { background: var(--bg-active); font-weight: 600; }
+        .ha-list-head { margin: 12px 10px 6px; font-size: 12px; color: var(--fg-dim); display: flex; gap: 5px; }
+        .ha-list-head b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+        .ha-filter { margin: 0 2px 6px; height: 24px; border: 1px solid var(--border); border-radius: 4px; padding: 0 8px; font-size: 11.5px; color: var(--fg-faint); display: flex; align-items: center; }
+        .ha-tables { list-style: none; margin: 0; padding: 0; }
+        .ha-tables, .ha-screens { list-style: none; margin: 0; padding: 0; }
+        .ha-tables li, .ha-screens li { display: flex; align-items: center; gap: 7px; padding: 5px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; overflow: hidden; opacity: 0; transform: translateX(-6px); transition: opacity .45s ease, transform .45s ease; }
+        .ha-tables li.on, .ha-screens li.on { opacity: 1; transform: none; }
+        .ha-tables li.sel, .ha-screens li.sel { background: var(--bg-active); }
+        .ha-tables li svg { color: var(--accent); width: 13px; height: 13px; }
+        .ha-screens li svg { color: var(--fg-dim); width: 13px; height: 13px; }
+        .ha-screens li { font-family: 'Pretendard Variable', sans-serif; font-size: 11.5px; }
+        .ha-scr-id { color: var(--accent); font-weight: 600; }
+        .ha-screens .ha-scr-id { margin-right: 2px; }
+        /* 비즈니스 나브 = 업무 도메인 트리(도메인 행 펼침/접힘 + 소속 화면). 화면 클릭이 중앙 화면 상세 분석 doc 탭이다 */
+        .ha-screens li.dom { font-weight: 600; }
+        .ha-screens li.dom .cnt { margin-left: auto; font-weight: 400; font-size: 10.5px; color: var(--fg-dim); }
+        .ha-screens li.scr { padding-left: 24px; }
+        .ha-screens li.grp { color: var(--fg-dim); margin-top: 4px; }
+        .ha-tables li .ko { color: var(--fg-dim); margin-left: 2px; font-family: 'Pretendard Variable', sans-serif; overflow: hidden; text-overflow: ellipsis; }
+        /* 2막 전환 — 1막 = 비즈니스(화면 상세 분석) · 2막(.act2) = 메타(테이블). 사이드 패널 두 장은 크로스페이드, 세그먼트 활성 표시는 .act2 가 정한다.
+           메인 본문은 전환 순간과 주기 끝에 페이드. .a1 = 메타 라벨(2막에서만) · .a2 = 화면 라벨(1막에서만) */
+        .ha-panes { position: relative; flex: 1 1 auto; min-height: 0; transition: opacity .3s ease; }
+        .ha-pane { position: absolute; inset: 0; display: flex; flex-direction: column; transition: opacity .3s ease; }
+        .ha-pane.meta { opacity: 0; }
+        .ha-canvas.act2 .ha-pane.meta { opacity: 1; }
+        .ha-canvas.act2 .ha-pane.biz { opacity: 0; }
+        .ha-seg .s-biz { background: var(--bg-active); color: var(--fg); font-weight: 600; }
+        .ha-canvas.act2 .ha-seg .s-biz { background: transparent; color: var(--fg-dim); font-weight: 400; }
+        .ha-canvas.act2 .ha-seg .s-meta { background: var(--bg-active); color: var(--fg); font-weight: 600; }
+        .ha-seg .s-meta.press { background: var(--bg-hover); color: var(--fg); }
+        .ha-main-body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; transition: opacity .3s ease; }
+        .ha-canvas.switch .ha-main-body, .ha-canvas.switch .ha-panes { opacity: 0; }
+        .ha-canvas.out .ha-main-body, .ha-canvas.out .ha-panes { opacity: 0; transition: opacity .55s ease; }
+        .ha-canvas:not(.act2) .a1 { display: none !important; }
+        .ha-canvas.act2 .a2 { display: none !important; }
+        .ha-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; border-right: 1px solid var(--border); }
+        .ha-etabs { height: 34px; display: flex; align-items: flex-end; gap: 2px; padding: 0 6px; background: var(--bg-hover); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+        .ha-etab { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 12px; color: var(--fg-dim); border-radius: 5px 5px 0 0; white-space: nowrap; }
+        .ha-etab.on { background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-bottom-color: var(--bg); margin-bottom: -1px; }
+        .ha-etab .x { color: var(--fg-faint); margin-left: 2px; }
+        .ha-vhead { height: 36px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+        .ha-vhead h3 { margin: 0; font-size: 13.5px; font-weight: 700; color: var(--fg); line-height: 1; letter-spacing: 0; }
+        .ha-pill { border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 11.5px; color: var(--fg-dim); white-space: nowrap; }
+        .ha-pill b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+        .ha-vhead .x { margin-left: auto; color: var(--fg-dim); }
+        .ha-strip { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 16px; font-size: 11.5px; color: var(--fg-dim); border-bottom: 1px solid var(--border); position: relative; flex: 0 0 auto; }
+        .ha-spin { color: var(--accent); width: 12px; text-align: center; font-size: 12px; flex: 0 0 12px; }
+        .ha-strip .ha-file { color: var(--fg); font-size: 11px; }
+        .ha-strip .ha-pct { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--fg); }
+        .ha-strip .bar { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; }
+        .ha-strip .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s linear, background .4s ease; }
+        .ha-strip.done .ha-spin { color: var(--ok); }
+        .ha-strip.done .bar i { background: var(--ok); }
+        .ha-view { flex: 1 1 auto; display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+        .ha-card { padding: 22px 24px; border-right: 1px solid var(--border); min-width: 0; }
+        .ha-card h4 { margin: 0 0 6px; display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; line-height: 1.2; }
+        .ha-chip { background: var(--bg-active); border-radius: 999px; padding: 2px 10px; font-size: 11.5px; font-weight: 500; font-family: 'Pretendard Variable', sans-serif; letter-spacing: 0; color: var(--fg); }
+        .ha-card h4 em { font-style: normal; font-weight: 400; font-size: 12.5px; color: var(--fg-dim); font-family: 'Pretendard Variable', sans-serif; }
+        .ha-evid { margin: 0 0 18px; font-size: 11.5px; color: var(--fg-dim); line-height: 1.4; }
+        .ha-cols-head { font-size: 12px; color: var(--fg-dim); margin-bottom: 6px; }
+        .ha-cols-head b { color: var(--fg); font-weight: 600; }
+        .ha-cols { font-size: 12px; --cols: 1.25fr 1.4fr 1.15fr 44px; }
+        .ha-cols .hd, .ha-cols .row { display: grid; grid-template-columns: var(--cols); align-items: center; column-gap: 8px; padding: 5px 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+        .ha-cols .hd { font-size: 11px; color: var(--fg-faint); border-bottom-color: var(--border); font-family: 'Pretendard Variable', sans-serif; }
+        .ha-cols .row { opacity: 0; transform: translateY(5px); transition: opacity .45s ease, transform .45s ease; }
+        .ha-cols .row.on { opacity: 1; transform: none; }
+        .ha-cols .pk { color: var(--accent); font-weight: 600; }
+        .ha-cols .ko { font-family: 'Pretendard Variable', sans-serif; }
+        .ha-cols .ko.est { color: var(--fg-dim); }
+        .ha-src { font-size: 10px; font-family: 'Pretendard Variable', sans-serif; color: var(--accent); justify-self: start; }
+        .ha-src.est { color: var(--fg-dim); border: 1px solid var(--border); border-radius: 3px; padding: 0 4px; line-height: 1.4; }
+        .ha-rel { padding: 22px 24px; display: flex; flex-direction: column; min-width: 0; }
+        .ha-rel h5 { margin: 0 0 8px; font-size: 12px; font-weight: 400; color: var(--fg-dim); line-height: 1.4; letter-spacing: 0; }
+        .ha-rel h5 b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+        .ha-rels { list-style: none; margin: 0 0 22px; padding: 0; }
+        .ha-rels li { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 11px; white-space: nowrap; opacity: 0; transform: translateY(5px); transition: opacity .45s ease, transform .45s ease; }
+        .ha-rels li.on { opacity: 1; transform: none; }
+        .ha-rels .arrow { color: var(--fg-dim); }
+        .ha-fk { margin-left: auto; border: 1px solid var(--border); border-radius: 3px; padding: 0 5px; font-size: 10px; color: var(--fg-dim); font-family: 'Pretendard Variable', sans-serif; line-height: 1.5; }
+        .ha-canvas .ha-erd { width: 100%; max-height: 250px; height: auto; display: block; }
+        .ha-refs { list-style: none; margin: 0; padding: 0; }
+        .ha-refs li { font-size: 11px; color: var(--fg); padding: 3px 0; opacity: 0; transform: translateY(5px); transition: opacity .45s ease, transform .45s ease; }
+        .ha-refs li.on { opacity: 1; transform: none; }
+        .ha-refs-head { margin-top: 22px; }
+        .ha-erd .node { opacity: 0; transform: scale(.85); transform-box: fill-box; transform-origin: center; transition: opacity .4s ease, transform .45s cubic-bezier(.2, .8, .2, 1); }
+        .ha-erd .node.on { opacity: 1; transform: none; }
+        .ha-erd .node rect { fill: var(--bg2); stroke: var(--border); rx: 6; }
+        .ha-erd .node.hub rect { stroke: var(--accent); }
+        .ha-erd .node text { fill: var(--fg); font-size: 9px; font-family: 'JetBrains Mono', Consolas, monospace; text-anchor: middle; dominant-baseline: middle; }
+        .ha-erd .node text.ko { fill: var(--fg-dim); font-size: 8.5px; font-family: 'Pretendard Variable', sans-serif; }
+        .ha-erd .edge { fill: none; stroke: var(--fg-dim); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .9s ease; }
+        .ha-erd .edge.on { stroke-dashoffset: 0; }
+        /* 1막 — 화면 상세 분석 문서(좌: 개요·항목 명세·화면 기능 / 우: 처리 흐름도 — 섹션 하나). 실앱 문서 렌더 문법을 본뜬다 */
+        .ha-doc { display: grid; flex: 1 1 auto; min-height: 0; grid-template-columns: 1.3fr 1fr; column-gap: 28px; padding: 20px 26px 0; align-content: start; }
+        .ha-canvas.act2 .ha-doc { display: none; }
+        .ha-canvas:not(.act2) .ha-view { display: none; }
+        .ha-doc-col { min-width: 0; }
+        .ha-doc-head { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+        .ha-doc-head b { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); }
+        .ha-doc-head .ha-scr-id { font-size: 14px; }
+        .ha-chip.outline { background: transparent; border: 1px solid var(--border); color: var(--fg-dim); }
+        .ha-doc-btns { margin-left: auto; display: flex; gap: 6px; }
+        .ha-btn { border: 1px solid var(--border); border-radius: 5px; padding: 3px 10px; font-size: 11px; color: var(--fg); white-space: nowrap; }
+        .ha-btn.solid { background: var(--bg-active); border-color: transparent; }
+        .ha-src-chip { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; color: var(--fg-dim); margin-bottom: 14px; }
+        .ha-sec { margin-bottom: 16px; }
+        .ha-sec h6 { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--fg); padding-bottom: 5px; border-bottom: 1px solid var(--line); letter-spacing: 0; line-height: 1.4; }
+        .ha-sec p { margin: 0; font-size: 11.5px; line-height: 1.6; color: var(--fg); word-break: keep-all; }
+        .ha-sec p.path { color: var(--fg-dim); margin-bottom: 4px; }
+        .ha-sec p.body { min-height: 55px; }
+        .ha-tbl { font-size: 11.5px; --cols: 58px 140px 1fr; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+        .ha-tbl.fn { --cols: 44px 100px 1fr; }
+        .ha-tbl .hd, .ha-tbl .row { display: grid; grid-template-columns: var(--cols); column-gap: 10px; align-items: center; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+        .ha-tbl .row:last-child { border-bottom: none; }
+        .ha-tbl .hd { background: var(--bg2); color: var(--fg-dim); font-size: 11px; border-bottom-color: var(--border); }
+        .ha-tbl .row { opacity: 0; transform: translateY(5px); transition: opacity .45s ease, transform .45s ease; }
+        .ha-tbl .row.on { opacity: 1; transform: none; }
+        .ha-tbl .row > span { overflow: hidden; text-overflow: ellipsis; }
+        .ha-tbl .row i { font-style: normal; color: var(--fg-dim); font-family: 'Pretendard Variable', sans-serif; font-size: 10.5px; margin-left: 4px; }
+        .ha-vchip { display: inline-block; font-style: normal; font-family: 'Pretendard Variable', sans-serif; font-size: 10px; border: 1px solid var(--border); border-radius: 3px; padding: 0 5px; color: var(--fg-dim); margin-left: 6px; line-height: 1.5; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+        .ha-vchip.ok { background: var(--bg-active); border-color: transparent; color: var(--fg); }
+        .ha-flow { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px 6px; margin-bottom: 10px; background: var(--bg2); }
+        .ha-flow .ttl { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; margin-bottom: 4px; color: var(--fg); }
+        .ha-flow .ttl b { color: var(--fg-dim); font-weight: 600; font-size: 11px; }
+        .ha-flow .step { display: flex; align-items: center; gap: 8px; padding: 4px 0 4px 12px; font-size: 11.5px; position: relative; opacity: 0; transform: translateY(5px); transition: opacity .45s ease, transform .45s ease; white-space: nowrap; overflow: hidden; }
+        .ha-flow .step.on { opacity: 1; transform: none; }
+        .ha-flow .step::before { content: ""; position: absolute; left: 3px; top: 0; bottom: 0; border-left: 1px solid var(--border); }
+        .ha-flow .step:last-child::before { bottom: 50%; }
+        .ha-flow .step::after { content: ""; position: absolute; left: 3px; top: 50%; width: 5px; border-top: 1px solid var(--border); }
+        .ha-flow .no { color: var(--fg-dim); font-family: 'JetBrains Mono', Consolas, monospace; font-size: 10.5px; width: 22px; flex: 0 0 22px; }
+        .ha-flow .who { font-weight: 700; }
+        .ha-flow .step .ha-vchip { margin-left: auto; }
+        .ha-chat { width: 430px; flex: 0 0 430px; display: flex; flex-direction: column; min-width: 0; }
+        .ha-ctabs { height: 34px; display: flex; align-items: flex-end; padding: 0 6px; background: var(--bg-hover); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+        .ha-ctabs .sp { margin-left: auto; display: flex; gap: 14px; align-items: center; height: 30px; color: var(--fg-dim); padding-right: 6px; }
+        .ha-msgs { flex: 1 1 auto; padding: 18px 16px 0; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+        .ha-user { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 12.5px; }
+        /* 채팅 항목은 접힘(0fr)→펼침(1fr) 으로 등장해, 아직 안 나온 항목이 빈칸을 차지하지 않는다 */
+        .ha-chat-dyn { display: flex; flex-direction: column; }
+        .ha-cf { display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0; transition: grid-template-rows .45s ease, opacity .45s ease, margin-top .45s ease; }
+        .ha-cf > * { min-height: 0; overflow: hidden; }
+        .ha-cf.on { grid-template-rows: 1fr; opacity: 1; margin-top: 14px; }
+        .ha-status .lucide.ok { color: var(--ok); width: 12px; height: 12px; }
+        .ha-rail { position: relative; padding-left: 22px; }
+        .ha-rail::before { content: ""; position: absolute; left: 4px; top: 5px; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--accent); background: var(--bg); }
+        .ha-rail .lbl { font-size: 12.5px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+        .ha-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--fg-dim); line-height: 1.4; }
+        .ha-ai { font-size: 12.5px; line-height: 1.6; color: var(--fg); min-height: 60px; word-break: keep-all; }
+        .ha-caret { display: inline-block; width: 2px; height: 13px; background: var(--accent); vertical-align: -2px; margin-left: 2px; animation: haBlink 1s steps(2) infinite; }
+        @keyframes haBlink { to { visibility: hidden; } }
+        .ha-result { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
+        .ha-result svg { color: var(--ok); width: 15px; height: 15px; margin-top: 1px; }
+        .ha-result b { display: block; font-size: 12.5px; margin-bottom: 3px; font-weight: 700; }
+        .ha-result span { font-size: 11.5px; color: var(--fg-dim); }
+        .ha-fade { opacity: 0; transform: translateY(6px); transition: opacity .5s ease, transform .5s ease; }
+        .ha-fade.on { opacity: 1; transform: none; }
+        .ha-msgs { padding-top: 18px; gap: 0; }
+        .ha-input { margin: auto 16px 14px; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px 10px; flex: 0 0 auto; }
+        .ha-input .ph { font-size: 12.5px; color: var(--fg-faint); margin-bottom: 18px; }
+        .ha-input .row { display: flex; align-items: center; gap: 10px; color: var(--fg-dim); font-size: 11.5px; white-space: nowrap; }
+        .ha-input .row > span { display: inline-flex; align-items: center; gap: 4px; }
+        .ha-ctx i { display: inline-block; width: 44px; height: 4px; background: var(--bg-active); border-radius: 2px; position: relative; overflow: hidden; margin: 0 2px; }
+        .ha-ctx i::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 12%; background: var(--fg-dim); }
+        .ha-send { margin-left: auto; width: 26px; height: 26px; border-radius: 6px; background: var(--accent); color: var(--accent-fg); display: flex; align-items: center; justify-content: center; }
+        .ha-sbar { height: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; padding: 0 12px; font-size: 11.5px; color: var(--fg-dim); flex: 0 0 auto; }
+        .ha-sbar .r { margin-left: auto; }
+        .ha-dyn { transition: opacity .55s ease; }
+        .ha-canvas.out .ha-dyn { opacity: 0; }
+        .ha-canvas.reset .ha-dyn *, .ha-canvas.reset .ha-pane { transition: none !important; }
+        @media (prefers-reduced-motion: reduce) { .sol-shot-frame.is-live .hero-app { display: none; } .sol-shot-frame.is-live .hero-poster { visibility: visible; } }
+
+        /* Fact strip — 제품 정의에서 나오는 사실 수치만 */
+        .sub-page section.sol-facts { padding: 3.5rem 0 0; }
+        .sol-facts-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+        .sol-fact { padding: 1.8rem 1.6rem 1.8rem 0; border-right: 1px solid #e2e8f0; margin-right: 1.6rem; }
+        .sol-fact:last-child { border-right: none; margin-right: 0; }
+        .sol-fact-num { font-family: 'Outfit', 'Pretendard Variable', sans-serif; font-size: 2.2rem; font-weight: 800; color: #0f172a; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.55rem; }
+        .sol-fact-num small { font-size: 1rem; font-weight: 700; color: #64748b; margin-left: 0.25rem; letter-spacing: 0; }
+        .sol-fact-label { font-size: 0.92rem; color: #64748b; line-height: 1.5; word-break: keep-all; }
+
+        .sub-page section.sol-section { padding-top: 6.5rem; padding-bottom: 6.5rem; }
+        .sol-section-head { margin-bottom: 3.2rem; max-width: 860px; }
+        .sol-section-head .section-title { font-size: 2.3rem !important; margin-bottom: 0 !important; line-height: 1.18; letter-spacing: -0.03em; }
+        .sol-section-head p { font-size: 1.2rem; color: #64748b !important; font-weight: 300 !important; margin: 1rem 0 0 !important; line-height: 1.55; letter-spacing: -0.02em; word-break: keep-all; }
+
+        /* Pillars */
+        .sol-pillar { padding: 2.4rem 2.4rem 2.2rem; display: flex; flex-direction: column; }
+        .sol-pillar:hover { transform: none; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05); }
+        .sol-pillar-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.6rem; }
+        .sol-pillar-icon { width: 48px; height: 48px; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .sol-pillar-icon i { color: #0f172a; width: 24px; height: 24px; }
+        .sol-pillar-num { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.7rem; color: #94a3b8; letter-spacing: 0.15em; text-transform: uppercase; }
+        .sol-pillar-kicker { font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+        .sol-pillar h3 { font-size: 1.35rem; font-weight: 800; color: #0f172a; line-height: 1.3; letter-spacing: -0.025em; margin: 0 0 1rem; word-break: keep-all; }
+        .sol-pillar p { font-size: 0.97rem; color: #64748b; line-height: 1.65; word-break: keep-all; margin: 0; }
+        .sol-pillar > p { margin-bottom: 1.6rem; }
+        .sol-pillar-so { border-top: 1px solid #f1f5f9; display: flex; gap: 0.6rem; align-items: flex-start; margin-top: auto; padding-top: 1.4rem; }
+        .sol-pillar-so i { width: 18px; height: 18px; color: #0f172a; flex: 0 0 18px; margin-top: 3px; }
+        .sol-pillar-so p { color: #0f172a; font-weight: 600; font-size: 0.95rem; line-height: 1.55; }
+
+        /* Architecture — 3계층 배포도.
+           왼쪽 열에 허브(위)·워크스테이션(아래), 오른쪽 열에 AI 서버(내용 크기 · 세로 중앙). 허브·워크스테이션 오른쪽 변에서
+           나온 가로 팔 두 개가 세로 버스로 합쳐져 한 줄로 AI 서버에 닿는다(직교선만 — "둘 다 AI 서버와 직접").
+           허브→워크스테이션 세로 점선이 배포다. */
+        .sol-diagram { position: relative; border: 1.5px solid #cbd5e1; border-radius: 24px; padding: 3.2rem 2.6rem 2rem; background: #ffffff; }
+        .sol-diagram-boundary { position: absolute; top: -13px; left: 2rem; display: inline-flex; align-items: center; gap: 0.5rem; background: #ffffff; padding: 0.2rem 0.75rem 0.2rem 0.6rem; font-size: 0.85rem; font-weight: 800; color: #0f172a; letter-spacing: -0.01em; }
+        .sol-diagram-boundary i { width: 14px; height: 14px; color: #0f172a; }
+        .sol-diagram-boundary span { font-weight: 500; color: #94a3b8; }
+        /* 캔버스: 은은한 도트 그리드 위에 카드가 떠 있는 구성. 3열 × 3행 — [허브 · 배포 · 워크스테이션] [AI 연결] [AI 서버].
+           세 노드는 같은 폭(--node-w)이고 트랙 묶음을 가운데 정렬한다(카드가 폭을 채우며 늘어나지 않게 — 세 노드의 무게가 같아야 한다).
+           위·아래 행을 1fr 로 두어 허브·워크스테이션 카드 높이가 항상 같다(연결 팔의 세로 위치 계산 근거). */
+        .sol-topo { --lk: 220px; --vl: 96px; --node-w: 340px; position: relative; display: grid; grid-template-columns: var(--node-w) var(--lk) var(--node-w); grid-template-rows: minmax(0, 1fr) var(--vl) minmax(0, 1fr); justify-content: center; padding: 0.4rem 0 0.2rem; background-image: radial-gradient(rgba(148, 163, 184, 0.32) 1px, transparent 1.2px); background-size: 20px 20px; background-position: center top; }
+        .sol-node { position: relative; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 1.4rem 1.5rem 1.3rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -18px rgba(15, 23, 42, 0.18); display: flex; flex-direction: column; min-width: 0; }
+        .sol-node-icon { width: 40px; height: 40px; border-radius: 10px; background: #f8fafc; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; margin-bottom: 0.9rem; }
+        .sol-node-icon i { width: 20px; height: 20px; color: #0f172a; }
+        .sol-node h4 { margin: 0 0 0.35rem; font-size: 1.05rem; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
+        .sol-node h4 em { font-style: normal; font-family: 'Outfit', sans-serif; font-size: 0.75rem; color: #94a3b8; font-weight: 700; letter-spacing: 0.05em; }
+        .sol-node p { margin: 0; font-size: 0.84rem; color: #64748b; line-height: 1.5; word-break: keep-all; }
+        .sol-node-role { margin-top: auto; padding-top: 0.8rem; font-size: 0.78rem; color: #475569; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; word-break: keep-all; }
+        .sol-node-role i { width: 13px; height: 13px; color: #94a3b8; flex: 0 0 13px; }
+        /* 허브(위)·워크스테이션(아래) — 왼쪽 열. AI 서버와 같은 폭이라 세로형(아이콘 위 · 텍스트 아래)으로 둔다 */
+        .sol-node.hub { grid-column: 1; grid-row: 1; }
+        /* ×N 겹침 표기 — 뒤에 깔린 카드 2장을 box-shadow 로 그린다(흰 면 + 1px 테두리 쌍). 오른쪽 변에 연결선이 닿으므로 겹침은 아래로만 */
+        .sol-node.ws { grid-column: 1; grid-row: 3; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -18px rgba(15, 23, 42, 0.18), 0 7px 0 -1px #ffffff, 0 7px 0 0 #e2e8f0, 0 14px 0 -1px #ffffff, 0 14px 0 0 #e2e8f0; }
+
+        /* AI 서버 — 오른쪽 열, 세 행에 걸쳐 세로 중앙(카드는 내용 크기). 흰 카드 + 액센트 테두리(1.5px), 아이콘 박스의 노란 틴트로만 구분, 내용 중앙 정렬 */
+        .sol-node.ai { grid-column: 3; grid-row: 1 / span 3; align-self: center; align-items: center; text-align: center; border: 1.5px solid #ffb800; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 16px 36px -22px rgba(15, 23, 42, 0.28); padding: 1.7rem 1.8rem 1.5rem; }
+        .sol-node.ai .sol-node-icon { width: 48px; height: 48px; border-radius: 12px; background: #fff7e0; border-color: #ffe3a3; }
+        .sol-node.ai .sol-node-icon i { width: 24px; height: 24px; }
+        .sol-node.ai h4 { justify-content: center; }
+        .sol-node.ai .sol-node-role { margin-top: 0.9rem; justify-content: center; }
+
+        /* AI 연결 — 가운데 열(세 행 걸침), 직교선만. 왼쪽이 열린 ㄷ자 박스(.sol-topo-bus): 윗변·아랫변 = 허브·워크스테이션 오른쪽 변에서 나오는 가로 팔,
+           오른변 = 세로 버스. 팔의 세로 위치는 각 카드의 중앙 — 두 행이 1fr 로 같은 높이라 (전체 − 중간행)/4. 버스 중앙에서 스템(.sol-topo-stem)이 AI 서버로.
+           끝은 화살촉 대신 점(요청·응답 양방향이라 방향을 주장하지 않는다). */
+        .sol-topo-link { grid-column: 2; grid-row: 1 / span 3; position: relative; }
+        .sol-topo-bus { position: absolute; left: 0; right: 50%; top: calc((100% - var(--vl)) / 4); bottom: calc((100% - var(--vl)) / 4); border: 2px solid #ffb800; border-left: none; border-radius: 0 18px 18px 0; }
+        .sol-topo-bus::before, .sol-topo-bus::after { content: ""; position: absolute; left: -5px; width: 10px; height: 10px; border-radius: 50%; background: #ffb800; box-shadow: 0 0 0 3px #ffffff; }
+        .sol-topo-bus::before { top: -6px; }
+        .sol-topo-bus::after { bottom: -6px; }
+        .sol-topo-stem { position: absolute; left: 50%; right: 0; top: 50%; height: 2px; margin-top: -1px; background: #ffb800; }
+        .sol-topo-stem::after { content: ""; position: absolute; right: -5px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: #ffb800; box-shadow: 0 0 0 3px #ffffff; }
+        /* 라벨은 필(pill) 하나의 어법 — AI 연결·배포 공용. AI 연결 필은 팔이 합쳐지는 접점 위 */
+        .sol-pill { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.22rem 0.65rem; border-radius: 999px; background: #ffffff; border: 1px solid #e2e8f0; font-size: 0.72rem; font-weight: 700; color: #0f172a; line-height: 1.2; white-space: nowrap; letter-spacing: -0.01em; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+        .sol-link-label { font-size: 0.72rem; font-weight: 700; color: #0f172a; line-height: 1.2; word-break: keep-all; }
+        .sol-link-sub { font-size: 0.7rem; color: #94a3b8; text-align: center; word-break: keep-all; line-height: 1.35; }
+        .sol-topo-link .sol-link-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; }
+        .sol-topo-link .tri-band-sub { display: none; }
+
+        /* 배포 — 허브 → 워크스테이션 세로 점선(중간행) + 필 라벨(설명 전문은 아래 범례). 끝은 가벼운 셰브론 */
+        .sol-topo-deploy { grid-column: 1; grid-row: 2; position: relative; }
+        .sol-base-label { color: #475569; }
+        .sol-topo-deploy .sol-base-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        .sol-base-line { position: absolute; left: 50%; top: 4px; bottom: 4px; width: 0; margin-left: -1px; border-left: 1.5px dashed #b6c0cd; }
+        .sol-base-line::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 6px; height: 6px; border-right: 1.5px solid #94a3b8; border-bottom: 1.5px solid #94a3b8; transform: translate(-50%, 1px) rotate(45deg); }
+        .sol-diagram-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid #f1f5f9; font-size: 0.76rem; color: #64748b; align-items: center; }
+        .sol-diagram-legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+        .sol-diagram-legend .lg-dash, .sol-diagram-legend .lg-accent { width: 22px; height: 0; border-top: 2px solid #94a3b8; display: inline-block; }
+        .sol-diagram-legend .lg-dash { border-top-style: dashed; }
+        .sol-diagram-legend .lg-accent { border-top: 3px solid #ffb800; }
+        .sol-diagram-meta { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #94a3b8; letter-spacing: 0.02em; }
+
+        .sol-arch-below { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2.5rem; align-items: stretch; }
+        .sol-not { display: flex; gap: 0.8rem; align-items: flex-start; padding: 1.2rem 1.2rem; border: 1px solid #e2e8f0; border-radius: 14px; background: #ffffff; }
+        .sol-not i { width: 18px; height: 18px; color: #0f172a; flex: 0 0 18px; margin-top: 2px; }
+        .sol-not strong { display: block; font-size: 0.95rem; color: #0f172a; font-weight: 700; margin-bottom: 0.2rem; letter-spacing: -0.01em; word-break: keep-all; }
+        .sol-not span { font-size: 0.85rem; color: #64748b; line-height: 1.5; word-break: keep-all; }
+
+        /* Workflow — 좌우 교차(지그재그) 4행 · 행마다 화면 1장 + 아래 산출물 문서 띠(전폭) */
+        .sol-steps { display: flex; flex-direction: column; gap: 5rem; margin-top: 1rem; }
+        .sol-step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3.5rem; align-items: center; }
+        .sol-step:nth-child(even) .sol-step-text { order: 2; }
+        .sol-step:nth-child(even) .sol-step-visual { order: 1; }
+        .sol-step-num { font-family: 'Outfit', 'Pretendard Variable', sans-serif; font-size: 0.8rem; font-weight: 800; color: #94a3b8; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem; }
+        .sol-step-num::before { content: ""; width: 24px; height: 2px; background: #0f172a; display: inline-block; }
+        .sol-step-num b { color: #0f172a; font-size: 0.95rem; letter-spacing: -0.01em; text-transform: none; font-weight: 800; }
+        .sol-step-text h3 { font-size: 1.7rem; font-weight: 800; color: #0f172a; letter-spacing: -0.03em; line-height: 1.25; margin: 0 0 1.1rem; word-break: keep-all; }
+        .sol-step-text p { font-size: 1.02rem; color: #64748b; line-height: 1.7; margin: 0 0 1rem; word-break: keep-all; }
+        .sol-step-text p.gain { color: #0f172a; font-weight: 600; margin-bottom: 1.4rem; }
+        .sol-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .sol-chips span { font-size: 0.8rem; background: #f1f5f9; color: #475569; padding: 0.25rem 0.75rem; border-radius: 20px; border: 1px solid #e2e8f0; white-space: nowrap; }
+        .sol-step-note { margin-top: 1.2rem; font-size: 0.8rem; color: #94a3b8; line-height: 1.55; word-break: keep-all; display: flex; gap: 0.45rem; align-items: flex-start; }
+        .sol-step-note i { width: 14px; height: 14px; flex: 0 0 14px; margin-top: 2px; }
+        .sol-shot { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid rgba(15, 23, 42, 0.10); background: #1e1e1e; box-shadow: 0 30px 60px -24px rgba(2, 6, 23, 0.40), 0 8px 20px -10px rgba(2, 6, 23, 0.20); aspect-ratio: 16 / 9; }
+        .sol-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .sol-shot-cap { margin-top: 0.9rem; font-size: 0.82rem; color: #94a3b8; display: flex; align-items: center; gap: 0.45rem; word-break: keep-all; }
+        .sol-shot-cap i { width: 13px; height: 13px; flex: 0 0 13px; }
+        /* 산출물 문서 띠 — 단계가 아니라 분석 사실에서 언제든. 문서 5종 + 승인 표시(개념 표현 · 화면처럼 그리지 않는다) */
+        .sol-docs { margin-top: 5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.6rem 2.8rem; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3.5rem; align-items: center; }
+        .sol-docs .sol-step-text h3 { font-size: 1.5rem; }
+        .sol-docs-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+        .sol-doc { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; font-weight: 600; color: #0f172a; letter-spacing: -0.01em; }
+        .sol-doc i { width: 16px; height: 16px; color: #475569; flex: 0 0 16px; }
+        .sol-doc.gate { grid-column: 1 / -1; background: #0f172a; color: #ffffff; border-color: #0f172a; justify-content: center; }
+        .sol-doc.gate i { color: #ffb800; }
+
+        /* Requirements */
+        .sol-req { padding: 2rem 2.2rem; }
+        .sol-req:hover { transform: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
+        .sol-req-top { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.3rem; }
+        .sol-req-top .sol-node-icon { margin: 0; }
+        .sol-req h4 { margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; }
+        .sol-req h4 small { display: block; font-size: 0.78rem; color: #94a3b8; font-weight: 600; margin-top: 0.15rem; letter-spacing: 0; }
+        .sol-req ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+        .sol-req li { font-size: 0.92rem; color: #475569; line-height: 1.5; padding-left: 1.1rem; position: relative; word-break: keep-all; }
+        .sol-req li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1; }
+        .sol-req li b { color: #0f172a; font-weight: 700; }
+        .sol-req-foot { margin-top: 2.4rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+        .sol-req-line { display: flex; gap: 0.8rem; align-items: flex-start; padding: 1.2rem 1.4rem; border-radius: 14px; background: #f8fafc; border: 1px solid #f1f5f9; }
+        .sol-req-line i { width: 20px; height: 20px; color: #0f172a; flex: 0 0 20px; margin-top: 2px; }
+        .sol-req-line strong { display: block; font-size: 0.95rem; color: #0f172a; font-weight: 700; margin-bottom: 0.2rem; }
+        .sol-req-line span { font-size: 0.87rem; color: #64748b; line-height: 1.5; word-break: keep-all; }
+        .sol-footnote { margin-top: 1.6rem; font-size: 0.8rem; color: #94a3b8; line-height: 1.6; word-break: keep-all; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sol-step, .sol-step:nth-child(even) { grid-template-columns: 1fr; gap: 1.8rem; }
+            .sol-step:nth-child(even) .sol-step-text { order: 1; }
+            .sol-step:nth-child(even) .sol-step-visual { order: 2; }
+            .sol-docs { grid-template-columns: 1fr; gap: 1.8rem; }
+            .sol-facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .sol-fact:nth-child(2) { border-right: none; margin-right: 0; }
+            .sol-fact:nth-child(1), .sol-fact:nth-child(2) { border-bottom: 1px solid #e2e8f0; }
+            .sol-arch-below { grid-template-columns: 1fr; gap: 1rem; }
+            .sol-topo { --lk: 150px; --vl: 84px; --node-w: 290px; }
+        }
+        @media (max-width: 768px) {
+            .sub-page section.sol-hero { padding-top: 130px !important; }
+            .sol-hero .lab-title { font-size: 1.75rem !important; margin-bottom: 1.5rem !important; }
+            .sol-hero .lab-sub { font-size: 1.15rem !important; margin-bottom: 1.5rem !important; }
+            .sol-btn { padding: 0.75rem 1.15rem; font-size: 0.9rem; }
+            .sol-badge { font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+            .sol-stage { border-radius: 24px; padding: 1.2rem 1.2rem 0; margin-top: 2.2rem; }
+            .sol-shot-frame { border-radius: 14px 14px 0 0; aspect-ratio: 16 / 10; }
+            .sol-stage-caption { display: none; }
+            .sub-page section.sol-facts { padding-top: 2.4rem; }
+            .sol-fact { padding: 1.2rem 1rem 1.2rem 0; margin-right: 1rem; }
+            .sol-fact-num { font-size: 1.7rem; }
+            .sol-fact-label { font-size: 0.82rem; }
+            .sub-page section.sol-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+            .sol-section-head { margin-bottom: 2rem; }
+            .sol-section-head .section-title { font-size: 1.7rem !important; }
+            .sol-section-head .section-title br { display: none; }
+            .sol-section-head p { font-size: 1.02rem !important; }
+            .sol-pillar { padding: 1.8rem 1.5rem !important; }
+
+            /* 배포도 세로 적층(모바일): 허브 → (배포) → 워크스테이션 → (AI 연결) → AI 서버. 연결선은 세로, 모두 왼쪽 1.4rem 에 정렬 */
+            .sol-diagram { padding: 2.6rem 1.1rem 1.6rem; border-radius: 18px; }
+            .sol-diagram-boundary { left: 1rem; font-size: 0.78rem; }
+            .sol-topo { display: flex; flex-direction: column; }
+            .sol-node.hub { order: 1; }
+            .sol-topo-deploy { order: 2; height: 66px; }
+            .sol-node.ws { order: 3; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -18px rgba(15, 23, 42, 0.18); }
+            .sol-topo-link { order: 4; height: 84px; }
+            .sol-node.ai { order: 5; width: 100%; padding: 1.4rem 1.4rem 1.2rem; }
+            .sol-node.ai .sol-node-role { margin-top: auto; }
+            /* AI 연결: ㄷ자 박스·스템 대신 세로 액센트 선 하나(끝은 점) + 라벨·부제 */
+            .sol-topo-bus, .sol-topo-stem { display: none; }
+            .sol-topo-link::before { content: ""; position: absolute; left: 1.4rem; top: 0; bottom: 5px; width: 2px; margin-left: -1px; background: #ffb800; }
+            .sol-topo-link::after { content: ""; position: absolute; left: 1.4rem; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #ffb800; box-shadow: 0 0 0 3px #ffffff; }
+            .sol-topo-link .sol-link-label { top: 32%; left: calc(1.4rem + 16px); transform: translateY(-50%); }
+            .sol-topo-link .tri-band-sub { display: block; position: absolute; top: 68%; left: calc(1.4rem + 16px); transform: translateY(-50%); text-align: left; }
+            /* 배포: 세로 점선을 같은 x 에, 필은 오른쪽 */
+            .sol-topo-deploy .sol-base-line { left: 1.4rem; top: 6px; bottom: 6px; }
+            .sol-topo-deploy .sol-base-label { left: calc(1.4rem + 16px); transform: translateY(-50%); }
+            .sol-diagram-meta { margin-left: 0; width: 100%; }
+
+            .sol-steps { gap: 3.2rem; margin-top: 2.4rem; }
+            .sol-step-text h3 { font-size: 1.35rem; }
+            .sol-step-text h3 br { display: none; }
+            .sol-docs { margin-top: 3.2rem; padding: 1.6rem 1.3rem; border-radius: 16px; }
+            .sol-docs-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .sol-req-foot { grid-template-columns: 1fr; }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="sub-page theme-light">
+
+    <header id="header">
+      <div class="container">
+        <nav>
+          <a href="/" class="logo"><img src="/ci_04.png" alt="DAUMIS" class="logo-light"><img src="/ci_03.png" alt="DAUMIS" class="logo-dark"></a>
+          <button class="mobile-toggle" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="nav-right">
+            <ul class="nav-links">
+              <li class="nav-item">
+                <span>비지니스</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>비즈니스</h3>
+                      <p>대한민국 1금융권이 선택한 핵심 솔루션을 통해 차세대 금융 인프라를 구축합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/business.html">퇴직연금시스템</a></li>
+                        <li><a href="/investment.html">집합투자증권</a></li>
+                        <li><a href="/mutual.html">공제업무시스템</a></li>
+                        <li><a href="/sales.html">영업지원시스템</a></li>
+                        <li><a href="/asset.html">자산관리시스템</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>프로젝트</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>프로젝트</h3>
+                      <p>숫자로 증명하는 다음정보시스템즈의 압도적인 금융 프로젝트 성과입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/project.html">프로젝트 실적</a></li>
+                        <li><a href="/clients.html">고객사 & 파트너십</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>NEXT 랩</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>NEXT 랩</h3>
+                      <p>명쾌한 아키텍처와 분산 처리 엔진으로 복잡한 금융 로직을 안정적으로 처리합니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/ai-lab.html" class="active">AI 리서치 랩</a></li>
+                        <li><a href="/ax-lab.html">AX 이노베이션 랩</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>회사소개</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>회사소개</h3>
+                      <p>신뢰와 완벽함을 추구하는 다음정보시스템즈의 비전과 철학입니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/overview.html">기업 개요</a></li>
+                        <li><a href="/ceo.html">CEO 인사말</a></li>
+                        <li><a href="/vision.html">비전</a></li>
+                        <li><a href="/history.html">연혁</a></li>
+                        <li><a href="/contact.html">오시는 길</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <span>인재채용</span>
+                <div class="gnb-mega-menu">
+                  <div class="mega-container">
+                    <div class="mega-left">
+                      <h3>인재채용</h3>
+                      <p>금융 기술의 미래를 함께 만들어갈 전문가를 기다립니다.</p>
+                    </div>
+                    <div class="mega-right">
+                      <ul>
+                        <li><a href="/careers-jobs.html">직무소개</a></li>
+                        <li><a href="/careers-process.html">채용절차</a></li>
+                        <li><a href="/careers-welfare.html">복지제도</a></li>
+                        <li><a href="/careers-announcement.html">채용공고</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <a href="/inquiry.html" class="cta-button">문의하기 <i data-lucide="arrow-right"></i></a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="sol-hero">
+            <div class="container">
+                <div class="sol-top-bar">
+                    <div class="sol-tab-nav">
+                        <a href="/ai-lab.html" class="sol-tab-item sol-tab-back" title="AI Research Lab" aria-label="AI Research Lab">
+                            <i data-lucide="arrow-left"></i>
+                        </a>
+                        <a href="/ai-pecs.html" class="sol-tab-item active">
+                            <i data-lucide="monitor"></i>
+                            <span>에이펙스 <span class="tab-en">(AI-PECS)</span></span>
+                        </a>
+                        <a href="/ai-qm.html" class="sol-tab-item">
+                            <i data-lucide="shield-check"></i>
+                            <span>에이큐엠 <span class="tab-en">(AI-QM)</span></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="sol-hero-head">
+                    <h1 class="lab-title">외부 연결 없이도,<br>AI로 혁신하는 폐쇄망 개발</h1>
+                    <p class="lab-sub">AI-PECS는 보안과 규제가 엄격한 폐쇄망 환경을 위한 올인원 AI 개발 도구입니다.<br>기존 소스 코드 분석부터 설계, 구현, 검증, 산출물 생성까지 전 과정을 단일 워크스페이스에서 완성합니다.</p>
+                    <div class="sol-badges">
+                        <span class="sol-badge"><i data-lucide="shield-check"></i>외부 인터넷 통신 Zero (폐쇄망 완결)</span>
+                        <span class="sol-badge"><i data-lucide="user-check"></i>AI 코드 수정 전 사람 승인 통제</span>
+                        <span class="sol-badge"><i data-lucide="file-check"></i>소스 분석부터 5종 산출물까지 올인원</span>
+                        <a href="#sol-req" class="sol-btn-inline" data-scroll>
+                            <span>도입 요건 보기</span>
+                            <i data-lucide="arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="sol-stage">
+                    <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div></div>
+                    <div class="sol-shot-frame">
+                        <img class="hero-poster" src="/media/shots/S1-source-overview-dark.png" alt="에이펙스 — 파일 탐색기, 편집기, 우측 AI 채팅이 한 창에">
+                        <!-- 라이브 장면: 스크립트가 .is-live 를 붙이면 보인다(그 전·감속 모션 선호에서는 위 PNG). 내용은 중립 샘플 -->
+                        <div class="hero-app" aria-hidden="true">
+                          <div class="ha-canvas">
+                            <div class="ha-title">
+                              <svg class="ha-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 2.5 20h19z"/><path d="M8.5 15.5h7"/></svg>
+                              <div class="ha-menu"><span>파일</span><span>편집</span><span>선택</span><span>보기</span><span>이동</span><span>분석</span><span>AI</span><span>지식 팩</span><span>도움말</span></div>
+                              <span class="ha-wtitle">sample-project</span>
+                              <div class="ha-tr"><i data-lucide="panel-left" class="amber"></i><i data-lucide="panel-bottom"></i><i data-lucide="panel-right" class="amber"></i><i data-lucide="arrow-up-right"></i><i data-lucide="palette"></i><i data-lucide="settings"></i>
+                                <div class="ha-win"><i data-lucide="minus"></i><i data-lucide="square"></i><i data-lucide="x"></i></div></div>
+                            </div>
+                            <div class="ha-body">
+                              <div class="ha-side">
+                                <div class="ha-tabs">
+                                  <div class="ha-tab"><i data-lucide="file-code"></i>소스</div>
+                                  <div class="ha-tab on"><i data-lucide="list-tree"></i>분석</div>
+                                  <div class="ha-tab"><i data-lucide="pencil"></i>설계</div>
+                                  <div class="ha-tab"><i data-lucide="check"></i>테스트</div>
+                                  <div class="ha-tab"><i data-lucide="book-open"></i>지식</div>
+                                </div>
+                                <div class="ha-seg"><span class="s-meta" data-ha="segMeta">메타</span><span class="s-biz">비즈니스</span></div>
+                                <div class="ha-panes">
+                                  <!-- 2막: 메타 → 테이블 -->
+                                  <div class="ha-pane meta">
+                                    <ul class="ha-meta"><li>프로젝트 규범</li><li class="on">테이블</li><li>공통코드</li><li>표준용어</li><li>표준단어</li><li>도메인</li><li>인터페이스</li></ul>
+                                    <div class="ha-list-head">테이블 <b data-ha="tables">0</b></div>
+                                    <div class="ha-filter">테이블 필터…</div>
+                                    <ul class="ha-tables ha-mono ha-dyn">
+                                      <li class="sel"><i data-lucide="table"></i>SAMPLE_ITEM<span class="ko">품목</span></li>
+                                      <li><i data-lucide="table"></i>SAMPLE_ITEM_CATEGORY<span class="ko">품목분류</span></li>
+                                      <li><i data-lucide="table"></i>SAMPLE_ORDER<span class="ko">주문</span></li>
+                                      <li><i data-lucide="table"></i>SAMPLE_ORDER_LINE<span class="ko">주문상세</span></li>
+                                      <li><i data-lucide="table"></i>SAMPLE_PARTNER<span class="ko">거래처</span></li>
+                                      <li><i data-lucide="table"></i>SAMPLE_STOCK<span class="ko">재고</span></li>
+                                    </ul>
+                                  </div>
+                                  <!-- 1막: 비즈니스 → 업무 도메인 트리(화면 클릭 = 중앙 화면 상세 분석) -->
+                                  <div class="ha-pane biz">
+                                    <div class="ha-list-head">업무 도메인 <b>3</b> · 화면 <b data-ha="screens">0</b></div>
+                                    <div class="ha-filter">화면 필터…</div>
+                                    <ul class="ha-screens ha-dyn">
+                                      <li class="dom"><i data-lucide="chevron-down"></i>품목 관리<span class="cnt">화면 3</span></li>
+                                      <li class="scr sel"><i data-lucide="monitor"></i><span class="ha-scr-id ha-mono">ITM0101</span>품목 목록</li>
+                                      <li class="scr"><i data-lucide="monitor"></i><span class="ha-scr-id ha-mono">ITM0102</span>품목 등록</li>
+                                      <li class="scr"><i data-lucide="monitor"></i><span class="ha-scr-id ha-mono">ITM0201</span>품목 분류 관리</li>
+                                      <li class="dom"><i data-lucide="chevron-right"></i>주문 관리<span class="cnt">화면 2</span></li>
+                                      <li class="dom"><i data-lucide="chevron-right"></i>재고 관리<span class="cnt">화면 1</span></li>
+                                      <li class="grp"><i data-lucide="chevron-right"></i>기타 화면</li>
+                                      <li class="grp"><i data-lucide="chevron-right"></i>배치</li>
+                                      <li class="grp"><i data-lucide="chevron-right"></i>모듈</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="ha-main">
+                                <div class="ha-etabs"><div class="ha-etab">ItemBatchService.java<span class="x">×</span></div><div class="ha-etab on a2"><i data-lucide="monitor"></i>ITM0101 품목 목록<span class="x">×</span></div><div class="ha-etab on a1"><i data-lucide="list-tree"></i>프로젝트 분석<span class="x">×</span></div></div>
+                                <div class="ha-main-body">
+                                  <div class="ha-vhead"><h3><span class="a1">테이블</span><span class="a2">화면 상세 분석</span></h3><span class="ha-pill a1">한글명 표 <b data-ha="ko">0</b>/6 · 컬럼 <b data-ha="cols">0</b>/24</span><span class="ha-pill a2">섹션 <b data-ha="sec">0</b>/10 · 검증 <b data-ha="ver">0</b>/12</span><span class="ha-pill a1">프로젝트 분석</span><span class="ha-pill a2">품목 관리</span><i data-lucide="x" class="x"></i></div>
+                                  <div class="ha-strip ha-dyn"><span class="ha-spin" data-ha="spin1">✦</span><span data-ha="stripText">분석 준비 중</span><span class="ha-file ha-mono" data-ha="file"></span><span class="ha-pct" data-ha="pct"></span><div class="bar"><i data-ha="bar"></i></div></div>
+                                  <!-- 2막 뷰: 테이블 카드 + 관계 -->
+                                  <div class="ha-view">
+                                    <div class="ha-card">
+                                      <h4 class="ha-mono">SAMPLE_ITEM <span class="ha-chip">품목</span><em>item</em></h4>
+                                      <p class="ha-evid">근거: DDL 확정 · PK ITEM_CD</p>
+                                      <div class="ha-cols-head">컬럼 <b>6</b></div>
+                                      <div class="ha-cols ha-mono">
+                                        <div class="hd"><span>컬럼</span><span>타입</span><span>한글명</span><span>출처</span></div>
+                                        <div class="ha-dyn">
+                                          <div class="row"><span class="pk">ITEM_CD</span><span>VARCHAR2(20)</span><span class="ko">품목코드</span><span class="ha-src">DDL</span></div>
+                                          <div class="row"><span>ITEM_NM</span><span>VARCHAR2(200)</span><span class="ko">품목명</span><span class="ha-src">DDL</span></div>
+                                          <div class="row"><span>USE_YN</span><span>CHAR(1)</span><span class="ko est">사용여부</span><span class="ha-src est">추정</span></div>
+                                          <div class="row"><span>CATEGORY_CD</span><span>VARCHAR2(10)</span><span class="ko">품목분류코드</span><span class="ha-src">DDL</span></div>
+                                          <div class="row"><span>UNIT_CD</span><span>VARCHAR2(10)</span><span class="ko est">단위코드</span><span class="ha-src est">추정</span></div>
+                                          <div class="row"><span>REG_DT</span><span>DATE</span><span class="ko est">등록일시</span><span class="ha-src est">추정</span></div>
+                                        </div>
+                                      </div>
+                                      <div class="ha-cols-head ha-refs-head">참조 위치 <b data-ha="refs">0</b></div>
+                                      <ul class="ha-refs ha-mono ha-dyn">
+                                        <li>src/sql/schema.sql</li>
+                                        <li>src/sql/item-insert.sql</li>
+                                        <li>src/item/sql/item-select.sql</li>
+                                        <li>src/order/sql/order-select.sql</li>
+                                        <li>src/stock/sql/stock-select.sql</li>
+                                      </ul>
+                                    </div>
+                                    <div class="ha-rel">
+                                      <h5>관계 <b data-ha="rels">0</b></h5>
+                                      <ul class="ha-rels ha-mono ha-dyn">
+                                        <li><span>CATEGORY_CD</span><span class="arrow">→</span><span>SAMPLE_ITEM_CATEGORY</span><span class="ha-fk">FK</span></li>
+                                        <li><span>SAMPLE_ORDER_LINE.ITEM_CD</span><span class="arrow">→</span><span>ITEM_CD</span><span class="ha-fk">FK</span></li>
+                                        <li><span>SAMPLE_STOCK.ITEM_CD</span><span class="arrow">→</span><span>ITEM_CD</span><span class="ha-fk">FK</span></li>
+                                      </ul>
+                                      <h5>참조 그래프</h5>
+                                      <svg class="ha-erd ha-dyn" viewBox="0 0 340 200" aria-hidden="true">
+                                        <path class="edge" pathLength="1" d="M170 83 L170 49"/>
+                                        <path class="edge" pathLength="1" d="M112 151 L150 117"/>
+                                        <path class="edge" pathLength="1" d="M228 151 L190 117"/>
+                                        <g class="node hub"><rect x="112" y="83" width="116" height="34"/><text x="170" y="95">SAMPLE_ITEM</text><text class="ko" x="170" y="108">품목</text></g>
+                                        <g class="node"><rect x="104" y="15" width="132" height="34"/><text x="170" y="27">SAMPLE_ITEM_CATEGORY</text><text class="ko" x="170" y="40">품목분류</text></g>
+                                        <g class="node"><rect x="10" y="151" width="128" height="34"/><text x="74" y="163">SAMPLE_ORDER_LINE</text><text class="ko" x="74" y="176">주문상세</text></g>
+                                        <g class="node"><rect x="202" y="151" width="128" height="34"/><text x="266" y="163">SAMPLE_STOCK</text><text class="ko" x="266" y="176">재고</text></g>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                  <!-- 1막 뷰: 화면 상세 분석 문서 -->
+                                  <div class="ha-doc">
+                                    <div class="ha-doc-col">
+                                      <div class="ha-doc-head ha-fade" data-ha="docHead"><span class="ha-scr-id ha-mono">ITM0101</span><b>품목 목록</b><span class="ha-chip outline">조회</span><span class="ha-doc-btns"><span class="ha-btn">이력 1</span><span class="ha-btn solid">AI 재분석</span></span></div>
+                                      <div><span class="ha-src-chip ha-fade" data-ha="docSrc">source: AI (최하위 신뢰 — 소스 근거 종합)</span></div>
+                                      <div class="ha-sec ha-fade" data-ha="sec1"><h6>1. 화면 개요</h6><p class="path">메뉴 경로: 품목 관리 › 품목 목록</p><p class="body"><span data-ha="ovw"></span><span class="ha-caret" data-ha="caret2"></span></p></div>
+                                      <div class="ha-sec ha-fade" data-ha="sec2"><h6>2. 항목 명세</h6>
+                                        <div class="ha-tbl items">
+                                          <div class="hd"><span>항목</span><span>컬럼</span><span>의미</span></div>
+                                          <div class="row"><span>품목코드</span><span class="ha-mono">ITEM_CD<i>품목코드</i></span><span>품목을 고유하게 식별하는 코드</span></div>
+                                          <div class="row"><span>품목명</span><span class="ha-mono">ITEM_NM<i>품목명</i></span><span>품목의 이름</span></div>
+                                          <div class="row"><span>분류</span><span class="ha-mono">CATEGORY_NM<i>품목분류명</i></span><span>품목의 분류명</span></div>
+                                        </div>
+                                      </div>
+                                      <div class="ha-sec ha-fade" data-ha="sec3"><h6>3. 화면 기능</h6>
+                                        <div class="ha-tbl fn">
+                                          <div class="hd"><span>버튼</span><span>기능</span><span>URL</span></div>
+                                          <div class="row"><span>조회</span><span>목록 조회</span><span class="ha-mono">/item/list<em class="ha-vchip">추정</em></span></div>
+                                          <div class="row"><span>등록</span><span>신규 품목 등록</span><span class="ha-mono">/item/detail<em class="ha-vchip">추정</em></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="ha-doc-col">
+                                      <div class="ha-sec ha-fade" data-ha="sec6"><h6>6. 처리 흐름도</h6>
+                                        <div class="ha-flow ha-fade" data-ha="flow1"><div class="ttl"><b>1</b>품목 목록 조회<em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">1-1</span><span class="who">사용자 → 화면</span><span>조회 요청</span><em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">1-2</span><span class="who">화면 → 서버</span><span>목록 데이터 조회</span><em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">1-3</span><span class="who">서버 → DB</span><span>데이터 검색 및 정렬</span><em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">1-4</span><span class="who">서버 → 화면</span><span>목록 결과 화면 반영</span><em class="ha-vchip">추정</em></div>
+                                        </div>
+                                        <div class="ha-flow ha-fade" data-ha="flow2"><div class="ttl"><b>2</b>품목 상세 조회<em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">2-1</span><span class="who">사용자 → 화면</span><span>상세 조회 요청</span><em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">2-2</span><span class="who">화면 → 서버</span><span>상세 정보 데이터 조회</span><em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">2-3</span><span class="who">서버 → DB</span><span>상세 정보 데이터 처리</span><em class="ha-vchip">추정</em></div>
+                                          <div class="step"><span class="no">2-4</span><span class="who">서버 → 화면</span><span>상세 정보 화면 반영</span><em class="ha-vchip">추정</em></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="ha-chat">
+                                <div class="ha-ctabs"><div class="ha-etab on"><i data-lucide="message-square"></i>품목 도메인 분석<span class="x">×</span></div><div class="sp"><i data-lucide="history"></i><i data-lucide="plus"></i></div></div>
+                                <div class="ha-msgs">
+                                  <div class="ha-user">품목 목록 화면을 상세 분석하고, 관련 테이블 구조도 정리해줘.</div>
+                                  <div class="ha-chat-dyn ha-dyn">
+                                    <div class="ha-cf" data-ha="status1"><div class="ha-rail"><div class="ha-status"><span class="ha-spin" data-ha="spin2">✦</span><span data-ha="statusText1">화면 분석 중…</span></div></div></div>
+                                    <div class="ha-cf" data-ha="metaCard"><div class="ha-rail"><div class="ha-status"><i data-lucide="check" class="ok"></i>화면 상세 분석 완료 · 항목 3 · 기능 2 · 흐름 8단계 · 검증 12/12</div></div></div>
+                                    <div class="ha-cf" data-ha="status2"><div class="ha-rail"><div class="ha-status"><span class="ha-spin" data-ha="spin3">✦</span><span data-ha="statusText2">SQL 추출 중…</span></div></div></div>
+                                    <div class="ha-cf" data-ha="answer"><div class="ha-rail"><div class="lbl">Answer</div><div class="ha-ai"><span data-ha="stream"></span><span class="ha-caret" data-ha="caret"></span></div></div></div>
+                                    <div class="ha-cf" data-ha="result"><div class="ha-result"><i data-lucide="check"></i><div><b>분석 완료</b><span>ITM0101 품목 목록 · 테이블 6 · 관계 3 · 한글명 17/24 · 메타 팩 갱신됨</span></div></div></div>
+                                  </div>
+                                </div>
+                                <div class="ha-input">
+                                  <div class="ph">질문 입력 (Enter 전송)</div>
+                                  <div class="row"><i data-lucide="plus"></i><i data-lucide="sliders-horizontal"></i><span class="ha-ctx">Context <i></i> 12%</span><span>프라이빗 LLM <i data-lucide="chevron-down"></i></span><span><i data-lucide="sparkles"></i> 에이전트 <i data-lucide="chevron-down"></i></span><span class="ha-send"><i data-lucide="send"></i></span></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="ha-sbar"><span>D:/work/sample-project</span><span class="r">프라이빗 LLM 연결됨 · AI-PECS</span></div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="sol-stage-caption"><i data-lucide="activity"></i>분석 탭 — 화면 상세 분석이 소스에서 조립됩니다</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Facts (제품 정의에서 나오는 사실 수치) -->
+        <section class="sol-facts">
+            <div class="container">
+                <div class="sol-facts-grid">
+                    <div class="sol-fact"><div class="sol-fact-num">1<small>개</small></div><div class="sol-fact-label">설치본 — AI 서버 · 허브 · 워크스테이션을 하나로</div></div>
+                    <div class="sol-fact"><div class="sol-fact-num">5<small>종</small></div><div class="sol-fact-label">지식 팩 — 소스 · 도메인 · 기술 · 인터페이스 · 분석 메타</div></div>
+                    <div class="sol-fact"><div class="sol-fact-num">4<small>단계</small></div><div class="sol-fact-label">소스 · 분석 · 설계 · 테스트가 한 창에</div></div>
+                    <div class="sol-fact"><div class="sol-fact-num">0<small>건</small></div><div class="sol-fact-label">외부 통신 — 망 밖으로 나가는 것이 없습니다</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillars -->
+        <section class="sol-section" style="background: #ffffff;">
+            <div class="container">
+                <div class="sol-section-head">
+                    <span class="section-label">Why AI-PECS</span>
+                    <h2 class="section-title">문제는 AI 모델이 아니라,<br>모델이 모르는 우리 프로젝트입니다</h2>
+                    <p>클라우드 AI 도구는 망 밖에 있고, 사내 LLM은 이 프로젝트를 모릅니다. 에이펙스는 이 두 문제를 함께 해결합니다.</p>
+                </div>
+                <div class="grid md-grid-cols-3 gap-6">
+                    <div class="phi-card sol-pillar">
+                        <div class="sol-pillar-top"><div class="sol-pillar-icon"><i data-lucide="shield-check"></i></div><span class="sol-pillar-num">Pillar 01</span></div>
+                        <div class="sol-pillar-kicker">망 안에서 완결</div>
+                        <h3>나가는 것도,<br>들어오는 것도 없습니다</h3>
+                        <p>설치·운영·업데이트가 외부 인터넷 없이 끝납니다. 업데이트와 AI 접속 정보는 사내 허브가 배포하고, 서명을 확인한 것만 적용됩니다.</p>
+                        <div class="sol-pillar-so"><i data-lucide="check-circle-2"></i><p>보안 검토의 "외부와 통신하는가" 질문에 "없다"로 답합니다.</p></div>
+                    </div>
+                    <div class="phi-card sol-pillar">
+                        <div class="sol-pillar-top"><div class="sol-pillar-icon"><i data-lucide="library"></i></div><span class="sol-pillar-num">Pillar 02</span></div>
+                        <div class="sol-pillar-kicker">프로젝트를 아는 AI</div>
+                        <h3>AI 모델은 바꾸지 않고,<br>우리 프로젝트 지식만 더합니다</h3>
+                        <p>이 프로젝트의 소스·업무 용어·인터페이스 명세를 지식 팩으로 붙이고, AI보다 먼저 도구가 소스를 읽어 구조와 테이블을 뽑습니다. 모델은 언제든 더 나은 것으로 바꿀 수 있습니다.</p>
+                        <div class="sol-pillar-so"><i data-lucide="check-circle-2"></i><p>AI가 추측 대신 이 프로젝트의 소스와 명세를 근거로 답합니다.</p></div>
+                    </div>
+                    <div class="phi-card sol-pillar">
+                        <div class="sol-pillar-top"><div class="sol-pillar-icon"><i data-lucide="git-commit-horizontal"></i></div><span class="sol-pillar-num">Pillar 03</span></div>
+                        <div class="sol-pillar-kicker">분석에서 테스트까지</div>
+                        <h3>단계가 바뀌어도<br>도구와 맥락은 그대로</h3>
+                        <p>소스·분석·설계·테스트가 한 창에 있고, 앞 단계의 결과가 다음 단계의 재료가 됩니다. 파일이 바뀌기 전에 사람이 내용을 보고 승인합니다.</p>
+                        <div class="sol-pillar-so"><i data-lucide="check-circle-2"></i><p>AI가 무엇을 바꿨는지 사람이 항상 알고 있습니다.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture -->
+        <section class="sol-section" style="background: #f8fafc; border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03);">
+            <div class="container">
+                <div class="sol-section-head">
+                    <span class="section-label">Architecture</span>
+                    <h2 class="section-title">하나의 설치본, 세 개의 역할</h2>
+                    <p>관리자 PC 1대가 배포를 맡고, 개발 PC는 사내 AI 서버와 직접 연결됩니다.</p>
+                </div>
+
+                <div class="sol-diagram">
+                    <div class="sol-diagram-boundary"><i data-lucide="lock"></i>사내 폐쇄망 <span>· 외부 인터넷 없음</span></div>
+                    <div class="sol-topo">
+                        <div class="sol-node hub">
+                            <div class="sol-node-icon"><i data-lucide="package"></i></div>
+                            <h4>허브</h4>
+                            <p>설정 지점 · 업데이트/AI 접속 정보/팀 팩 배포</p>
+                            <div class="sol-node-role"><i data-lucide="user-cog"></i>관리자 PC 1대</div>
+                        </div>
+                        <div class="sol-topo-deploy">
+                            <div class="sol-base-line"></div>
+                            <div class="sol-pill sol-base-label">배포</div>
+                        </div>
+                        <div class="sol-node ws">
+                            <div class="sol-node-icon"><i data-lucide="monitor"></i></div>
+                            <h4>워크스테이션 <em>× N</em></h4>
+                            <p>에이펙스 앱 · 소스 읽기/쓰기/검색 · 승인 게이트</p>
+                            <div class="sol-node-role"><i data-lucide="users"></i>개발자 PC · 개발이 일어나는 곳</div>
+                        </div>
+                        <div class="sol-topo-link">
+                            <div class="sol-topo-bus"></div>
+                            <div class="sol-topo-stem"></div>
+                            <span class="sol-pill sol-link-label">AI 연결</span>
+                            <span class="sol-link-sub tri-band-sub">허브 · 워크스테이션 각각 AI 서버와 직접 · 요청/응답</span>
+                        </div>
+                        <div class="sol-node ai">
+                            <div class="sol-node-icon"><i data-lucide="server"></i></div>
+                            <h4>AI 서버</h4>
+                            <p>프라이빗 LLM · 표준 API 연동</p>
+                            <div class="sol-node-role"><i data-lucide="cpu"></i>AI 서버 1대 · 함께 공급됩니다</div>
+                        </div>
+                    </div>
+                    <div class="sol-diagram-legend">
+                        <span><i class="lg-accent"></i>AI 연결 — 각 PC가 AI 서버와 직접</span>
+                        <span><i class="lg-dash"></i>배포 — 허브가 내려주고, 워크스테이션이 주기적으로 받아 감</span>
+                        <span class="sol-diagram-meta">에이펙스 배포 구성 · 설치본 1개 · 역할 3개</span>
+                    </div>
+                </div>
+
+                <div class="sol-arch-below">
+                    <div class="sol-not"><i data-lucide="file-lock-2"></i><div><strong>소스가 사업장을 벗어나지 않습니다</strong><span>AI 연결은 사내 AI 서버까지만 갑니다.</span></div></div>
+                    <div class="sol-not"><i data-lucide="user-x"></i><div><strong>공급자가 고객 환경에 접근할 수 없습니다</strong><span>접근 경로 자체가 없습니다.</span></div></div>
+                    <div class="sol-not"><i data-lucide="brain-circuit"></i><div><strong>고객 코드로 모델을 학습하지 않습니다</strong><span>모델은 사내 AI 서버에 있고, 데이터가 밖으로 나갈 길이 없습니다.</span></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow -->
+        <section class="sol-section" style="background: #ffffff;">
+            <div class="container">
+                <div class="sol-section-head">
+                    <span class="section-label">Workflow</span>
+                    <h2 class="section-title">프로젝트가 실제로 흘러가는 순서대로</h2>
+                    <p>네 단계를 한 창에서. 앞 단계의 결과가 다음 단계의 재료가 되고, 산출물 문서는 그 사실에서 언제든 만들어집니다.</p>
+                </div>
+
+                <div class="sol-steps">
+                    <div class="sol-step">
+                        <div class="sol-step-text">
+                            <div class="sol-step-num">Step 01 <b>· 기존 소스 분석</b></div>
+                            <h3>수십만 줄을 사람이 읽기 전에, <br>도구가 먼저 읽습니다</h3>
+                            <p>구조·의존 관계·테이블을 규칙으로 뽑아 뷰와 다이어그램으로 보여 주고, 어디까지 봤는지 개수로 함께 표시합니다. AI는 그 위에 화면별 상세 분석과 프로젝트 지침을 더합니다.</p>
+                            <p class="gain">신규 투입자도 첫날부터 화면의 처리 흐름을 파악할 수 있습니다.</p>
+                            <div class="sol-chips"><span>구조 · 의존 · SQL 스캔</span><span>테이블 · 인터페이스 뷰</span><span>화면 상세 분석</span><span>프로젝트 지침</span></div>
+                        </div>
+                        <div class="sol-step-visual">
+                            <div class="sol-shot" style="aspect-ratio: 16 / 10;"><img src="/media/shots/web-screen-flow.png" alt="분석 탭 — 화면 상세 분석"></div>
+                            <div class="sol-shot-cap"><i data-lucide="scan-search"></i>분석 탭 · 화면 상세 분석 — 화면 개요, 항목 명세, 기능, 서비스 연계, 처리 규칙, 처리 흐름도</div>
+                        </div>
+                    </div>
+
+                    <div class="sol-step">
+                        <div class="sol-step-text">
+                            <div class="sol-step-num">Step 02 <b>· 요건 정의</b></div>
+                            <h3>결정할 것만 묻고, <br>결정한 것은 문서에 남깁니다</h3>
+                            <p>분석 사실을 근거로 설계서 초안을 만들고, 사람이 정해야 할 것만 질문 카드로 묻습니다. 초안은 자동으로 검토합니다.</p>
+                            <p class="gain">누가 무엇을 결정했는지 설계서에 이력으로 남습니다.</p>
+                            <div class="sol-chips"><span>설계서 초안</span><span>질문 카드</span><span>자동 검토</span></div>
+                        </div>
+                        <div class="sol-step-visual">
+                            <div class="sol-shot" style="aspect-ratio: 1300 / 820;"><img src="/media/shots/web-design-review-cards.png" style="object-position: top;" alt="설계 채팅 — 자동 검토 카드: 설계서 안 모순과 정본 선택"></div>
+                            <div class="sol-shot-cap"><i data-lucide="list-checks"></i>설계 채팅 · 자동 검토 — 설계서 안 모순을 찾아 어느 쪽이 정본인지 묻습니다</div>
+                        </div>
+                    </div>
+
+                    <div class="sol-step">
+                        <div class="sol-step-text">
+                            <div class="sol-step-num">Step 03 <b>· 개발</b></div>
+                            <h3>AI가 고치고, <br>사람이 승인합니다</h3>
+                            <p>AI가 지식 팩을 참고해 읽고·찾고·고칩니다. 파일이 바뀌기 전에 바뀌는 내용을 사람이 보고 승인하고, 거부하면 그 이유가 AI에게 전달됩니다.</p>
+                            <p class="gain">사람은 승인과 판단에 시간을 씁니다.</p>
+                            <div class="sol-chips"><span>읽기 · 검색 · 편집</span><span>지식 팩 참고</span><span>변경 승인</span></div>
+                        </div>
+                        <div class="sol-step-visual">
+                            <div class="sol-shot" style="aspect-ratio: 1360 / 1076;"><img src="/media/shots/web-approval-pending.png" alt="변경 승인 화면 — 바뀌는 줄과 승인·거부 버튼"></div>
+                            <div class="sol-shot-cap"><i data-lucide="git-compare"></i>변경 승인 화면 · 바뀌는 줄을 확인한 뒤 [승인]·[거부]·[나중에]를 고릅니다</div>
+                        </div>
+                    </div>
+
+                    <div class="sol-step">
+                        <div class="sol-step-text">
+                            <div class="sol-step-num">Step 04 <b>· 테스트</b></div>
+                            <h3>검증 결과가 <br>리포트로 남습니다</h3>
+                            <p>화면·배치·모듈별 테스트 리포트를 만들고, 실행 계획을 승인한 뒤 실행해 결과를 집계합니다.</p>
+                            <p class="gain">사람 확인이 필요한 항목도 결과에 함께 기록됩니다.</p>
+                            <div class="sol-chips"><span>테스트 리포트</span><span>실행 계획 승인</span><span>결과 집계</span></div>
+                        </div>
+                        <div class="sol-step-visual">
+                            <div class="sol-shot"><img src="/media/shots/web-test-report.png" alt="테스트 탭 — 리포트"></div>
+                            <div class="sol-shot-cap"><i data-lucide="clipboard-check"></i>테스트 탭 · 리포트 — 케이스 집계와 기능 검증 결과</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sol-docs">
+                    <div class="sol-step-text">
+                        <div class="sol-step-num">Anytime <b>· 산출물 문서</b></div>
+                        <h3>문서는 분석 결과에서 <br>바로 만들어집니다</h3>
+                        <p>단계와 상관없이, 분석 사실에서 문서 5종을 언제든 만듭니다. 만든 결과도 사람이 보고 승인하고, 프로젝트 표준·규칙 문서는 설계 탭에서 확정해 허브로 공유합니다.</p>
+                        <p class="gain">문서가 소스와 어긋나지 않습니다.</p>
+                    </div>
+                    <div class="sol-docs-list">
+                        <div class="sol-doc"><i data-lucide="file-text"></i>분석 개요서</div>
+                        <div class="sol-doc"><i data-lucide="file-text"></i>ERD 명세서</div>
+                        <div class="sol-doc"><i data-lucide="file-text"></i>테이블 정의서</div>
+                        <div class="sol-doc"><i data-lucide="file-text"></i>모듈 구조서</div>
+                        <div class="sol-doc"><i data-lucide="file-text"></i>업무흐름도</div>
+                        <div class="sol-doc"><i data-lucide="book-open"></i>표준 · 규칙 문서</div>
+                        <div class="sol-doc gate"><i data-lucide="check-check"></i>만든 결과도 사람이 보고 승인합니다</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requirements -->
+        <section class="sol-section" id="sol-req" style="background: #f8fafc; border-top: 1px solid rgba(0,0,0,0.03);">
+            <div class="container">
+                <div class="sol-section-head">
+                    <span class="section-label">Requirements</span>
+                    <h2 class="section-title">준비할 것은 PC와 사내 네트워크,<br>나머지는 함께 들어옵니다</h2>
+                </div>
+                <div class="grid md-grid-cols-3 gap-6">
+                    <div class="phi-card sol-req">
+                        <div class="sol-req-top"><div class="sol-node-icon"><i data-lucide="server"></i></div><h4>AI 서버<small>프라이빗 LLM · 1대</small></h4></div>
+                        <ul>
+                            <li>에이펙스와 <b>함께 공급</b>됩니다 (장비 · 모델 포함)</li>
+                            <li>고객 준비: 설치 공간 · 전원 · 사내 네트워크</li>
+                            <li>모델을 바꿔도 PC 쪽은 그대로입니다</li>
+                        </ul>
+                    </div>
+                    <div class="phi-card sol-req">
+                        <div class="sol-req-top"><div class="sol-node-icon"><i data-lucide="package"></i></div><h4>허브<small>관리자 PC · 1대</small></h4></div>
+                        <ul>
+                            <li>워크스테이션과 <b>같은 설치본</b> — 개발도 그대로 합니다</li>
+                            <li>배포 서비스 포함 · 별도 웹서버 불필요</li>
+                            <li>허브가 꺼져도 다른 PC의 개발·AI 연결은 계속됩니다</li>
+                        </ul>
+                    </div>
+                    <div class="phi-card sol-req">
+                        <div class="sol-req-top"><div class="sol-node-icon"><i data-lucide="monitor"></i></div><h4>워크스테이션<small>개발자 PC · N대</small></h4></div>
+                        <ul>
+                            <li>Windows 10 이상 64bit · 일반 개발 PC 사양</li>
+                            <li><b>GPU 불필요</b> · 관리자 권한 불필요</li>
+                            <li>추가는 설치본 실행 1회</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sol-req-foot">
+                    <div class="sol-req-line"><i data-lucide="git-branch"></i><div><strong>개발 도구도 함께 들어옵니다</strong><span>git · svn이 설치본에 들어 있어 빈 PC 에서도 체크아웃이 됩니다. JDK · Maven · Gradle · Node.js도 허브에서 내려옵니다.</span></div></div>
+                    <div class="sol-req-line"><i data-lucide="calendar-check"></i><div><strong>2주 시범 도입(PoC)으로 시작합니다</strong><span>귀사 프로젝트 1개(사본) · 화면 1~2개 · 허브 1대 · 워크스테이션 2~3대. AI 서버는 함께 반입하고, 측정 결과를 보고서로 드립니다.</span></div></div>
+                </div>
+                <p class="sol-footnote">폐쇄망이 기본값입니다. 인터넷이 가능한 환경에서는 Claude, OpenAI 등 주요 상용 모델도 연동할 수 있습니다.</p>
+            </div>
+        </section>
+
+        <!-- Bottom CTA Section -->
+        <section class="bottom-cta-section cta-button">
+          <div class="cta-bg-circle"></div>
+        <div class="container">
+          <div class="cta-character"><img src="/login.png" alt="Contact Character"></div>
+            <span class="cta-label">문의하기</span>
+            <h2 class="cta-text">폐쇄망 개발 현장에 AI를 도입하려면 지금 문의하세요. <br>2주 시범 도입부터 시작할 수 있습니다.
+            </h2>
+            <div class="cta-arrow-btn">
+              <i data-lucide="arrow-right" style="width: 32px; height: 32px;"></i>
+            </div>
+          </div>
+        </section>
+    </main>
+
+    <footer id="footer" style="background: #020617; color: white; padding: 6rem 0;">
+        <div class="container">
+          <div class="footer-top-grid">
+            <div style="margin-left: -16px;">
+              <div style="margin-bottom: 1.2rem; display: flex; align-items: center;">
+                <img src="/ci_04.png" alt="DAUMIS" style="height: 72px; width: auto; margin-left: -8px;">
+              </div>
+              <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 500;">금융의 미래, 더 나은 가치를 만들어 갑니다.</p>
+              <p style="color: #64748b; font-size: 0.85rem; opacity: 0.8;">Copyright© 2019 by DAUM IS. All right reserved.</p>
+            </div>
+            <div class="footer-contact-grid">
+              <div>
+                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">Contact</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 2; padding: 0;">
+                  <li>T. 02-6247-8413</li>
+                  <li>F. 070-4713-9499</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">금융센터</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0;">
+                  <li>(07332) 서울시 영등포구</li>
+                  <li>국제금융로8길 27-9</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: white;">본사</h4>
+                <ul style="list-style: none; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; padding: 0;">
+                  <li>(08791) 서울시 관악구</li>
+                  <li>관악로 120, 우주빌딩 3층</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; margin-top: 2rem;"></div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+        // Hero live scene — 캔버스(1440×738)를 프레임에 cover 로 맞추고, 주기 t(21.3s)로부터 모든 상태를 멱등 적용해 반복한다.
+        // 2막 구성: 1막 화면 상세 분석(비즈니스, 주역 ~11s) → 세그먼트 '메타' 클릭 → 2막 테이블(메타) + 답변. 모든 시각은 T 하나에서 조절한다.
+        // (타이머 누적이 아니라 t 의 함수라 탭 전환·화면 밖 이탈 뒤에도 어긋나지 않는다. 화면 밖·숨김 탭에서는 멈춘다.)
+        (function () {
+            var frame = document.querySelector('.sol-shot-frame');
+            var app = frame && frame.querySelector('.hero-app');
+            var canvas = app && app.querySelector('.ha-canvas');
+            if (!canvas) return;
+            var W = 1440, H = 738;
+            function fit() {
+                var s = Math.max(frame.clientWidth / W, frame.clientHeight / H);
+                canvas.style.transform = 'scale(' + s + ')';
+            }
+            fit();
+            if (window.ResizeObserver) new ResizeObserver(fit).observe(frame); else window.addEventListener('resize', fit);
+            if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            frame.classList.add('is-live');
+
+            var $ = function (k) { return canvas.querySelector('[data-ha="' + k + '"]'); };
+            var $$ = function (sel) { return canvas.querySelectorAll(sel); };
+            var el = {};
+            ['tables', 'ko', 'cols', 'rels', 'refs', 'ver', 'sec', 'spin1', 'spin2', 'spin3', 'stripText', 'file', 'pct', 'bar', 'segMeta',
+             'status1', 'statusText1', 'metaCard', 'status2', 'statusText2', 'answer', 'stream', 'caret', 'result',
+             'docHead', 'docSrc', 'sec1', 'ovw', 'caret2', 'sec2', 'sec3', 'sec6', 'flow1', 'flow2'].forEach(function (k) { el[k] = $(k); });
+            var screensCounters = $$('[data-ha="screens"]');
+            var strip = canvas.querySelector('.ha-strip');
+            var tableRows = $$('.ha-tables li'), colRows = $$('.ha-cols .row'), relRows = $$('.ha-rels li'), refRows = $$('.ha-refs li');
+            var nodes = $$('.ha-erd .node'), edges = $$('.ha-erd .edge');
+            var scrRows = $$('.ha-screens li'), itemRows = $$('.ha-tbl.items .row'), fnRows = $$('.ha-tbl.fn .row');
+            // 도메인 행 인덱스 → 소속 화면 수(행의 '화면 N' 표기에서 그대로 읽는다 — 두 곳에 숫자를 적지 않는다)
+            var DOM_SIZES = (function () { var m = {}; for (var i = 0; i < scrRows.length; i++) { var c = scrRows[i].querySelector('.cnt'); if (c) m[i] = parseInt(c.textContent.replace(/\D/g, ''), 10) || 0; } return m; })();
+            var flow1Steps = $$('[data-ha="flow1"] .step'), flow2Steps = $$('[data-ha="flow2"] .step'), vchips = $$('.ha-doc .ha-vchip');
+            var FILES = ['src/sql/schema.sql', 'src/sql/item-insert.sql', 'src/item/sql/item-select.sql', 'src/order/sql/order-select.sql', 'src/order/sql/order-line.sql', 'src/stock/sql/stock-select.sql', 'src/batch/sql/stock-sync.sql', 'src/partner/sql/partner.sql', 'src/service/ItemBatchService.java', 'src/controller/ItemController.java'];
+            var GLYPHS = ['·', '⋄', '✦', '✧', '✣', '✛'];
+            var OVERVIEW = '활성화된 전체 품목의 목록을 코드·명·분류로 표시하는 조회 화면이다. 사용자는 조회 버튼으로 목록을 갱신하고, 등록 버튼으로 신규 품목 등록 화면으로 이동할 수 있다.';
+            var ANSWER = 'ITM0101 품목 목록의 항목 3개는 SAMPLE_ITEM 컬럼에 매핑됩니다. 관련 테이블 6개와 FK 관계 3개를 확인했고, 컬럼 한글명은 DDL 주석에서 24개 중 17개가 확정되었습니다. 결과는 메타 팩에 반영해 두었습니다.';
+            var T = {
+                scr0: 400, scrStep: 170,                       // 1막: 업무 도메인 트리 행 9개
+                doc0: 700, ovw0: 1100, ovw1: 3400,             //      문서 머리 → 화면 개요 스트리밍
+                items0: 3600, itemsStep: 300,                  //      항목 명세 3행
+                fn0: 4600, fnStep: 300,                        //      화면 기능 2행
+                flow0: 5300, flowStep: 320, flow2: 7000,       //      처리 흐름도 그룹 1·2 (제목 후 300ms 부터 단계)
+                ver0: 8600, verStep: 150,                      //      추정 → 검증 칩 12개
+                docDone: 10400,                                //      스트립 '화면 분석 완료' + 채팅 완료 줄
+                press: 11100, sw: 11450,                       // 세그먼트 '메타' 눌림 → 전환(본문 페이드 ±250ms)
+                scan0: 11700, scan1: 14000,                    // 2막: SQL 추출(테이블 목록·컬럼 카운터)
+                cols0: 14100, colsStep: 220,                   //      컬럼 행 6개
+                rel0: 14500, relStep: 300, ref0: 14600, refStep: 200, node0: 14700, nodeStep: 250, edge0: 15200, edgeStep: 300,
+                metaDone: 16000,                               //      스트립 '테이블 분석 완료'
+                stream0: 15400, stream1: 18400, done: 18700,   //      채팅 답변 스트리밍 → 완료 카드
+                out: 20700, cycle: 21300
+            };
+            var TOTAL_FILES = 48;
+            var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+            var on = function (node, flag) { if (node) node.classList.toggle('on', !!flag); };
+            var txt = function (node, s) { if (node && node.textContent !== s) node.textContent = s; };
+            var seqOn = function (list, t0, step, t) { for (var i = 0; i < list.length; i++) on(list[i], t >= t0 + i * step); };
+            var seqCount = function (list, t0, step, t) { return t < t0 ? 0 : Math.min(list.length, Math.floor((t - t0) / step) + 1); };
+            // 파일 경로만 모노 폰트(한글은 모노 폴백에서 글자가 벌어진다)
+            var setStrip = function (spin, text, file, pct, barW) { txt(el.spin1, spin); txt(el.stripText, text); txt(el.file, file); el.file.classList.toggle('ha-mono', file.indexOf('/') >= 0); txt(el.pct, pct); el.bar.style.width = barW + '%'; };
+
+            function apply(t) {
+                var i;
+                var act2 = t >= T.sw;
+                var glyph = GLYPHS[Math.floor(t / 120) % GLYPHS.length];
+                canvas.classList.toggle('reset', t < 250);
+                canvas.classList.toggle('out', t >= T.out);
+                canvas.classList.toggle('act2', act2);
+                canvas.classList.toggle('switch', t >= T.sw - 250 && t < T.sw + 250);
+                el.segMeta.classList.toggle('press', t >= T.press && t < T.sw);
+
+                // ── 2막: 테이블 ──
+                var scanP = clamp((t - T.scan0) / (T.scan1 - T.scan0), 0, 1);
+                var nTables = t < T.scan0 ? 0 : Math.min(tableRows.length, Math.floor(scanP * (tableRows.length + 0.6)));
+                for (i = 0; i < tableRows.length; i++) on(tableRows[i], i < nTables);
+                txt(el.tables, String(nTables));
+                txt(el.cols, String(Math.round(scanP * 24)));
+                seqOn(colRows, T.cols0, T.colsStep, t);
+                txt(el.ko, String(seqCount(colRows, T.cols0, T.colsStep, t)));
+                seqOn(relRows, T.rel0, T.relStep, t);
+                txt(el.rels, String(seqCount(relRows, T.rel0, T.relStep, t)));
+                seqOn(refRows, T.ref0, T.refStep, t);
+                txt(el.refs, String(seqCount(refRows, T.ref0, T.refStep, t)));
+                seqOn(nodes, T.node0, T.nodeStep, t);
+                seqOn(edges, T.edge0, T.edgeStep, t);
+
+                // ── 1막: 화면 상세 분석 ──
+                seqOn(scrRows, T.scr0, T.scrStep, t);
+                // 화면 수 = 나타난 도메인 행들의 소속 화면 합(접힌 도메인도 포함 — 화면 행을 세면 접힌 것이 빠진다)
+                var nScr = 0;
+                for (i = 0; i < scrRows.length; i++) if (scrRows[i].classList.contains('dom') && scrRows[i].classList.contains('on')) nScr += DOM_SIZES[i] || 0;
+                nScr = String(nScr);
+                for (i = 0; i < screensCounters.length; i++) txt(screensCounters[i], nScr);
+                txt(el.sec, String(Math.round(clamp((t - T.doc0) / (T.docDone - T.doc0), 0, 1) * 10)));
+                on(el.docHead, t >= T.doc0); on(el.docSrc, t >= T.doc0 + 150); on(el.sec1, t >= T.doc0 + 300);
+                var ovwP = clamp((t - T.ovw0) / (T.ovw1 - T.ovw0), 0, 1);
+                txt(el.ovw, OVERVIEW.slice(0, Math.round(ovwP * OVERVIEW.length)));
+                el.caret2.style.display = (t >= T.ovw0 && t < T.ovw1 + 300) ? '' : 'none';
+                on(el.sec2, t >= T.items0 - 200); seqOn(itemRows, T.items0, T.itemsStep, t);
+                on(el.sec3, t >= T.fn0 - 200); seqOn(fnRows, T.fn0, T.fnStep, t);
+                on(el.sec6, t >= T.flow0 - 200); on(el.flow1, t >= T.flow0); seqOn(flow1Steps, T.flow0 + 300, T.flowStep, t);
+                on(el.flow2, t >= T.flow2); seqOn(flow2Steps, T.flow2 + 300, T.flowStep, t);
+                var nVer = seqCount(vchips, T.ver0, T.verStep, t);
+                for (i = 0; i < vchips.length; i++) { var ok = i < nVer; vchips[i].classList.toggle('ok', ok); txt(vchips[i], ok ? '검증' : '추정'); }
+                txt(el.ver, String(nVer));
+
+                // ── 상단 진행 스트립 ──
+                strip.classList.toggle('done', (!act2 && t >= T.docDone) || (act2 && t >= T.metaDone));
+                if (t < T.scr0) setStrip(glyph, '분석 준비 중', '', '', 0);
+                else if (t < T.docDone) setStrip(glyph, '화면 상세 분석 중 · ', 'ITM0101 품목 목록 · 소스 근거 종합', '검증 ' + nVer + ' / ' + vchips.length, clamp((t - T.scr0) / (T.docDone - T.scr0), 0, 1) * 100);
+                else if (!act2) setStrip('✓', '화면 상세 분석 완료 · ', '항목 3 · 기능 2 · 흐름 8단계', '검증 ' + vchips.length + ' / ' + vchips.length, 100);
+                else if (t < T.scan0) setStrip(glyph, '테이블 분석 준비 중', '', '', 0);
+                else if (t < T.scan1) setStrip(glyph, 'SQL 추출 중 · ', FILES[Math.floor((t - T.scan0) / 300) % FILES.length], Math.round(scanP * TOTAL_FILES) + ' / ' + TOTAL_FILES + ' 파일', scanP * 100);
+                else if (t < T.metaDone) setStrip(glyph, '테이블 조립 중 · ', 'DDL · PK · 컬럼 주석 · FK', TOTAL_FILES + ' / ' + TOTAL_FILES + ' 파일', 100);
+                else setStrip('✓', '테이블 분석 완료 · ', '테이블 6 · 컬럼 24 · 관계 3', TOTAL_FILES + ' 파일 · 1.8초', 100);
+
+                // ── 채팅: 상태(1막 화면 상세 분석) → 완료 줄 → 상태(2막 테이블) → 스트리밍 답변 → 완료 카드 ──
+                on(el.status1, t >= T.scr0 + 200 && t < T.docDone);
+                txt(el.spin2, glyph);
+                txt(el.statusText1, t < T.flow0 ? '화면 상세 분석 중 · ITM0101 품목 목록' : t < T.ver0 ? '처리 흐름 추정 중…' : '소스 근거로 검증 중…');
+                on(el.metaCard, t >= T.docDone);
+                on(el.status2, t >= T.sw + 300 && t < T.stream0);
+                txt(el.spin3, glyph);
+                txt(el.statusText2, t < T.scan1 ? 'SQL 추출 중…' : '테이블 조립 중…');
+                var streamP = clamp((t - T.stream0) / (T.stream1 - T.stream0), 0, 1);
+                on(el.answer, t >= T.stream0);
+                txt(el.stream, ANSWER.slice(0, Math.round(streamP * ANSWER.length)));
+                el.caret.style.display = (t >= T.stream0 && t < T.stream1 + 300) ? '' : 'none';
+                on(el.result, t >= T.done);
+            }
+
+            var start = null, raf = 0, running = false, inView = true;
+            function loop(now) { if (!running) return; if (start === null) start = now; apply((now - start) % T.cycle); raf = requestAnimationFrame(loop); }
+            function sync() {
+                var want = inView && !document.hidden;
+                if (want === running) return;
+                running = want;
+                if (running) { start = null; raf = requestAnimationFrame(loop); } else { cancelAnimationFrame(raf); }
+            }
+            apply(0);
+            if (window.IntersectionObserver) new IntersectionObserver(function (es) { inView = es[0].isIntersecting; sync(); }, { threshold: 0.05 }).observe(frame);
+            document.addEventListener('visibilitychange', sync);
+            sync();
+        })();
+        // 페이지 내 앵커 이동은 스크립트로 처리(헤더 높이 90px 만큼 오프셋).
+        document.querySelectorAll('a[data-scroll]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+                var id = a.getAttribute('href').slice(1);
+                var el = document.getElementById(id);
+                if (!el) return;
+                e.preventDefault();
+                var top = el.getBoundingClientRect().top + window.pageYOffset - 90;
+                window.scrollTo({ top: top, behavior: 'smooth' });
+            });
+        });
+    </script>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
