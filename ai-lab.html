@@ -115,6 +115,298 @@
         .info-label { color: #64748b !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 2rem; display: block; }
         .info-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
         .info-desc { font-size: 1.25rem; color: #64748b; line-height: 1.6; margin-bottom: 3rem; word-break: keep-all; }
+
+        /* Hero Solution Name Tabs */
+        .sol-name-tabs {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            margin-bottom: 1.6rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.75rem;
+            margin-left: 0;
+        }
+        .sol-name-tab {
+            position: relative;
+            background: none;
+            border: none;
+            padding: 0 0.2rem 0.75rem 0.2rem;
+            margin-bottom: -0.75rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #94a3b8;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            outline: none;
+            transition: all 0.2s ease;
+            border-bottom: 2.5px solid transparent;
+            text-decoration: none;
+        }
+        .sol-name-tab:hover {
+            color: #475569;
+        }
+        .sol-name-tab.active {
+            color: #0f172a;
+            font-weight: 700;
+            border-bottom-color: #0f172a;
+        }
+        .sol-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            min-height: 48px;
+            margin-bottom: 0.9rem;
+        }
+        .sol-panel-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+        .sol-panel-title {
+            font-size: 2.7rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #0f172a;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .sol-inline-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.68em;
+            font-weight: 400;
+            color: #64748b;
+            text-decoration: none;
+            margin-left: 0.5rem;
+            padding: 2px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9999px;
+            background: transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            vertical-align: middle;
+            line-height: 1.2;
+            position: relative;
+            top: -2px;
+        }
+        .sol-inline-link i, .sol-inline-link svg {
+            width: 0.9em;
+            height: 0.9em;
+            transition: transform 0.2s ease;
+            vertical-align: middle;
+        }
+        .sol-inline-link:hover {
+            color: #0f172a;
+            border-color: #0f172a;
+            background: #f8fafc;
+        }
+        .sol-inline-link:hover i, .sol-inline-link:hover svg {
+            transform: translateX(2px);
+        }
+
+        .sol-detail-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            padding: 5px 14px;
+            border-radius: 9999px;
+            background: rgba(14, 165, 233, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.25);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin-left: auto;
+        }
+        .sol-detail-btn:hover {
+            background: #0ea5e9;
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+        .sol-detail-btn i, .sol-detail-btn svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+        .sol-detail-btn:hover i, .sol-detail-btn:hover svg {
+            transform: translateX(3px);
+        }
+
+        .sol-tab-panel {
+            display: none;
+        }
+        .sol-tab-panel.active {
+            display: block;
+        }
+
+        .sol-brand-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 52px;
+            margin-bottom: 0.5rem;
+        }
+        .sol-text-logo {
+            font-size: 2.3rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            color: #0f172a;
+            line-height: 1;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .sol-text-logo .logo-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.1);
+            padding: 3px 10px;
+            border-radius: 9999px;
+            letter-spacing: 0.02em;
+        }
+
+        .sol-cards-row {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 2.2rem;
+            flex-wrap: nowrap;
+        }
+        .sol-card {
+            position: relative;
+            flex-shrink: 0;
+            width: 135px;
+            height: 140px;
+            background: #ffffff;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            cursor: default;
+            padding: 0 6px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .sol-card:hover {
+            transform: translateY(-5px);
+            border-color: #334155;
+            box-shadow: none;
+        }
+        .sol-card .sol-card-icon {
+            width: 32px;
+            height: 32px;
+            color: #0f172a;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sol-card .sol-card-title {
+            font-size: 0.95rem;
+            color: #0f172a;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            line-height: 1.15;
+            word-break: keep-all;
+        }
+        .sol-card .sol-card-sub {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+            line-height: 1;
+        }
+        .sol-card .sol-card-tooltip {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-4px);
+            background: #0f172a;
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            box-shadow: none;
+            z-index: 50;
+            line-height: 1.4;
+        }
+        .sol-card .sol-card-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #0f172a transparent;
+        }
+        .sol-card:hover .sol-card-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .sol-features-wrapper {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #f1f5f9;
+            padding-left: 0;
+        }
+        .sol-features-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2.2rem;
+            width: 100%;
+            text-align: left;
+        }
+        .sol-feature-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.7rem;
+            flex: 1;
+        }
+        .sol-feature-col h4 {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .sol-feature-col p {
+            font-size: 0.93rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+            word-break: keep-all;
+        }
+        .sol-feature-plus {
+            color: #64748b;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: -0.5rem;
+            width: 20px;
+            text-align: center;
+        }
         
         .lab-title, .section-title { font-size: 2.8rem !important; font-weight: 700; line-height: 1.2; margin-bottom: 3.5rem; letter-spacing: -0.02em; word-break: keep-all; color: #0f172a !important; }
         .lab-sub { font-size: 1.45rem; color: #64748b !important; font-weight: 400; line-height: 1.7; max-width: 1200px; margin-bottom: 2rem; }
@@ -200,31 +492,68 @@
                 opacity: 1 !important;
                 visibility: visible !important;
             }
-            /* Cards Container */
-            #hero-showcase-info > div:nth-of-type(1) { flex-wrap: wrap !important; justify-content: flex-start !important; gap: 0.5rem !important; }
-            #hero-showcase-info > div:nth-of-type(1) > div { width: calc(50% - 0.5rem) !important; height: 120px !important; }
+            #hero-showcase-info .info-label {
+                margin-bottom: 1.2rem !important;
+            }
+            /* Solution Name Tabs Mobile */
+            .sol-name-tabs {
+                gap: 1.4rem !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding-bottom: 0.5rem !important;
+                margin-bottom: 1.2rem !important;
+            }
+            .sol-name-tab {
+                padding-bottom: 0.5rem !important;
+                margin-bottom: -0.5rem !important;
+                font-size: 0.88rem !important;
+                white-space: nowrap !important;
+            }
+            .sol-panel-header {
+                min-height: 36px !important;
+                margin-bottom: 0.8rem !important;
+            }
+            .sol-panel-logo {
+                height: 28px !important;
+            }
+            .sol-panel-title {
+                font-size: 1.7rem !important;
+                font-weight: 800 !important;
+            }
+
+            /* Cards Container Mobile */
+            .sol-cards-row { 
+                flex-wrap: wrap !important; 
+                justify-content: flex-start !important; 
+                gap: 0.5rem !important; 
+            }
+            .sol-card { 
+                width: calc(50% - 0.25rem) !important; 
+                height: 120px !important; 
+                border-radius: 18px !important;
+            }
+            .sol-card:last-child:nth-child(odd) {
+                width: 100% !important;
+            }
+            .sol-card .sol-card-tooltip {
+                display: none !important;
+            }
             
-            /* Feature List Container (Intelligence Inside, etc.) */
-            #hero-showcase-info > div:nth-of-type(2) > div { 
+            /* Feature List Container Mobile */
+            .sol-features-row { 
                 flex-direction: column !important; 
-                gap: 1.5rem !important; 
+                gap: 1.3rem !important; 
                 align-items: flex-start !important; 
             }
-            #hero-showcase-info > div:nth-of-type(2) > div > div { 
+            .sol-feature-col { 
                 width: 100% !important; 
                 flex: none !important; 
             }
-            /* Hide the plus signs on mobile */
-            #hero-showcase-info > div:nth-of-type(2) > div > div:nth-child(even) { 
+            .sol-feature-plus { 
                 display: none !important; 
             }
             
-            /* D-FIN SUITE Logo */
-            #hero-showcase-info img[src="/bi_dfin.png"] {
-                height: 32px !important;
-                margin-left: -4px !important;
-                margin-bottom: 0.5rem !important;
-            }
+
             
             /* Key Insight Section */
             section[style*="background: #f8fafc"] h2 span {
@@ -426,68 +755,211 @@
                         </div>
                     </div>
 
-                    <div id="hero-showcase-info" style="position: absolute; left: 580px; top: 60px; width: calc(100% - 620px);">
-                        <span class="info-label">DAUMIS' AI Solution</span>
-                        <img src="/bi_dfin.png" alt="D-FIN SUITE Logo" style="height: 52px; margin-bottom: 0rem; margin-left: -8px; display: block; object-fit: contain;">
-                        <h3 class="info-title">다음정보시스템즈의 전문성과 AI의 결합 지능형 금융의 완성, 디핀 스위트</h3>
-                        <p class="info-desc" style="margin-bottom: 1.5rem; word-break: keep-all;">금융 시스템 설계 노하우가 AI 리서치 랩을 통해 집약된 D-FIN SUITE로 진화합니다.<br>퇴직연금(D-RPS)부터 자산관리(D-WMS)까지, 전 라인업에 AI를 이식하여 데이터 기반의 의사결정을 지원합니다.</p>
-                        <div style="display: flex; gap: 0.8rem; margin-bottom: 2.5rem; flex-wrap: nowrap;">
-                            <!-- D-RPS -->
-                            <div style="flex-shrink: 0; width: 135px; height: 140px; background: #ffffff; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px rgba(0,0,0,0.04); transition: all 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0ea5e9'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#f1f5f9'">
-                                <i data-lucide="shield-check" style="width: 32px; height: 32px; color: #0f172a; margin-bottom: 0.2rem;"></i>
-                                <span style="font-size: 1.05rem; color: #0f172a; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">D-RPS</span>
-                                <span style="font-size: 0.8rem; color: #64748b; font-weight: 500;">퇴직연금</span>
+                    <div id="hero-showcase-info" style="position: absolute; left: 580px; top: 40px; width: calc(100% - 620px);">
+                        <!-- 상단 라벨 -->
+                        <span class="info-label" style="margin-bottom: 2.2rem;">DAUMIS' AI Solution</span>
+
+                        <!-- 솔루션 명 영역 탭 -->
+                        <div class="sol-name-tabs">
+                            <button type="button" class="sol-name-tab active" data-tab="dfin">디핀스위트</button>
+                            <button type="button" class="sol-name-tab" data-tab="ai-pecs">에이펙스</button>
+                            <button type="button" class="sol-name-tab" data-tab="ai-qm">에이큐엠</button>
+                        </div>
+
+                        <!-- [Tab 1] D-FIN SUITE (디핀스위트) -->
+                        <div id="tab-panel-dfin" class="sol-tab-panel active">
+                            <div class="sol-panel-header">
+                                <img src="/bi_dfin.png" alt="D-FIN SUITE" class="sol-panel-logo">
                             </div>
-                            <!-- D-FTS -->
-                            <div style="flex-shrink: 0; width: 135px; height: 140px; background: #ffffff; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px rgba(0,0,0,0.04); transition: all 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0ea5e9'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#f1f5f9'">
-                                <i data-lucide="trending-up" style="width: 32px; height: 32px; color: #0f172a; margin-bottom: 0.2rem;"></i>
-                                <span style="font-size: 1.05rem; color: #0f172a; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">D-FTS</span>
-                                <span style="font-size: 0.8rem; color: #64748b; font-weight: 500;">집합투자</span>
+                            <h3 class="info-title">다음정보시스템즈의 전문성과 AI의 결합 지능형 금융의 완성, 디핀 스위트</h3>
+                            <p class="info-desc" style="margin-bottom: 1.5rem; word-break: keep-all;">금융 시스템 설계 노하우가 AI 리서치 랩을 통해 집약된 D-FIN SUITE로 진화합니다.<br>퇴직연금(D-RPS)부터 자산관리(D-WMS)까지, 전 라인업에 AI를 이식하여 데이터 기반의 의사결정을 지원합니다.</p>
+                            
+                            <div class="sol-cards-row">
+                                <!-- D-RPS -->
+                                <div class="sol-card" title="퇴직연금 핵심 솔루션">
+                                    <div class="sol-card-icon"><i data-lucide="shield-check" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">D-RPS</span>
+                                    <span class="sol-card-sub">퇴직연금</span>
+                                    <div class="sol-card-tooltip">퇴직연금 핵심 솔루션</div>
+                                </div>
+                                <!-- D-FTS -->
+                                <div class="sol-card" title="집합투자증권 및 신탁 관리 솔루션">
+                                    <div class="sol-card-icon"><i data-lucide="trending-up" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">D-FTS</span>
+                                    <span class="sol-card-sub">집합투자</span>
+                                    <div class="sol-card-tooltip">집합투자증권 및 신탁 관리 솔루션</div>
+                                </div>
+                                <!-- D-MAA -->
+                                <div class="sol-card" title="공제조합 및 연제 공제 시스템">
+                                    <div class="sol-card-icon"><i data-lucide="briefcase" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">D-MAA</span>
+                                    <span class="sol-card-sub">공제업무</span>
+                                    <div class="sol-card-tooltip">공제조합 및 연제 공제 시스템</div>
+                                </div>
+                                <!-- D-WMS -->
+                                <div class="sol-card" title="통합 자산관리 솔루션">
+                                    <div class="sol-card-icon"><i data-lucide="gem" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">D-WMS</span>
+                                    <span class="sol-card-sub">자산관리</span>
+                                    <div class="sol-card-tooltip">통합 자산관리 솔루션</div>
+                                </div>
+                                <!-- D-CRM -->
+                                <div class="sol-card" title="금융 특화 영업지원 시스템">
+                                    <div class="sol-card-icon"><i data-lucide="users" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">D-CRM</span>
+                                    <span class="sol-card-sub">영업지원</span>
+                                    <div class="sol-card-tooltip">금융 특화 영업지원 시스템</div>
+                                </div>
                             </div>
-                            <!-- D-MAA -->
-                            <div style="flex-shrink: 0; width: 135px; height: 140px; background: #ffffff; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px rgba(0,0,0,0.04); transition: all 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0ea5e9'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#f1f5f9'">
-                                <i data-lucide="briefcase" style="width: 32px; height: 32px; color: #0f172a; margin-bottom: 0.2rem;"></i>
-                                <span style="font-size: 1.05rem; color: #0f172a; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">D-MAA</span>
-                                <span style="font-size: 0.8rem; color: #64748b; font-weight: 500;">공제업무</span>
-                            </div>
-                            <!-- D-WMS -->
-                            <div style="flex-shrink: 0; width: 135px; height: 140px; background: #ffffff; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px rgba(0,0,0,0.04); transition: all 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0ea5e9'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#f1f5f9'">
-                                <i data-lucide="gem" style="width: 32px; height: 32px; color: #0f172a; margin-bottom: 0.2rem;"></i>
-                                <span style="font-size: 1.05rem; color: #0f172a; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">D-WMS</span>
-                                <span style="font-size: 0.8rem; color: #64748b; font-weight: 500;">자산관리</span>
-                            </div>
-                            <!-- D-CRM -->
-                            <div style="flex-shrink: 0; width: 135px; height: 140px; background: #ffffff; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px rgba(0,0,0,0.04); transition: all 0.3s ease; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#0ea5e9'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#f1f5f9'">
-                                <i data-lucide="users" style="width: 32px; height: 32px; color: #0f172a; margin-bottom: 0.2rem;"></i>
-                                <span style="font-size: 1.05rem; color: #0f172a; font-weight: 800; letter-spacing: -0.01em; line-height: 1;">D-CRM</span>
-                                <span style="font-size: 0.8rem; color: #64748b; font-weight: 500;">영업지원</span>
+                            
+                            <div class="sol-features-wrapper">
+                                <div class="sol-features-row">
+                                    <div class="sol-feature-col">
+                                        <h4>Intelligence Inside</h4>
+                                        <p>금융 도메인 특화 시스템에 AI 기술을 결합하여 업무 효율성을 극대화합니다.</p>
+                                    </div>
+                                    <div class="sol-feature-plus">+</div>
+                                    <div class="sol-feature-col">
+                                        <h4>Vibe Coding</h4>
+                                        <p>최신 AI 환경을 활용하여 금융 요구사항을 실시간으로 고도화하고 검증합니다.</p>
+                                    </div>
+                                    <div class="sol-feature-plus">+</div>
+                                    <div class="sol-feature-col">
+                                        <h4>AI Transformation</h4>
+                                        <p>전 라인업에 AI를 이식하여 데이터 기반 지능형 금융 환경을 완성합니다.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #f1f5f9; padding-left: 0;">
-                            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 2.5rem; width: 100%; text-align: left;">
-                                <!-- 항목 1 -->
-                                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; flex: 1;">
-                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">Intelligence Inside</h4>
-                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0; word-break: keep-all;">금융 도메인 특화 시스템에 AI 기술을 결합하여 업무 효율성을 극대화합니다.</p>
-                                </div>
-                                
-                                <!-- 플러스 커넥터 (완벽 중앙) -->
-                                <div style="color: #64748b; font-size: 1.8rem; font-weight: 600; margin-top: -0.5rem; width: 20px; text-align: center;">+</div>
-                                
-                                <!-- 항목 2 -->
-                                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; flex: 1;">
-                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">Vibe Coding</h4>
-                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0; word-break: keep-all;">최신 AI 환경을 활용하여 금융 요구사항을 실시간으로 고도화하고 검증합니다.</p>
-                                </div>
 
-                                <!-- 플러스 커넥터 (완벽 중앙) -->
-                                <div style="color: #64748b; font-size: 1.8rem; font-weight: 600; margin-top: -0.5rem; width: 20px; text-align: center;">+</div>
+                        <!-- [Tab 2] AI-PECS (에이펙스) -->
+                        <div id="tab-panel-ai-pecs" class="sol-tab-panel">
+                            <div class="sol-panel-header">
+                                <span class="sol-panel-title">AI-PECS</span>
+                            </div>
+                            <h3 class="info-title">외부 연결 없이도, AI로 혁신하는 폐쇄망 완결형 개발 도구</h3>
+                            <p class="info-desc" style="margin-bottom: 1.5rem; word-break: keep-all;">보안과 규제가 엄격한 폐쇄망 환경을 위한 올인원 AI 개발 워크스페이스입니다.<br>기존 소스 코드 정밀 분석부터 화면·테이블 설계, 구현, 5종 표준 산출물 생성까지 전 과정을 보안 유출 없이 완성합니다. <a href="/ai-pecs.html" class="sol-inline-link">자세히 <i data-lucide="arrow-right"></i></a></p>
+                            
+                            <div class="sol-cards-row">
+                                <!-- Code Analyzer -->
+                                <div class="sol-card" title="레거시 소스 분석 및 비즈니스 로직 추출">
+                                    <div class="sol-card-icon"><i data-lucide="file-code-2" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Code Analyzer</span>
+                                    <span class="sol-card-sub">코드분석</span>
+                                    <div class="sol-card-tooltip">레거시 소스 분석 및 비즈니스 로직 추출</div>
+                                </div>
+                                <!-- Auto Designer -->
+                                <div class="sol-card" title="DDL 기반 화면·테이블·인터페이스 명세 자동 생성">
+                                    <div class="sol-card-icon"><i data-lucide="layout-template" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Auto Designer</span>
+                                    <span class="sol-card-sub">설계자동화</span>
+                                    <div class="sol-card-tooltip">DDL 기반 화면·테이블·인터페이스 명세 자동 생성</div>
+                                </div>
+                                <!-- Spec Generator -->
+                                <div class="sol-card" title="개발 규범에 맞춘 5종 필수 산출물 원클릭 작성">
+                                    <div class="sol-card-icon"><i data-lucide="file-spreadsheet" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Spec Generator</span>
+                                    <span class="sol-card-sub">산출물</span>
+                                    <div class="sol-card-tooltip">개발 규범에 맞춘 5종 필수 산출물 원클릭 작성</div>
+                                </div>
+                                <!-- Air-gapped AI -->
+                                <div class="sol-card" title="외부 인터넷 통신 0%, 철저한 온프레미스 보안">
+                                    <div class="sol-card-icon"><i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Air-gapped AI</span>
+                                    <span class="sol-card-sub">폐쇄망완결</span>
+                                    <div class="sol-card-tooltip">외부 인터넷 통신 0%, 철저한 온프레미스 보안</div>
+                                </div>
+                                <!-- Human Approval -->
+                                <div class="sol-card" title="AI 제안 코드에 대한 개발자 검토 및 승인 통제">
+                                    <div class="sol-card-icon"><i data-lucide="user-check" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Human Approval</span>
+                                    <span class="sol-card-sub">사람승인</span>
+                                    <div class="sol-card-tooltip">AI 제안 코드에 대한 개발자 검토 및 승인 통제</div>
+                                </div>
+                            </div>
+                            
+                            <div class="sol-features-wrapper">
+                                <div class="sol-features-row">
+                                    <div class="sol-feature-col">
+                                        <h4>Zero Leakage</h4>
+                                        <p>외부 인터넷 통신을 전면 차단하여 내부 자산과 금융 소스코드를 100% 안전하게 보호합니다.</p>
+                                    </div>
+                                    <div class="sol-feature-plus">+</div>
+                                    <div class="sol-feature-col">
+                                        <h4>End-to-End Workflow</h4>
+                                        <p>소스 코드 분석부터 역공학 설계, 문서화까지 단일 워크스페이스에서 처리합니다.</p>
+                                    </div>
+                                    <div class="sol-feature-plus">+</div>
+                                    <div class="sol-feature-col">
+                                        <h4>Human-in-the-Loop</h4>
+                                        <p>AI는 최적의 안을 제안하고 최종 반영은 담당자의 승인을 거치도록 통제 체계를 제공합니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <!-- 항목 3 -->
-                                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; flex: 1;">
-                                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0;">AI Transformation</h4>
-                                    <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin: 0; word-break: keep-all;">전 라인업에 AI를 이식하여 데이터 기반 지능형 금융 환경을 완성합니다.</p>
+                        <!-- [Tab 3] AI-QM (에이큐엠) -->
+                        <div id="tab-panel-ai-qm" class="sol-tab-panel">
+                            <div class="sol-panel-header">
+                                <span class="sol-panel-title">AI-QM</span>
+                            </div>
+                            <h3 class="info-title">출시 전 무결점 검증, AI로 완결하는 차세대 지능형 품질 관리</h3>
+                            <p class="info-desc" style="margin-bottom: 1.5rem; word-break: keep-all;">실제 사용자 환경의 정상 동작 여부를 지능적으로 검증하는 무설치 품질관리 솔루션입니다.<br>변경된 영향 범위 선별부터 테스트 시나리오 자동 실행, 결함 원인 분석 및 화면 매뉴얼 작성까지 단번에 해결합니다. <a href="/ai-qm.html" class="sol-inline-link">자세히 <i data-lucide="arrow-right"></i></a></p>
+                            
+                            <div class="sol-cards-row">
+                                <!-- Impact Tracer -->
+                                <div class="sol-card" title="소스 변경에 따른 영향 화면 및 시나리오 자동 도출">
+                                    <div class="sol-card-icon"><i data-lucide="crosshair" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Impact Tracer</span>
+                                    <span class="sol-card-sub">영향선별</span>
+                                    <div class="sol-card-tooltip">소스 변경에 따른 영향 화면 및 시나리오 자동 도출</div>
+                                </div>
+                                <!-- Auto Scenario -->
+                                <div class="sol-card" title="화면 구성 기반 입력값·기대 결과 AI 자동 작성">
+                                    <div class="sol-card-icon"><i data-lucide="sparkles" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Auto Scenario</span>
+                                    <span class="sol-card-sub">시나리오생성</span>
+                                    <div class="sol-card-tooltip">화면 구성 기반 입력값·기대 결과 AI 자동 작성</div>
+                                </div>
+                                <!-- Dual Testing -->
+                                <div class="sol-card" title="서버 처리 고속 점검 + 사람 형태의 UI 조작 동시 검증">
+                                    <div class="sol-card-icon"><i data-lucide="monitor-check" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Dual Testing</span>
+                                    <span class="sol-card-sub">듀얼검증</span>
+                                    <div class="sol-card-tooltip">서버 처리 고속 점검 + 사람 형태의 UI 조작 동시 검증</div>
+                                </div>
+                                <!-- Defect Fixer -->
+                                <div class="sol-card" title="중복 없는 결함 자동 등록 및 원인 분석·수정안 제시">
+                                    <div class="sol-card-icon"><i data-lucide="bug" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Defect Fixer</span>
+                                    <span class="sol-card-sub">결함진단</span>
+                                    <div class="sol-card-tooltip">중복 없는 결함 자동 등록 및 원인 분석·수정안 제시</div>
+                                </div>
+                                <!-- Auto Manual -->
+                                <div class="sol-card" title="테스트와 동시에 화면 도움말과 연동되는 매뉴얼 생성">
+                                    <div class="sol-card-icon"><i data-lucide="book-open" style="width: 32px; height: 32px; color: #0f172a;"></i></div>
+                                    <span class="sol-card-title">Auto Manual</span>
+                                    <span class="sol-card-sub">화면설명서</span>
+                                    <div class="sol-card-tooltip">테스트와 동시에 화면 도움말과 연동되는 매뉴얼 생성</div>
+                                </div>
+                            </div>
+                            
+                            <div class="sol-features-wrapper">
+                                <div class="sol-features-row">
+                                    <div class="sol-feature-col">
+                                        <h4>Single Executable</h4>
+                                        <p>복잡한 서버 인프라 구축 없이 담당자 PC에서 단일 실행 파일로 즉시 구동됩니다.</p>
+                                    </div>
+                                    <div class="sol-feature-plus">+</div>
+                                    <div class="sol-feature-col">
+                                        <h4>Loop Verification</h4>
+                                        <p>등록-조회-수정-삭제 전 주기를 묶어 데이터 저장의 실제 정합성까지 깊게 검증합니다.</p>
+                                    </div>
+                                    <div class="sol-feature-plus">+</div>
+                                    <div class="sol-feature-col">
+                                        <h4>Safe Rollback</h4>
+                                        <p>AI 수정안 승인 전에는 코드가 변경되지 않으며, 문제 시 언제든 이전 상태로 롤백할 수 있습니다.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1018,6 +1490,7 @@
         }
 
         document.getElementById('reset-showcase').addEventListener('click', () => {
+            switchSolutionTab('dfin');
             if (mainTimeline) {
                 // Reset code typing
                 currentLineIndex = 0;
@@ -1050,6 +1523,34 @@
         resetBtn.addEventListener('mouseleave', () => {
             gsap.to(resetBtn.querySelector('i'), { rotate: 0, duration: 0.4, ease: "power2.out" });
             gsap.to(resetBtn, { backgroundColor: "#f1f5f9", scale: 1, duration: 0.2 });
+        });
+
+        
+        function switchSolutionTab(tabId) {
+            document.querySelectorAll('.sol-name-tab').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+            });
+            document.querySelectorAll('.sol-tab-panel').forEach(panel => {
+                const isTarget = panel.id === `tab-panel-${tabId}`;
+                if (isTarget) {
+                    panel.style.display = 'block';
+                    if (typeof gsap !== 'undefined') {
+                        gsap.fromTo(panel, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" });
+                    }
+                } else {
+                    panel.style.display = 'none';
+                }
+            });
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        document.querySelectorAll('.sol-name-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                switchSolutionTab(tab);
+            });
         });
 
         window.addEventListener('load', initAnimations);
